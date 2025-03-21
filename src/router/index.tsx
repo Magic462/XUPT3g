@@ -1,11 +1,12 @@
 import { RouteObject } from 'react-router-dom';
-import Layout from '../pages/layout';
+import Layout from '../layout';
 import Mine from '../pages/mine';
 import Trainingplan from '../pages/trainplan';
 import Activities from '../pages/activities';
 import Members from '../pages/members';
 import Login from '../pages/login';
-import Blogs from '../pages/blogs';
+import Blogs from '../pages/blogs/index';
+import Home from '../pages/Home/Home';
 
 const routes: RouteObject[] = [
   {
@@ -13,35 +14,34 @@ const routes: RouteObject[] = [
     element: <Layout />,
     children: [
       {
-        path: '/blogs',
-        element: <Blogs />,
-      },
-      {
-        path: '/trainplan',
-        element: <Trainingplan />,
+        path: '/',
+        element: <Home />,
       },
       {
         path: '/activities',
         element: <Activities />,
       },
       {
-        path: '/members',
-        element: <Members />,
-      },
-      {
-        path: '/login',
-        element: <Login />,
+        path: '/blogs',
+        element: <Blogs />,
       },
       {
         path: '/mine',
         element: <Mine />,
       },
+      {
+        path: '/members',
+        element: <Members />,
+      },
+      {
+        path: '/trainingplan',
+        element: <Trainingplan />,
+      },
+      {
+        path: '/login',
+        element: <Login />,
+      },
     ],
-  },
-  // 默认路径为首页
-  {
-    path: '*',
-    element: <Layout />,
   },
 ];
 

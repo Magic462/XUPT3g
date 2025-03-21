@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import './Layout.scss'; // 引入样式文件
 
-const Layout: React.FC = () => {
+const MainLayout: React.FC = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,7 +15,6 @@ const Layout: React.FC = () => {
         { path: '/members', label: 'Members' },
         { path: '/mine', label: 'Mine' },
         { path: '/trainingplan', label: 'Training Plan' },
-        { path: '/login', label: 'Login' }
     ];
 
     useEffect(() => {
@@ -128,4 +127,4 @@ const Layout: React.FC = () => {
     );
 };
 
-export default Layout;
+export default MainLayout;

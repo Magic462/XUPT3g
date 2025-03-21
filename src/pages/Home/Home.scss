@@ -1,0 +1,120 @@
+.home-container {
+    .hero {
+        height: 100vh;
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../assets/layout.png');
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+
+            h1 {
+                font-size: 3rem;
+                margin-bottom: 1.5rem;
+            }
+
+            p {
+                font-size: 1.2rem;
+                line-height: 1.6;
+            }
+        }
+    }
+
+    .stats {
+        display: flex;
+        justify-content: space-around;
+        padding: 4rem 2rem;
+        background-color: #f8f9fa;
+
+        .stat-item {
+            text-align: center;
+
+            h2 {
+                font-size: 2.5rem;
+                color: #1890ff;
+                margin-bottom: 0.5rem;
+            }
+
+            p {
+                font-size: 1rem;
+                color: #666;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+            }
+        }
+    }
+
+    .explore, .contact {
+        padding: 4rem 2rem;
+        text-align: center;
+
+        h2 {
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .explore-buttons, .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+
+            button {
+                padding: 0.8rem 2rem;
+                border: 2px solid #1890ff;
+                background: transparent;
+                color: #1890ff;
+                font-size: 1rem;
+                cursor: pointer;
+                transition: all 0.3s;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+
+                &:hover {
+                    background: #1890ff;
+                    color: white;
+                }
+            }
+        }
+    }
+
+    .contact {
+        background-color: #f8f9fa;
+    }
+
+    .home-footer {
+        padding: 2rem;
+        background-color: #333;
+        color: white;
+        text-align: center;
+
+        .footer-links {
+            margin-bottom: 1rem;
+
+            a {
+                color: white;
+                text-decoration: none;
+                margin: 0 1rem;
+                font-size: 0.9rem;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+
+                &:hover {
+                    color: #1890ff;
+                }
+            }
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: #999;
+        }
+    }
+} 
