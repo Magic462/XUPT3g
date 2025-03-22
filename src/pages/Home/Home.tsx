@@ -1,67 +1,107 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Home.scss';
 
 const Home: React.FC = () => {
+    const [visibleCards, setVisibleCards] = useState<number[]>([]);
+    const [scrollOffset, setScrollOffset] = useState(0);
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    const platforms = [
+        { id: 'web', name: 'Web', initialY: 0, delay: 0 },
+        { id: 'server', name: 'Server', initialY: 100, delay: 200 },
+        { id: 'android', name: 'Android', initialY: 200, delay: 400 },
+        { id: 'ios', name: 'iOS', initialY: 300, delay: 600 },
+        { id: 'harmony', name: '鸿蒙', initialY: 400, delay: 800 },
+    ];
+
+    useEffect(() => {
+        // 页面加载完成后设置加载状态
+        setIsLoaded(true);
+        
+        // 初始显示所有卡片
+        setVisibleCards(platforms.map((_, index) => index));
+
+        const handleScroll = () => {
+            const platformsSection = document.querySelector('.platforms-section');
+            if (platformsSection) {
+                const sectionTop = platformsSection.getBoundingClientRect().top;
+                const sectionHeight = platformsSection.getBoundingClientRect().height;
+                const windowHeight = window.innerHeight;
+
+                // 计算滚动进度，只有当section完全进入视口时才开始计算
+                let scrollProgress = 0;
+                if (sectionTop <= 0) {
+                    scrollProgress = Math.min(1, Math.abs(sectionTop) / (sectionHeight - windowHeight));
+                }
+
+                setScrollOffset(scrollProgress);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
     return (
-        <div className="home-container">
+        <div className={`home-container ${isLoaded ? 'loaded' : ''}`}>
             <section className="hero">
                 <div className="hero-content">
-                    <h1>Welcome to Our Laboratory</h1>
-                    <p>Bienville offers two different but complementary investment solutions: Asset Management and Advisory Services.</p>
+                    <h1>西邮移动应用开发实验室</h1>
+                    <p>探索移动应用开发的无限可能</p>
+                </div>
+            </section>
+
+            <section className="platforms-section">
+                <h2>技术平台</h2>
+                <div className="platforms-container">
+                    {platforms.map((platform, index) => (
+                        <div
+                            key={platform.id}
+                            className={`platform-card ${visibleCards.includes(index) ? 'show' : ''}`}
+                            style={{
+                                transform: `translate3d(${-scrollOffset * 220}px, ${platform.initialY * (1 - scrollOffset) * 0.5}px, 0)`,
+                                transition: isLoaded ? 'transform 0.1s ease-out' : 'none'
+                            }}
+                        >
+                            <h3>{platform.name}</h3>
+                        </div>
+                    ))}
                 </div>
             </section>
 
             <section className="stats">
                 <div className="stat-item">
-                    <h2>2008</h2>
-                    <p>FOUNDED IN</p>
+                    <h2>100+</h2>
+                    <p>项目经验</p>
                 </div>
                 <div className="stat-item">
-                    <h2>NYC</h2>
-                    <p>HEADQUARTERS</p>
+                    <h2>50+</h2>
+                    <p>技术专利</p>
                 </div>
                 <div className="stat-item">
-                    <h2>27</h2>
-                    <p>PEOPLE</p>
-                </div>
-            </section>
-
-            <section className="explore">
-                <h2>EXPLORE</h2>
-                <div className="explore-buttons">
-                    <button className="explore-btn">VIDEO</button>
-                    <button className="explore-btn">ABOUT</button>
-                    <button className="explore-btn">TEAM</button>
-                    <button className="explore-btn">VISION</button>
-                </div>
-            </section>
-            <section className="explore">
-                <h2>EXPLORE</h2>
-                <div className="explore-buttons">
-                    <button className="explore-btn">VIDEO</button>
-                    <button className="explore-btn">ABOUT</button>
-                    <button className="explore-btn">TEAM</button>
-                    <button className="explore-btn">VISION</button>
-                </div>
-            </section>
-            <section className="explore">
-                <h2>EXPLORE</h2>
-                <div className="explore-buttons">
-                    <button className="explore-btn">VIDEO</button>
-                    <button className="explore-btn">ABOUT</button>
-                    <button className="explore-btn">TEAM</button>
-                    <button className="explore-btn">VISION</button>
+                    <h2>200+</h2>
+                    <p>团队成员</p>
                 </div>
             </section>
 
             <section className="contact">
-                <h2>CONTACT</h2>
+                <h2>加入我们</h2>
                 <div className="contact-buttons">
-                    <button className="contact-btn">EMAIL</button>
-                    <button className="contact-btn">CALL</button>
-                    <button className="contact-btn">MAPS</button>
+                    <button>查看职位</button>
+                    <button>联系我们</button>
                 </div>
             </section>
+
+            <footer className="home-footer">
+                <div className="footer-links">
+                    <a href="#">关于我们</a>
+                    <a href="#">加入我们</a>
+                    <a href="#">联系我们</a>
+                </div>
+                <div className="copyright">
+                    © 2024 西邮移动应用开发实验室. All rights reserved.
+                </div>
+            </footer>
         </div>
     );
 };
