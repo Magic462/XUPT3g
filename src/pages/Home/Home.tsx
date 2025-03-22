@@ -2,108 +2,103 @@ import React, { useState, useEffect } from 'react';
 import './Home.scss';
 
 const Home: React.FC = () => {
-    const [visibleCards, setVisibleCards] = useState<number[]>([]);
-    const [scrollOffset, setScrollOffset] = useState(0);
-    const [isLoaded, setIsLoaded] = useState(false);
+  const [visibleCards, setVisibleCards] = useState<number[]>([]);
+  const [scrollOffset, setScrollOffset] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
 
-    const platforms = [
-        { id: 'web', name: 'Web', initialY: 0, delay: 0 },
-        { id: 'server', name: 'Server', initialY: 100, delay: 200 },
-        { id: 'android', name: 'Android', initialY: 200, delay: 400 },
-        { id: 'ios', name: 'iOS', initialY: 300, delay: 600 },
-        { id: 'harmony', name: '鸿蒙', initialY: 400, delay: 800 },
-    ];
+  const platforms = [
+    { id: 'web', name: 'Web', initialY: 0, delay: 0 },
+    { id: 'server', name: 'Server', initialY: 100, delay: 200 },
+    { id: 'android', name: 'Android', initialY: 200, delay: 400 },
+    { id: 'ios', name: 'iOS', initialY: 300, delay: 600 },
+    { id: 'harmony', name: '鸿蒙', initialY: 400, delay: 800 },
+  ];
 
-    useEffect(() => {
-        // 页面加载完成后设置加载状态
-        setIsLoaded(true);
-        
-        // 初始显示所有卡片
-        setVisibleCards(platforms.map((_, index) => index));
+  useEffect(() => {
+    // 页面加载完成后设置加载状态
+    setIsLoaded(true);
 
-        const handleScroll = () => {
-            const platformsSection = document.querySelector('.platforms-section');
-            if (platformsSection) {
-                const sectionTop = platformsSection.getBoundingClientRect().top;
-                const sectionHeight = platformsSection.getBoundingClientRect().height;
-                const windowHeight = window.innerHeight;
+    // 初始显示所有卡片
+    setVisibleCards(platforms.map((_, index) => index));
 
-                // 计算滚动进度，只有当section完全进入视口时才开始计算
-                let scrollProgress = 0;
-                if (sectionTop <= 0) {
-                    scrollProgress = Math.min(1, Math.abs(sectionTop) / (sectionHeight - windowHeight));
-                }
+    const handleScroll = () => {
+      const platformsSection = document.querySelector('.platforms-section');
+      if (platformsSection) {
+        const sectionTop = platformsSection.getBoundingClientRect().top;
+        const sectionHeight = platformsSection.getBoundingClientRect().height;
+        const windowHeight = window.innerHeight;
 
-                setScrollOffset(scrollProgress);
-            }
-        };
+        // 计算滚动进度，只有当section完全进入视口时才开始计算
+        let scrollProgress = 0;
+        if (sectionTop <= 0) {
+          scrollProgress = Math.min(
+            1,
+            Math.abs(sectionTop) / (sectionHeight - windowHeight)
+          );
+        }
 
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+        setScrollOffset(scrollProgress);
+      }
+    };
 
-    return (
-        <div className={`home-container ${isLoaded ? 'loaded' : ''}`}>
-            <section className="hero">
-                <div className="hero-content">
-                    <h1>西邮移动应用开发实验室</h1>
-                    <p>探索移动应用开发的无限可能</p>
-                </div>
-            </section>
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-            <section className="platforms-section">
-                <h2>技术平台</h2>
-                <div className="platforms-container">
-                    {platforms.map((platform, index) => (
-                        <div
-                            key={platform.id}
-                            className={`platform-card ${visibleCards.includes(index) ? 'show' : ''}`}
-                            style={{
-                                transform: `translate3d(${-scrollOffset * 220}px, ${platform.initialY * (1 - scrollOffset) * 0.5}px, 0)`,
-                                transition: isLoaded ? 'transform 0.1s ease-out' : 'none'
-                            }}
-                        >
-                            <h3>{platform.name}</h3>
-                        </div>
-                    ))}
-                </div>
-            </section>
-
-            <section className="stats">
-                <div className="stat-item">
-                    <h2>100+</h2>
-                    <p>项目经验</p>
-                </div>
-                <div className="stat-item">
-                    <h2>50+</h2>
-                    <p>技术专利</p>
-                </div>
-                <div className="stat-item">
-                    <h2>200+</h2>
-                    <p>团队成员</p>
-                </div>
-            </section>
-
-            <section className="contact">
-                <h2>加入我们</h2>
-                <div className="contact-buttons">
-                    <button>查看职位</button>
-                    <button>联系我们</button>
-                </div>
-            </section>
-
-            <footer className="home-footer">
-                <div className="footer-links">
-                    <a href="#">关于我们</a>
-                    <a href="#">加入我们</a>
-                    <a href="#">联系我们</a>
-                </div>
-                <div className="copyright">
-                    © 2024 西邮移动应用开发实验室. All rights reserved.
-                </div>
-            </footer>
+  return (
+    <div className={`home-container ${isLoaded ? 'loaded' : ''}`}>
+      <section className="hero">
+        <div className="hero-content">
+          <video
+            className="hero-video"
+            muted
+            autoPlay
+            loop
+            width="640"
+            height="360"
+            style={{ pointerEvents: 'none' }}
+          >
+            <source src="./src/assets/lastback.mp4" type="video/mp4" />
+            {/* <source src="/path/to/your/video.webm" type="video/webm" /> */}
+            您的浏览器不支持视频播放。
+          </video>
+          <div className="hero-tip">
+            <h1>西邮移动应用开发实验室</h1>
+            <p>探索移动应用开发的无限可能</p>
+          </div>
         </div>
-    );
+      </section>
+
+      <section className="platforms-section">
+        <h2>技术平台</h2>
+        <div className="platforms-container">
+          {platforms.map((platform, index) => (
+            <div
+              key={platform.id}
+              className={`platform-card ${visibleCards.includes(index) ? 'show' : ''}`}
+              style={{
+                transform: `translate3d(${-scrollOffset * 220}px, ${platform.initialY * (1 - scrollOffset) * 0.5}px, 0)`,
+                transition: isLoaded ? 'transform 0.1s ease-out' : 'none',
+              }}
+            >
+              <h3>{platform.name}</h3>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <footer className="home-footer">
+        <div className="footer-links">
+          <a href="#">关于我们</a>
+          <a href="#">加入我们</a>
+          <a href="#">联系我们</a>
+        </div>
+        <div className="copyright">
+          © 2024 西邮移动应用开发实验室. All rights reserved.
+        </div>
+      </footer>
+    </div>
+  );
 };
 
 export default Home;
