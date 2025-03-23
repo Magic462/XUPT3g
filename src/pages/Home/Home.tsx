@@ -49,19 +49,9 @@ const Home: React.FC = () => {
     <div className={`home-container ${isLoaded ? 'loaded' : ''}`}>
       <section className="hero">
         <div className="hero-content">
-          <video
-            className="hero-video"
-            muted
-            autoPlay
-            loop
-            width="640"
-            height="360"
-            style={{ pointerEvents: 'none' }}
-          >
-            <source src="./src/assets/lastback.mp4" type="video/mp4" />
-            {/* <source src="/path/to/your/video.webm" type="video/webm" /> */}
-            您的浏览器不支持视频播放。
-          </video>
+          <div className="hero-gif">
+            <img src="./src/assets/layoutback.gif" alt="" />
+          </div>
           <div className="hero-tip">
             <h1>西邮移动应用开发实验室</h1>
             <p>探索移动应用开发的无限可能</p>

@@ -21,11 +21,24 @@
 
     .hero-content {
       //   max-width: 800px;
-      padding: 0 2rem;
+      //   padding: 0 2rem;
 
-      .hero-video {
+      .hero-gif {
         width: 100%;
-        height: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+
+        img {
+          width: 95vw;
+          height: 100vh;
+          object-fit: cover; // 裁剪两边，确保中心不变
+          object-position: center center; // 让 GIF 中心始终保持在中间
+          max-width: none; // 避免缩放导致超出
+          max-height: none; // 避免缩放导致超出
+        }
       }
 
       .hero-tip {

@@ -1,11 +1,11 @@
 import { RouteObject } from 'react-router-dom';
-import Layout from '../layout';
-import Mine from '../pages/mine';
-import Trainingplan from '../pages/trainplan';
-import Activities from '../pages/activities';
-import Members from '../pages/members';
-import Login from '../pages/login';
-import Blogs from '../pages/blogs/index';
+import Layout from '../layout/Layout';
+import Mine from '../pages/mine/Mine';
+import Trainingplan from '../pages/trainplan/Trainplan';
+import Activities from '../pages/activities/Activities';
+import Members from '../pages/members/Members';
+import Login from '../pages/login/Login';
+import Blogs from '../pages/blogs/Blogs';
 import Home from '../pages/Home/Home';
 
 const routes: RouteObject[] = [
