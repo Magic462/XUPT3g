@@ -10,7 +10,7 @@
     width: 60px;
     height: calc(100vh - 80px);
     background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(8px);
+    backdrop-filter: contrast(.8) brightness(.8) saturate(3) blur(8px);
     z-index: 1002;
     display: flex;
     flex-direction: column;
