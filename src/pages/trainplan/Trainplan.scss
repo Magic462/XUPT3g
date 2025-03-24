@@ -1,25 +1,15 @@
 .plan-container {
-    // background: rgba(255, 255, 255, 0.1), url('../../assets/trainplan.png');
-    // backdrop-filter: contrast(.8) brightness(.8) saturate(3) blur(8px);
     width: 100%;
-    max-width: 1400px;
-    margin:0 auto;
-    height: 100vh;
-    padding: 1rem 2rem;
-    .plan-title {
-        padding: 4rem 1.5rem;
-        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../assets/goodstudy.jpeg');
-        background-size: cover;
-        background-repeat: no-repeat;
-        color: #fff;
-        font-size: 1.6rem;
-        text-align: center;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-        border-radius: 8px;
-        margin-bottom: 1rem;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+    cursor: pointer;
     .plan-page {
+        // min-width: 500px;
+        width: 60%;
+        display: flex;
+        flex-direction: column;
+        padding-left: 3rem;
         border-radius: 8px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         padding: 1rem 2.2rem 2.2rem;
@@ -68,6 +58,60 @@
             height: .6rem;
             background-color: #4066e0;
             border-radius: 50%;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+            transition: color 0.3s ease;
+            &:hover {
+                color: #0056b3;
+                text-decoration: underline;
+            }
+        }
+        .plan-title {
+            position: relative;
+            height: 27vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.6)), url('../../assets/goodstudy.jpeg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            p {
+                position: absolute;
+                top:50%;
+                left:50%;
+                transform: translate(-50%, -50%);
+                color: #fff;
+                font-size: 1.7rem;
+                text-align: center;
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .plan-container {
+        .plan-page {
+            min-width: 394px;
+            .plan-title {
+                height: 10vh;
+                p {
+                    min-width: 394px;
+                    font-size: 1.2rem;
+                }
+            }
+            p,
+            ul {
+                font-size: 1rem;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            h3 {
+                font-size: 1.1rem;
+            }
         }
     }
 }

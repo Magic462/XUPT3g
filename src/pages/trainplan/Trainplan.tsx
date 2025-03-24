@@ -4,9 +4,12 @@ import './Trainplan.scss';
 const Trainingplan:React.FC = () => {
   return (
     <div className="plan-container">
-      <div className="plan-title">西邮移动应用开发实验室培养计划</div>
+      
       <div className="plan-page">
-        <h2>写在开始之前：</h2>
+      <div className="plan-title">
+        <p>西邮移动应用开发实验室培养计划</p>
+      </div>
+        <h2>写在开始之前✨：</h2>
         <p>
           在计算机领域，编程能力本质上是一种可习得的技术素养，其核心价值不在于与生俱来的智力天赋，而取决于系统性的实践积累与持续性的学习投入。
           我一直坚信环境可以塑造一个人，在从萌新成长为编程大神的道路上，你缺少的从来不是天赋，而是一群能陪你肝代码的队友。
@@ -96,8 +99,8 @@ const Trainingplan:React.FC = () => {
           </ul>
           技术博客：
           <ul>
-            <li>郭霖的博客: <a href="http://guolin.tech/">郭霖的Blog</a></li>
-            <li>掘金安卓专栏：<a href="https://juejin.cn/android">https://juejin.cn/android</a></li>
+            <li>郭霖的博客: <a href="http://guolin.tech/" target="_blank" rel="noopener noreferrer">郭霖的Blog</a></li>
+            <li>掘金安卓专栏：<a href="https://juejin.cn/android" target="_blank" rel="noopener noreferrer">https://juejin.cn/android</a></li>
           </ul>
         </p>
 
