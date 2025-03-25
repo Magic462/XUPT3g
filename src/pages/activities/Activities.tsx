@@ -15,17 +15,16 @@ const activitiesData = [
     title: 'Android小组参加GDG DevFest 2024西安站',
     timeDate: '2024-12-08',
     content:
-      '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
+      '2024年11月24日下午，西安息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
     status: 'completed',
-    imgSrc: './src/assets/activities/17336357070040458.webp',
+    imgSrc: './src/assets/activities/17325230781181098.webp',
   },
   {
     title: 'Android小组参加GDG DevFest 2024西安站',
     timeDate: '2024-12-08',
-    content:
-      '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
+    content: '2024年11月24日下午，西安的天空',
     status: 'completed',
-    imgSrc: './src/assets/activities/17336357070040458.webp',
+    imgSrc: './src/assets/activities/17325230781181098.webp',
   },
   {
     title: 'Android小组参加GDG DevFest 2024西安站',
@@ -129,6 +128,7 @@ const Activities: React.FC = () => {
     return activitiesData.slice(startIndex, endIndex);
   };
 
+  // 滑动计算scroll控制盒子动效
   useEffect(() => {
     // 翻页返回顶部
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -173,9 +173,9 @@ const Activities: React.FC = () => {
       <header className="activities-header">
         <h1>活动列表</h1>
       </header>
+      {/* 活动列表*/}
       <div className="activities-container">
-        <section className="activities-nav"></section>
-
+        {/* 活动盒子以及旁边的时间轴 */}
         <section className="activities-lists">
           {getCurrentActivities().map((activity, index) => (
             <div
@@ -185,6 +185,7 @@ const Activities: React.FC = () => {
                 activitiesRef.current[index] = e;
               }}
             >
+              {/* 侧边时间轴 */}
               <div
                 className={`timeline-node ${activeTimelineNode === index ? 'active' : ' '}`}
               >
@@ -198,19 +199,22 @@ const Activities: React.FC = () => {
                 ></i>
               </div>
 
+              {/* 活动卡片小盒子 */}
               <div
                 className={`activity-bref-box ${activeTimelineNode === index ? 'card-active' : ' '}`}
               >
-                <div className="activity-bref-bg-cover"></div>
-                <div
-                  style={{ backgroundImage: `url(${activity.imgSrc})` }}
-                  className="activity-bref-info"
-                >
+                {/* 文字信息盒子 */}
+                <div className="activity-bref-info">
                   <h3 className="activity-title">{activity.title}</h3>
                   <div className="activity-date">
                     发布于 {activity.timeDate}
                   </div>
                   <p className="activity-content">{activity.content}</p>
+                </div>
+
+                {/* 活动封面盒子 */}
+                <div className="activity-bref-bg">
+                  <img src={activity.imgSrc} alt="" />
                 </div>
               </div>
             </div>
@@ -247,7 +251,6 @@ const Activities: React.FC = () => {
             </div>
           )}
         </section>
-        <section></section>
       </div>
     </>
   );

@@ -1,7 +1,8 @@
 .activities-header {
-  height: 4rem;
+  height: 12rem;
   background-color: #fff;
-  border-bottom: 1px solid #eee;
+  // background-color: transparent;
+  border-bottom: 0.1rem solid #eee;
   display: flex;
   align-items: center;
   padding: 0 2rem;
@@ -10,6 +11,7 @@
   z-index: 100;
 }
 
+// 活动列表
 .activities-container {
   min-height: 100vh;
   width: 100%;
@@ -17,6 +19,7 @@
   justify-content: center;
   padding: 2rem 0;
 
+  // 每个活动盒子
   .activities-lists {
     width: 60%;
     display: flex;
@@ -25,6 +28,7 @@
     position: relative;
     padding-left: 3rem;
 
+    // 时间轴样式
     &::before {
       content: '';
       position: absolute;
@@ -72,59 +76,62 @@
   // 滑动到该卡片时的动效
 }
 
+// 活动卡片小盒子：文字信息盒子+封面
 .activity-bref-box {
   height: 8rem;
-  background-color: #fff;
   border: 1px solid #eee;
   border-radius: 8px;
   padding: 1.5rem;
   cursor: pointer;
   transition: all 0.5s ease;
-  position: relative;
-  overflow: hidden;
-  // background-size: 40% auto;
-  // background-position: right center;
-  // background-repeat: no-repeat;
 
-  .activity-bref-bg-cover {
-    // height: 100%;
-    // width: 100%;
-  }
-  .activity-bref-info {
-    background-size: 40% auto;
-    background-position: right center;
-    background-repeat: no-repeat;
-  }
+  display: grid;
+  grid-template-columns: 70% 30%;
+
   &.card-active {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transform: translateY(-0.3rem);
   }
-  .activity-date {
-    color: #666;
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .activity-content {
-    font-size: 0.9rem;
-    color: #333;
-  }
-  .activity-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: #333;
-  }
-
-  .activity-time {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #666;
-    font-size: 0.9rem;
-  }
 }
 
+// 文字信息盒子
+.activity-bref-info {
+  grid-column: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+}
+.activity-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #333;
+}
+.activity-date {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+.activity-content {
+  font-size: 0.8rem;
+  color: #333;
+}
+
+// 活动封面盒子
+.activity-bref-bg {
+  grid-column: 2;
+  // height: 100%;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: bottom; // 让图片优先显示底部
+  }
+}
+// 底部翻页
 .pagination {
   display: flex;
   justify-content: center;
@@ -171,6 +178,27 @@
 
     .timeline-node-icon {
       margin-left: 0;
+    }
+  }
+  .activity-bref-box {
+    height: 20rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .activity-bref-info {
+    grid-column: 1;
+    -webkit-line-clamp: 6;
+  }
+
+  .activity-bref-bg {
+    grid-column: 1;
+    width: 100%;
+    height: auto;
+    img {
+      width: 100%;
+      height: auto;
     }
   }
 }

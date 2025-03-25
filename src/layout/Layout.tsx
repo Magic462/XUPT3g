@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import './Layout.scss'; // 引入样式文件
+import useClickOutside from '../hooks/useClickOutside';
 
 const MainLayout: React.FC = () => {
     const location = useLocation();
@@ -8,6 +9,7 @@ const MainLayout: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [lastScrollY, setLastScrollY] = useState(0);
     const [lastScrollTime, setLastScrollTime] = useState(Date.now());
+    const menuRef = useRef<HTMLDivElement>(null);
     
     const menuItems = [
         { path: '/activities', label: 'Activities' },
@@ -16,6 +18,13 @@ const MainLayout: React.FC = () => {
         { path: '/mine', label: 'Mine' },
         { path: '/trainingplan', label: 'Training Plan' },
     ];
+
+    // 使用 useClickOutside Hook 监听点击外部
+    useClickOutside(menuRef as React.RefObject<HTMLElement>, () => {
+        if (isMenuOpen) {
+            setIsMenuOpen(false);
+        }
+    });
 
     useEffect(() => {
         const handleScroll = () => {
@@ -53,7 +62,7 @@ const MainLayout: React.FC = () => {
 
     return (
         <div className="main-layout">
-            <div className={`menu-container ${isMenuOpen ? 'open' : ''}`}>
+            <div ref={menuRef} className={`menu-container ${isMenuOpen ? 'open' : ''}`}>
                 <button 
                     className="menu-toggle"
                     onClick={toggleMenu}
@@ -88,7 +97,7 @@ const MainLayout: React.FC = () => {
                 </div>
             </div>
 
-            <div className={`side-menu ${isMenuOpen ? 'open' : ''}`}>
+            <div  className={`side-menu ${isMenuOpen ? 'open' : ''}`}>
                 <div className="menu-content">
                     <div className="menu-header">
                         <a onClick={() => handleNavigation('/')} style={{ cursor: 'pointer' }}>
