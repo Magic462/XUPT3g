@@ -13,13 +13,12 @@
 .activities-container {
   min-height: 100vh;
   width: 100%;
-  // background-color: #9c9c9c93;
   display: flex;
   justify-content: center;
   padding: 2rem 0;
 
   .activities-lists {
-    width: 70%;
+    width: 60%;
     display: flex;
     flex-direction: column;
     gap: 3rem;
@@ -36,79 +35,93 @@
       background-color: #eee;
     }
 
-    // 时间轴时间节点
-    .timeline-node {
-      position: absolute;
-      left: -10rem;
-      background-color: hsl(0, 0%, 100%);
-      transition: all 0.5s ease;
-      display: flex;
-      align-items: center;
-
-      .timeline-node-time {
-        font-size: 1rem;
-      }
-
-      .timeline-node-icon {
-        margin-left: 0.8rem;
-        font-size: 2rem;
-      }
-
-      &.active {
-        border-width: 4px;
-        background-color: #fff;
-        transform: scale(1.2);
-
-        &::before {
-          font-weight: 500;
-        }
-      }
-    }
-
     // 活动卡片
     .activity-card {
-      background-color: #fff;
-      border: 1px solid #eee;
-      border-radius: 8px;
-      padding: 1.5rem;
-      cursor: pointer;
-      transition: all 0.5s ease;
       position: relative;
-
-      &.card-active {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        transform: translateY(-2px);
-      }
-
-      .activity-date {
-        color: #666;
-        font-size: 0.9rem;
-        margin-bottom: 0.5rem;
-      }
-
-      .activity-title {
-        font-size: 1.1rem;
-        font-weight: 600;
-        margin-bottom: 1rem;
-        color: #333;
-      }
-
-      .activity-time {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        color: #666;
-        font-size: 0.9rem;
-      }
-
-      .activity-status {
-        display: inline-block;
-        padding: 0.25rem 0.75rem;
-        border-radius: 4px;
-        font-size: 0.85rem;
-        margin-bottom: 1rem;
-      }
     }
+  }
+}
+
+// 时间轴时间节点
+.timeline-node {
+  position: absolute;
+  left: -10rem;
+  background-color: hsl(0, 0%, 100%);
+
+  display: flex;
+  align-items: center;
+
+  .timeline-node-time {
+    font-size: 1rem;
+    transition: all 0.5s ease;
+    &.active {
+      transform: scale(1.1);
+    }
+  }
+
+  .timeline-node-icon {
+    margin-left: 0.8rem;
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+    transition: all 0.5s ease;
+    &.active {
+      transform: scale(1.4);
+    }
+  }
+
+  // 滑动到该卡片时的动效
+}
+
+.activity-bref-box {
+  height: 8rem;
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  position: relative;
+  overflow: hidden;
+  // background-size: 40% auto;
+  // background-position: right center;
+  // background-repeat: no-repeat;
+
+  .activity-bref-bg-cover {
+    // height: 100%;
+    // width: 100%;
+  }
+  .activity-bref-info {
+    background-size: 40% auto;
+    background-position: right center;
+    background-repeat: no-repeat;
+  }
+  &.card-active {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-0.3rem);
+  }
+  .activity-date {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .activity-content {
+    font-size: 0.9rem;
+    color: #333;
+  }
+  .activity-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+
+  .activity-time {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #666;
+    font-size: 0.9rem;
   }
 }
 
@@ -141,6 +154,23 @@
     &:disabled {
       cursor: not-allowed;
       opacity: 0.5;
+    }
+  }
+}
+
+// 移动端时间轴事件换位
+@media (max-width: 768px) {
+  .timeline-node {
+    flex-direction: column-reverse;
+    align-items: center;
+    transform: translateX(5rem);
+
+    .timeline-node-time {
+      font-size: 12px;
+    }
+
+    .timeline-node-icon {
+      margin-left: 0;
     }
   }
 }

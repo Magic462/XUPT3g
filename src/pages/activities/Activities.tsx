@@ -130,6 +130,9 @@ const Activities: React.FC = () => {
   };
 
   useEffect(() => {
+    // 翻页返回顶部
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
     const handleScroll = () => {
       const scrollPosition = window.scrollY + window.innerHeight / 2;
 
@@ -177,8 +180,7 @@ const Activities: React.FC = () => {
           {getCurrentActivities().map((activity, index) => (
             <div
               key={index}
-              // className="activity-card"
-              className={`activity-card ${activeTimelineNode === index ? 'card-active' : ' '}`}
+              className="activity-card"
               ref={(e) => {
                 activitiesRef.current[index] = e;
               }}
@@ -186,12 +188,31 @@ const Activities: React.FC = () => {
               <div
                 className={`timeline-node ${activeTimelineNode === index ? 'active' : ' '}`}
               >
-                <span className="timeline-node-time">{activity.timeDate}</span>
-                <i className="timeline-node-icon iconfont icon-android"></i>
+                <span
+                  className={`timeline-node-time ${activeTimelineNode === index ? 'active' : ' '}`}
+                >
+                  {activity.timeDate}
+                </span>
+                <i
+                  className={`timeline-node-icon iconfont icon-android ${activeTimelineNode === index ? 'active' : ' '}`}
+                ></i>
               </div>
-              <h3 className="activity-title">{activity.title}</h3>
-              <div className="activity-date">{activity.timeDate}</div>
-              <p>{activity.content}</p>
+
+              <div
+                className={`activity-bref-box ${activeTimelineNode === index ? 'card-active' : ' '}`}
+              >
+                <div className="activity-bref-bg-cover"></div>
+                <div
+                  style={{ backgroundImage: `url(${activity.imgSrc})` }}
+                  className="activity-bref-info"
+                >
+                  <h3 className="activity-title">{activity.title}</h3>
+                  <div className="activity-date">
+                    发布于 {activity.timeDate}
+                  </div>
+                  <p className="activity-content">{activity.content}</p>
+                </div>
+              </div>
             </div>
           ))}
 
