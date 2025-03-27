@@ -76,7 +76,11 @@ const Home: React.FC = () => {
             <section className="hero">
               <div className="hero-content"> 
                 <div className="hero-gif">
-                  < img src="./src/assets/layoutback.gif" alt="" />
+                  {/* < img src="./src/assets/layoutback.gif" alt="" /> */}
+                  <video autoPlay loop muted>
+                    <source src="./src/assets/layoutback.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
                 </div>
                 <div className="hero-tip">
                   <h1>西邮移动应用开发实验室</h1>
