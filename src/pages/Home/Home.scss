@@ -63,6 +63,7 @@
       background: linear-gradient(to bottom, rgb(0, 0, 0), rgb(62, 64, 61));
       text-align: center;
       min-height: 100vh;
+      // height: 900px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -87,40 +88,47 @@
               border-radius: 12px;
               box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
               min-width: 200px;
-              height: 35px;
+              // min-height: 200px;
+              // height: 35px;
               opacity: 0;
-            //   transition: opacity 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.5s ease-in-out;
-              transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+              transition: opacity 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+              // transition: height 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+              // transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
               position: relative;
-              overflow: hidden;
+              // overflow: hidden;
 
               .platform-description {
                 position: absolute;  // 绝对定位
                 top: 0;           // 覆盖整个卡片
                 left: 0;        // 宽度与父元素一致
-                height: 100%;
+                // height: 100%;
+                // height: auto;
                 border-radius: 12px;
                 opacity: 0;
                 visibility: hidden; // 初始不可见
-                transition: all 0.3s ease 0s;
+                // transition: all 0.3s ease 0s;
+                transition: opacity 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
                 padding:16px;
                 text-align: left;
                 letter-spacing: .3px;
                 line-height: 2;
                 font-size: 17px;
+                
               }
 
               &:hover .platform-description {
                 visibility: visible; // 设置为可见
                 opacity: 1;
+                // height: 160px;
                 background: linear-gradient(45deg, #1890ff, #36cfc9);
               }
+
               &.show {
                   opacity: 1;
               }
 
               &:hover {
-                height: 160px;
+                z-index: 100;
                   h3 {
                     visibility: hidden;
                   }
@@ -139,6 +147,7 @@
       background-color: #333;
       color: white;
       text-align: center;
+      // height: 100px;
 
       .footer-links {
           margin-bottom: 1rem;
