@@ -1,0 +1,51 @@
+.mine-container {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 15% 85%;
+}
+
+.mine-leftnav {
+  grid-column: 1;
+  display: grid;
+  height: 100vh;
+  justify-items: center; // 让内容在水平方向居中
+}
+
+.nav-user,
+.nav-administrator {
+  padding-top: 2rem;
+  // background-color: aqua;
+  width: 100%;
+
+  .nav-title {
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+}
+
+.user-func,
+.administrator-func {
+  li {
+    padding: 1rem 1rem;
+
+    .nav-icon {
+      font-size: 1.8rem;
+      margin-right: 0.5rem;
+    }
+    .icon-shezhi {
+      font-weight: 800;
+    }
+  }
+}
+
+.mine-each-func {
+  grid-column: 2;
+  background-color: #f0f2f5;
+}
+
+.nav-setting-box {
+  li {
+    padding-left: 3.5rem;
+  }
+}
