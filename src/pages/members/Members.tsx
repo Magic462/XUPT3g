@@ -11,7 +11,7 @@ const Member = () => {
           id: 1,
           name: "张三",
           status: 0,
-          direction: "web",
+          direction: "Web",
           enrollment_year: 2022,
           photo: Photo,
           company: "字节生活服务",
@@ -21,7 +21,7 @@ const Member = () => {
           id: 2,
           name: "张三",
           status: 0,
-          direction: "web",
+          direction: "Web",
           enrollment_year: 2020,
           photo: Img,
           company: "",
@@ -31,7 +31,7 @@ const Member = () => {
           id: 3,
           name: "张三",
           status: 0,
-          direction: "web",
+          direction: "Web",
           enrollment_year: 2020,
           photo: Photo,
           company: "字节生活服务",
@@ -41,7 +41,7 @@ const Member = () => {
           id: 4,
           name: "张三",
           status: 0,
-          direction: "web",
+          direction: "Android",
           enrollment_year: 2020,
           photo: Photo,
           company: "字节生活服务",
@@ -51,7 +51,7 @@ const Member = () => {
           id: 5,
           name: "张三",
           status: 0,
-          direction: "web",
+          direction: "Android",
           enrollment_year: 2020,
           photo: Photo,
           company: "字节生活服务",
@@ -61,7 +61,7 @@ const Member = () => {
           id: 6,
           name: "张三",
           status: 0,
-          direction: "web",
+          direction: "Server",
           enrollment_year: 2020,
           photo: Photo,
           company: "字节生活服务",
@@ -71,17 +71,17 @@ const Member = () => {
           id: 7,
           name: "李四",
           status: 1,
-          direction: "ios",
+          direction: "iOS",
           enrollment_year: 2021,
           photo: Photo,
           company: "某科技公司",
           message: "感谢母校的培养！"
       }
     ];
-    const years = ['2020', '2021', '2022', '2023', '2024', '2025'];
-    const [selectedYear, setSelectedYear] = useState(years[0]);
+    const directions = ['Android', 'iOS', 'Web', 'Server', 'HarmonyOS'];
+    const [selectedDirection, setSelectedDirection] = useState(directions[0]);
     // 根据选中的年份过滤成员
-    const filteredMembers = members.filter(member => member.enrollment_year.toString() === selectedYear);
+    const filteredMembers = members.filter(member => member.direction === selectedDirection);
 
     // 后端返回数据
     // const [members, setMembers] = useState([]);
@@ -89,7 +89,7 @@ const Member = () => {
     // useEffect(() => {
     //     // 模拟数据获取
     //     const fetchData = async () => {
-    //         const response = await fetch('https://api.example.com/members'); // 替换为你的API地址
+    //         const response = aWait fetch('https://api.example.com/members'); // 替换为你的API地址
     //         const data = await response.json();
     //         setMembers(data.members);
     //     };
@@ -99,7 +99,7 @@ const Member = () => {
 
     return (
       <div>
-          <Tabs years={years} onYearChange={setSelectedYear}/>
+          <Tabs tabs={directions} onTabChange={setSelectedDirection}/>
           <People members={filteredMembers} />
       </div>
     );

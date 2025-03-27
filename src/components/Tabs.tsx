@@ -1,43 +1,43 @@
 import React, { useState } from 'react';
 import './Tabs.scss'; // 引入样式文件
 
-const Tabs = ({ years, onYearChange  }) => {
-    const [activeTab, setActiveTab] = useState(years[0]); // 默认选中第一个标签
-    const maxVisibleTabs = 3; // 设置最大可见标签数
+const Tabs = ({ tabs, onTabChange  }) => {
+    const [activeTab, setActiveTab] = useState(tabs[0]); // 默认选中第一个标签
+    const maxVisibleTabs = 6; // 设置最大可见标签数
 
     // 分离可见标签和更多标签
-    const visibleTabs = years.slice(0, maxVisibleTabs);
-    const additionalTabs = years.length > maxVisibleTabs ? years.slice(maxVisibleTabs) : [];
+    const visibleTabs = tabs.slice(0, maxVisibleTabs);
+    const additionalTabs = tabs.length > maxVisibleTabs ? tabs.slice(maxVisibleTabs) : [];
 
 
-    const handleTabClick = (year) => {
-        setActiveTab(year);
-        onYearChange(year); // 通知父组件选中的年份
+    const handleTabClick = (tab) => {
+        setActiveTab(tab);
+        onTabChange(tab); // 通知父组件选中的年份
     };
 
     return (
         <div className="tabs-container">
             <div className="tabs">
-                {visibleTabs.map((year) => (
+                {visibleTabs.map((tab) => (
                     <div
-                        key={year}
-                        className={`tab ${activeTab === year ? 'active' : ''}`}
-                        onClick={() => handleTabClick(year)}
+                        key={tab}
+                        className={`tab ${activeTab === tab ? 'active' : ''}`}
+                        onClick={() => handleTabClick(tab)}
                     >
-                        {year}
+                        {tab}
                     </div>
                 ))}
                 {additionalTabs.length > 0 && (
                     <div className="more-tab">
                         更多
                         <div className="more-dropdown">
-                            {additionalTabs.map((year) => (
+                            {additionalTabs.map((tab) => (
                                 <div
-                                    key={year}
+                                    key={tab}
                                     className="more-item"
-                                    onClick={() => handleTabClick(year)}
+                                    onClick={() => handleTabClick(tab)}
                                 >
-                                    {year}
+                                    {tab}
                                 </div>
                             ))}
                         </div>

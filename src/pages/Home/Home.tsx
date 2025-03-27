@@ -42,7 +42,7 @@ const Home: React.FC = () => {
         },
         {
             id: 'harmony',
-            name: '鸿蒙',
+            name: 'HarmonyOS',
             delay: 400,
             description: "鸿蒙系统为多设备体验提供了可能，了解其特性，你将能够创建跨平台的应用！"
         },
