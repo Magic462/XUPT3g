@@ -1,18 +1,8 @@
-import React, { useState, useEffect } from 'react';
-// import styles from './Home.module.scss';
+import React, { useState, useEffect, useRef } from 'react';
 import './Home.scss';
 
 const Home: React.FC = () => {
   const [visibleCards, setVisibleCards] = useState<number[]>([]);
-  // const [hoveredCardIndex, setHoveredCardIndex] = useState<number | null>(null);
-
-  // const platforms = [
-  //     { id: 'web', name: 'Web', delay: 0 },
-  //     { id: 'server', name: 'Server', delay: 200 },
-  //     { id: 'android', name: 'Android', delay: 400 },
-  //     { id: 'ios', name: 'iOS', delay: 600 },
-  //     { id: 'harmony', name: '鸿蒙', delay: 800 },
-  // ];
 
   const platforms = [
     {
@@ -51,6 +41,37 @@ const Home: React.FC = () => {
         '鸿蒙系统为多设备体验提供了可能，了解其特性，你将能够创建跨平台的应用！',
     },
   ];
+
+  // const platformsSectionRef = useRef(null);
+  // useEffect(() => {
+  //   const handleIntersect = (entries) => {
+  //     entries.forEach(entry => {
+  //       if (entry.isIntersecting) {
+  //         platforms.forEach((platform, index) => {
+  //           setTimeout(() => {
+  //             setVisibleCards((prev) => [...new Set([...prev, index])]);
+  //           }, platform.delay);
+  //         });
+  //       }
+  //     });
+  //   };
+
+  //   const observer = new IntersectionObserver(handleIntersect, {
+  //     root: null, // 默认为视口
+  //     rootMargin: '0px',
+  //     threshold: 0.9 // 90% 进入视口时触发
+  //   });
+
+  //   if (platformsSectionRef.current) {
+  //     observer.observe(platformsSectionRef.current);
+  //   }
+
+  //   return () => {
+  //     if (platformsSectionRef.current) {
+  //       observer.unobserve(platformsSectionRef.current);
+  //     }
+  //   };
+  // }, [platforms]);
 
   // 实现即将滚动到platforms-section时卡片依次弹出
   useEffect(() => {
@@ -94,22 +115,6 @@ const Home: React.FC = () => {
 
       <section className="platforms-section">
         <h2>技术平台</h2>
-        {/* <div className="platforms-container">
-                    {platforms.map((platform, index) => (
-                        <div
-                            key={platform.id}
-                            className={`platform-card ${visibleCards.includes(index) ? 'show' : ''}`}
-                            style={{
-                                transform: visibleCards.includes(index)
-                                    ? 'translateY(0) translateX(0)'
-                                    : 'translateY(100px) translateX(100px)',
-                                transitionDelay: `${platform.delay}ms`
-                            }}
-                        >
-                            <h3>{platform.name}</h3>
-                        </div>
-                    ))}
-                </div> */}
         <div className="platforms-container">
           {platforms.map((platform, index) => (
             <div

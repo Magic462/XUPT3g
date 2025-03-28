@@ -1,117 +1,119 @@
 .plan-container {
-    width: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+  cursor: pointer;
+  .plan-page {
+    // min-width: 500px;
+    width: 60%;
     display: flex;
-    justify-content: center;
-    padding: 2rem 0;
-    cursor: pointer;
-    .plan-page {
-        // min-width: 500px;
-        width: 60%;
-        display: flex;
-        flex-direction: column;
-        padding-left: 3rem;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        padding: 1rem 2.2rem 2.2rem;
-        min-height: 813px;
-        p,
-        ul {
-            margin: 1rem 0;
-            text-align: left;
-            letter-spacing: .6px;
-            line-height: 2;
-            font-size: 1.1rem;
-        }
-        h2 {
-            font-size: 1.6rem;
-            line-height: 1.6;
-            border-bottom: 1px dashed #adacac;
-            padding-bottom: .5rem;
-        }
-        h3 {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            // padding-top: .5rem;
-        }
-        ul {
-            list-style-type: none;
-            padding-left: 1rem;
-        }
-        li {
-            position: relative;
-            padding-left: 1.2rem;
-            margin: .6rem 0;
-            overflow: auto;
-            p:last-child {
-                margin-bottom:0;
-            }
-            p:first-child {
-                margin-top:0;
-            }
-        }
-        li::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: .7rem;
-            width: .6rem;
-            height: .6rem;
-            background-color: #4066e0;
-            border-radius: 50%;
-        }
-        a {
-            text-decoration: none;
-            color: #007bff;
-            transition: color 0.3s ease;
-            &:hover {
-                color: #0056b3;
-                text-decoration: underline;
-            }
-        }
-        .plan-title {
-            position: relative;
-            height: 27vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.6)), url('../../assets/goodstudy.jpeg');
-            background-size: cover;
-            background-repeat: no-repeat;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            p {
-                position: absolute;
-                top:50%;
-                left:50%;
-                transform: translate(-50%, -50%);
-                color: #fff;
-                font-size: 1.7rem;
-                text-align: center;
-                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-            }
-        }
+    flex-direction: column;
+    padding-left: 3rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 1rem 2.2rem 2.2rem;
+    min-height: 813px;
+    p,
+    ul {
+      margin: 1rem 0;
+      text-align: left;
+      letter-spacing: 0.6px;
+      line-height: 2;
+      font-size: 1.1rem;
     }
+    h2 {
+      font-size: 1.6rem;
+      line-height: 1.6;
+      border-bottom: 1px dashed #adacac;
+      padding-bottom: 0.5rem;
+    }
+    h3 {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      // padding-top: .5rem;
+    }
+    ul {
+      list-style-type: none;
+      padding-left: 1rem;
+    }
+    li {
+      position: relative;
+      padding-left: 1.2rem;
+      margin: 0.6rem 0;
+      overflow: auto;
+      p:last-child {
+        margin-bottom: 0;
+      }
+      p:first-child {
+        margin-top: 0;
+      }
+    }
+    li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.7rem;
+      width: 0.6rem;
+      height: 0.6rem;
+      background-color: #4066e0;
+      border-radius: 50%;
+    }
+    a {
+      text-decoration: none;
+      color: #007bff;
+      transition: color 0.3s ease;
+      &:hover {
+        color: #0056b3;
+        text-decoration: underline;
+      }
+    }
+    .plan-title {
+      position: relative;
+      height: 27vh;
+      background:
+        linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.6)),
+        url('../../assets/goodstudy.jpeg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      p {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        font-size: 1.7rem;
+        text-align: center;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+      }
+    }
+  }
 }
 
 @media (max-width: 768px) {
-    .plan-container {
-        .plan-page {
-            min-width: 394px;
-            .plan-title {
-                height: 10vh;
-                p {
-                    min-width: 394px;
-                    font-size: 1.2rem;
-                }
-            }
-            p,
-            ul {
-                font-size: 1rem;
-            }
-            h2 {
-                font-size: 1.5rem;
-            }
-            h3 {
-                font-size: 1.1rem;
-            }
+  .plan-container {
+    .plan-page {
+      min-width: 394px;
+      .plan-title {
+        height: 10vh;
+        p {
+          min-width: 394px;
+          font-size: 1.2rem;
         }
+      }
+      p,
+      ul {
+        font-size: 1rem;
+      }
+      h2 {
+        font-size: 1.5rem;
+      }
+      h3 {
+        font-size: 1.1rem;
+      }
     }
+  }
 }
