@@ -1,5 +1,5 @@
 const Postactivity = () => {
-  return <div className="">发布动态</div>;
+  return <div className="">新建动态</div>;
 };
 
 export default Postactivity;

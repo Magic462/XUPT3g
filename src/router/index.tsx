@@ -1,4 +1,4 @@
-import { Navigate, RouteObject } from 'react-router-dom';
+import { Navigate, replace, RouteObject } from 'react-router-dom';
 import Layout from '../layout/Layout';
 // 二级路由组件引入
 import Mine from '../pages/mine/Mine';
@@ -10,17 +10,20 @@ import Login from '../pages/login/Login';
 import Blogs from '../pages/blogs/Blogs';
 import Home from '../pages/Home/Home';
 // mine三级路由引入
-import Settings from '@/pages/mine/subpages/settings/Settings';
-import Donation from '@/pages/mine/subpages/donations/Donations';
-import Editactivity from '@/pages/mine/subpages/editactivity/Editactivity';
-import Editdirection from '@/pages/mine/subpages/editdirection/Editdirection';
-import Editdonation from '@/pages/mine/subpages/editdonation/Editdonation';
-import Groupmember from '@/pages/mine/subpages/groupmember/Groupmember';
-import Editmember from '@/pages/mine/subpages/editmember/Editmember';
-
-// mine/setting四级路由
-import Myinfo from '@/pages/mine/subpages/settings/subrouter/myinfo/Myinfo';
-import Changeinfo from '@/pages/mine/subpages/settings/subrouter/changeinfo/Changeinfo';
+import Administrator from '@/pages/mine/subpages/administrator/Administrator';
+import User from '@/pages/mine/subpages/user/User';
+// mine/admin四级路由
+import Allactivity from '@/pages/mine/subpages/administrator/subrouter/allactivity/Allactivity';
+import Allmember from '@/pages/mine/subpages/administrator/subrouter/allmember/Allmember';
+import Editdirection from '@/pages/mine/subpages/administrator/subrouter/editdirection/Editdirection';
+import Editdonation from '@/pages/mine/subpages/administrator/subrouter/editdonation/Editdonation';
+import Postactivity from '@/pages/mine/subpages/administrator/subrouter/postactivity/Postactivity';
+import Verifymember from '@/pages/mine/subpages/administrator/subrouter/verifymember/Verifymember';
+// mine/changeinfo
+import Changeinfo from '@/pages/mine/subpages/user/subrouter/changeinfo/Changeinfo';
+import Donation from '@/pages/mine/subpages/user/subrouter/donations/Donations';
+import Groupmember from '@/pages/mine/subpages/user/subrouter/groupmember/Groupmember';
+import Myinfo from '@/pages/mine/subpages/user/subrouter/myinfo/Myinfo';
 
 const routes: RouteObject[] = [
   {
@@ -35,24 +38,34 @@ const routes: RouteObject[] = [
         element: <Mine />,
         children: [
           {
-            index: true,
-            element: <Navigate to="/mine/settings/myinfo" replace />,
-          },
-          {
-            path: 'settings',
-            element: <Settings />,
+            path: 'admin',
+            element: <Administrator></Administrator>,
             children: [
-              { index: true, element: <Myinfo /> },
-              { path: 'myinfo', element: <Myinfo /> },
-              { path: 'changeinfo', element: <Changeinfo /> },
+              { path: 'allactivity', element: <Allactivity></Allactivity> },
+              { path: 'allmember', element: <Allmember></Allmember> },
+              {
+                path: 'editdirection',
+                element: <Editdirection></Editdirection>,
+              },
+              { path: 'editdonation', element: <Editdonation></Editdonation> },
+              { path: 'postactivity', element: <Postactivity></Postactivity> },
+              { path: 'verifymember', element: <Verifymember></Verifymember> },
             ],
           },
-          { path: 'donation', element: <Donation /> },
-          { path: 'editactivity', element: <Editactivity /> },
-          { path: 'editdirection', element: <Editdirection /> },
-          { path: 'editmember', element: <Editmember /> },
-          { path: 'editdonation', element: <Editdonation /> },
-          { path: 'groupmember', element: <Groupmember /> },
+          {
+            path: 'user',
+            element: <User></User>,
+            children: [
+              {
+                index: true,
+                element: <Navigate to="myinfo" replace />,
+              },
+              { path: 'changeinfo', element: <Changeinfo></Changeinfo> },
+              { path: 'Myinfo', element: <Myinfo></Myinfo> },
+              { path: 'groupmember', element: <Groupmember></Groupmember> },
+              { path: 'donation', element: <Donation></Donation> },
+            ],
+          },
         ],
       },
       { path: '/members', element: <Members /> },
