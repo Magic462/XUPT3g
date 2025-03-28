@@ -1,0 +1,30 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "421412",
+      "name": "审核",
+      "font_class": "shenhe",
+      "unicode": "e69e",
+      "unicode_decimal": 59038
+    },
+    {
+      "icon_id": "9673155",
+      "name": "动态",
+      "font_class": "dongtai",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "13638721",
+      "name": "管理1",
+      "font_class": "guanli",
+      "unicode": "e65a",
+      "unicode_decimal": 58970
+    }
+  ]
+}

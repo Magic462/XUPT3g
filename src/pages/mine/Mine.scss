@@ -27,10 +27,10 @@
 .user-func,
 .administrator-func {
   li {
-    padding: 1rem 1rem;
+    padding: 0.5rem 1rem;
 
     .nav-icon {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       margin-right: 0.5rem;
     }
     .icon-shezhi {
@@ -44,8 +44,10 @@
   background-color: #f0f2f5;
 }
 
-.nav-setting-box {
+.nav-each-func-box {
   li {
-    padding-left: 3.5rem;
+    font-size: 1rem;
+    padding: 0.5rem 0 0 3.5rem;
+    // padding: 0;
   }
 }
