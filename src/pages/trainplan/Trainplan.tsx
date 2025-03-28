@@ -1,14 +1,13 @@
 import React from 'react';
 import './Trainplan.scss';
 
-const Trainingplan:React.FC = () => {
+const Trainingplan: React.FC = () => {
   return (
     <div className="plan-container">
-      
       <div className="plan-page">
-      <div className="plan-title">
-        <p>西邮移动应用开发实验室培养计划</p>
-      </div>
+        <div className="plan-title">
+          <p>西邮移动应用开发实验室培养计划</p>
+        </div>
         <h2>写在开始之前✨：</h2>
         <p>
           在计算机领域，编程能力本质上是一种可习得的技术素养，其核心价值不在于与生俱来的智力天赋，而取决于系统性的实践积累与持续性的学习投入。
@@ -21,11 +20,15 @@ const Trainingplan:React.FC = () => {
         <ul>
           <li>基础语法、数组操作、结构体、联合体、指针操作</li>
           <li>C语言内存分配基础，例如malloc等、文件操作</li>
-          <li>链表增删改查：单链表、双向链表、循环链表；链表和数组的区别，从内存到使用上的区别</li>
+          <li>
+            链表增删改查：单链表、双向链表、循环链表；链表和数组的区别，从内存到使用上的区别
+          </li>
         </ul>
         <h3>计算机基础</h3>
         <ul>
-          <li>什么是原码、反码、补码，如何转换，它们与计算机、编程语言之间的关系</li>
+          <li>
+            什么是原码、反码、补码，如何转换，它们与计算机、编程语言之间的关系
+          </li>
           <li>int、double等如何存储，占多大内存</li>
           <li>小数、整数如何存储有什么区别，不同进制如何转换</li>
           <li>数组、链表分配的空间有什么区别，如何分配</li>
@@ -42,21 +45,26 @@ const Trainingplan:React.FC = () => {
         <ul>
           <li>学会简单地使用git等版本控制工具</li>
           <li>学习使用github、gitee等开源平台，了解开源文化</li>
-          <li>学习在CSDN、稀土掘金、博客园等平台寻找答案，自己注册一个CSDN账号发表自己的博客文章</li>
+          <li>
+            学习在CSDN、稀土掘金、博客园等平台寻找答案，自己注册一个CSDN账号发表自己的博客文章
+          </li>
         </ul>
         <h3>关于咨询问题：</h3>
         <p>
           请了解提问的智慧-中国版。学习编程无法避免向他人提问，而任何优质回答都不是无偿的馈赠，未经思索的潦草提问，往往只能收获同样仓促的回应。如果你想得到某个问题的答案，请至少展现出你的思考。
         </p>
         <h2>大一下将进行方向的选择</h2>
-        <p>移动应用开发实验室有五个方向可以进行学习，下面是关于这些方向的学习建议以及介绍，帮助大家了解。</p>
+        <p>
+          移动应用开发实验室有五个方向可以进行学习，下面是关于这些方向的学习建议以及介绍，帮助大家了解。
+        </p>
 
         <h3>iOS方向：</h3>
         <p>
           iOS开发是面向苹果移动设备（iPhone/iPad）的应用程序开发领域，以苹果生态为核心。
           3G iOS为Apple认证的教育拓展团队iOS Club。
-          iOS的开发语言主要为Objective-C和swift，要求系统掌握Objective-C，熟练运用Xcode IDE。
-          学习路径遵循"OC语言基础→各个控件的特性"，推荐《Effective Objective-C 2.0》夯实底层逻辑，通过《疯狂 iOS 讲义》完成案例实操。
+          iOS的开发语言主要为Objective-C和swift，要求系统掌握Objective-C，熟练运用Xcode
+          IDE。 学习路径遵循"OC语言基础→各个控件的特性"，推荐《Effective
+          Objective-C 2.0》夯实底层逻辑，通过《疯狂 iOS 讲义》完成案例实操。
         </p>
 
         <h3>Web方向：</h3>
@@ -69,7 +77,9 @@ const Trainingplan:React.FC = () => {
           <ul>
             <li>HTML：负责页面的结构，就像是房子的框架。</li>
             <li>CSS：负责页面的样式，比如颜色、布局，给房子“刷墙铺地板”。</li>
-            <li>JavaScript：让页面动起来，比如点击按钮后的动画、表单的自动验证，就像是房子里的电路系统。</li>
+            <li>
+              JavaScript：让页面动起来，比如点击按钮后的动画、表单的自动验证，就像是房子里的电路系统。
+            </li>
           </ul>
           推荐的书籍：
           <ul>
@@ -90,17 +100,37 @@ const Trainingplan:React.FC = () => {
         </p>
         <p>
           Android开发以Java与Kotlin为双主流语言，其中Java作为官方早期首选语言，因其成熟生态与完整学习资源，仍是新人构建开发思维的理想起点。
-          学习者需系统掌握Java SE核心语法，并深入理解面向对象编程（OOP）的四大特性——封装、继承、多态、抽象，这些设计思想不仅是安卓组件（Activity/Fragment）的构建基础，更是培养架构思维的核心方法论。
+          学习者需系统掌握Java
+          SE核心语法，并深入理解面向对象编程（OOP）的四大特性——封装、继承、多态、抽象，这些设计思想不仅是安卓组件（Activity/Fragment）的构建基础，更是培养架构思维的核心方法论。
         </p>
-        <p>推荐学习资源：
+        <p>
+          推荐学习资源：
           <ul>
             <li>《第一行代码》</li>
             <li>《Android开发艺术探索》</li>
           </ul>
           技术博客：
           <ul>
-            <li>郭霖的博客: <a href="http://guolin.tech/" target="_blank" rel="noopener noreferrer">郭霖的Blog</a></li>
-            <li>掘金安卓专栏：<a href="https://juejin.cn/android" target="_blank" rel="noopener noreferrer">https://juejin.cn/android</a></li>
+            <li>
+              郭霖的博客:{' '}
+              <a
+                href="http://guolin.tech/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                郭霖的Blog
+              </a>
+            </li>
+            <li>
+              掘金安卓专栏：
+              <a
+                href="https://juejin.cn/android"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                https://juejin.cn/android
+              </a>
+            </li>
           </ul>
         </p>
 
@@ -108,20 +138,30 @@ const Trainingplan:React.FC = () => {
         <p>
           3G的鸿蒙方向为西安邮电大学与上海卓易科技的校企结合试点。
           HarmonyOS是华为自主研发的分布式操作系统，支持手机、平板、智能穿戴等多设备协同。
-          其分布式架构可实现跨设备应用流转和数据共享，开发者使用ArkTS语言一次开发即可多端部署，开发者所使用的工具是Deveco Studio。
+          其分布式架构可实现跨设备应用流转和数据共享，开发者使用ArkTS语言一次开发即可多端部署，开发者所使用的工具是Deveco
+          Studio。
         </p>
-        <p>学习HarmonyOS移动应用开发可从华为开发者联盟官网入手，推荐入门可以看：《HarmonyOS NEXT启程：零基础构建纯血鸿蒙应用》</p>
+        <p>
+          学习HarmonyOS移动应用开发可从华为开发者联盟官网入手，推荐入门可以看：《HarmonyOS
+          NEXT启程：零基础构建纯血鸿蒙应用》
+        </p>
 
         <h3>后端方向：</h3>
         <p>
           后端开发是构建软件系统中“看不见的部分”，它主要负责处理数据存储、业务逻辑、服务器管理和与数据库的交互。
           简单来说，后端就像是一个强大的“大脑”，在用户看不到的地方默默工作，确保应用程序能够正常运行。
         </p>
-        <p>后端开发的核心目标是确保应用程序的性能、安全性和稳定性，让用户在使用前端应用时能够获得流畅的体验。</p>
-        <p>Java：从OOP语法到Spring生态/分布式架构，以企业级框架（Spring Boot+Cloud）为锚，在JVM调优与复杂业务中打磨系统设计能力；
-          Go：用Goroutine + 标准库筑基，借Gin/Gorm快速落地微服务，以云原生（Docker/K8s）为跳板，在高性能服务开发中重构代码思维。
+        <p>
+          后端开发的核心目标是确保应用程序的性能、安全性和稳定性，让用户在使用前端应用时能够获得流畅的体验。
         </p>
-        <p>学习资源推荐：
+        <p>
+          Java：从OOP语法到Spring生态/分布式架构，以企业级框架（Spring
+          Boot+Cloud）为锚，在JVM调优与复杂业务中打磨系统设计能力；
+          Go：用Goroutine +
+          标准库筑基，借Gin/Gorm快速落地微服务，以云原生（Docker/K8s）为跳板，在高性能服务开发中重构代码思维。
+        </p>
+        <p>
+          学习资源推荐：
           <ul>
             <li>《Java核心技术卷》</li>
             <li>《Spring实战》</li>
@@ -132,9 +172,9 @@ const Trainingplan:React.FC = () => {
             <li>《Go语言高级编程》</li>
           </ul>
         </p>
-        </div>
+      </div>
     </div>
   );
 };
- 
+
 export default Trainingplan;

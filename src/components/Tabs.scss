@@ -1,58 +1,57 @@
 .tabs-container {
-    margin: 20px;
-
+  margin: 20px;
 }
 
 .tabs {
-    display: flex;
-    border-bottom: 1px solid #ccc;
-    justify-content: center;
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  justify-content: center;
 }
 
 .tab {
-    padding: 10px 30px;
-    cursor: pointer;
+  padding: 10px 30px;
+  cursor: pointer;
 }
 
 .tab.active {
-    font-weight: bold;
-    border-bottom: 3px solid #00A9CE;
+  font-weight: bold;
+  border-bottom: 3px solid #00a9ce;
 }
 
 .more-tab {
-    position: relative;
-    padding: 10px 20px;
-    cursor: pointer;
+  position: relative;
+  padding: 10px 20px;
+  cursor: pointer;
 }
 
 .more-dropdown {
-    display: none;
-    position: absolute;
-    top: 38px;
-    right: 0;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    z-index: 1000;
+  display: none;
+  position: absolute;
+  top: 38px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  z-index: 1000;
 }
 
 .more-tab:hover .more-dropdown {
-    display: block;
+  display: block;
 }
 
 .more-item {
-    padding: 10px;
-    border-bottom: 1px dashed #adacac;
-    cursor: pointer;
-    &:last-child {
-        border: none;
-    }
+  padding: 10px;
+  border-bottom: 1px dashed #adacac;
+  cursor: pointer;
+  &:last-child {
+    border: none;
+  }
 }
 
 .more-item:hover {
-    background-color: #f0f0f0;
+  background-color: #f0f0f0;
 }
 
 .tab-content {
-    margin-top: 20px;
+  margin-top: 20px;
 }
