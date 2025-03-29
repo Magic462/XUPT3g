@@ -40,6 +40,7 @@
 }
 
 .mine-each-func {
+  min-height: 100vh;
   grid-column: 2;
   background-color: #f0f2f5;
 }
@@ -48,6 +49,25 @@
   li {
     font-size: 1rem;
     padding: 0.5rem 0 0 3.5rem;
-    // padding: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  // 移动端时，隐藏左侧导航栏，右侧占满 100%
+  .mine-container {
+    grid-template-columns: 0 100%;
+  }
+
+  .mine-each-func {
+    grid-column: 1 / span 2;
+  }
+  .mine-leftnav {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 70%;
+    height: 100vh;
+    background: white;
+    // z-index: 1000; // 确保在最上层
   }
 }

@@ -1,4 +1,4 @@
-import { Navigate, replace, RouteObject } from 'react-router-dom';
+import { Navigate, RouteObject } from 'react-router-dom';
 import Layout from '../layout/Layout';
 // 二级路由组件引入
 import Mine from '../pages/mine/Mine';

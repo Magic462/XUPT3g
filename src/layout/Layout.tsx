@@ -1,12 +1,15 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import './Layout.scss'; // 引入样式文件
 import useClickOutside from '../hooks/useClickOutside';
+import '@/assets/icons/font_4k8jwf31qbs/iconfont.css';
 
 const MainLayout: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // 用于控制二级侧边栏显示
+  const [showSubNav, setShowSubNav] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   const menuItems = [
@@ -65,6 +68,26 @@ const MainLayout: React.FC = () => {
     setIsMenuOpen(false);
   };
 
+  // 检测路由进入mine没
+  const isMinePage = location.pathname.startsWith('/mine');
+
+  // 监听页面尺寸隐藏默认二级导航
+  useEffect(() => {
+    const handleResize = () => {
+      // 非移动端尺寸,Mine导航一直展开
+      if (window.innerWidth >= 768) {
+        setShowSubNav(true);
+      } else {
+        setShowSubNav(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div className="main-layout">
       <div
@@ -76,6 +99,16 @@ const MainLayout: React.FC = () => {
           <span></span>
           <span></span>
         </button>
+        {isMinePage && window.innerWidth < 768 && (
+          <button
+            className="menu-submine-toggle"
+            onClick={() => {
+              setShowSubNav(!showSubNav);
+            }}
+          >
+            <i className="iconfont icon-chengyuan"></i>
+          </button>
+        )}
         <div className="menu-text">
           <span>M</span>
           <span>o</span>
@@ -138,7 +171,7 @@ const MainLayout: React.FC = () => {
       </div>
 
       <main className="main-content">
-        <Outlet />
+        <Outlet context={{ showSubNav, setShowSubNav }} />
       </main>
     </div>
   );
