@@ -1,0 +1,46 @@
+.peo-home-container {
+    padding: 20px 30px;
+    background-color: #f9f9f9;
+    .header-section {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        .photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        .user-info h2 {
+            font-size: 1.4rem;
+            margin: 0;
+        }
+        .user-info span {
+            // color: #777;
+            background-color: #4caf50;
+            color: white;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+        }
+    }
+    .basic-info-section {
+        h3{
+            font-size: 1.2rem;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            label {
+                width: 100px;
+                color: #555;
+            }
+            span {
+                color: #333;
+            }
+        }
+    }
+}

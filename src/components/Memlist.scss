@@ -1,0 +1,73 @@
+.mem-item {
+    display: flex;
+    align-items: flex-start;
+    background-color: #fff;
+    padding: 20px 35px 20px;
+    margin: 20px 100px 10px 0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    .mem-img-container {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 15px;
+      .mem-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    .mem-info {
+      flex: 1;
+      .mem-name-status {
+        display: flex;
+        align-items: center;
+        .mem-name {
+          font-size: 16px;
+          margin-right: 5px;
+          .mem-status-label {
+            background-color: #4caf50;
+            color: white;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+          }
+        }
+      }
+      .mem-signature {
+        color: #777;
+        margin-top: 5px;
+      }
+      .mem-team {
+        color: #777;
+        margin-top: 5px;
+      }
+    }
+    .mem-buttons {
+      display: flex;
+      flex-direction: column;
+      .view-button {
+        padding: 5px 10px;
+        background-color: #2196f3;
+        color: white;
+        border: none;
+        cursor: pointer;
+        margin-bottom: 5px;
+        border-radius: 4px;
+      }
+      .delete-button {
+        padding: 5px 10px;
+        background-color: #f44336;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+    }
+  }
+
+  @media(max-width: 768px) {
+    .mem-item {
+      margin: 0;
+    }
+  }
