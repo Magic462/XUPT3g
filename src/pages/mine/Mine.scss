@@ -9,13 +9,12 @@
   grid-column: 1;
   display: grid;
   height: 100vh;
-  justify-items: center; // 让内容在水平方向居中
+  justify-items: center;
 }
 
 .nav-user,
 .nav-administrator {
   padding-top: 2rem;
-  // background-color: aqua;
   width: 100%;
 
   .nav-title {
@@ -28,6 +27,7 @@
 .administrator-func {
   li {
     padding: 0.5rem 1rem;
+    font-size: 1.1rem;
 
     .nav-icon {
       font-size: 1.6rem;
@@ -68,6 +68,10 @@
     width: 70%;
     height: 100vh;
     background: white;
-    // z-index: 1000; // 确保在最上层
+    // margin-left: 2rem;
+  }
+  .user-func,
+  .administrator-func {
+    margin-left: 1.5rem;
   }
 }

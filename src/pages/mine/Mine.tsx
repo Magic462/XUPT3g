@@ -1,17 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Outlet, useNavigate, useOutletContext } from 'react-router-dom';
 import './Mine.scss';
 import '@/assets/icons/font_4k8jwf31qbs/iconfont.css';
 import '@/assets/icons/font_f7int92srzr/iconfont.css';
+import useClickOutside from '@/hooks/useClickOutside';
 
 const Mine = () => {
+  const navigate = useNavigate();
+  const leftnavRef = useRef<HTMLDivElement>(null);
+
   // 从一级路由Layout读取showSubNav状态
   const { showSubNav, setShowSubNav } = useOutletContext<{
     showSubNav: boolean;
     setShowSubNav: (value: boolean) => void;
   }>();
 
-  const navigate = useNavigate();
   // 管理员/用户身份识别
   const [role, setRole] = useState('user');
   // 四级组件是否展开
@@ -33,12 +36,29 @@ const Mine = () => {
     setExpandItem(expandItem === item ? null : item);
   };
 
+  // 还得设置尺寸为768时候才
+  const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+    if (window.innerWidth > 768) return;
+
+    if (leftnavRef.current && !leftnavRef.current.contains(e.target as Node)) {
+      setShowSubNav(false);
+    }
+  };
+
+  useClickOutside(leftnavRef, handleClickOutside);
+
+  const resizeClickMove = () => {
+    if (window.innerWidth > 768) return;
+
+    setShowSubNav(!showSubNav);
+  };
+
   return (
     <div className="mine-container">
       {/* 左侧导航栏 */}
       {/* { showSubNav && () : '' } */}
       {showSubNav && (
-        <div className="mine-leftnav">
+        <div ref={leftnavRef} className="mine-leftnav">
           {role === 'user' ? (
             // 用户端
             <section className="nav-user">
@@ -53,13 +73,19 @@ const Mine = () => {
                     <ul className="nav-each-func-box">
                       <li
                         className="nav-setting-info"
-                        onClick={() => navigate('/mine/user/myinfo')}
+                        onClick={() => {
+                          resizeClickMove();
+                          navigate('/mine/user/myinfo');
+                        }}
                       >
                         个人信息
                       </li>
                       <li
                         className="nav-setting-infoset"
-                        onClick={() => navigate('/mine/user/changeinfo')}
+                        onClick={() => {
+                          resizeClickMove();
+                          navigate('/mine/user/changeinfo');
+                        }}
                       >
                         个人设置
                       </li>
@@ -70,7 +96,10 @@ const Mine = () => {
                 </li>
                 <li
                   className="nav-donation"
-                  onClick={() => navigate('/mine/user/donation')}
+                  onClick={() => {
+                    resizeClickMove();
+                    navigate('/mine/user/donation');
+                  }}
                 >
                   <span onClick={() => toggleExpand(EXPANDABLE_ITEMS.DONATION)}>
                     <i className="nav-icon iconfont icon-aixinjuankuan"></i>
@@ -86,7 +115,10 @@ const Mine = () => {
                 </li>
                 <li
                   className="nav-members"
-                  onClick={() => navigate('/mine/user/groupmember')}
+                  onClick={() => {
+                    resizeClickMove();
+                    navigate('/mine/user/groupmember');
+                  }}
                 >
                   <span onClick={() => toggleExpand(EXPANDABLE_ITEMS.MEMBER)}>
                     <i className="nav-icon iconfont icon-chengyuan"></i>
@@ -115,7 +147,10 @@ const Mine = () => {
                 {/* 编辑捐款信息 */}
                 <li
                   className="nav-edit-donation"
-                  onClick={() => navigate('/mine/admin/editdonation')}
+                  onClick={() => {
+                    resizeClickMove();
+                    navigate('/mine/admin/editdonation');
+                  }}
                 >
                   <span
                     onClick={() => toggleExpand(EXPANDABLE_ITEMS.DONATIONEDIT)}
@@ -139,10 +174,20 @@ const Mine = () => {
                   </span>
                   {expandItem === EXPANDABLE_ITEMS.ACTIVITY ? (
                     <ul className="nav-each-func-box">
-                      <li onClick={() => navigate('/mine/admin/postactivity')}>
+                      <li
+                        onClick={() => {
+                          resizeClickMove();
+                          navigate('/mine/admin/postactivity');
+                        }}
+                      >
                         新建动态
                       </li>
-                      <li onClick={() => navigate('/mine/admin/allactivity')}>
+                      <li
+                        onClick={() => {
+                          resizeClickMove();
+                          navigate('/mine/admin/allactivity');
+                        }}
+                      >
                         动态列表
                       </li>
                     </ul>
@@ -164,10 +209,20 @@ const Mine = () => {
                   </span>
                   {expandItem === EXPANDABLE_ITEMS.MEMBEREDIT ? (
                     <ul className="nav-each-func-box">
-                      <li onClick={() => navigate('/mine/admin/allmember')}>
+                      <li
+                        onClick={() => {
+                          resizeClickMove();
+                          navigate('/mine/admin/allmember');
+                        }}
+                      >
                         成员列表
                       </li>
-                      <li onClick={() => navigate('/mine/admin/verifymember')}>
+                      <li
+                        onClick={() => {
+                          resizeClickMove();
+                          navigate('/mine/admin/verifymember');
+                        }}
+                      >
                         审核注册
                       </li>
                     </ul>
@@ -178,7 +233,10 @@ const Mine = () => {
                 {/* 管理方向 */}
                 <li
                   className="nav-edit-direction"
-                  onClick={() => navigate('/mine/admin/editdirection')}
+                  onClick={() => {
+                    resizeClickMove();
+                    navigate('/mine/admin/editdirection');
+                  }}
                 >
                   <span
                     onClick={() => toggleExpand(EXPANDABLE_ITEMS.DIRECTION)}
