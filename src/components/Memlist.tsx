@@ -24,10 +24,10 @@ const Memlist: React.FC<MemlistProps> = ({ username, name, team, graduateImg, si
                 <div className="mem-signature">{signature}</div>
                 <div className="mem-team">{team}</div>
             </div>
-            <div className="mem-buttons">
+            {status === 0 ? <div className="mem-buttons">
                 <button className="view-button">查看</button>
-                {status === 0 && <button className="delete-button">删除</button>}
-            </div>
+                <button className="delete-button">删除</button>
+            </div>:<button className="blog-button">个人博客</button>}
         </div>
     );
 };
