@@ -1,24 +1,39 @@
 .edit-donation-container {
   width: 100%;
-  height: 100vh;
-  padding: 3rem;
   box-sizing: border-box;
-  overflow: auto;
-  // position: absolute;
 
   select {
-    margin: 1.4rem 0 3.5rem 0;
-    height: 2.5rem;
-    width: 16rem;
+    border: none;
+    outline: none;
+    margin-bottom: 2.5rem;
+    height: 3rem;
+    width: 20rem;
     font-size: 1rem;
     background: rgb(255, 255, 255);
-    color: rgb(153, 153, 153);
+    box-shadow: 0 0 0.3rem rgba(150, 157, 165, 0.795);
+    padding: 0 1rem;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   .edit-donation-post-box {
-    width: 4rem;
-    height: 4rem;
-    // background-color: bisque;
+    width: 8rem;
+    height: 3rem;
+    color: rgba(39, 38, 38, 0.555);
+    background-color: #fff;
+    margin-bottom: 2rem;
+    box-shadow: 0 0 0.3rem rgba(150, 157, 165, 0.425);
+    border-radius: 0.5rem;
+    font-size: 3rem;
+    text-align: center;
+    line-height: 3rem;
+
+    &:hover {
+      cursor: pointer;
+      color: black;
+    }
 
     .edit-danation-post-btn {
       font-size: 2.3em;
@@ -28,16 +43,38 @@
   table {
     border-collapse: collapse;
     border-spacing: 0;
-    width: 90%;
-    border-color: 0.1rem solid black;
+    width: 100%;
+    border-radius: 0.5rem;
+    background-color: #fff;
+    box-shadow: 0 0 0.5rem rgba(150, 157, 165, 0.795);
+  }
+
+  th {
+    background-color: rgba(126, 126, 126, 0.082);
+    padding: 1.3rem 0;
   }
 
   tr {
-    border: 0.1rem solid black;
+    // border: 0.1rem solid rgba(0, 0, 0, 0.329);
+    // border-bottom: 0.1rem solid rgba(0, 0, 0, 0.199);
+    position: relative;
     height: 3rem;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 95%;
+      height: 0.1rem;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.199);
+    }
   }
 
   td {
+    font-size: 0.9rem;
+    // border-right: 0.1rem solid rgba(0, 0, 0, 0.329);
     text-align: center;
   }
 }

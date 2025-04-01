@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Outlet, useNavigate, useOutletContext } from 'react-router-dom';
 import './Mine.scss';
 import '@/assets/icons/font_4k8jwf31qbs/iconfont.css';
@@ -36,7 +36,6 @@ const Mine = () => {
   return (
     <div className="mine-container">
       {/* 左侧导航栏 */}
-      {/* { showSubNav && () : '' } */}
       {showSubNav && (
         <div className="mine-leftnav">
           {role === 'user' ? (
@@ -48,6 +47,7 @@ const Mine = () => {
                   <span onClick={() => toggleExpand(EXPANDABLE_ITEMS.SETTING)}>
                     <i className="nav-icon iconfont icon-shezhi"></i>
                     设置
+                    {/* <i className="nav-icon"></i> */}
                   </span>
                   {expandItem === EXPANDABLE_ITEMS.SETTING ? (
                     <ul className="nav-each-func-box">
@@ -76,13 +76,6 @@ const Mine = () => {
                     <i className="nav-icon iconfont icon-aixinjuankuan"></i>
                     捐款信息
                   </span>
-                  {/* {expandItem === EXPANDABLE_ITEMS.DONATION ? (
-                  <ul>
-                    <li>捐款列表</li>
-                  </ul>
-                ) : (
-                  ''
-                )} */}
                 </li>
                 <li
                   className="nav-members"
@@ -92,13 +85,6 @@ const Mine = () => {
                     <i className="nav-icon iconfont icon-chengyuan"></i>
                     成员列表
                   </span>
-                  {/* {expandItem === EXPANDABLE_ITEMS.MEMBER ? (
-                  <ul>
-                    <li>成员信息</li>
-                  </ul>
-                ) : (
-                  ''
-                )} */}
                 </li>
               </ul>
               <button
@@ -204,7 +190,6 @@ const Mine = () => {
           )}
         </div>
       )}
-
       {/* 右侧模块内容，三级路由 */}
       <div className="mine-each-func">
         <Outlet />

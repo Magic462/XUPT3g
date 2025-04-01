@@ -94,7 +94,6 @@ const Yeardonation = () => {
             </tr>
           );
         })}
-        {/* <tr></tr> */}
       </tbody>
     </table>
   );
@@ -103,14 +102,16 @@ const Yeardonation = () => {
 const Editdonation = () => {
   return (
     <div className="edit-donation-container">
-      <h1 className="">捐款列表</h1>
+      <div className="each-func-title">
+        <h2 className="">捐款列表</h2>
+      </div>
       <select name="" id="">
         <option value="">2025</option>
         <option value="">2024</option>
         <option value="">2023</option>
       </select>
       <div className="edit-donation-post-box">
-        <i className="edit-danation-post-btn iconfont icon-jiahao"></i>
+        {/* <i className="edit-danation-post-btn iconfont icon-jiahao"></i> */}+
       </div>
       <Yeardonation></Yeardonation>
     </div>
