@@ -5,19 +5,18 @@ import '@/assets/icons/font_4k8jwf31qbs/iconfont.css';
 import '@/assets/icons/font_f7int92srzr/iconfont.css';
 
 const Mine = () => {
+  const navigate = useNavigate();
+
   // 从一级路由Layout读取showSubNav状态
   const { showSubNav, setShowSubNav } = useOutletContext<{
     showSubNav: boolean;
     setShowSubNav: (value: boolean) => void;
   }>();
 
-  const navigate = useNavigate();
   // 管理员/用户身份识别
   const [role, setRole] = useState('user');
-  // 四级组件是否展开
-  // 使用一个状态变量记录三级组件展开的xiang
-  const [expandItem, setExpandItem] = useState(null);
 
+  // 四级组件是否展开
   const EXPANDABLE_ITEMS = {
     SETTING: 'setting',
     DONATIONEDIT: 'donationEdit',
@@ -27,6 +26,10 @@ const Mine = () => {
     DONATION: 'donation',
     MEMBER: 'member',
   };
+  // 使用一个状态变量记录三级组件展开的xiang
+  const [expandItem, setExpandItem] = useState<
+    keyof typeof EXPANDABLE_ITEMS | null
+  >(null);
 
   // 切换哪一个为展开状态
   const toggleExpand = (item) => {
