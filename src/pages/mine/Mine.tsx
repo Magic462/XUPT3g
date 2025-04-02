@@ -3,10 +3,120 @@ import { Outlet, useNavigate, useOutletContext } from 'react-router-dom';
 import './Mine.scss';
 import '@/assets/icons/font_4k8jwf31qbs/iconfont.css';
 import '@/assets/icons/font_f7int92srzr/iconfont.css';
+import { useActiveItem } from '@/hooks/useActiveItem';
+
+const EXPANDABLE_ITEMS = {
+  SETTING: 'setting',
+  DONATIONEDIT: 'donationEdit',
+  ACTIVITY: 'activity',
+  DIRECTION: 'direction',
+  MEMBEREDIT: 'memberEdit',
+  DONATION: 'donation',
+  MEMBER: 'member',
+} as const;
+
+type ExpandableItem = (typeof EXPANDABLE_ITEMS)[keyof typeof EXPANDABLE_ITEMS];
+
+// 用户端导航配置
+const userNavItem = [
+  {
+    key: EXPANDABLE_ITEMS.SETTING,
+    icon: 'icon-shezhi',
+    label: '设置',
+    children: [
+      { path: '/mine/user/myinfo', label: '个人信息' },
+      { path: '/mine/user/changeinfo', label: '个人设置' },
+    ],
+  },
+  {
+    key: EXPANDABLE_ITEMS.DONATION,
+    icon: 'icon-aixinjuankuan',
+    label: '捐款信息',
+    path: '/mine/user/donation',
+  },
+  {
+    key: EXPANDABLE_ITEMS.MEMBER,
+    icon: 'icon-chengyuan',
+    label: '成员列表',
+    path: '/mine/user/groupmember',
+  },
+];
+
+// 管理员端导航配置
+const adminNavItem = [
+  {
+    key: EXPANDABLE_ITEMS.DONATIONEDIT,
+    icon: 'icon-aixinjuankuan',
+    label: '捐款管理',
+    path: '/mine/admin/editdonation',
+  },
+  {
+    key: EXPANDABLE_ITEMS.ACTIVITY,
+    icon: 'icon-dongtai',
+    label: '发布动态',
+    children: [
+      { path: '/mine/admin/postactivity', label: '新建动态' },
+      { path: '/mine/admin/allactivity', label: '动态列表' },
+    ],
+  },
+  {
+    key: EXPANDABLE_ITEMS.MEMBEREDIT,
+    icon: 'icon-shenhe',
+    label: '成员管理',
+    children: [
+      { path: '/mine/admin/allmember', label: '成员列表' },
+      { path: '/mine/admin/verifymember', label: '审核注册' },
+    ],
+  },
+  {
+    key: EXPANDABLE_ITEMS.DIRECTION,
+    icon: 'icon-guanli',
+    label: '方向管理',
+    path: '/mine/admin/editdirection',
+  },
+];
+
+// const RenderNavItem = (item: {
+//   key: ExpandableItem;
+//   icon: string;
+//   label: string;
+//   path?: string;
+//   children?: Array<{ path: string; label: string }>;
+// }) => {
+//   const navigate = useNavigate();
+//   const { activeItem: expandItem, handleItemClick: handleExpandItem } =
+//     useActiveItem<ExpandableItem>();
+//   // 统一处理导航和展开,点击传递盒子的key和path
+//   const handleNavClick = (item: ExpandableItem, path?: string) => {
+//     if (path) {
+//       navigate(path);
+//     }
+
+//     handleExpandItem(item);
+//   };
+//   // 当前导航项是否处于展开
+//   const isActive = expandItem === item.key;
+
+//   return (
+//     <li key={item.key} className={`nav-${item.key}`}>
+//       <span onClick={() => handleNavClick(item.key, item.path)}>
+//         <i className={`nav-icon iconfont ${item.icon}`}></i>
+//         {item.label}
+//       </span>
+//       {item.children && isActive && (
+//         <ul className="nav-each-func-box">
+//           {item.children.map((child) => (
+//             <li key={child.path} onClick={() => navigate(child.path)}>
+//               {child.label}
+//             </li>
+//           ))}
+//         </ul>
+//       )}
+//     </li>
+//   );
+// };
 
 const Mine = () => {
-  const navigate = useNavigate();
-
   // 从一级路由Layout读取showSubNav状态
   const { showSubNav, setShowSubNav } = useOutletContext<{
     showSubNav: boolean;
@@ -16,24 +126,47 @@ const Mine = () => {
   // 管理员/用户身份识别
   const [role, setRole] = useState('user');
 
-  // 四级组件是否展开
-  const EXPANDABLE_ITEMS = {
-    SETTING: 'setting',
-    DONATIONEDIT: 'donationEdit',
-    ACTIVITY: 'activity',
-    DIRECTION: 'direction',
-    MEMBEREDIT: 'memberEdit',
-    DONATION: 'donation',
-    MEMBER: 'member',
-  };
-  // 使用一个状态变量记录三级组件展开的xiang
-  const [expandItem, setExpandItem] = useState<
-    keyof typeof EXPANDABLE_ITEMS | null
-  >(null);
+  // 点击子盒子冒泡触发父盒子的点击事件,传递子盒子的key给父盒子,再传给useActiveItem然后得到激活状态展开对应的子盒子的子内容
 
-  // 切换哪一个为展开状态
-  const toggleExpand = (item) => {
-    setExpandItem(expandItem === item ? null : item);
+  const navigate = useNavigate();
+  const { activeItem: expandItem, handleItemClick: handleExpandItem } =
+    useActiveItem<ExpandableItem>();
+  // 统一处理导航和展开,点击传递盒子的key和path
+  const handleNavClick = (item: ExpandableItem, path?: string) => {
+    if (path) {
+      navigate(path);
+    }
+
+    handleExpandItem(item);
+  };
+
+  const RenderNavItem = (item: {
+    key: ExpandableItem;
+    icon: string;
+    label: string;
+    path?: string;
+    children?: Array<{ path: string; label: string }>;
+  }) => {
+    // 当前导航项是否处于展开
+    const isActive = expandItem === item.key;
+
+    return (
+      <li key={item.key} className={`nav-${item.key}`}>
+        <span onClick={() => handleNavClick(item.key, item.path)}>
+          <i className={`nav-icon iconfont ${item.icon}`}></i>
+          {item.label}
+        </span>
+        {item.children && isActive && (
+          <ul className="nav-each-func-box">
+            {item.children.map((child) => (
+              <li key={child.path} onClick={() => navigate(child.path)}>
+                {child.label}
+              </li>
+            ))}
+          </ul>
+        )}
+      </li>
+    );
   };
 
   return (
@@ -46,49 +179,7 @@ const Mine = () => {
             <section className="nav-user">
               <h3 className="nav-title">个人端</h3>
               <ul className="user-func">
-                <li className="nav-setting">
-                  <span onClick={() => toggleExpand(EXPANDABLE_ITEMS.SETTING)}>
-                    <i className="nav-icon iconfont icon-shezhi"></i>
-                    设置
-                    {/* <i className="nav-icon"></i> */}
-                  </span>
-                  {expandItem === EXPANDABLE_ITEMS.SETTING ? (
-                    <ul className="nav-each-func-box">
-                      <li
-                        className="nav-setting-info"
-                        onClick={() => navigate('/mine/user/myinfo')}
-                      >
-                        个人信息
-                      </li>
-                      <li
-                        className="nav-setting-infoset"
-                        onClick={() => navigate('/mine/user/changeinfo')}
-                      >
-                        个人设置
-                      </li>
-                    </ul>
-                  ) : (
-                    ''
-                  )}
-                </li>
-                <li
-                  className="nav-donation"
-                  onClick={() => navigate('/mine/user/donation')}
-                >
-                  <span onClick={() => toggleExpand(EXPANDABLE_ITEMS.DONATION)}>
-                    <i className="nav-icon iconfont icon-aixinjuankuan"></i>
-                    捐款信息
-                  </span>
-                </li>
-                <li
-                  className="nav-members"
-                  onClick={() => navigate('/mine/user/groupmember')}
-                >
-                  <span onClick={() => toggleExpand(EXPANDABLE_ITEMS.MEMBER)}>
-                    <i className="nav-icon iconfont icon-chengyuan"></i>
-                    成员列表
-                  </span>
-                </li>
+                {userNavItem.map((item) => RenderNavItem(item))}
               </ul>
               <button
                 onClick={() => setRole(role === 'user' ? 'admin' : 'user')}
@@ -101,88 +192,7 @@ const Mine = () => {
             <section className="nav-administrator">
               <h3 className="nav-title">管理员端</h3>
               <ul className="administrator-func">
-                {/* 编辑捐款信息 */}
-                <li
-                  className="nav-edit-donation"
-                  onClick={() => navigate('/mine/admin/editdonation')}
-                >
-                  <span
-                    onClick={() => toggleExpand(EXPANDABLE_ITEMS.DONATIONEDIT)}
-                  >
-                    <i className="nav-icon iconfont icon-aixinjuankuan"></i>
-                    捐款管理
-                  </span>
-                  {/* {expandItem === EXPANDABLE_ITEMS.DONATIONEDIT ? (
-                  <ul className="nav-each-func-box">
-                    <li>捐款列表</li>
-                  </ul>
-                ) : (
-                  ''
-                )} */}
-                </li>
-                {/* 发布动态 */}
-                <li className="nav-edit-activity">
-                  <span onClick={() => toggleExpand(EXPANDABLE_ITEMS.ACTIVITY)}>
-                    <i className="nav-icon iconfont icon-dongtai"></i>
-                    发布动态
-                  </span>
-                  {expandItem === EXPANDABLE_ITEMS.ACTIVITY ? (
-                    <ul className="nav-each-func-box">
-                      <li onClick={() => navigate('/mine/admin/postactivity')}>
-                        新建动态
-                      </li>
-                      <li onClick={() => navigate('/mine/admin/allactivity')}>
-                        动态列表
-                      </li>
-                    </ul>
-                  ) : (
-                    ''
-                  )}
-                </li>
-                {/* 管理成员 */}
-                <li
-                  className="nav-edit-verify"
-                  // onClick={() => navigate('/mine/admin')}
-                >
-                  <span
-                    onClick={() => toggleExpand(EXPANDABLE_ITEMS.MEMBEREDIT)}
-                  >
-                    {' '}
-                    <i className="nav-icon iconfont icon-shenhe"></i>
-                    成员管理
-                  </span>
-                  {expandItem === EXPANDABLE_ITEMS.MEMBEREDIT ? (
-                    <ul className="nav-each-func-box">
-                      <li onClick={() => navigate('/mine/admin/allmember')}>
-                        成员列表
-                      </li>
-                      <li onClick={() => navigate('/mine/admin/verifymember')}>
-                        审核注册
-                      </li>
-                    </ul>
-                  ) : (
-                    ' '
-                  )}
-                </li>
-                {/* 管理方向 */}
-                <li
-                  className="nav-edit-direction"
-                  onClick={() => navigate('/mine/admin/editdirection')}
-                >
-                  <span
-                    onClick={() => toggleExpand(EXPANDABLE_ITEMS.DIRECTION)}
-                  >
-                    <i className="nav-icon iconfont icon-guanli"></i>
-                    方向管理
-                  </span>
-                  {/* {expandItem === EXPANDABLE_ITEMS.DIRECTION ? (
-                  <ul className="nav-each-func-box">
-                    <li>实验室方向</li>
-                  </ul> 
-                ) : (
-                  ''
-                )} */}
-                </li>
+                {adminNavItem.map((item) => RenderNavItem(item))}
               </ul>
               <button
                 onClick={() => setRole(role === 'user' ? 'admin' : 'user')}
