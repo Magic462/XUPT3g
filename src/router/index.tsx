@@ -7,6 +7,7 @@ import Activities from '../pages/activities/Activities';
 import Members from '../pages/members/Members';
 import Graduate from '../pages/Graduate/Graduate';
 import Login from '../pages/login/Login';
+import Register from '../pages/register/Register';
 import Blogs from '../pages/blogs/Blogs';
 import Home from '../pages/Home/Home';
 // mine三级路由引入
@@ -72,6 +73,7 @@ const routes: RouteObject[] = [
       { path: '/graduate', element: <Graduate /> },
       { path: '/trainingplan', element: <Trainingplan /> },
       { path: '/login', element: <Login /> },
+      { path: '/register', element: <Register /> },
     ],
   },
 ];

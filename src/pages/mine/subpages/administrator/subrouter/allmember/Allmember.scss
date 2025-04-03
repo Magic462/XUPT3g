@@ -1,4 +1,11 @@
 .allmember-container {
+  height: 100vh;
+  // background-color: #f4f4f4;
+  .allmember-title {
+    font-size: 1.6rem;
+    margin: 20px 0;
+    color: rgb(143, 151, 165);
+  }
   .filter-buttons {
     margin-bottom: 20px;
     .filter-button {
