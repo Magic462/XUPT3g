@@ -19,6 +19,7 @@ const MainLayout: React.FC = () => {
     { path: '/graduate', label: 'Graduate' },
     { path: '/mine', label: 'Mine' },
     { path: '/trainingplan', label: 'Training Plan' },
+    { path: '/login', label: 'Login' },
   ];
 
   // 使用 useClickOutside Hook 监听点击外部
