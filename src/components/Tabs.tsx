@@ -54,7 +54,6 @@
 
 // export default Tabs;
 
-
 import React, { useState, useEffect } from 'react';
 import './Tabs.scss'; // 引入样式文件
 

@@ -126,7 +126,7 @@ const Mine = () => {
   // 管理员/用户身份识别
   const [role, setRole] = useState('user');
 
-  // 点击子盒子冒泡触发父盒子的点击事件,传递子盒子的key给父盒子,再传给useActiveItem然后得到激活状态展开对应的子盒子的子内容
+  // 点击子盒子冒泡触发父盒子的点击事件,传递子盒子的key给父盒子,再传给useActiveItem然后得到激活状态展开对应的子盒子的子内容?
 
   const navigate = useNavigate();
   const { activeItem: expandItem, handleItemClick: handleExpandItem } =

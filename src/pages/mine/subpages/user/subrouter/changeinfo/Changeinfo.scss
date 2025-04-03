@@ -1,0 +1,122 @@
+.changeinfo-box {
+  background-color: #fff;
+  border-radius: 0.8rem;
+  display: flex;
+  padding: 6rem 2rem;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 0 0.5rem rgba(150, 157, 165, 0.795);
+}
+
+.changeinfo-photochange-box {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .photo-box {
+    width: 12rem;
+    height: 12rem;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 2rem;
+
+    &::before {
+      font-family: 'iconfont';
+      content: '\e663';
+      font-size: 3rem;
+      position: absolute;
+      text-align: center;
+      line-height: 12rem;
+      color: #fff;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.219);
+      z-index: 10000;
+    }
+
+    &:active {
+      background-color: #1890ff;
+      color: white;
+    }
+    img {
+      width: 100%;
+    }
+  }
+
+  .change-photo-btn {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+
+    button {
+      font-size: 0.8rem;
+      width: 4rem;
+      height: 2rem;
+      border-radius: 1rem;
+      border: none;
+      box-shadow: 0 0 0.15rem rgba(150, 157, 165, 0.918);
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.changeinfo-basicchange-box {
+  width: 40%;
+  .changeinfo-item {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  label {
+    width: 5rem;
+    display: inline-block;
+    padding-right: 1rem;
+  }
+
+  input {
+    width: 100%;
+    outline: none;
+    border: none;
+    border-bottom: 0.1rem solid #a7a7a762;
+    padding: 0 1rem;
+
+    &:focus {
+      border-bottom: 0.15rem solid #0888ffd0;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .changeinfo-photochange-box {
+    margin-bottom: 4rem;
+  }
+  .changeinfo-box {
+    display: flex;
+    flex-direction: column;
+    padding: 4rem 4rem;
+
+    .changeinfo-basicchange-box {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .changeinfo-item {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .changeinfo-box {
+    display: flex;
+    flex-direction: column;
+    padding: 4rem 2rem;
+  }
+}
