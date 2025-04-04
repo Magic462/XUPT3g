@@ -1,8 +1,13 @@
 import { useState, useEffect } from 'react';
 import './Home.scss';
+import '../../assets/wxqr.webp'
 
 const Home: React.FC = () => {
   const [visibleCards, setVisibleCards] = useState<number[]>([]);
+
+  // 获得当前年
+  const now = new Date();
+  const year = now.getFullYear();
 
   const platforms = [
     {
@@ -42,58 +47,52 @@ const Home: React.FC = () => {
     },
   ];
 
-  // const platformsSectionRef = useRef(null);
+  // 使用IntersectionObserver 接口监听元素是否进入视口，并实现只要进入视口反复出现动画
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                // 元素进入视口，添加动画类名
+                entry.target.classList.add('show');
+            } else {
+                // 元素离开视口，移除动画类名
+                entry.target.classList.remove('show');
+            }
+        });
+    });
+
+    const cards = document.querySelectorAll('.platform-card');
+    cards.forEach((card) => {
+        observer.observe(card);
+    });
+
+    return () => {
+        observer.disconnect();
+    };
+}, []);
+
+  // 实现即将滚动到platforms-section时卡片依次弹出
   // useEffect(() => {
-  //   const handleIntersect = (entries) => {
-  //     entries.forEach(entry => {
-  //       if (entry.isIntersecting) {
+  //   const handleScroll = () => {
+  //     const platformsSection = document.querySelector('.platforms-section');
+  //     if (platformsSection) {
+  //       const sectionTop = platformsSection.getBoundingClientRect().top;
+  //       const windowHeight = window.innerHeight;
+
+  //       if (sectionTop < windowHeight * 0.9) {
   //         platforms.forEach((platform, index) => {
   //           setTimeout(() => {
   //             setVisibleCards((prev) => [...new Set([...prev, index])]);
   //           }, platform.delay);
   //         });
   //       }
-  //     });
-  //   };
-
-  //   const observer = new IntersectionObserver(handleIntersect, {
-  //     root: null, // 默认为视口
-  //     rootMargin: '0px',
-  //     threshold: 0.9 // 90% 进入视口时触发
-  //   });
-
-  //   if (platformsSectionRef.current) {
-  //     observer.observe(platformsSectionRef.current);
-  //   }
-
-  //   return () => {
-  //     if (platformsSectionRef.current) {
-  //       observer.unobserve(platformsSectionRef.current);
   //     }
   //   };
-  // }, [platforms]);
 
-  // 实现即将滚动到platforms-section时卡片依次弹出
-  useEffect(() => {
-    const handleScroll = () => {
-      const platformsSection = document.querySelector('.platforms-section');
-      if (platformsSection) {
-        const sectionTop = platformsSection.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => window.removeEventListener('scroll', handleScroll);
+  // }, []);
 
-        if (sectionTop < windowHeight * 0.9) {
-          platforms.forEach((platform, index) => {
-            setTimeout(() => {
-              setVisibleCards((prev) => [...new Set([...prev, index])]);
-            }, platform.delay);
-          });
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   return (
     <div className="home-container">
@@ -117,16 +116,23 @@ const Home: React.FC = () => {
         <h2>技术平台</h2>
         <div className="platforms-container">
           {platforms.map((platform, index) => (
+            // <div
+            //   key={platform.id}
+            //   className={`platform-card ${visibleCards.includes(index) ? 'show' : ''}`}
+            //   style={{
+            //     transform: visibleCards.includes(index)
+            //       ? 'translateY(0) translateX(0)'
+            //       : 'translateY(100px) translateX(100px)',
+            //     transitionDelay: `${platform.delay}ms`,
+            //   }}
+            // >
             <div
-              key={platform.id}
-              className={`platform-card ${visibleCards.includes(index) ? 'show' : ''}`}
-              style={{
-                transform: visibleCards.includes(index)
-                  ? 'translateY(0) translateX(0)'
-                  : 'translateY(100px) translateX(100px)',
+            key={platform.id}
+            className={`platform-card ${platform.delay ? `transition-delay-${platform.delay}` : ''}`}
+            style={{
                 transitionDelay: `${platform.delay}ms`,
-              }}
-            >
+            }}
+        >
               <h3>{platform.name}</h3>
               <div className="platform-description">{platform.description}</div>
             </div>
@@ -136,12 +142,14 @@ const Home: React.FC = () => {
 
       <footer className="home-footer">
         <div className="footer-links">
-          <a href="#">关于我们</a>
-          <a href="#">加入我们</a>
-          <a href="#">联系我们</a>
+          <div className="vx">
+            微信公众号
+          </div>
+          <img src='./src/assets/wxqr.webp' alt="" />
+          <div className="qq">qq纳新群: 1623728627</div>
         </div>
         <div className="copyright">
-          © 2024 西邮移动应用开发实验室. All rights reserved.
+          © {year} 西邮移动应用开发实验室. All rights reserved.
         </div>
       </footer>
     </div>
