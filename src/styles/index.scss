@@ -11,44 +11,6 @@ li:hover {
   cursor: pointer;
 }
 
-// 视频标签的通用设置
-/* // 全屏按钮 */
-video::-webkit-media-controls-fullscreen-button {
-  display: none;
-}
-/* //播放按钮 */
-video::-webkit-media-controls-play-button {
-  display: none;
-}
-/* //进度条 */
-video::-webkit-media-controls-timeline {
-  display: none;
-}
-/* //观看的当前时间 */
-video::-webkit-media-controls-current-time-display {
-  display: none;
-}
-/* //剩余时间 */
-video::-webkit-media-controls-time-remaining-display {
-  display: none;
-}
-/* //音量按钮 */
-video::-webkit-media-controls-mute-button {
-  display: none;
-}
-/* // 画中画 */
-video::-webkit-media-controls-toggle-closed-captions-button {
-  display: none;
-}
-/* //音量的控制条 */
-video::-webkit-media-controls-volume-slider {
-  display: none;
-}
-/* //所有控件 */
-video::-webkit-media-controls-enclosure {
-  display: none;
-}
-
 // 媒体查询配置
 /* 超大屏幕设备（大桌面显示器及电视） */
 @media (min-width: 1200px) {

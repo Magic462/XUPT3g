@@ -73,7 +73,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   // 移动端时，隐藏左侧导航栏，右侧占满 100%
   .mine-container {
     grid-template-columns: 0 100%;
