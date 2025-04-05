@@ -1,8 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
 import People from '../../components/People';
-import Photo from '../../assets/trainplan.png';
-import Img from '../../assets/layout.png';
+import Photo from '../../assets/face.webp';
+// import Photo from '//mobile.xupt.edu.cn/res/14957725307919851.jpg'
+import Img from '../../assets/face.webp';
 import Tabs from '../../components/Tabs';
 const Member = () => {
   // 假数据

@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import Tabs from '../../components/Tabs';
 import People from '../../components/People';
-import Photo from '../../assets/trainplan.png';
-import Img from '../../assets/layout.png';
+// import Photo from '../../assets/trainplan.png';
+// import Img from '../../assets/layout.png';
+import Photo from '../../assets/face.webp';
+// import Photo from '//mobile.xupt.edu.cn/res/14957725307919851.jpg'
+import Img from '../../assets/face.webp';
 
 const Graduate = () => {
   // 假数据

@@ -28,7 +28,11 @@
       width: 91.045%;
       height: 60px;
       box-sizing: border-box;
-      background: white;
+      // background: white;
+      background-color: rgba(255, 255, 255, 0.55); /* 80% 不透明度 */
+      // background: linear-gradient(0deg, rgba(11, 65, 101, 0.04) 0%, rgba(93, 38, 75, 0.85) 100%);
+      // background: linear-gradient(0deg, rgba(28, 177, 112, 0.03) 0%, rgba(4, 125, 228, 0.6) 100%);
+      // background: linear-gradient(0deg, rgba(177, 28, 138, 0.04) 0%, rgba(30, 57, 220, 0.11) 100%);
       padding-top: 2px;
       padding-left: 10px;
       margin: 0px auto;
@@ -38,24 +42,30 @@
       &:hover {
         height: 120px;
         .people-text {
-          color: rgb(52, 52, 52);
-          border-top: 1px dashed #00a9ce;
+          // color: rgb(52, 52, 52);
+          color: #ffe88d;
+          border-top: 1px dashed rgba(4, 125, 228, 0.27);
+          // border-top: 1px dashed #00a9ce;
         }
       }
       .people-name {
         font-size: 1.3rem;
-        color: rgb(52, 52, 52);
-        padding-bottom: 4px;
-        border-bottom: 1px dashed #adacac;
+        // color: rgb(52, 52, 52);
+        color: #ffe88d;
+        padding-bottom: 7px;
+        border-bottom: 1px dashed rgba(4, 125, 228, 0.27);
+        // border-bottom: 1px dashed #adacac;
       }
       .people-direction {
-        color: rgb(128, 128, 128);
-        padding-bottom: 5px;
+        // color: rgb(128, 128, 128);
+        color: #cdb9f1;
+        padding-bottom: 7px;
       }
       .people-text {
         text-align: center;
         font-size: 1rem;
-        color: white;
+        // color: white;
+        color: #cdb9f1;
         line-height: 24px;
         transition: 0.6s all cubic-bezier(0.2, 0, 0.2, 1);
       }
