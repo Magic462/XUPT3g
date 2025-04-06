@@ -3,8 +3,15 @@ import { Outlet, useNavigate, useOutletContext } from 'react-router-dom';
 import './Mine.scss';
 import '@/assets/icons/font_4k8jwf31qbs/iconfont.css';
 import '@/assets/icons/font_f7int92srzr/iconfont.css';
+import '@/assets/icons/font_ry8o2ikys/iconfont.css';
 import { useActiveItem } from '@/hooks/useActiveItem';
 
+// 用户数据
+const userData = {
+  portrait: '//mobile.xupt.edu.cn/res/15342187758400435.gif',
+};
+
+// 导航栏项
 const EXPANDABLE_ITEMS = {
   SETTING: 'setting',
   DONATIONEDIT: 'donationEdit',
@@ -76,46 +83,6 @@ const adminNavItem = [
   },
 ];
 
-// const RenderNavItem = (item: {
-//   key: ExpandableItem;
-//   icon: string;
-//   label: string;
-//   path?: string;
-//   children?: Array<{ path: string; label: string }>;
-// }) => {
-//   const navigate = useNavigate();
-//   const { activeItem: expandItem, handleItemClick: handleExpandItem } =
-//     useActiveItem<ExpandableItem>();
-//   // 统一处理导航和展开,点击传递盒子的key和path
-//   const handleNavClick = (item: ExpandableItem, path?: string) => {
-//     if (path) {
-//       navigate(path);
-//     }
-
-//     handleExpandItem(item);
-//   };
-//   // 当前导航项是否处于展开
-//   const isActive = expandItem === item.key;
-
-//   return (
-//     <li key={item.key} className={`nav-${item.key}`}>
-//       <span onClick={() => handleNavClick(item.key, item.path)}>
-//         <i className={`nav-icon iconfont ${item.icon}`}></i>
-//         {item.label}
-//       </span>
-//       {item.children && isActive && (
-//         <ul className="nav-each-func-box">
-//           {item.children.map((child) => (
-//             <li key={child.path} onClick={() => navigate(child.path)}>
-//               {child.label}
-//             </li>
-//           ))}
-//         </ul>
-//       )}
-//     </li>
-//   );
-// };
-
 const Mine = () => {
   // 从一级路由Layout读取showSubNav状态
   const { showSubNav, setShowSubNav } = useOutletContext<{
@@ -153,8 +120,13 @@ const Mine = () => {
     return (
       <li key={item.key} className={`nav-${item.key}`}>
         <span onClick={() => handleNavClick(item.key, item.path)}>
-          <i className={`nav-icon iconfont ${item.icon}`}></i>
-          {item.label}
+          <div className="">
+            <i className={`nav-icon iconfont ${item.icon}`}></i>
+            {item.label}
+          </div>
+          <i
+            className={`nav-icon-expand iconfont icon-jiantou_liebiaoxiangyou ${isActive ? 'expand-active' : ''}`}
+          ></i>
         </span>
         {item.children && isActive && (
           <ul className="nav-each-func-box">
@@ -174,6 +146,11 @@ const Mine = () => {
       {/* 左侧导航栏 */}
       {showSubNav && (
         <div className="mine-leftnav">
+          <div className="leftnav-profile-container">
+            <div className="leftnav-profile-box">
+              <img src={userData.portrait} alt="" />
+            </div>
+          </div>
           {role === 'user' ? (
             // 用户端
             <section className="nav-user">
@@ -181,11 +158,11 @@ const Mine = () => {
               <ul className="user-func">
                 {userNavItem.map((item) => RenderNavItem(item))}
               </ul>
-              <button
+              {/* <button
                 onClick={() => setRole(role === 'user' ? 'admin' : 'user')}
               >
                 交换身份
-              </button>
+              </button> */}
             </section>
           ) : (
             // 管理员端
@@ -201,6 +178,9 @@ const Mine = () => {
               </button>
             </section>
           )}
+          <div className="leftnav-exit">
+            <button>exit</button>
+          </div>
         </div>
       )}
       {/* 右侧模块内容，三级路由 */}

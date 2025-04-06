@@ -76,7 +76,7 @@ const MainLayout: React.FC = () => {
   useEffect(() => {
     const handleResize = () => {
       // 非移动端尺寸,Mine导航一直展开
-      if (window.innerWidth >= 1200) {
+      if (window.innerWidth > 768) {
         setShowSubNav(true);
       } else {
         setShowSubNav(false);
@@ -100,7 +100,7 @@ const MainLayout: React.FC = () => {
           <span></span>
           <span></span>
         </button>
-        {isMinePage && window.innerWidth < 1200 && (
+        {isMinePage && window.innerWidth <= 768 && (
           <button
             className="menu-submine-toggle"
             onClick={() => {

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './Editdirection.scss';
 const directionData = [
   {
@@ -58,14 +59,50 @@ const Renderdirectionitem = (item: {
 };
 
 const Editdirection = () => {
+  const [edit, setEdit] = useState(false);
+
   return (
     <div className="edit-direction-container">
       <div className="each-func-title">
         <h2>编辑实验室方向</h2>
       </div>
+      {/* 添加方向按钮 */}
       <div className="edit-diretion-add-btn">
-        <button>添加方向</button>
+        <button
+          onClick={() => {
+            setEdit(!edit);
+          }}
+        >
+          添加方向
+        </button>
       </div>
+      {/* 填写增加方向信息 */}
+      {edit && (
+        <div className="edit-direction-add-box-cover">
+          <div className="edit-direction-add-box">
+            <h3>增加方向</h3>
+            <div className="add-direction-item">
+              <label htmlFor="">方向名称:</label>
+              <input type="text" />
+            </div>
+            <div className="add-direction-item">
+              <label htmlFor="">方向简介:</label>
+              <textarea name="" id=""></textarea>
+            </div>
+            <div className="add-direction-btns">
+              <button className="add-direction-sure">确 认</button>
+              <button
+                onClick={() => {
+                  setEdit(!edit);
+                }}
+              >
+                取 消
+              </button>
+            </div>
+          </div>
+          {/* 每个方向 */}
+        </div>
+      )}
       <div className="direction-item-container">
         {directionData.map((item) => Renderdirectionitem(item))}
       </div>
