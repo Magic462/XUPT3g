@@ -51,9 +51,9 @@
     border-radius: 20px;
   }
 
-  .card:hover {
-    box-shadow: 0px 0px 30px 1px rgba(0, 255, 117, 0.3);
-  }
+  // .card:hover {
+  //   box-shadow: 0px 0px 30px 1px rgba(0, 255, 117, 0.3);
+  // }
 
   #heading {
     text-align: center;
@@ -68,7 +68,8 @@
     justify-content: center;
     gap: 0.5em;
     border-radius: 25px;
-    padding: 0.6em;
+    padding: 0.6rem;
+    margin: 0.2rem;
     border: none;
     outline: none;
     color: white;

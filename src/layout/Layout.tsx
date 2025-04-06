@@ -22,6 +22,10 @@ const MainLayout: React.FC = () => {
     { path: '/login', label: 'Login' },
   ];
 
+    // 获得当前年
+    const now = new Date();
+    const year = now.getFullYear();
+
   // 使用 useClickOutside Hook 监听点击外部
   useClickOutside(menuRef as React.RefObject<HTMLElement>, () => {
     if (isMenuOpen) {
@@ -162,11 +166,15 @@ const MainLayout: React.FC = () => {
 
           <div className="menu-footer">
             <div className="footer-links">
-              <a href="#">Terms of Use</a>
-              <a href="#">Privacy Policy</a>
-              <a href="#">Form CRS</a>
+              {/* <img src="src\assets\address.webp" alt="" /> */}
+              {/* <div className="address">
+                <div>Find us:</div>
+                <div>西邮东区逸夫楼FZ155</div>
+              </div> */}
+                <div>Find us:</div>
+                <div className="address">西邮东区逸夫楼FZ155</div>
             </div>
-            <p>© 2024 Laboratory. All rights reserved.</p>
+            <p>© {year} Laboratory. All rights reserved.</p>
           </div>
         </div>
       </div>
