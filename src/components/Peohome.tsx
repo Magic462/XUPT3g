@@ -14,6 +14,7 @@ interface PeohomeProps {
   team: string;
   mienImg: string; // 风采照
   signature: string; // 个性签名
+  company: string;
 }
 
 // interface UserData {
@@ -29,10 +30,10 @@ interface PeohomeProps {
 //     mienImg: string;
 // }
 
-interface ResponseData {
-  status: number;
-  data: DataItem[];
-}
+// interface ResponseData {
+//   status: number;
+//   data: DataItem[];
+// }
 
 const Peohome: React.FC<PeohomeProps> = ({
   portrait,
@@ -46,6 +47,7 @@ const Peohome: React.FC<PeohomeProps> = ({
   team,
   mienImg,
   signature,
+  company,
 }) => {
   // const [userInfo, setUserInfo] = useState<UserData | null>(null);
   // const [isLoading, setIsLoading] = useState(true);
@@ -108,7 +110,7 @@ const Peohome: React.FC<PeohomeProps> = ({
             </div>
             <div className="info-item">
               <label>就职公司</label>
-              <span>暂未提供</span>{' '}
+              <span>{company}</span>
               {/* 这里接口数据未明确公司字段，可按需处理 */}
             </div>
             <div className="info-item">

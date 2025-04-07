@@ -7,7 +7,7 @@
     padding-bottom: 0.4em;
     // background-color: #171717;
     border-radius: 25px;
-    
+    // height: 100vh;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: contrast(0.8) brightness(0.8) saturate(3) blur(8px);
     // transition: 0.4s ease-in-out;
@@ -51,9 +51,9 @@
     border-radius: 20px;
   }
 
-  .card:hover {
-    box-shadow: 0px 0px 30px 1px rgba(0, 255, 117, 0.3);
-  }
+  // .card:hover {
+  //   box-shadow: 0px 0px 30px 1px rgba(0, 255, 117, 0.3);
+  // }
 
   #heading {
     text-align: center;
@@ -68,7 +68,8 @@
     justify-content: center;
     gap: 0.5em;
     border-radius: 25px;
-    padding: 0.6em;
+    padding: 0.6rem;
+    margin: 0.17rem;
     border: none;
     outline: none;
     color: white;

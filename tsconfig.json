@@ -1,11 +1,19 @@
 {
   "compilerOptions": {
+    "outDir": "./dist",
+    "composite": true,
+    "incremental": true,
+    "target": "ES2020",
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"]
     },
     "jsx": "react-jsx", // 适用于 React 17+
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "module": "ES2020",
+    "moduleResolution": "bundler",
+    // "module": "Node16"
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]

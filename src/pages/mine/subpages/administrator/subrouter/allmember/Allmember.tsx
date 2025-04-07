@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { lazy, Suspense,useRef } from 'react';
 import Memlist from '@/components/Memlist';
+// const Memlist = lazy(() => import('@/components/Memlist'));
 import './Allmember.scss';
 import { useActiveItem } from '@/hooks/useActiveItem';
 
@@ -20,6 +22,10 @@ interface ResponseData {
 }
 
 const Allmember: React.FC = () => {
+
+  const [visibleIndexes, setVisibleIndexes] = useState([]);
+  // const observerRef = useRef();
+
   const [dataList, setDataList] = useState<DataItem[]>([]);
   const [status, setStatus] = useState<number>(0);
   const { activeItem: activeGroup, handleItemClick: handleGroupClick } =
@@ -154,6 +160,21 @@ const Allmember: React.FC = () => {
     };
     setDataList(mockData.data.dataList);
     setStatus(mockData.status);
+    // const observer = new IntersectionObserver((entries) => {
+    //   entries.forEach((entry) => {
+    //     if (entry.isIntersecting) {
+    //       setVisibleIndexes((prev) => [...prev, entry.target.dataset.index]);
+    //       observer.unobserve(entry.target); // 停止观察
+    //     }
+    //   });
+    // });
+
+    // const targets = document.querySelectorAll('.lazy-load');
+    // targets.forEach((target) => observer.observe(target));
+
+    // return () => {
+    //   targets.forEach((target) => observer.unobserve(target));
+    // };
   }, []);
 
   return (
@@ -199,6 +220,29 @@ const Allmember: React.FC = () => {
           status={status}
         />
       ))}
+      {/* {dataList.map((item, index) => (
+        <div
+          key={index}
+          className="lazy-load"
+          data-index={index}
+          style={{ minHeight: '100px', margin: '20px', border: '1px solid #ccc' }}
+        >
+          {visibleIndexes.includes(index) ? (
+            <Suspense fallback={<div>Loading...</div>}>
+              <Memlist
+                username={item.username}
+                name={item.name}
+                team={item.team}
+                graduateImg={item.graduateImg}
+                signature={item.signature}
+                status={status}
+              />
+            </Suspense>
+          ) : (
+            <div>Scroll to load {item.name}</div>
+          )}
+        </div>
+      ))} */}
     </div>
   );
 };
