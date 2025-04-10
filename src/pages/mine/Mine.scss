@@ -7,20 +7,41 @@
 
 .mine-leftnav {
   grid-column: 1;
-  display: grid;
   background-color: #dee2e3;
-  color: #2e4e3f;
   box-shadow: 0 0 0.6rem rgba(127, 133, 139, 0.795);
   z-index: 1000; // 确保在最上层
+  padding-top: 3rem;
+}
+
+.leftnav-profile-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .leftnav-profile-box {
+    width: 8.2rem;
+    height: 8.2rem;
+    border: 0.1rem solid black;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  img {
+    border-radius: 50%;
+    width: 8rem;
+    height: 8rem;
+    object-fit: cover;
+  }
 }
 
 .nav-user,
 .nav-administrator {
-  padding-top: 2rem;
+  padding-top: 1rem;
   width: 100%;
 
   .nav-title {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     text-align: center;
   }
 }
@@ -30,8 +51,20 @@
   color: black;
 
   li {
-    padding: 0.5rem 2rem;
+    padding: 0.5rem 1rem;
 
+    span {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      // text-align: center;
+
+      div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
     .nav-icon {
       font-size: 1.6rem;
       margin-right: 0.5rem;
@@ -39,13 +72,46 @@
     .icon-shezhi {
       font-weight: 800;
     }
+
+    .nav-icon-expand {
+      font-size: 1.5rem;
+      transition: all 0.1s linear;
+
+      &.expand-active {
+        transform: rotateZ(90deg);
+      }
+    }
   }
 }
 
 .nav-each-func-box {
   li {
-    font-size: 1rem;
+    font-size: 0.9rem;
     padding: 0.5rem 0 0 3.5rem;
+  }
+}
+
+.leftnav-exit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+
+  button {
+    width: 6rem;
+    height: 2rem;
+    border-radius: 0.8rem;
+    background-color: #ffffffcb;
+    border: none;
+    border: 0.1rem solid rgba(77, 77, 77, 0.192);
+    font-size: 1.2rem;
+    // font-weight: 800;
+
+    &:hover {
+      cursor: pointer;
+      color: #1890ff;
+      background-color: #fff;
+    }
   }
 }
 
@@ -74,6 +140,12 @@
 }
 
 @media (max-width: 1200px) {
+  .mine-container {
+    grid-template-columns: 20% 80%;
+  }
+}
+
+@media (max-width: 768px) {
   // 移动端时，隐藏左侧导航栏，右侧占满 100%
   .mine-container {
     grid-template-columns: 0 100%;
@@ -87,9 +159,17 @@
     position: fixed;
     left: 0;
     top: 0;
-    width: 65%;
+    width: 60%;
     height: 100vh;
-    // box-shadow: 0 0 0.6rem rgba(127, 133, 139, 0.795);
-    z-index: 1000; // 确保在最上层
+    z-index: 1000;
+    font-size: 20px;
+  }
+
+  .nav-each-func-box {
+    li {
+      font-size: 18px;
+      // padding: 0.5rem 0 0 3.5rem;
+    }
   }
 }
+// 明天来调整一下就是1200是先收右侧的导航栏,左侧mine先不,768的时候再收

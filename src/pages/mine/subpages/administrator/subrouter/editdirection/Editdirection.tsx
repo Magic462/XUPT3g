@@ -1,4 +1,7 @@
+import { useState } from 'react';
 import './Editdirection.scss';
+import '@/assets/icons/font_38lh8lcfn7/iconfont.css';
+
 const directionData = [
   {
     name: 'web',
@@ -33,11 +36,14 @@ const directionData = [
   },
 ];
 
-const Renderdirectionitem = (item: {
-  name: string;
-  ifexit: number;
-  bref_info: string;
-}) => {
+const Renderdirectionitem = (
+  item: {
+    name: string;
+    ifexit: number;
+    bref_info: string;
+  },
+  toggleEdit: () => void
+) => {
   return (
     <div className="direction-item-box">
       <div className="direction-info-box">
@@ -50,7 +56,14 @@ const Renderdirectionitem = (item: {
         <div className="direction-brefinfo">简介: {item.bref_info}</div>
       </div>
       <div className="direction-edit-btns">
-        <button className="direction-edit-btn">编辑</button>
+        <button
+          className="direction-edit-btn"
+          onClick={() => {
+            toggleEdit();
+          }}
+        >
+          编辑
+        </button>
         <button className="direction-move-btn">移除</button>
       </div>
     </div>
@@ -58,16 +71,64 @@ const Renderdirectionitem = (item: {
 };
 
 const Editdirection = () => {
+  const [edit, setEdit] = useState(false);
+
   return (
     <div className="edit-direction-container">
       <div className="each-func-title">
         <h2>编辑实验室方向</h2>
       </div>
+      {/* 添加方向按钮 */}
       <div className="edit-diretion-add-btn">
-        <button>添加方向</button>
+        <button
+          onClick={() => {
+            setEdit(!edit);
+          }}
+          className={`${edit ? 'direction-add-active' : ''}`}
+        >
+          添加方向
+        </button>
       </div>
+      {/* 填写增加方向信息 */}
+      {edit && (
+        <>
+          <div className="edit-direction-add-box-cover"></div>
+          <div className="edit-direction-add-box">
+            <div className="add-direction-item-left-box">
+              <div className="add-direction-item">
+                <label htmlFor="">方向名称:</label>
+                <input type="text" />
+              </div>
+              <div className="add-direction-item">
+                <label htmlFor="">方向简介:</label>
+                <textarea name="" id=""></textarea>
+              </div>
+              <div className="add-direction-post-box">
+                <button className="add-direction-sure">确认提交</button>
+              </div>
+            </div>
+            <div className="add-direction-item-right-box">
+              <div className="add-direction-item add-direvtion-plan-box">
+                <label htmlFor="">方向培养:</label>
+                <div className="">ballalblalblalblalblallblalbal</div>
+              </div>
+            </div>
+
+            <div
+              className="edit-direction-delete-box"
+              onClick={() => {
+                setEdit(!edit);
+              }}
+            >
+              <i className="iconfont icon-chahao"></i>
+            </div>
+          </div>
+        </>
+      )}
       <div className="direction-item-container">
-        {directionData.map((item) => Renderdirectionitem(item))}
+        {directionData.map((item) =>
+          Renderdirectionitem(item, () => setEdit(!edit))
+        )}
       </div>
     </div>
   );

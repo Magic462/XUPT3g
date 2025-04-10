@@ -36,6 +36,7 @@
       position: absolute;
       top: 120%;
       background-color: #3333332d;
+      z-index: 1;
     }
 
     .user-info h2 {
@@ -94,14 +95,22 @@
     }
 
     .mien-photo-box {
+      // width: 10rem;
       width: 13rem;
+      height: 13rem;
+      // background-color: red;
       img {
+        // width: 13rem;
         width: 100%;
       }
     }
   }
 }
-
+@media (max-width: 1200px) {
+  .basic-info-section .basic-info-box {
+    padding: 0 0;
+  }
+}
 @media (max-width: 768px) {
   .basic-info-section .basic-info-box {
     display: flex;
