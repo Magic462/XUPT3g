@@ -1,0 +1,59 @@
+.direction-plan-container {
+  position: relative;
+}
+
+.direction-plan-btns {
+  margin-bottom: 2rem;
+  button {
+    margin: 5px 5px;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fafafade;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    &:hover {
+      color: #1890ff;
+      background-color: #fff;
+    }
+
+    &.direction-plan-btn-active {
+      background-color: #1890ff;
+      color: white;
+    }
+  }
+}
+.each-group-trainplan-box {
+  .each-group-traninplan-title {
+    width: 100%;
+    text-align: center;
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+  }
+}
+.direction-plan-page {
+  a {
+    outline: none;
+    // border: none;
+    color: rgba(0, 0, 0, 0.829);
+  }
+
+  h2 {
+    margin: 0.6rem 0;
+  }
+
+  h3 {
+    margin: 0.4rem 0;
+  }
+}
+
+// .back-top-box {
+//   position: absolute;
+//   bottom: -2rem;
+//   background-color: black;
+//   width: 100%;
+//   height: 6rem;
+//   border-radius: 200%;
+//   transform: translateY(50%);
+// }

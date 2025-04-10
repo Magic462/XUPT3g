@@ -81,7 +81,6 @@ import Home from '../pages/Home/Home';
 //   },
 // ];
 
-
 // 懒加载组件
 const Mine = lazy(() => import('../pages/mine/Mine'));
 const Trainingplan = lazy(() => import('../pages/trainplan/Trainplan'));
@@ -94,68 +93,270 @@ const Blogs = lazy(() => import('../pages/blogs/Blogs'));
 // const Home = lazy(() => import('../pages/Home/Home'));
 
 // mine三级路由引入
-const Administrator = lazy(() => import('@/pages/mine/subpages/administrator/Administrator'));
+const Administrator = lazy(
+  () => import('@/pages/mine/subpages/administrator/Administrator')
+);
 const User = lazy(() => import('@/pages/mine/subpages/user/User'));
 
 // mine/admin四级路由
-const Allactivity = lazy(() => import('@/pages/mine/subpages/administrator/subrouter/allactivity/Allactivity'));
-const Allmember = lazy(() => import('@/pages/mine/subpages/administrator/subrouter/allmember/Allmember'));
-const Editdirection = lazy(() => import('@/pages/mine/subpages/administrator/subrouter/editdirection/Editdirection'));
-const Editdonation = lazy(() => import('@/pages/mine/subpages/administrator/subrouter/editdonation/Editdonation'));
-const Postactivity = lazy(() => import('@/pages/mine/subpages/administrator/subrouter/postactivity/Postactivity'));
-const Verifymember = lazy(() => import('@/pages/mine/subpages/administrator/subrouter/verifymember/Verifymember'));
+const Allactivity = lazy(
+  () =>
+    import(
+      '@/pages/mine/subpages/administrator/subrouter/allactivity/Allactivity'
+    )
+);
+const Allmember = lazy(
+  () =>
+    import('@/pages/mine/subpages/administrator/subrouter/allmember/Allmember')
+);
+const Editdirection = lazy(
+  () =>
+    import(
+      '@/pages/mine/subpages/administrator/subrouter/editdirection/Editdirection'
+    )
+);
+const Editdonation = lazy(
+  () =>
+    import(
+      '@/pages/mine/subpages/administrator/subrouter/editdonation/Editdonation'
+    )
+);
+const Postactivity = lazy(
+  () =>
+    import(
+      '@/pages/mine/subpages/administrator/subrouter/postactivity/Postactivity'
+    )
+);
+const Verifymember = lazy(
+  () =>
+    import(
+      '@/pages/mine/subpages/administrator/subrouter/verifymember/Verifymember'
+    )
+);
+const Edittrainplan = lazy(
+  () =>
+    import(
+      '@/pages/mine/subpages/administrator/subrouter/edittrainplan/Edittrainplan'
+    )
+);
 
-// mine/changeinfo
-const Changeinfo = lazy(() => import('@/pages/mine/subpages/user/subrouter/changeinfo/Changeinfo'));
-const Donation = lazy(() => import('@/pages/mine/subpages/user/subrouter/donations/Donations'));
-const Groupmember = lazy(() => import('@/pages/mine/subpages/user/subrouter/groupmember/Groupmember'));
-const Myinfo = lazy(() => import('@/pages/mine/subpages/user/subrouter/myinfo/Myinfo'));
+// mine/user
+const Changeinfo = lazy(
+  () => import('@/pages/mine/subpages/user/subrouter/changeinfo/Changeinfo')
+);
+const Donation = lazy(
+  () => import('@/pages/mine/subpages/user/subrouter/donations/Donations')
+);
+const Groupmember = lazy(
+  () => import('@/pages/mine/subpages/user/subrouter/groupmember/Groupmember')
+);
+const Myinfo = lazy(
+  () => import('@/pages/mine/subpages/user/subrouter/myinfo/Myinfo')
+);
+const Directionplan = lazy(
+  () =>
+    import('@/pages/mine/subpages/user/subrouter/directionplan/Directionplan')
+);
 
 const routes: RouteObject[] = [
   {
     path: '/',
     element: <Layout />,
     children: [
-      { path: '/', element: <Suspense fallback={<div>Loading...</div>}><Home /></Suspense> },
-      { path: '/activities', element: <Suspense fallback={<div>Loading...</div>}><Activities /></Suspense> },
-      { path: '/blogs', element: <Suspense fallback={<div>Loading...</div>}><Blogs /></Suspense> },
+      {
+        path: '/',
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Home />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/activities',
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Activities />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/blogs',
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Blogs />
+          </Suspense>
+        ),
+      },
       {
         path: '/mine',
-        element: <Suspense fallback={<div>Loading...</div>}><Mine /></Suspense>,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Mine />
+          </Suspense>
+        ),
         children: [
           {
             path: 'admin',
-            element: <Suspense fallback={<div>Loading...</div>}><Administrator /></Suspense>,
+            element: (
+              <Suspense fallback={<div>Loading...</div>}>
+                <Administrator />
+              </Suspense>
+            ),
             children: [
-              { path: 'allactivity', element: <Suspense fallback={<div>Loading...</div>}><Allactivity /></Suspense> },
-              { path: 'allmember', element: <Suspense fallback={<div>Loading...</div>}><Allmember /></Suspense> },
-              { path: 'editdirection', element: <Suspense fallback={<div>Loading...</div>}><Editdirection /></Suspense> },
-              { path: 'editdonation', element: <Suspense fallback={<div>Loading...</div>}><Editdonation /></Suspense> },
-              { path: 'postactivity', element: <Suspense fallback={<div>Loading...</div>}><Postactivity /></Suspense> },
-              { path: 'verifymember', element: <Suspense fallback={<div>Loading...</div>}><Verifymember /></Suspense> },
+              {
+                path: 'allactivity',
+                element: (
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <Allactivity />
+                  </Suspense>
+                ),
+              },
+              {
+                path: 'allmember',
+                element: (
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <Allmember />
+                  </Suspense>
+                ),
+              },
+              {
+                path: 'editdirection',
+                element: (
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <Editdirection />
+                  </Suspense>
+                ),
+              },
+              {
+                path: 'editdonation',
+                element: (
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <Editdonation />
+                  </Suspense>
+                ),
+              },
+              {
+                path: 'postactivity',
+                element: (
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <Postactivity />
+                  </Suspense>
+                ),
+              },
+              {
+                path: 'verifymember',
+                element: (
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <Verifymember />
+                  </Suspense>
+                ),
+              },
+              {
+                path: 'edittrainplan',
+                element: (
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <Edittrainplan />
+                  </Suspense>
+                ),
+              },
             ],
           },
           {
             path: 'user',
-            element: <Suspense fallback={<div>Loading...</div>}><User /></Suspense>,
+            element: (
+              <Suspense fallback={<div>Loading...</div>}>
+                <User />
+              </Suspense>
+            ),
             children: [
               {
                 index: true,
                 element: <Navigate to="myinfo" replace />,
               },
-              { path: 'changeinfo', element: <Suspense fallback={<div>Loading...</div>}><Changeinfo /></Suspense> },
-              { path: 'myinfo', element: <Suspense fallback={<div>Loading...</div>}><Myinfo /></Suspense> },
-              { path: 'groupmember', element: <Suspense fallback={<div>Loading...</div>}><Groupmember /></Suspense> },
-              { path: 'donation', element: <Suspense fallback={<div>Loading...</div>}><Donation /></Suspense> },
+              {
+                path: 'changeinfo',
+                element: (
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <Changeinfo />
+                  </Suspense>
+                ),
+              },
+              {
+                path: 'myinfo',
+                element: (
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <Myinfo />
+                  </Suspense>
+                ),
+              },
+              {
+                path: 'groupmember',
+                element: (
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <Groupmember />
+                  </Suspense>
+                ),
+              },
+              {
+                path: 'donation',
+                element: (
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <Donation />
+                  </Suspense>
+                ),
+              },
+              {
+                path: 'directionplan',
+                element: (
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <Directionplan />
+                  </Suspense>
+                ),
+              },
             ],
           },
         ],
       },
-      { path: '/members', element: <Suspense fallback={<div>Loading...</div>}><Members /></Suspense> },
-      { path: '/graduate', element: <Suspense fallback={<div>Loading...</div>}><Graduate /></Suspense> },
-      { path: '/trainingplan', element: <Suspense fallback={<div>Loading...</div>}><Trainingplan /></Suspense> },
-      { path: '/login', element: <Suspense fallback={<div>Loading...</div>}><Login /></Suspense> },
-      { path: '/register', element: <Suspense fallback={<div>Loading...</div>}><Register /></Suspense> },
+      {
+        path: '/members',
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Members />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/graduate',
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Graduate />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/trainingplan',
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Trainingplan />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/login',
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Login />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/register',
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Register />
+          </Suspense>
+        ),
+      },
     ],
   },
 ];

@@ -1,8 +1,11 @@
+.edit-direction-container {
+  position: relative;
+}
+
 .edit-diretion-add-btn {
   button {
     width: 10rem;
     height: 4rem;
-    border: none;
     font-size: 1.2rem;
     font-weight: 800;
     background-color: #ffffffc2;
@@ -14,52 +17,74 @@
       background-color: #fff;
       color: #1890ff;
     }
+
+    &.direction-add-active {
+      background-color: #fff;
+      color: #1890ff;
+    }
   }
   margin-bottom: 1.3rem;
 }
 
-// 添加方向信息盒子
+// 添加/编辑方向信息盒子
 .edit-direction-add-box-cover {
-  position: fixed;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   backdrop-filter: blur(0.1rem);
   z-index: 100;
 }
 
+// 添加/编辑方向信息盒子
 .edit-direction-add-box {
-  min-width: 16rem;
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 70%;
+  height: 70%;
+  bottom: 0;
+  right: 6rem;
+  background-color: #dee2e3;
+  padding: 1rem 2rem;
+  border-top-right-radius: 1rem;
+  border-top-left-radius: 1rem;
+  box-shadow: 0 0 0.6rem rgba(46, 47, 48, 0.795);
   z-index: 1000;
-  background-color: #abb2b2d0;
-  // background-color: #fff;
-  border-radius: 0.5rem;
-  padding: 2rem 6rem;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 0.2rem solid rgba(0, 0, 0, 0.151);
-  // box-shadow: 0 0 0.6rem rgba(127, 133, 139, 0.795);
+  justify-content: space-between;
 
-  h3 {
-    margin-bottom: 2rem;
+  .add-direction-item-left-box {
+    width: 20%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-right: 2rem;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 0.3rem;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.144);
+      border-radius: 0.3rem;
+    }
   }
 
   .add-direction-item {
     margin-bottom: 2rem;
+
     label {
+      display: inline-block;
+      margin-bottom: 0.5rem;
       font-weight: 800;
       margin-right: 1rem;
     }
     input {
-      // width: 100%;
+      width: 95%;
       border: none;
       outline: none;
       background-color: transparent;
@@ -67,22 +92,26 @@
     }
 
     textarea {
-      // height: 2rem;
-      resize: vertical;
+      width: 95%;
+      height: 8rem;
+      resize: none;
       border: none;
       outline: none;
     }
   }
 
-  .add-direction-btns {
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
+  .add-direction-item-right-box {
+    width: 80%;
+  }
+
+  .add-direction-post-box {
+    position: absolute;
+    bottom: 2rem;
 
     button {
-      border: none;
-      width: 5rem;
-      height: 2rem;
+      width: 8rem;
+      height: 3rem;
+      background-color: #ffffff91;
       box-shadow: 0 0 0.3rem rgb(110, 110, 110);
 
       &:hover {
@@ -90,6 +119,24 @@
         background-color: #fff;
         color: #1890ff;
       }
+    }
+  }
+
+  .edit-direction-delete-box {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.8rem;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .icon-chahao {
+      font-size: 2rem;
+    }
+    &:hover {
+      cursor: pointer;
+      color: #1890ff;
     }
   }
 }
@@ -145,7 +192,6 @@
     align-items: center;
 
     button {
-      border: none;
       width: 4rem;
       height: 2rem;
       position: relative;
@@ -182,7 +228,55 @@
   }
 }
 
+@media (max-width: 1200px) {
+  .edit-direction-add-box {
+    height: 65%;
+    right: 1rem;
+    .add-direction-item-right-box {
+      width: 70%;
+    }
+    .add-direction-item-left-box {
+      width: 30%;
+
+      textarea {
+        height: 6rem;
+      }
+    }
+  }
+}
 @media (max-width: 768px) {
+  .edit-direction-add-box {
+    height: 75%;
+    width: 80%;
+    right: 50%;
+    transform: translateX(50%);
+    flex-direction: column;
+    justify-content: flex-start;
+
+    .add-direction-item-left-box {
+      position: relative;
+      width: 100%;
+      margin-bottom: 4rem;
+      padding: 0;
+      &::before {
+        content: '';
+        position: absolute;
+        top: 115%;
+        right: 50%;
+        height: 0.3rem;
+        width: 100%;
+        transform: translateX(50%);
+        background-color: rgba(0, 0, 0, 0.144);
+        border-radius: 0.3rem;
+      }
+
+      .add-direction-post-box {
+        // width: 10rem;
+        bottom: -1.5rem;
+      }
+    }
+  }
+
   .direction-item-box {
     flex-direction: column;
     align-items: center;
@@ -198,7 +292,6 @@
 
       .direction-edit-btn {
         margin: 0;
-        // margin-right: 1rem;
       }
     }
   }

@@ -8,7 +8,6 @@
 .mine-leftnav {
   grid-column: 1;
   background-color: #dee2e3;
-  // color: #2e4e3f;
   box-shadow: 0 0 0.6rem rgba(127, 133, 139, 0.795);
   z-index: 1000; // 确保在最上层
   padding-top: 3rem;
@@ -87,8 +86,8 @@
 
 .nav-each-func-box {
   li {
-    font-size: 1rem;
-    // padding: 0.5rem 0 0 3.5rem;
+    font-size: 0.9rem;
+    padding: 0.5rem 0 0 3.5rem;
   }
 }
 

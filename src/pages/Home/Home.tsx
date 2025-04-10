@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './Home.scss';
-import '../../assets/wxqr.webp'
+import '../../assets/wxqr.webp';
 
 const Home: React.FC = () => {
   const [visibleCards, setVisibleCards] = useState<number[]>([]);
@@ -50,26 +50,26 @@ const Home: React.FC = () => {
   // 使用IntersectionObserver 接口监听元素是否进入视口，并实现只要进入视口反复出现动画
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                // 元素进入视口，添加动画类名
-                entry.target.classList.add('show');
-            } else {
-                // 元素离开视口，移除动画类名
-                entry.target.classList.remove('show');
-            }
-        });
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // 元素进入视口，添加动画类名
+          entry.target.classList.add('show');
+        } else {
+          // 元素离开视口，移除动画类名
+          entry.target.classList.remove('show');
+        }
+      });
     });
 
     const cards = document.querySelectorAll('.platform-card');
     cards.forEach((card) => {
-        observer.observe(card);
+      observer.observe(card);
     });
 
     return () => {
-        observer.disconnect();
+      observer.disconnect();
     };
-}, []);
+  }, []);
 
   // 实现即将滚动到platforms-section时卡片依次弹出
   // useEffect(() => {
@@ -92,7 +92,6 @@ const Home: React.FC = () => {
   //   window.addEventListener('scroll', handleScroll);
   //   return () => window.removeEventListener('scroll', handleScroll);
   // }, []);
-
 
   return (
     <div className="home-container">
@@ -127,12 +126,12 @@ const Home: React.FC = () => {
             //   }}
             // >
             <div
-            key={platform.id}
-            className={`platform-card ${platform.delay ? `transition-delay-${platform.delay}` : ''}`}
-            style={{
+              key={platform.id}
+              className={`platform-card ${platform.delay ? `transition-delay-${platform.delay}` : ''}`}
+              style={{
                 transitionDelay: `${platform.delay}ms`,
-            }}
-        >
+              }}
+            >
               <h3>{platform.name}</h3>
               <div className="platform-description">{platform.description}</div>
             </div>
@@ -142,10 +141,8 @@ const Home: React.FC = () => {
 
       <footer className="home-footer">
         <div className="footer-links">
-          <div className="vx">
-            微信公众号
-          </div>
-          <img src='./src/assets/wxqr.webp' alt="" />
+          <div className="vx">微信公众号</div>
+          <img src="./src/assets/wxqr.webp" alt="" />
           <div className="qq">qq纳新群: 1623728627</div>
         </div>
         <div className="copyright">

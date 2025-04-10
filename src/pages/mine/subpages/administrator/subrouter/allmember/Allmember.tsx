@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { lazy, Suspense,useRef } from 'react';
+// import { lazy, Suspense,useRef } from 'react';
 import Memlist from '@/components/Memlist';
 // const Memlist = lazy(() => import('@/components/Memlist'));
 import './Allmember.scss';
@@ -22,8 +22,7 @@ interface ResponseData {
 }
 
 const Allmember: React.FC = () => {
-
-  const [visibleIndexes, setVisibleIndexes] = useState([]);
+  // const [visibleIndexes, setVisibleIndexes] = useState([]);
   // const observerRef = useRef();
 
   const [dataList, setDataList] = useState<DataItem[]>([]);

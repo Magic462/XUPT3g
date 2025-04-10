@@ -20,6 +20,8 @@ const EXPANDABLE_ITEMS = {
   MEMBEREDIT: 'memberEdit',
   DONATION: 'donation',
   MEMBER: 'member',
+  DIRECTIONPLAN: 'directionplan',
+  EDITTRAININGPLAN: 'edittrainplan',
 } as const;
 
 type ExpandableItem = (typeof EXPANDABLE_ITEMS)[keyof typeof EXPANDABLE_ITEMS];
@@ -46,6 +48,12 @@ const userNavItem = [
     icon: 'icon-chengyuan',
     label: '成员列表',
     path: '/mine/user/groupmember',
+  },
+  {
+    key: EXPANDABLE_ITEMS.DIRECTIONPLAN,
+    icon: 'icon-chengyuan',
+    label: '方向培养计划',
+    path: '/mine/user/directionplan',
   },
 ];
 
@@ -80,6 +88,12 @@ const adminNavItem = [
     icon: 'icon-guanli',
     label: '方向管理',
     path: '/mine/admin/editdirection',
+  },
+  {
+    key: EXPANDABLE_ITEMS.EDITTRAININGPLAN,
+    icon: 'icon-chengyuan',
+    label: '实验室培养方案',
+    path: '/mine/admin/edittrainplan',
   },
 ];
 
@@ -158,11 +172,11 @@ const Mine = () => {
               <ul className="user-func">
                 {userNavItem.map((item) => RenderNavItem(item))}
               </ul>
-              {/* <button
+              <button
                 onClick={() => setRole(role === 'user' ? 'admin' : 'user')}
               >
                 交换身份
-              </button> */}
+              </button>
             </section>
           ) : (
             // 管理员端

@@ -18,7 +18,7 @@ select {
   width: 8rem;
   height: 3rem;
   color: rgba(39, 38, 38, 0.555);
-  background-color: #fff;
+  background-color: #ffffffd2;
   margin-bottom: 2rem;
   box-shadow: 0 0 0.3rem rgba(150, 157, 165, 0.425);
   border-radius: 0.5rem;
@@ -28,7 +28,8 @@ select {
 
   &:hover {
     cursor: pointer;
-    color: black;
+    color: #1890ff;
+    background-color: #fff;
   }
 
   .edit-danation-post-btn {
