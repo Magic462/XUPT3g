@@ -1,5 +1,6 @@
 import React from 'react';
 import './Trainplan.scss';
+import Footertop from '@/components/Footertop';
 
 const Trainingplan: React.FC = () => {
   return (
@@ -173,6 +174,7 @@ const Trainingplan: React.FC = () => {
           </ul>
         </p>
       </div>
+      <Footertop></Footertop>
     </div>
   );
 };
