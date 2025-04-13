@@ -38,6 +38,7 @@ const Allmember: React.FC = () => {
     { name: 'Server' },
     { name: 'iOS' },
     { name: 'HarmonyOS' },
+    { name: '其他' },
   ];
   // 这个之后要根据数据中现有的组去录入吧
   //   const CLICK_ITEMS = {
