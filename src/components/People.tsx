@@ -6,13 +6,14 @@ const People = ({ members }) => {
     <div className="people-container">
       {members.map((member) => (
         <div key={member.id} className="people-comp">
-          <img src={member.photo} alt={member.name}></img>
-          <div className="people-content">
-            <div className="people-name">{member.name}</div>
-            <div className="people-direction">
-              {member.direction}方向&nbsp;{member.company}
-            </div>
-            <div className="people-text">{member.message}</div>
+          <div className="people-photo">
+            <img src={member.photo} alt={member.name} />
+          </div>
+          <h2>{member.name}</h2>
+          <div className="people-bottom">
+          <p>{member.direction}组&nbsp;{member.company}</p>
+          <p>{member.message}</p>
+          <p><a href="#">了解更多</a></p>
           </div>
         </div>
       ))}
