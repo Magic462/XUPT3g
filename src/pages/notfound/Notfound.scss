@@ -1,0 +1,48 @@
+.notfound-container {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  background: url(./src/assets/logoBack.png) center/cover no-repeat;
+  object-fit: cover;
+}
+
+.notfound-title-box {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .notfound-main-title {
+    color: #5cff26c0;
+    font-size: 6rem;
+    display: flex;
+    justify-content: space-around;
+    width: 50rem;
+  }
+
+  .notfound-tip {
+    color: #5dff26;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .back-to-laboratory-box {
+    // margin-top: 3rem;
+  }
+  .back-to-laboratory {
+    box-sizing: border-box;
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    background-color: #ffffff49;
+    color: #5cff26ab;
+    border: 0.1rem solid #5dff26;
+    border-radius: 2rem;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

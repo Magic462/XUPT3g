@@ -90,6 +90,8 @@ const Graduate = lazy(() => import('../pages/Graduate/Graduate'));
 const Login = lazy(() => import('../pages/login/Login'));
 const Register = lazy(() => import('../pages/register/Register'));
 const Blogs = lazy(() => import('../pages/blogs/Blogs'));
+// import Notfound from '@/pages/notfound/Notfound';
+const Notfound = lazy(() => import('../pages/notfound/Notfound'));
 // const Home = lazy(() => import('../pages/Home/Home'));
 
 // mine三级路由引入
@@ -358,6 +360,10 @@ const routes: RouteObject[] = [
         ),
       },
     ],
+  },
+  {
+    path: '*',
+    element: <Notfound />,
   },
 ];
 
