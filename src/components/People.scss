@@ -1,75 +1,143 @@
 .people-container {
+  // display: flex;
   display: grid;
-  justify-content: center;
-  grid-template-columns: repeat(4, 1fr); // 规定每列占四个
-  gap: 20px;
-  padding: 0 16px;
   flex-wrap: wrap;
+  grid-template-columns: repeat(4, 1fr);  // 一行4个
+  gap: 20px; 
+  justify-content: center;
+  padding: 0 16px;
   max-width: 1200px;
   margin: 0 auto;
+  
   .people-comp {
-    background-color: white;
-    padding-bottom: 23px;
-    border: 1px solid #ddd;
-    text-align: center;
     position: relative;
-    box-shadow: 0 8px 13px 0 rgba(0, 0, 0, 0.06);
-    img {
+    width: 100%;
+    height: 350px;
+    margin: 0;
+    // margin: 20px;
+    background: linear-gradient(135deg, #2c3e50, #1a1a2e);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+
+    &:hover {
+      .people-photo {
+        top: 30px;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        box-shadow: 0 0 20px rgba(0,0,0,0.8);
+      }
+      h2 {
+        bottom: 140px;
+        color: white;
+        border-bottom: 1px solid rgba(255,255, 255, 0.3);
+        padding-bottom: 8px;
+        width: 80%;
+        background: none;
+      }
+      p, a {
+        opacity: 1;
+      }
+    }
+
+    .people-photo {
+      position: absolute;
+      top: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover; // 保持比例并覆盖容器
-    }
-    .people-content {
-      cursor: pointer;
-      position: absolute;
-      left: 0px;
-      right: 0px;
-      bottom: 0px;
-      width: 91.045%;
-      height: 60px;
-      box-sizing: border-box;
-      // background: white;
-      background-color: rgba(255, 255, 255, 0.55); /* 80% 不透明度 */
-      // background: linear-gradient(0deg, rgba(11, 65, 101, 0.04) 0%, rgba(93, 38, 75, 0.85) 100%);
-      // background: linear-gradient(0deg, rgba(28, 177, 112, 0.03) 0%, rgba(4, 125, 228, 0.6) 100%);
-      // background: linear-gradient(0deg, rgba(177, 28, 138, 0.04) 0%, rgba(30, 57, 220, 0.11) 100%);
-      padding-top: 2px;
-      padding-left: 10px;
-      margin: 0px auto;
-      transition: height 0.3s;
       overflow: hidden;
-      border-radius: 2px;
-      &:hover {
-        height: 120px;
-        .people-text {
-          // color: rgb(52, 52, 52);
-          color: #ffe88d;
-          border-top: 1px dashed rgba(4, 125, 228, 0.27);
-          // border-top: 1px dashed #00a9ce;
+      transition: 0.5s;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .people-bottom {
+      position: absolute;
+      bottom: 10px;
+      // left: 50%;
+      width: 100%;
+    }
+    // h1 {
+    //   position: absolute;
+    //   color: black;
+    //   bottom: 20px;
+    //   width: 80%;
+    //   text-align: center;
+    //   transition: 0.5s;
+    //   z-index: 1;
+    // }
+    // ... existing code ...
+
+    h2 {
+      position: absolute;
+      color: white;  // 修改文字颜色为白色
+      bottom: 0px;
+      width: 100%;
+      text-align: center;
+      transition: 0.5s;
+      z-index: 1;
+      // padding: 10px 0;
+      padding: 15px 0 10px;
+      transition: all 0.5s ease-out;
+      background: linear-gradient(
+        to top, 
+        rgba(0,0,0,0.9) 0%, 
+        rgba(0,0,0,0.6) 60%, 
+        rgba(0,0,0,0.3) 80%, 
+        transparent 100%
+      );
+    }
+
+    p, a {
+      opacity: 0;
+      transition: 0.5s;
+    }
+
+    p {
+      width: 100%;
+      text-align: center;
+      font-size: 16px;
+      margin-bottom: 15px;
+      line-height: 25px;
+      a {
+        font-size: 14px;
+        color: rgba(255,255,255,0.8);
+        border: 1px solid rgba(255,255,255,0.5);
+        padding: 8px 32px;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: transform 0.3s ease;
+        &:hover {
+          color: white;
+          background: linear-gradient(to right, #12C2AC, #30CB1F);
+          transform: scale(1.2);
         }
       }
-      .people-name {
-        font-size: 1.3rem;
-        // color: rgb(52, 52, 52);
-        color: #ffe88d;
-        padding-bottom: 7px;
-        border-bottom: 1px dashed rgba(4, 125, 228, 0.27);
-        // border-bottom: 1px dashed #adacac;
-      }
-      .people-direction {
-        // color: rgb(128, 128, 128);
-        color: #cdb9f1;
-        padding-bottom: 7px;
-      }
-      .people-text {
-        text-align: center;
-        font-size: 1rem;
-        // color: white;
-        color: #cdb9f1;
-        line-height: 24px;
-        transition: 0.6s all cubic-bezier(0.2, 0, 0.2, 1);
-      }
     }
+
+    // a {
+    //   font-size: 14px;
+    //   color: rgba(255,255,255,0.8);
+    //   border: 1px solid rgba(255,255,255,0.5);
+    //   padding: 8px 32px;
+    //   border-radius: 8px;
+    //   text-decoration: none;
+    //   transition: transform 0.3s ease;
+    //   &:hover {
+    //     color: white;
+    //     background: linear-gradient(to right, #12C2AC, #30CB1F);
+    //     transform: scale(1.2);
+    //   }
+    // }
   }
 }
 

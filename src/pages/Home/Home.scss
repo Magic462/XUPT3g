@@ -71,7 +71,8 @@
     h2 {
       font-size: 2.5rem;
       margin-bottom: 3rem;
-      color: #66bdcc;
+      // color: #66bdcc;
+      color: #5DE31C;
     }
 
     .platforms-container {
@@ -84,11 +85,14 @@
 
       .platform-card {
         // background: white;
-        background: rgb(214, 215, 214);
+        // background: rgb(214, 215, 214);
+        // background: #6F6E73;
+        border: 0.1rem solid #fff;
+        background: #4E4F51;
         padding: 2rem;
         border-radius: 12px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        min-width: 200px;
+        min-width: 16rem;
         // min-height: 200px;
         // height: 35px;
         opacity: 0;
@@ -100,8 +104,10 @@
         // transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
         position: relative;
         // overflow: hidden;
+        box-sizing: border-box;
 
         .platform-description {
+          box-sizing: border-box;
           position: absolute; // 绝对定位
           top: 0; // 覆盖整个卡片
           left: 0; // 宽度与父元素一致
@@ -117,13 +123,16 @@
           letter-spacing: 0.3px;
           line-height: 2;
           font-size: 17px;
+          color: #ccc;
         }
 
         &:hover .platform-description {
           visibility: visible; // 设置为可见
           opacity: 1;
+          border: 1px solid #fff;
+          background: #4E4F51;
           // height: 160px;
-          background: linear-gradient(45deg, #1890ff, #36cfc9);
+          // background: linear-gradient(45deg, #1890ff, #36cfc9);
         }
 
         &.show {
@@ -133,6 +142,7 @@
 
         &:hover {
           z-index: 100;
+          border: none;
           h3 {
             visibility: hidden;
           }
@@ -140,7 +150,8 @@
 
         h3 {
           font-size: 1.8rem;
-          color: #66bdcc;
+          // color: #66bdcc;
+          color: #5DE31C;
         }
       }
     }

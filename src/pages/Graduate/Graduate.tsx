@@ -6,13 +6,16 @@ import People from '../../components/People';
 import Photo from '../../assets/face.webp';
 // import Photo from '//mobile.xupt.edu.cn/res/14957725307919851.jpg'
 import Img from '../../assets/face.webp';
+import Zp1 from '../../assets/wjc.webp'
+import Zp2 from '../../assets/szq.webp'
+import Zp3 from '../../assets/yke.webp'
 
 const Graduate = () => {
   // 假数据
   const members = [
     {
       id: 1,
-      name: '张三',
+      name: '陈柏赫',
       status: 0,
       direction: 'web',
       enrollment_year: 2022,
@@ -22,7 +25,7 @@ const Graduate = () => {
     },
     {
       id: 2,
-      name: '张三',
+      name: '吴建琛',
       status: 0,
       direction: 'web',
       enrollment_year: 2020,
@@ -32,31 +35,31 @@ const Graduate = () => {
     },
     {
       id: 3,
-      name: '张三',
+      name: '吴建琛',
       status: 0,
       direction: 'web',
       enrollment_year: 2020,
-      photo: Photo,
+      photo: Zp1,
       company: '字节生活服务',
       message: '玩原神玩的。',
     },
     {
       id: 4,
-      name: '张三',
+      name: '尚子琪',
       status: 0,
       direction: 'web',
       enrollment_year: 2020,
-      photo: Photo,
+      photo: Zp2,
       company: '字节生活服务',
       message: '玩原神玩的。',
     },
     {
       id: 5,
-      name: '张三',
+      name: '杨可儿',
       status: 0,
       direction: 'web',
       enrollment_year: 2020,
-      photo: Photo,
+      photo: Zp3,
       company: '字节生活服务',
       message: '玩原神玩的。',
     },

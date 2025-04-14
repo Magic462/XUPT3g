@@ -43,12 +43,12 @@ const userNavItem = [
     label: '捐款信息',
     path: '/mine/user/donation',
   },
-  {
-    key: EXPANDABLE_ITEMS.MEMBER,
-    icon: 'icon-chengyuan',
-    label: '成员列表',
-    path: '/mine/user/groupmember',
-  },
+  // {
+  //   key: EXPANDABLE_ITEMS.MEMBER,
+  //   icon: 'icon-chengyuan',
+  //   label: '成员列表',
+  //   path: '/mine/user/groupmember',
+  // },
   {
     key: EXPANDABLE_ITEMS.DIRECTIONPLAN,
     icon: 'icon-chengyuan',
