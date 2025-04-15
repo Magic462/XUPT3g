@@ -2,7 +2,7 @@
   height: 100vh;
   width: 100vw;
   position: relative;
-  background: url(./src/assets/logoBack.png) center/cover no-repeat;
+  background: url(./src/assets/notfoundBack.png) center/cover no-repeat;
   object-fit: cover;
 }
 
@@ -44,5 +44,11 @@
     &:hover {
       cursor: pointer;
     }
+  }
+}
+
+@media (max-width: 768px) {
+  .notfound-container {
+    background: url(./src/assets/notfoundBackMini.png) center/cover no-repeat;
   }
 }
