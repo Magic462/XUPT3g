@@ -4,7 +4,6 @@ import path from 'path';
 // 文本压缩
 import compression from 'vite-plugin-compression';
 
-
 export default defineConfig({
   plugins: [
     react(),
