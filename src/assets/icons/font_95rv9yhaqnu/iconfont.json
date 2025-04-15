@@ -1,0 +1,23 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "17572349",
+      "name": "加速培养计划",
+      "font_class": "jiasupeiyangjihua",
+      "unicode": "e547",
+      "unicode_decimal": 58695
+    },
+    {
+      "icon_id": "43977962",
+      "name": "3Glogo",
+      "font_class": "a-svg-path1",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    }
+  ]
+}

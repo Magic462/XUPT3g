@@ -5,7 +5,10 @@ const Editdonation = () => {
   return (
     <div className="edit-donation-container">
       <div className="each-func-title">
-        <h2 className="">捐款列表</h2>
+        <h2 className="">
+          <i className={`each-func-icons iconfont icon-aixinjuankuan`}></i>
+          捐款列表
+        </h2>
       </div>
       {/* <Outlet></Outlet> */}
       <DonationList></DonationList>

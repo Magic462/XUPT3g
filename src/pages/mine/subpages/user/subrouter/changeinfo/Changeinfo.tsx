@@ -25,7 +25,10 @@ const Changeinfo = () => {
   return (
     <div className="changeinfo-container">
       <div className="each-func-title">
-        <h2>个人设置</h2>
+        <h2>
+          <i className={`each-func-icons iconfont icon-shezhi`}></i>
+          个人设置
+        </h2>
       </div>
       <div className="changeinfo-box">
         <div className="changeinfo-photochange-box">

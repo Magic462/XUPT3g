@@ -117,7 +117,10 @@ const Directionplan = () => {
   return (
     <div className="direction-plan-container">
       <div className="each-func-title">
-        <h2>方向培养计划</h2>
+        <h2>
+          <i className={`each-func-icons iconfont icon-jiasupeiyangjihua`}></i>
+          方向培养计划
+        </h2>
       </div>
       <div className="direction-plan-btns">
         {nowDirections.map((item) => (

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import './Activities.scss';
-import '@/assets/icons/font_9342xhmvru9/iconfont.css';
+// import '@/assets/icons/font_9342xhmvru9/iconfont.css';
+import '@/assets/icons/font_95rv9yhaqnu/iconfont.css';
 
 const activitiesData = [
   {
@@ -195,7 +196,7 @@ const Activities: React.FC = () => {
                   {activity.timeDate}
                 </span>
                 <i
-                  className={`timeline-node-icon iconfont icon-android ${activeTimelineNode === index ? 'active' : ' '}`}
+                  className={`timeline-node-icon iconfont icon-a-svg-path1 ${activeTimelineNode === index ? 'active' : ' '}`}
                 ></i>
               </div>
 
