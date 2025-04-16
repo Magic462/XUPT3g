@@ -4,6 +4,7 @@ import './Mine.scss';
 import '@/assets/icons/font_4k8jwf31qbs/iconfont.css';
 import '@/assets/icons/font_f7int92srzr/iconfont.css';
 import '@/assets/icons/font_ry8o2ikys/iconfont.css';
+import '@/assets/icons/font_95rv9yhaqnu/iconfont.css';
 import { useActiveItem } from '@/hooks/useActiveItem';
 import Por from '../../assets/wxqr.webp'
 
@@ -45,15 +46,9 @@ const userNavItem = [
     label: '捐款信息',
     path: '/mine/user/donation',
   },
-  // {
-  //   key: EXPANDABLE_ITEMS.MEMBER,
-  //   icon: 'icon-chengyuan',
-  //   label: '成员列表',
-  //   path: '/mine/user/groupmember',
-  // },
   {
     key: EXPANDABLE_ITEMS.DIRECTIONPLAN,
-    icon: 'icon-chengyuan',
+    icon: 'icon-jiasupeiyangjihua',
     label: '方向培养计划',
     path: '/mine/user/directionplan',
   },
@@ -78,7 +73,7 @@ const adminNavItem = [
   },
   {
     key: EXPANDABLE_ITEMS.MEMBEREDIT,
-    icon: 'icon-shenhe',
+    icon: 'icon-chengyuan',
     label: '成员管理',
     children: [
       { path: '/mine/admin/allmember', label: '成员列表' },
@@ -93,7 +88,7 @@ const adminNavItem = [
   },
   {
     key: EXPANDABLE_ITEMS.EDITTRAININGPLAN,
-    icon: 'icon-chengyuan',
+    icon: 'icon-jiasupeiyangjihua',
     label: '实验室培养方案',
     path: '/mine/admin/edittrainplan',
   },

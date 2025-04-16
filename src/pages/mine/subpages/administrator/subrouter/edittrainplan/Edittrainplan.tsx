@@ -4,7 +4,10 @@ const Edittrainplan = () => {
   return (
     <div className="edit-direction-container">
       <div className="each-func-title">
-        <h2>修改培养方案</h2>
+        <h2>
+          <i className={`each-func-icons iconfont icon-jiasupeiyangjihua`}></i>
+          修改培养方案
+        </h2>
       </div>
       <div className="edit-direction-box"></div>
       {/* 引入富文本编辑 */}

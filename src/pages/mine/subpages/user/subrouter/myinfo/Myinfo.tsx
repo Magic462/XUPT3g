@@ -54,7 +54,10 @@ const Myinfo: React.FC = () => {
   return (
     <div className="myinfo-container">
       <div className="each-func-title">
-        <h2 className="myinfo-title">个人信息</h2>
+        <h2 className="myinfo-title">
+          <i className={`each-func-icons iconfont icon-shezhi`}></i>
+          个人信息
+        </h2>
       </div>
       {dataList && (
         <Peohome

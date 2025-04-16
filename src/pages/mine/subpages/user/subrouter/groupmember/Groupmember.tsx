@@ -134,7 +134,10 @@ const Groupmember: React.FC = () => {
   return (
     <div className="groupmember-container">
       <div className="each-func-title">
-        <h2 className="groupmember-title">成员列表</h2>
+        <h2 className="groupmember-title">
+          <i className={`each-func-icons iconfont icon-chengyuan`}></i>
+          成员列表
+        </h2>
       </div>
       <div className="groupmember-items-box">
         {dataList.map((item, index) => (

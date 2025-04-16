@@ -76,7 +76,10 @@ const Editdirection = () => {
   return (
     <div className="edit-direction-container">
       <div className="each-func-title">
-        <h2>编辑实验室方向</h2>
+        <h2>
+          <i className={`each-func-icons iconfont icon-guanli`}></i>
+          编辑实验室方向
+        </h2>
       </div>
       {/* 添加方向按钮 */}
       <div className="edit-diretion-add-btn">

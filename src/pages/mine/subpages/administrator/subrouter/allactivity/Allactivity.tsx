@@ -137,7 +137,10 @@ const Allactivity = () => {
   return (
     <div className="all-activity-container">
       <div className="each-func-title">
-        <h2 className="">活动列表</h2>
+        <h2 className="">
+          <i className={`each-func-icons iconfont icon-dongtai`}></i>
+          活动列表
+        </h2>
       </div>
       <div className="activity-item-container">
         {activitiesData.map((item) => Renderactivityitem(item))}

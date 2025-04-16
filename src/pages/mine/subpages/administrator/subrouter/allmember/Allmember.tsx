@@ -180,7 +180,10 @@ const Allmember: React.FC = () => {
   return (
     <div className="allmember-container">
       <div className="each-func-title">
-        <h2 className="allmember-title">成员列表</h2>
+        <h2 className="allmember-title">
+          <i className={`each-func-icons iconfont icon-chengyuan`}></i>
+          成员列表
+        </h2>
       </div>
       <div className="filter-buttons">
         <div className="filter-groups">
