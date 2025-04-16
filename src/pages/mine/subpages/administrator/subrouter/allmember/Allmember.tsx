@@ -212,17 +212,19 @@ const Allmember: React.FC = () => {
           </button>
         </div>
       </div>
-      {dataList.map((item, index) => (
-        <Memlist
-          key={index}
-          username={item.username}
-          name={item.name}
-          team={item.team}
-          graduateImg={item.graduateImg}
-          signature={item.signature}
-          status={status}
-        />
-      ))}
+      <div className="allmember-item-box">
+        {dataList.map((item, index) => (
+          <Memlist
+            key={index}
+            username={item.username}
+            name={item.name}
+            team={item.team}
+            graduateImg={item.graduateImg}
+            signature={item.signature}
+            status={status}
+          />
+        ))}
+      </div>
       {/* {dataList.map((item, index) => (
         <div
           key={index}

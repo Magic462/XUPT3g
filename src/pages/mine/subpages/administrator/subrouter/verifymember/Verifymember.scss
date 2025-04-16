@@ -1,83 +1,93 @@
-.verify-box {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.unverified-member-box {
-  box-sizing: border-box;
-  background-color: #fff;
-  padding: 2.3rem 1.3rem 1rem 1.3rem;
-  box-shadow: 0 0 0.5rem rgba(150, 157, 165, 0.795);
-  margin-right: 0.3rem;
-  margin-bottom: 1rem;
-
-  .unverified-member-btns {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1rem;
-    button {
-      width: 3rem;
-      height: 2rem;
-    }
-  }
-}
-
 .add-member-box {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
+  color: #fff;
+
   .add-member-title {
-    font-size: 2rem;
+    font-size: 2.4rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
+    letter-spacing: 0.2rem;
+
+    svg {
+      font-size: 2.8rem;
+    }
   }
 
   .add-member-info-box {
     box-sizing: border-box;
-    width: 60%;
-    min-width: 15rem;
-    padding: 3rem 0;
+    width: 80%;
+    box-sizing: border-box;
+    min-width: 20rem;
+    padding: 3rem 8rem 1rem 8rem;
+    border-radius: 1.2rem;
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+    border: 0.15rem solid rgba(255, 255, 255, 0.2);
 
     li {
       width: 100%;
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
 
       label {
         font-size: 1.2rem;
+        font-weight: 600;
+        // width: 30%;
+        text-align: right;
+        color: #fff;
+        letter-spacing: 0.3rem;
       }
 
-      input {
-        width: 60%;
-        border: none;
-        outline: none;
-        background-color: transparent;
-        border-bottom: 0.2rem solid #fff;
-      }
-
+      input,
       select {
+        box-sizing: border-box;
         width: 60%;
+        padding: 0.6rem 0.8rem;
+        background: transparent;
+        border: none;
+        border-bottom: 2px solid #1890ff;
+        color: #fff;
+        font-size: 1.05rem;
+        outline: none;
+        transition: border-color 0.3s;
+
+        &:focus {
+          border-color: #40a9ff;
+        }
       }
     }
-  }
-
-  .add-member-info-item {
-    margin-bottom: 3rem;
   }
 }
 
 .add-member-post-btn {
+  margin-top: 1rem;
   width: 10rem;
-  height: 3.6rem;
-  font-size: 1.4rem;
-  font-weight: 800;
-  background-color: #ffffffa8;
+  height: 3.5rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(to right, #1890ff, #40a9ff);
+  border: none;
   border-radius: 2rem;
-  box-shadow: 0 0 0.4rem rgba(131, 135, 139, 0.795);
+  box-shadow: 0 0.3rem 0.6rem rgba(24, 144, 255, 0.4);
+  transition: all 0.25s ease;
+  letter-spacing: 0.1rem;
 
   &:hover {
     cursor: pointer;
-    background-color: #fff;
-    color: #1890ff;
+    transform: translateY(-2px);
+    box-shadow: 0 0.3rem 1rem rgba(24, 143, 255, 0.623);
+    letter-spacing: 0.2rem;
+  }
+
+  &:active {
+    transform: scale(0.9);
   }
 }

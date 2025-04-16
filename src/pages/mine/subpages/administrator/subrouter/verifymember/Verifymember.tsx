@@ -118,7 +118,7 @@ const Verifymember = () => {
               ))}
             </select>
           </li>
-          <li>
+          <li className="add-member-post-btn-box">
             <button className="add-member-post-btn">确认添加</button>
           </li>
         </ul>

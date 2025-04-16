@@ -2,7 +2,7 @@
   height: 100vh;
   width: 100vw;
   position: relative;
-  background: url(./src/assets/notfoundBack.png) center/cover no-repeat;
+  background: url(../../assets/notfoundBack.png) center/cover no-repeat;
   object-fit: cover;
 }
 
@@ -94,6 +94,6 @@
 
 @media (max-width: 480px) {
   .notfound-container {
-    background: url(./src/assets/notfoundBackMini.png) center/cover no-repeat;
+    background: url(../../assets/notfoundBackMini.png) center/cover no-repeat;
   }
 }

@@ -1,66 +1,75 @@
 table {
-  border-collapse: collapse;
+  border-collapse: separate;
   border-spacing: 0;
   width: 100%;
-  border-radius: 0.5rem;
-  background-color: rgba(255, 255, 255, 1);
-  box-shadow: inset 0 0 0.8rem rgba(59, 59, 59, 0.795);
+  border-radius: 0.8rem;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 0 1.2rem rgba(0, 0, 0, 0.1);
 }
 
 th {
-  background-color: rgba(126, 126, 126, 0.082);
-  padding: 1.3rem 0;
+  background-color: #f0f2f5;
+  color: #000000;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 1.2rem 0;
+  text-align: center;
+  letter-spacing: 0.05rem;
 }
 
 tr {
   position: relative;
-  height: 3rem;
+  height: 3.5rem;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #f9f9f9;
+  }
 
   &::after {
     content: '';
     position: absolute;
     bottom: 0;
-    left: 50%;
-    width: 95%;
-    height: 0.1rem;
-    transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.199);
+    left: 5%;
+    width: 90%;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.08);
   }
 }
 
 td {
-  font-size: 0.9rem;
-  // border-right: 0.1rem solid rgba(0, 0, 0, 0.329);
+  font-size: 0.95rem;
+  color: #000000;
   text-align: center;
+  padding: 0.6rem 0;
 }
 
 .donation-controls-box {
   padding: 1.2rem 1.5rem;
-  // background-color: rgba(255, 255, 255, 1);
-  // box-shadow: inset 0 0 0.5rem rgba(59, 59, 59, 0.795);
   border-radius: 0.8rem;
   margin-bottom: 2rem;
   max-width: 25rem;
-  flex-wrap: wrap;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 0.6rem rgba(0, 0, 0, 0.1);
 }
 
 select {
-  // min-width: 1rem;
-  width: 18rem;
+  width: 16rem;
   padding: 0.6rem 1rem;
-  font-size: 1.2rem;
-  color: black;
-  font-weight: 700;
-  border: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
   background-color: transparent;
+  border: none;
   border-bottom: 0.2rem solid #1890ff;
   outline: none;
-  color: aliceblue;
-  letter-spacing: 0.2rem;
+  letter-spacing: 0.1rem;
 
   option {
     color: black;
@@ -68,17 +77,18 @@ select {
 }
 
 .edit-donation-post-box {
-  padding: 0.3rem 1.2rem;
+  padding: 0.4rem 1.3rem;
   background-color: #1890ff;
   color: white;
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-weight: 700;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 0.6rem;
   cursor: pointer;
   transition: all 0.2s ease;
 
   &:hover {
     background-color: #40a9ff;
+    box-shadow: 0 0 0.4rem rgba(24, 144, 255, 0.5);
   }
 }
