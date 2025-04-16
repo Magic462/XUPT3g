@@ -84,7 +84,7 @@ const Graduate = () => {
       message: '感谢母校的培养！',
     },
   ];
-  const years = ['2020', '2021', '2022', '2023', '2024', '2025'];
+  const years = ['2018','2019','2020', '2021', '2022', '2023', '2024', '2025'];
   const [selectedYear, setSelectedYear] = useState(years[0]);
   //   // 根据选中的年份过滤成员
   const filteredMembers = members.filter(
