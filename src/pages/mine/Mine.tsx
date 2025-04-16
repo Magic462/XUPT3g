@@ -6,7 +6,7 @@ import '@/assets/icons/font_f7int92srzr/iconfont.css';
 import '@/assets/icons/font_ry8o2ikys/iconfont.css';
 import '@/assets/icons/font_95rv9yhaqnu/iconfont.css';
 import { useActiveItem } from '@/hooks/useActiveItem';
-import Por from '../../assets/wxqr.webp'
+import Por from '../../assets/wxqr.webp';
 
 // 用户数据
 const userData = {
@@ -105,7 +105,6 @@ const Mine = () => {
   const [role, setRole] = useState('user');
 
   // 点击子盒子冒泡触发父盒子的点击事件,传递子盒子的key给父盒子,再传给useActiveItem然后得到激活状态展开对应的子盒子的子内容?
-
   const navigate = useNavigate();
   const { activeItem: expandItem, handleItemClick: handleExpandItem } =
     useActiveItem<ExpandableItem>();
@@ -118,6 +117,12 @@ const Mine = () => {
     handleExpandItem(item);
   };
 
+  // 用户退出，并且清除本地下载的token
+  const userExit = () => {
+    navigate('/');
+  };
+
+  // 左侧导航各个item渲染
   const RenderNavItem = (item: {
     key: ExpandableItem;
     icon: string;
@@ -190,7 +195,7 @@ const Mine = () => {
             </section>
           )}
           <div className="leftnav-exit">
-            <button>exit</button>
+            <button onClick={() => userExit()}>exit</button>
           </div>
         </div>
       )}
