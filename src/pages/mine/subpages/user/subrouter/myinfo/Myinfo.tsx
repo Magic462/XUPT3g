@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Peohome from '@/components/Peohome';
 import './Myinfo.scss';
+import Por from '../../../../../../assets/wxqr.webp'
 
 interface DataItem {
   portrait: string; // 头像
@@ -31,7 +32,7 @@ const Myinfo: React.FC = () => {
     const mockData: ResponseData = {
       status: 0,
       data: {
-        portrait: '//mobile.xupt.edu.cn/res/15342187758400435.gif',
+        portrait: Por,
         gender: '男',
         classGrade: '软件1302',
         year: 2013,
