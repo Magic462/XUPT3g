@@ -169,13 +169,76 @@ const Activities: React.FC = () => {
     return pages;
   };
 
+  // 顶部轮播图
+  const [carouselIndex, setCarouselIndex] = useState(0);
+  const recentRef = useRef<HTMLDivElement>(null);
+
+  const carouselHandle = (direction: 'left' | 'right') => {
+    const box = recentRef.current;
+    if (!box) {
+      return;
+    }
+
+    // const itemWidth = box.clientWidth / 5;
+    const maxIndex = Math.ceil(activitiesData.length - 5); // 最多能偏移的次数
+
+    setCarouselIndex((prev) => {
+      if (direction === 'left') {
+        return Math.max(prev - 1, 0);
+      } else {
+        return Math.min(prev + 1, maxIndex);
+      }
+    });
+  };
+
   return (
-    <>
+    <div className="activities-container">
       <header className="activities-header">
-        <h1>活动列表</h1>
+        {/* <h1>活动列表</h1> */}
+        {/* 最近活动模块轮播盒子显示五个？ */}
+        <div
+          className="rencent-to-left recent-to-button"
+          onClick={() => carouselHandle('left')}
+        >
+          <i>《</i>
+        </div>
+        <div className="activities-recent-container">
+          <div
+            className="activities-recent-box"
+            ref={recentRef}
+            style={{
+              transform: `translateX(-${carouselIndex * 20}%)`, // 每次移动20%，可根据实际 item 宽度微调
+              transition: 'transform 0.5s ease',
+            }}
+          >
+            <div className="activities-recent-item">
+              Android小组参加GDG DevFest 2024西安站
+            </div>
+            <div className="activities-recent-item">
+              Android小组参加GDG DevFest 2024西安站
+            </div>
+            <div className="activities-recent-item">
+              哈哈哈哈啊哈哈哈哈啊哈哈哈啊哈哈哈啊哈哈哈啊哈哈哈啊哈哈哈啊哈哈哈
+              {/* Android小组参加GDG DevFest 2024西安站 */}
+            </div>
+            <div className="activities-recent-item">
+              Android小组参加GDG DevFest 2024西安站
+            </div>
+            <div className="activities-recent-item">
+              Android小组参加GDG DevFest 2024西安站
+            </div>
+            {/* <div className="activities-recent-item"></div> */}
+          </div>
+        </div>
+        <div
+          className="rencent-to-right recent-to-button"
+          onClick={() => carouselHandle('right')}
+        >
+          <i>》</i>
+        </div>
       </header>
       {/* 活动列表*/}
-      <div className="activities-container">
+      <div className="activities-lists-container">
         {/* 活动盒子以及旁边的时间轴 */}
         <section className="activities-lists">
           {getCurrentActivities().map((activity, index) => (
@@ -204,6 +267,7 @@ const Activities: React.FC = () => {
               <div
                 className={`activity-bref-box ${activeTimelineNode === index ? 'card-active' : ' '}`}
               >
+                {/* <div className="activity-bref-box-cover"> */}
                 {/* 文字信息盒子 */}
                 <div className="activity-bref-info">
                   <h3 className="activity-title">{activity.title}</h3>
@@ -218,6 +282,7 @@ const Activities: React.FC = () => {
                   <img src={activity.imgSrc} alt="" />
                 </div>
               </div>
+              {/* </div> */}
             </div>
           ))}
 
@@ -253,7 +318,7 @@ const Activities: React.FC = () => {
           )}
         </section>
       </div>
-    </>
+    </div>
   );
 };
 
