@@ -25,11 +25,12 @@
     padding: 3rem 8rem 1rem 8rem;
     border-radius: 1.2rem;
     background: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 1.3rem rgba(0, 0, 0, 0.425);
+
     backdrop-filter: blur(10px);
     border: 0.15rem solid rgba(255, 255, 255, 0.2);
 
-    li {
+    .add-member-info-item {
       width: 100%;
       display: flex;
       justify-content: space-between;
@@ -90,4 +91,12 @@
   &:active {
     transform: scale(0.9);
   }
+}
+
+.add-member-post-btn-box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
 }

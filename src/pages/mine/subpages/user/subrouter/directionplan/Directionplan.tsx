@@ -134,7 +134,7 @@ const Directionplan = () => {
         ))}
       </div>
       <div className="each-group-trainplan-box">
-        <h3 className="each-group-traninplan-title">{planItem}方向培养计划</h3>
+        <h3 className="each-group-traninplan-title">{planItem} 方向培养计划</h3>
         <div className="direction-plan-page">
           <div className="plan-title"></div>
           <p>面向大一上</p>
