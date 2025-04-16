@@ -5,10 +5,12 @@ import '@/assets/icons/font_4k8jwf31qbs/iconfont.css';
 import '@/assets/icons/font_f7int92srzr/iconfont.css';
 import '@/assets/icons/font_ry8o2ikys/iconfont.css';
 import { useActiveItem } from '@/hooks/useActiveItem';
+import Por from '../../assets/wxqr.webp'
 
 // 用户数据
 const userData = {
-  portrait: '//mobile.xupt.edu.cn/res/15342187758400435.gif',
+  // portrait: '//mobile.xupt.edu.cn/res/15342187758400435.',
+  portrait: Por,
 };
 
 // 导航栏项

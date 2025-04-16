@@ -12,7 +12,8 @@ import Layout from '../layout/Layout';
 // import Login from '../pages/login/Login';
 // import Register from '../pages/register/Register';
 // import Blogs from '../pages/blogs/Blogs';
-import Home from '../pages/Home/Home';
+// import Home from '../pages/Home/Home';
+const Home = lazy(() => import('../pages/Home/Home'));
 // // mine三级路由引入
 // import Administrator from '@/pages/mine/subpages/administrator/Administrator';
 // import User from '@/pages/mine/subpages/user/User';
@@ -361,10 +362,10 @@ const routes: RouteObject[] = [
       },
     ],
   },
-  {
-    path: '*',
-    element: <Notfound />,
-  },
+  // {
+  //   path: '*',
+  //   element: <Notfound />,
+  // },
 ];
 
 export default routes;
