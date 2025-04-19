@@ -9,25 +9,31 @@
 }
 
 .tab {
+  font-size: 1.6rem;
   padding: 10px 30px;
   cursor: pointer;
+  color:#f0f0f0;
+  background-color: #4f554c;
+  background-clip: text;
+  -webkit-text-stroke: 4px transparent;
 }
 
 .tab.active {
   font-weight: bold;
-  border-bottom: 3px solid #00a9ce;
+  border-bottom: 3px solid #2c3e50;
 }
 
 .more-tab {
   position: relative;
   padding: 10px 20px;
   cursor: pointer;
+  font-size: 1.4rem;
 }
 
 .more-dropdown {
   display: none;
   position: absolute;
-  top: 38px;
+  top: 48px;
   right: 0;
   background-color: white;
   border: 1px solid #ccc;
@@ -43,13 +49,18 @@
   padding: 10px;
   border-bottom: 1px dashed #adacac;
   cursor: pointer;
+  color:#f0f0f0;
+  background-color: #4f554c;
+  background-clip: text;
+  -webkit-text-stroke: 4px transparent;
   &:last-child {
     border: none;
   }
 }
 
 .more-item:hover {
-  background-color: #f0f0f0;
+  // background-color: #f0f0f0;
+  font-weight: bold;
 }
 
 .tab-content {
