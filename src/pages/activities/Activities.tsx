@@ -2,6 +2,8 @@ import { useState, useEffect, useRef, useReducer } from 'react';
 import './Activities.scss';
 // import '@/assets/icons/font_9342xhmvru9/iconfont.css';
 import '@/assets/icons/font_95rv9yhaqnu/iconfont.css';
+import '@/assets/icons/font_azfbpmby0m8/iconfont.css';
+import Carousel from './components/carousel';
 
 const activitiesData = [
   {
@@ -169,88 +171,12 @@ const Activities: React.FC = () => {
     return pages;
   };
 
-  // 顶部轮播图，显示近期的六个活动，最中间的是最近的一个活动
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [slideWidth, setSlideWidth] = useState(0);
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  const rawSlides = ['1', '2', '3', '4', '5', '6'];
-  const slides = [
-    rawSlides[0],
-    rawSlides[rawSlides.length - 5],
-    rawSlides[rawSlides.length - 4],
-    rawSlides[rawSlides.length - 3],
-    rawSlides[rawSlides.length - 2],
-    rawSlides[rawSlides.length - 1],
-    ...rawSlides,
-    rawSlides[0],
-  ];
-
-  useEffect(() => {
-    // slideWidth的初始化
-    const items = trackRef.current?.querySelectorAll('.activities-recent-item');
-    if (!items || items.length < 2) return;
-
-    const realFirst = items[2].getBoundingClientRect();
-    const realSecond = items[3].getBoundingClientRect();
-
-    const realFirstCenter = realFirst.left + realFirst.width / 2;
-    const realSecondCenter = realSecond.left + realSecond.width / 2;
-
-    const distance = Math.abs(realSecondCenter - realFirstCenter);
-    console.log(distance);
-    setSlideWidth(distance);
-  }, []);
-
-  // 点击滑动当前index变换
-  const carouselHandle = (direction: 'left' | 'right') => {
-    if (!trackRef.current || slideWidth === 0) return;
-
-    // 点击之后当前计数一个切换
-    if (direction === 'left') {
-      setCurrentIndex(currentIndex - 1);
-      console.log('点击后' + currentIndex);
-    } else {
-      setCurrentIndex(currentIndex + 1);
-      console.log('点击后' + currentIndex);
-    }
-  };
-
-  // 点击左右按钮进行滚动
-  useEffect(() => {
-    const track = trackRef.current;
-    track.style.transition = 'transform 0.4s ease-in-out';
-    track.style.transform = `translateX(${currentIndex * slideWidth}px)`;
-  }, [currentIndex, slideWidth]);
-
   return (
     <div className="activities-container">
       <header className="activities-header">
         {/* <h1>活动列表</h1> */}
         {/* 最近活动模块轮播盒子显示五个？ */}
-        <div
-          className="rencent-to-left recent-to-button"
-          onClick={() => {
-            carouselHandle('left');
-          }}
-        >
-          <i>《</i>
-        </div>
-        <div className="activities-recent-container">
-          <div ref={trackRef} className="activities-recent-box track-box">
-            {slides.map((item) => (
-              <div className="activities-recent-item">{item}</div>
-            ))}
-          </div>
-        </div>
-        <div
-          className="rencent-to-right recent-to-button"
-          onClick={() => {
-            carouselHandle('right');
-          }}
-        >
-          <i>》</i>
-        </div>
+        <Carousel></Carousel>
       </header>
       {/* 活动列表*/}
       <div className="activities-lists-container">

@@ -22,9 +22,9 @@ const MainLayout: React.FC = () => {
     { path: '/login', label: 'Login' },
   ];
 
-    // 获得当前年
-    const now = new Date();
-    const year = now.getFullYear();
+  // 获得当前年
+  const now = new Date();
+  const year = now.getFullYear();
 
   // 使用 useClickOutside Hook 监听点击外部
   useClickOutside(menuRef as React.RefObject<HTMLElement>, () => {
@@ -38,28 +38,28 @@ const MainLayout: React.FC = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [lastScrollTime, setLastScrollTime] = useState(Date.now());
   useEffect(() => {
-      const handleScroll = () => {
-          const currentScrollY = window.scrollY;
-          const currentTime = Date.now();
-          const timeDiff = currentTime - lastScrollTime;
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const currentTime = Date.now();
+      const timeDiff = currentTime - lastScrollTime;
 
-          // 如果向下滚动，且菜单是打开状态
-          if (currentScrollY > lastScrollY && isMenuOpen) {
-              // 计算滚动速度（像素/毫秒）
-              const scrollSpeed = (currentScrollY - lastScrollY) / timeDiff;
+      // 如果向下滚动，且菜单是打开状态
+      if (currentScrollY > lastScrollY && isMenuOpen) {
+        // 计算滚动速度（像素/毫秒）
+        const scrollSpeed = (currentScrollY - lastScrollY) / timeDiff;
 
-              // 如果滚动速度大于0.1像素/毫秒，或者滚动距离大于25像素，则关闭菜单
-              if (scrollSpeed > 0.1 || currentScrollY - lastScrollY > 25) {
-                  setIsMenuOpen(false);
-              }
-          }
+        // 如果滚动速度大于0.1像素/毫秒，或者滚动距离大于25像素，则关闭菜单
+        if (scrollSpeed > 0.1 || currentScrollY - lastScrollY > 25) {
+          setIsMenuOpen(false);
+        }
+      }
 
-          setLastScrollY(currentScrollY);
-          setLastScrollTime(currentTime);
-      };
+      setLastScrollY(currentScrollY);
+      setLastScrollTime(currentTime);
+    };
 
-      window.addEventListener('scroll', handleScroll, { passive: true });
-      return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY, lastScrollTime, isMenuOpen]);
 
   // 控制菜单闭合
@@ -171,8 +171,8 @@ const MainLayout: React.FC = () => {
                 <div>Find us:</div>
                 <div>西邮东区逸夫楼FZ155</div>
               </div> */}
-                <div>Find us:</div>
-                <div className="address">西邮东区逸夫楼FZ155</div>
+              <div>Find us:</div>
+              <div className="address">西邮东区逸夫楼FZ155</div>
             </div>
             <p>© {year} Laboratory. All rights reserved.</p>
           </div>
