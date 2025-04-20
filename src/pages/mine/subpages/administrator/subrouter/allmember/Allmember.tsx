@@ -20,6 +20,14 @@ interface ResponseData {
     dataList: DataItem[];
   };
 }
+const GroupsData = [
+  { name: 'web' },
+  { name: 'Android' },
+  { name: 'Server' },
+  { name: 'iOS' },
+  { name: 'HarmonyOS' },
+  { name: 'other' },
+];
 
 const Allmember: React.FC = () => {
   // const [visibleIndexes, setVisibleIndexes] = useState([]);
@@ -28,18 +36,11 @@ const Allmember: React.FC = () => {
   const [dataList, setDataList] = useState<DataItem[]>([]);
   const [status, setStatus] = useState<number>(0);
   const { activeItem: activeGroup, handleItemClick: handleGroupClick } =
-    useActiveItem<string>();
+    useActiveItem<string>(GroupsData[0].name);
 
   const { activeItem: activeGraduate, handleItemClick: handleGraduateClick } =
-    useActiveItem<string>();
-  const GroupsData = [
-    { name: 'web' },
-    { name: 'Android' },
-    { name: 'Server' },
-    { name: 'iOS' },
-    { name: 'HarmonyOS' },
-    { name: '其他' },
-  ];
+    useActiveItem<string>('graduated');
+
   // 这个之后要根据数据中现有的组去录入吧
   //   const CLICK_ITEMS = {
   //     WEB: 'web',
