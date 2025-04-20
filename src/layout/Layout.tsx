@@ -97,6 +97,7 @@ const MainLayout: React.FC = () => {
 
   return (
     <div className="main-layout">
+      
       <div
         ref={menuRef}
         className={`menu-container ${isMenuOpen ? 'open' : ''}`}
@@ -180,7 +181,7 @@ const MainLayout: React.FC = () => {
           </div>
         </div>
       </div>
-
+      
       <main className="main-content">
         <Outlet context={{ showSubNav, setShowSubNav }} />
       </main>
