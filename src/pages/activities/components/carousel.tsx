@@ -80,6 +80,7 @@ const Carousel = () => {
     }
   };
 
+  // 初始移动首元素到中间
   useEffect(() => {
     console.log(currentIndex);
     const track = trackRef.current;
@@ -95,9 +96,8 @@ const Carousel = () => {
     if (!track) return;
 
     if (currentIndex === -4) {
-      track.style.transition = 'transform 0.4s ease';
-      track.style.transform = `translateX(${2 * slideWidth}px)`;
       track.style.transition = 'none';
+      track.style.transform = `translateX(${2 * slideWidth}px)`;
       setCurrentIndex(2);
     } else if (currentIndex === 4) {
       track.style.transition = 'none';
@@ -108,6 +108,8 @@ const Carousel = () => {
       track.style.transform = `translateX(${currentIndex * slideWidth}px)`;
     }
   }, [currentIndex]);
+
+  // 控制盒子显示动效
 
   // 渲染轮播
   return (

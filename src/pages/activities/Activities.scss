@@ -91,7 +91,7 @@
   grid-template-columns: 70% 30%;
 
   &.card-active {
-    box-shadow: 0 0.3rem 12px rgba(0, 0, 0, 0.479);
+    box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.336);
     transform: translateY(-0.3rem);
   }
 }
@@ -182,6 +182,11 @@
       margin-left: 0;
     }
   }
+
+  .activities-lists-container .activities-lists {
+    // padding-left: 3.5rem;
+  }
+
   .activity-bref-box {
     height: 20rem;
     display: grid;

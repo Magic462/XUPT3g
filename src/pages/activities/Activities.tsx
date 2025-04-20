@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useReducer } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './Activities.scss';
 // import '@/assets/icons/font_9342xhmvru9/iconfont.css';
 import '@/assets/icons/font_95rv9yhaqnu/iconfont.css';

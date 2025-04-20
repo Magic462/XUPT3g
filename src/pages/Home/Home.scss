@@ -1,5 +1,8 @@
 .home-container {
+  // width: 100vw;
+  // overflow: hidden;
   .hero {
+    // width: 100vw;
     height: 100vh;
     background-color: rgb(0, 0, 0);
     background-size: cover;
@@ -63,9 +66,9 @@
     background: linear-gradient(to bottom, rgb(0, 0, 0), rgb(62, 64, 61));
     text-align: center;
     min-height: 100vh;
-    // height: 900px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
 
     h2 {
@@ -76,25 +79,21 @@
     }
 
     .platforms-container {
+      width: 90%;
       display: flex;
       justify-content: center;
       gap: 2rem;
       flex-wrap: wrap;
       position: relative;
-      padding: 2rem;
+      padding: 2rem 0;
 
       .platform-card {
-        // background: white;
-        // background: rgb(214, 215, 214);
-        // background: #6F6E73;
         border: 0.08rem solid #fff;
         background: #4e4f51;
         padding: 2rem;
         border-radius: 12px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         min-width: 16rem;
-        // min-height: 200px;
-        // height: 35px;
         opacity: 0;
         transform: translateY(100px) translateX(100px);
         transition:
