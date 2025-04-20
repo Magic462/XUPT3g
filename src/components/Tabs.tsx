@@ -10,7 +10,7 @@ const Tabs = ({ tabs, onTabChange }) => {
     const handleResize = () => {
       // 当窗口宽度小于等于768px时，设置最大可见标签数为3
       if (window.innerWidth <= 768) {
-        setMaxVisibleTabs(3);
+        setMaxVisibleTabs(2);
       } else {
         setMaxVisibleTabs(6);
       }
@@ -47,7 +47,7 @@ const Tabs = ({ tabs, onTabChange }) => {
         {visibleTabs.map((tab) => (
           <div
             key={tab}
-            className={`tab ${activeTab === tab ? 'active' : ''}`}
+            className={`tab ${activeTab === tab ? 'active' : 'no-active'}`}
             onClick={() => handleTabClick(tab)}
           >
             {tab}

@@ -38,14 +38,16 @@
 
       .hero-tip {
         position: absolute;
-        top: 50%;
-        left: 2rem;
+        top: 60%;
+        left: 50%;
+        transform: translateX(-50%);
 
         h1 {
           font-size: 3rem;
           margin-bottom: 1.5rem;
           animation: fadeInUp 1s ease;
           color: #0e100f;
+          // 文字描边
           background-color: #5de31c;
           background-clip: text;
           -webkit-text-stroke: 3px transparent;
@@ -53,6 +55,7 @@
             #5de31c,
             #4e4f51,
           );
+          
         }
 
         p {
@@ -72,7 +75,6 @@
     background: linear-gradient(to bottom, rgb(0, 0, 0), rgb(62, 64, 61));
     text-align: center;
     min-height: 100vh;
-    // height: 900px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -80,8 +82,9 @@
     h2 {
       font-size: 2.5rem;
       margin-bottom: 3rem;
-      // color: #66bdcc;
       color: #5de31c;
+      //文字倒影
+      -webkit-box-reflect: below -10px -webkit-linear-gradient(transparent, transparent 5%, rgba(255, 255, 255, .3));
     }
 
     .platforms-container {
