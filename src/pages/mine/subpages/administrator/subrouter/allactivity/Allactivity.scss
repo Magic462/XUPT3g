@@ -69,6 +69,7 @@
   }
 
   .activity-toedit-btns {
+    margin-left: 0.5rem;
     grid-column: 3;
     display: flex;
     flex-direction: column;
@@ -96,13 +97,14 @@
     }
 
     .activity-edit-btn {
-      background-color: #59b95b;
+      background-color: #2196f3;
+
       color: #fff;
       margin-bottom: 0.8rem;
     }
 
     .activity-delete-btn {
-      background-color: #f5a621;
+      background-color: #f44336;
       color: #fff;
     }
   }

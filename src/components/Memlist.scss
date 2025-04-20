@@ -1,9 +1,10 @@
 .mem-item {
   display: flex;
   align-items: flex-start;
-  padding: 2rem 4rem;
+  padding: 1.2rem 4rem;
   box-sizing: border-box;
   position: relative;
+  height: 100%;
 
   &::after {
     content: '';
@@ -70,8 +71,19 @@
     }
   }
   .mem-buttons {
+    // width: 6rem;
+    height: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+
+    button {
+      border: none;
+      width: 4rem;
+      height: 2rem;
+      position: relative;
+    }
+
     .view-button {
       padding: 5px 10px;
       background-color: #2196f3;
@@ -80,9 +92,25 @@
       cursor: pointer;
       margin-bottom: 5px;
       border-radius: 4px;
+      // background-color: #59b95b;
+      color: #fff;
+      margin-bottom: 0.8rem;
+
+      &:hover {
+        cursor: pointer;
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 4rem;
+          height: 2rem;
+          background-color: #ffffff27;
+        }
+      }
     }
     .delete-button {
-      padding: 5px 10px;
+      // padding: 5px 10px;
       background-color: #f44336;
       color: white;
       border: none;

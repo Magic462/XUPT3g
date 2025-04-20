@@ -13,13 +13,13 @@ const MainLayout: React.FC = () => {
   const menuRef = useRef<HTMLDivElement>(null);
 
   const menuItems = [
-    { path: '/activities', label: '动态' },
-    // { path: '/blogs', label: '博客' },
-    { path: '/members', label: '成员风采' },
-    { path: '/graduate', label: '毕业去向' },
-    { path: '/mine', label: '我的' },
-    { path: '/trainingplan', label: '培养计划' },
-    { path: '/login', label: '登录' },
+    { path: '/activities', label: 'Activities' },
+    { path: '/blogs', label: 'Blogs' },
+    { path: '/members', label: 'Members' },
+    { path: '/graduate', label: 'Graduate' },
+    { path: '/mine', label: 'Mine' },
+    { path: '/trainingplan', label: 'Training Plan' },
+    { path: '/login', label: 'Login' },
   ];
 
   // 获得当前年
@@ -37,6 +37,7 @@ const MainLayout: React.FC = () => {
   // const [lastMouseY, setLastMouseY] = useState(window.innerHeight / 2);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [lastScrollTime, setLastScrollTime] = useState(Date.now());
+  const [isMainOpen, setIsMainMenu] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -65,6 +66,7 @@ const MainLayout: React.FC = () => {
   // 控制菜单闭合
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+    setIsMainMenu(!isMainOpen);
   };
 
   // 跳转路径
@@ -104,7 +106,7 @@ const MainLayout: React.FC = () => {
           <span></span>
           <span></span>
         </button>
-        {isMinePage && window.innerWidth <= 768 && (
+        {isMinePage && window.innerWidth <= 768 && isMainOpen && (
           <button
             className="menu-submine-toggle"
             onClick={() => {
@@ -147,7 +149,7 @@ const MainLayout: React.FC = () => {
               onClick={() => handleNavigation('/')}
               style={{ cursor: 'pointer' }}
             >
-              首页
+              Laboratory
             </a>
           </div>
 
