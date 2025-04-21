@@ -29,7 +29,7 @@ const nowDirections = [
 
 const Directionplan = () => {
   const { activeItem: planItem, handleItemClick: handlePlanClick } =
-    useActiveItem<string>();
+    useActiveItem<string>(nowDirections[0].name);
   const [hasAnimated, setHasAnimated] = useState(false);
   const pathRef = useRef<SVGPathElement>(null);
 

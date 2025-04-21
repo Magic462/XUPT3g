@@ -21,7 +21,7 @@ interface ResponseData {
   };
 }
 const GroupsData = [
-  { name: 'web' },
+  { name: 'Web' },
   { name: 'Android' },
   { name: 'Server' },
   { name: 'iOS' },
@@ -187,7 +187,7 @@ const Allmember: React.FC = () => {
         </h2>
       </div>
       <div className="filter-buttons">
-        <div className="filter-groups">
+        <div className="filter-teams">
           {GroupsData.map((item) => (
             <button
               key={item.name}

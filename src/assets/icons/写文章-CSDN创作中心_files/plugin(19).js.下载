@@ -1,0 +1,6 @@
+﻿/*
+ Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+*/
+(function(){CKEDITOR.plugins.add("csdndownload",{lang:"zh,zh-cn",icons:"csdndownload",iconfolder:"images/",icontype:".svg",iconoffset:"center",iconbgsize:"16px",hidpi:!1,init:function(a){a.addCommand("csdndownload",{modes:{wysiwyg:!CKEDITOR.env.iOS,source:!CKEDITOR.env.iOS},readOnly:1,editorFocus:!1,exec:function(){a.config.csdndownload&&a.config.csdndownload.execShowAppend(a)},canUndo:!1});var b=a.lang.csdndownload;a.ui.addButton&&a.ui.addButton("CsdnDownload",{label:b.title,command:"csdndownload",
+toolbar:"tools,10"})}})})();

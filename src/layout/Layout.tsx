@@ -72,7 +72,6 @@ const MainLayout: React.FC = () => {
   // 跳转路径
   const handleNavigation = (path: string) => {
     navigate(path);
-    setIsMenuOpen(false);
   };
 
   // 检测路由进入mine没
@@ -97,7 +96,6 @@ const MainLayout: React.FC = () => {
 
   return (
     <div className="main-layout">
-      
       <div
         ref={menuRef}
         className={`menu-container ${isMenuOpen ? 'open' : ''}`}
@@ -181,7 +179,7 @@ const MainLayout: React.FC = () => {
           </div>
         </div>
       </div>
-      
+
       <main className="main-content">
         <Outlet context={{ showSubNav, setShowSubNav }} />
       </main>

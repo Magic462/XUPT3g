@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("eqneditor","zh-cn",{title:"公式编辑器",menu:"数学",toolbar:"公式",edit:"编辑公式"});

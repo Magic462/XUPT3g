@@ -89,7 +89,7 @@ const adminNavItem = [
   {
     key: EXPANDABLE_ITEMS.EDITTRAININGPLAN,
     icon: 'icon-jiasupeiyangjihua',
-    label: '实验室培养方案',
+    label: '培养方案',
     path: '/mine/admin/edittrainplan',
   },
 ];
