@@ -106,7 +106,7 @@ const Home: React.FC = () => {
           </div>
           <div className="hero-tip">
             <h1>
-              <svg
+              {/* <svg
                 className="icon"
                 viewBox="0 0 1024 1024"
                 version="1.1"
@@ -120,7 +120,7 @@ const Home: React.FC = () => {
                   p-id="2082"
                   fill="#5DE31C"
                 ></path>
-              </svg>
+              </svg> */}
               西邮移动应用开发实验室
             </h1>
             <p>探索移动应用开发的无限可能</p>
