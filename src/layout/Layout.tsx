@@ -98,7 +98,7 @@ const MainLayout: React.FC = () => {
     <div className="main-layout">
       <div
         ref={menuRef}
-        className={`menu-container ${isMenuOpen ? 'open' : ''}`}
+        className={`menu-container ${isMenuOpen ? 'open' : ''} ${isMinePage && !isMenuOpen && window.innerWidth <= 768 ? 'menu-height' : ''}`}
       >
         <button className="menu-toggle" onClick={toggleMenu}>
           <span></span>

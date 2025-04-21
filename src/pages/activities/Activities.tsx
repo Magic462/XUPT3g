@@ -3,7 +3,7 @@ import './Activities.scss';
 // import '@/assets/icons/font_9342xhmvru9/iconfont.css';
 import '@/assets/icons/font_95rv9yhaqnu/iconfont.css';
 import '@/assets/icons/font_azfbpmby0m8/iconfont.css';
-import Carousel from './components/carousel';
+import StackCarousel from './components/stackcarousel';
 
 const activitiesData = [
   {
@@ -174,9 +174,7 @@ const Activities: React.FC = () => {
   return (
     <div className="activities-container">
       <header className="activities-header">
-        {/* <h1>活动列表</h1> */}
-        {/* 最近活动模块轮播盒子显示五个？ */}
-        <Carousel></Carousel>
+        <StackCarousel></StackCarousel>
       </header>
       {/* 活动列表*/}
       <div className="activities-lists-container">
