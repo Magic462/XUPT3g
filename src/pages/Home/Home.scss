@@ -209,3 +209,10 @@
     transform: translateY(0);
   }
 }
+
+@media (min-width: 769px) {
+  .home-container .platforms-section .platforms-container  {
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+}
