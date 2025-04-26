@@ -27,7 +27,7 @@
     flex-direction: column;
     gap: 3rem;
     position: relative;
-    padding-left: 3rem;
+    padding-left: 4rem;
 
     // 时间轴样式
     &::before {
@@ -36,7 +36,7 @@
       left: 0;
       top: 0;
       bottom: 0;
-      width: 2px;
+      width: 0.2rem;
       background-color: #eee;
     }
 
@@ -50,7 +50,7 @@
 // 时间轴时间节点
 .timeline-node {
   position: absolute;
-  left: -10rem;
+  left: -11rem;
   // background-color: hsl(0, 0%, 100%);
   display: flex;
   align-items: center;
@@ -182,9 +182,8 @@
       margin-left: 0;
     }
   }
-
-  .activities-lists-container .activities-lists {
-    // padding-left: 3.5rem;
+  .timeline-node {
+    left: -11.3rem;
   }
 
   .activity-bref-box {

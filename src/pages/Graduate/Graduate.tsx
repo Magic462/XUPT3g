@@ -6,9 +6,9 @@ import People from '../../components/People';
 import Photo from '../../assets/face.webp';
 // import Photo from '//mobile.xupt.edu.cn/res/14957725307919851.jpg'
 import Img from '../../assets/face.webp';
-import Zp1 from '../../assets/wjc.webp'
-import Zp2 from '../../assets/szq.webp'
-import Zp3 from '../../assets/yke.webp'
+import Zp1 from '../../assets/wjc.webp';
+import Zp2 from '../../assets/szq.webp';
+import Zp3 from '../../assets/yke.webp';
 
 const Graduate = () => {
   // 假数据
@@ -21,7 +21,7 @@ const Graduate = () => {
       enrollment_year: 2022,
       photo: Photo,
       company: '字节生活服务',
-      message: '玩原神玩的。玩原神玩的。玩原神玩的。玩原',
+      message: '玩原神玩的。玩原神玩的。玩原神玩的。玩元神',
     },
     {
       id: 2,
@@ -84,7 +84,16 @@ const Graduate = () => {
       message: '感谢母校的培养！',
     },
   ];
-  const years = ['2018','2019','2020', '2021', '2022', '2023', '2024', '2025'];
+  const years = [
+    '2018',
+    '2019',
+    '2020',
+    '2021',
+    '2022',
+    '2023',
+    '2024',
+    '2025',
+  ];
   const [selectedYear, setSelectedYear] = useState(years[0]);
   //   // 根据选中的年份过滤成员
   const filteredMembers = members.filter(

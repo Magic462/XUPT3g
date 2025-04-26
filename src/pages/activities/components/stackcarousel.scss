@@ -1,14 +1,12 @@
 .carousel-out {
   width: 100%;
   height: 100%;
-  // height: 200px;
   position: relative;
   margin: auto;
 }
 
 .carousel-inner {
   width: 100%;
-  // width: 100vw;
   height: 100%;
   display: flex;
   align-items: center;
@@ -19,27 +17,41 @@
     width: 90%;
     display: flex;
     position: relative;
-    overflow: hidden;
     align-items: center;
   }
 }
 
 .carousel-recent-box {
   box-sizing: border-box;
-  width: 25rem;
-  height: 7rem;
-  position: absolute;
   left: 50%;
+  position: absolute;
+  width: 48%;
+  height: 8rem;
   transition: 0.5s ease;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   color: black;
-  padding: 2rem 2rem;
+  padding: 2rem 0.5rem;
   background-color: #fff;
   border-radius: 10px;
   text-align: center;
-  font-size: 0.8rem;
+
+  .carousel-recent-cover {
+    display: flex;
+    align-items: center;
+    img {
+      width: 12em;
+      height: 7rem;
+      object-fit: cover;
+    }
+  }
+  .carousel-recent-title {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0rem 1em;
+    font-size: 0.8rem;
+  }
 }
 
 #first {
@@ -51,18 +63,18 @@
 #second {
   transform: translateX(10%) scale(0.9);
   z-index: 2;
-  opacity: 0.9;
+  opacity: 0.8;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
 }
 #right {
   transform: translateX(40%) scale(0.8);
   z-index: 1;
-  opacity: 0.5;
+  opacity: 0.2;
 }
 #last {
   transform: translateX(-110%) scale(0.9);
   z-index: 2;
-  opacity: 0.9;
+  opacity: 0.8;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
 }
 #left {
@@ -77,20 +89,37 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 34px;
-  color: #fff;
+  color: #686868;
   cursor: pointer;
   z-index: 999;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  // color: black;
 
+  .iconfont {
+    font-size: 2rem;
+  }
   i {
     height: 100%;
     display: flex;
     align-items: center;
+    position: relative;
     &:hover {
-      background-color: #ffffff3f;
+      // &::after {
+      //   content: '';
+      //   position: absolute;
+      //   top: 50%;
+      //   left: 50%;
+      //   transform: translate(-50%, -50%);
+      //   width: 3rem;
+      //   height: 3rem;
+      //   background-color: #68686844;
+      //   border-radius: 1rem;
+      //   border: 0.1rem solid black;
+      //   // background-color: #1677ff6c;
+      // }
+      color: black;
     }
   }
   .icon-zuojiantou,
@@ -115,11 +144,8 @@
 
   p {
     display: inline-block;
-    // width: 12px;
     width: 0.5rem;
-    // height: 12px;
     height: 0.5rem;
-    // margin: 0 5px;
     margin: 0 0.2rem;
     border-radius: 50%;
     background: silver;
@@ -131,18 +157,18 @@
   }
 }
 
-@media (min-width: 992px) and (max-width: 1199px) {
+@media (min-width: 990px) and (max-width: 1199px) {
   .carousel-recent-box {
-    width: 17rem;
+    width: 20rem;
   }
   .carousel-inner .carousel-inner-viewbox {
     width: 85%;
   }
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 768px) and (max-width: 990px) {
   .carousel-recent-box {
-    width: 14rem;
+    width: 17rem;
   }
 }
 
@@ -159,7 +185,8 @@
 
 @media (max-width: 480px) {
   .carousel-recent-box {
-    width: 10rem;
+    // width: 10rem;
+    width: 45%;
     height: 5rem;
     font-size: 9px;
   }

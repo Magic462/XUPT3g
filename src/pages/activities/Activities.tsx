@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import './Activities.scss';
-// import '@/assets/icons/font_9342xhmvru9/iconfont.css';
 import '@/assets/icons/font_95rv9yhaqnu/iconfont.css';
-import '@/assets/icons/font_azfbpmby0m8/iconfont.css';
+import '@/assets/icons/font_5wqplvdpjmq/iconfont.css';
+
 import StackCarousel from './components/stackcarousel';
 
 const activitiesData = [
