@@ -188,10 +188,16 @@
     // width: 10rem;
     width: 45%;
     height: 5rem;
-    font-size: 9px;
   }
 
+  .carousel-recent-box .carousel-recent-title {
+    font-size: 9px;
+  }
   .carousel-inner .carousel-inner-viewbox {
     width: 70%;
+  }
+
+  .carousel-arrow {
+    color: black;
   }
 }
