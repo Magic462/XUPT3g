@@ -4,22 +4,24 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from 'axios';
+import { showMessage } from '@/utils/message';
 
 // 创建axios实例
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL, // 请求的默认前缀 只要是发出去请求就会 默认带上这个前缀
-  timeout: 10000, // 请求超时时间：10s
-  headers: { 'Content-Type': 'application/json' }, // 设置默认请求头
+  baseURL: 'http://10csqn6268959.vicp.fun:54760',
+  timeout: 10000,
+  headers: { 'Content-Type': 'application/json' },
 });
 
 // 请求拦截器
 axiosInstance.interceptors.request.use(
-  (config: InternalAxiosRequestConfig) => {
-    // 在请求里加入token认证信息
-    // const token = getToken() // localStorage.getItem('token')
-    // if (token) {
-    //     config.headers.Authorization = `Bearer ${token}`
-    // }
+  (config: InternalAxiosRequestConfig & { customAuth?: boolean }) => {
+    const token = localStorage.getItem('token');
+
+    // 只有明确标记了customAuth才添加token
+    if (token && config.customAuth) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   (err: AxiosError) => {
@@ -27,38 +29,33 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-// 响应拦截器即异常处理
+// 响应拦截器
 axiosInstance.interceptors.response.use(
   (res: AxiosResponse) => {
-    // const code = res.data.code;
-    // switch (code) {
-    //   case 200:
-    //     return res.data;
-    //   case 401:
-    //     /** 登录失效逻辑... */
-    //     return res.data || {};
-    //   default:
-    //     return res.data || {};
-    // }
-    return res; // res.data
+    const { code, data, message: msg } = res.data;
+    switch (code) {
+      case 200:
+        return data;
+      case 401:
+        showMessage('warning', '登录失效，请重新登录');
+        window.location.href = '/login';
+        return Promise.reject(res.data);
+      default:
+        showMessage('error', msg || '请求失败');
+        return Promise.reject(res.data);
+    }
   },
   (err: AxiosError) => {
-    // 如果接口请求报错时，也可以直接返回对象，如return { message: onErrorReason(error.message) }，这样使用async/await就不需要加try/catch
-    // onErrorReason(err.message) // 做一些全局的错误提示，可用ui库的message提示组件
-    return Promise.resolve(err);
+    showMessage('error', onErrorReason(err.message));
+    return Promise.reject(err);
   }
 );
 
-/** 解析http层面请求异常原因 */
-// function onErrorReason(message: string): string {
-//   if (message.includes('Network Error')) {
-//     return '网络异常，请检查网络情况!';
-//   }
-//   if (message.includes('timeout')) {
-//     return '请求超时，请重试!';
-//   }
-//   return '服务异常,请重试!';
-// }
+// 错误消息转中文
+function onErrorReason(message: string): string {
+  if (message.includes('Network Error')) return '网络异常，请检查网络情况!';
+  if (message.includes('timeout')) return '请求超时，请重试!';
+  return '服务异常，请重试!';
+}
 
-// 导出实例
 export default axiosInstance;
