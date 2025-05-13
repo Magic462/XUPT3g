@@ -5,114 +5,18 @@ import '@/assets/icons/font_5wqplvdpjmq/iconfont.css';
 import StackCarousel from './components/stackcarousel';
 import { getAllArticleInfo } from '@/services/activities';
 
-// const activitiesData = [
-//   {
-//     title: 'Android小组参加GDG DevFest 2024西安站',
-//     timeDate: '2024-12-08',
-//     content:
-//       '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-//     status: 'completed',
-//     imgSrc: './src/assets/activities/17336357070040458.webp',
-//   },
-//   {
-//     title: 'Android小组参加GDG DevFest 2024西安站',
-//     timeDate: '2024-12-08',
-//     content:
-//       '2024年11月24日下午，西安息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-//     status: 'completed',
-//     imgSrc: './src/assets/activities/17325230781181098.webp',
-//   },
-//   {
-//     title: 'Android小组参加GDG DevFest 2024西安站',
-//     timeDate: '2024-12-08',
-//     content: '2024年11月24日下午，西安的天空',
-//     status: 'completed',
-//     imgSrc: './src/assets/activities/17325230781181098.webp',
-//   },
-//   {
-//     title: 'Android小组参加GDG DevFest 2024西安站',
-//     timeDate: '2024-12-08',
-//     content:
-//       '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-//     status: 'completed',
-//     imgSrc: './src/assets/activities/17336357070040458.webp',
-//   },
-//   {
-//     title: 'Android小组参加GDG DevFest 2024西安站',
-//     timeDate: '2024-12-08',
-//     content:
-//       '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-//     status: 'completed',
-//     imgSrc: './src/assets/activities/17336357070040458.webp',
-//   },
-//   {
-//     title: 'Android小组参加GDG DevFest 2024西安站',
-//     timeDate: '2024-12-08',
-//     content:
-//       '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-//     status: 'completed',
-//     imgSrc: './src/assets/activities/17336357070040458.webp',
-//   },
-//   {
-//     title: 'Android小组参加GDG DevFest 2024西安站',
-//     timeDate: '2024-12-08',
-//     content:
-//       '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-//     status: 'completed',
-//     imgSrc: './src/assets/activities/17336357070040458.webp',
-//   },
-//   {
-//     title: 'Android小组参加GDG DevFest 2024西安站',
-//     timeDate: '2024-12-08',
-//     content:
-//       '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-//     status: 'completed',
-//     imgSrc: './src/assets/activities/17336357070040458.webp',
-//   },
-//   {
-//     title: 'Android小组参加GDG DevFest 2024西安站',
-//     timeDate: '2024-12-08',
-//     content:
-//       '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-//     status: 'completed',
-//     imgSrc: './src/assets/activities/17336357070040458.webp',
-//   },
-//   {
-//     title: 'Android小组参加GDG DevFest 2024西安站',
-//     timeDate: '2024-12-08',
-//     content:
-//       '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-//     status: 'completed',
-//     imgSrc: './src/assets/activities/17336357070040458.webp',
-//   },
-//   {
-//     title: 'Android小组参加GDG DevFest 2024西安站',
-//     timeDate: '2024-12-08',
-//     content:
-//       '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-//     status: 'completed',
-//     imgSrc: './src/assets/activities/17336357070040458.webp',
-//   },
-//   {
-//     title: 'Android小组参加GDG DevFest 2024西安站',
-//     timeDate: '2024-12-08',
-//     content:
-//       '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-//     status: 'completed',
-//     imgSrc: './src/assets/activities/17336357070040458.webp',
-//   },
-//   {
-//     title: 'Android小组参加GDG DevFest 2024西安站',
-//     timeDate: '2024-12-08',
-//     content:
-//       '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-//     status: 'completed',
-//     imgSrc: './src/assets/activities/17336357070040458.webp',
-//   },
-// ];
-
-// 每页显示的活动数量
 const ITEMS_PER_PAGE = 10;
+
+interface Article {
+  aid: number;
+  title: string;
+  img: string;
+  status: number;
+  summary: string;
+  time: string;
+  view: number;
+  content: string;
+}
 
 const Activities: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -120,22 +24,18 @@ const Activities: React.FC = () => {
     null
   );
   const activitiesRef = useRef<Array<HTMLDivElement | null>>([]);
-
   // 获取活动数据
-  const [activitiesData, setArticles] = useState([]);
-
+  const [activitiesData, setArticleList] = useState<Article[]>([]);
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await getAllArticleInfo();
+    getAllArticleInfo()
+      .then((res) => {
         console.log(res);
-        // setArticles(res.data); // 根据你接口的返回结构调整
-      } catch (err) {
-        console.error('获取文章失败:', err);
-      }
-    };
-
-    fetchData();
+        // console.log(res.data);
+        setArticleList(res); // data 现在会被认为是 Article[] 类型
+      })
+      .catch((err) => {
+        console.error('获取文章失败: ', err);
+      });
   }, []);
 
   // 总页数
@@ -212,7 +112,7 @@ const Activities: React.FC = () => {
                 <span
                   className={`timeline-node-time ${activeTimelineNode === index ? 'active' : ' '}`}
                 >
-                  {activity.timeDate}
+                  {activity.time}
                 </span>
                 <i
                   className={`timeline-node-icon iconfont icon-a-svg-path1 ${activeTimelineNode === index ? 'active' : ' '}`}
@@ -227,15 +127,13 @@ const Activities: React.FC = () => {
                 {/* 文字信息盒子 */}
                 <div className="activity-bref-info">
                   <h3 className="activity-title">{activity.title}</h3>
-                  <div className="activity-date">
-                    发布于 {activity.timeDate}
-                  </div>
-                  <p className="activity-content">{activity.content}</p>
+                  <div className="activity-date">发布于 {activity.time}</div>
+                  <p className="activity-summary">{activity.summary}</p>
                 </div>
 
                 {/* 活动封面盒子 */}
                 <div className="activity-bref-bg">
-                  <img src={activity.imgSrc} alt="" />
+                  <img src={activity.img} alt="" />
                 </div>
               </div>
               {/* </div> */}
