@@ -2,114 +2,114 @@ import { useState, useEffect, useRef } from 'react';
 import './Activities.scss';
 import '@/assets/icons/font_95rv9yhaqnu/iconfont.css';
 import '@/assets/icons/font_5wqplvdpjmq/iconfont.css';
-
 import StackCarousel from './components/stackcarousel';
+import { getAllArticleInfo } from '@/services/activities';
 
-const activitiesData = [
-  {
-    title: 'Android小组参加GDG DevFest 2024西安站',
-    timeDate: '2024-12-08',
-    content:
-      '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-    status: 'completed',
-    imgSrc: './src/assets/activities/17336357070040458.webp',
-  },
-  {
-    title: 'Android小组参加GDG DevFest 2024西安站',
-    timeDate: '2024-12-08',
-    content:
-      '2024年11月24日下午，西安息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-    status: 'completed',
-    imgSrc: './src/assets/activities/17325230781181098.webp',
-  },
-  {
-    title: 'Android小组参加GDG DevFest 2024西安站',
-    timeDate: '2024-12-08',
-    content: '2024年11月24日下午，西安的天空',
-    status: 'completed',
-    imgSrc: './src/assets/activities/17325230781181098.webp',
-  },
-  {
-    title: 'Android小组参加GDG DevFest 2024西安站',
-    timeDate: '2024-12-08',
-    content:
-      '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-    status: 'completed',
-    imgSrc: './src/assets/activities/17336357070040458.webp',
-  },
-  {
-    title: 'Android小组参加GDG DevFest 2024西安站',
-    timeDate: '2024-12-08',
-    content:
-      '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-    status: 'completed',
-    imgSrc: './src/assets/activities/17336357070040458.webp',
-  },
-  {
-    title: 'Android小组参加GDG DevFest 2024西安站',
-    timeDate: '2024-12-08',
-    content:
-      '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-    status: 'completed',
-    imgSrc: './src/assets/activities/17336357070040458.webp',
-  },
-  {
-    title: 'Android小组参加GDG DevFest 2024西安站',
-    timeDate: '2024-12-08',
-    content:
-      '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-    status: 'completed',
-    imgSrc: './src/assets/activities/17336357070040458.webp',
-  },
-  {
-    title: 'Android小组参加GDG DevFest 2024西安站',
-    timeDate: '2024-12-08',
-    content:
-      '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-    status: 'completed',
-    imgSrc: './src/assets/activities/17336357070040458.webp',
-  },
-  {
-    title: 'Android小组参加GDG DevFest 2024西安站',
-    timeDate: '2024-12-08',
-    content:
-      '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-    status: 'completed',
-    imgSrc: './src/assets/activities/17336357070040458.webp',
-  },
-  {
-    title: 'Android小组参加GDG DevFest 2024西安站',
-    timeDate: '2024-12-08',
-    content:
-      '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-    status: 'completed',
-    imgSrc: './src/assets/activities/17336357070040458.webp',
-  },
-  {
-    title: 'Android小组参加GDG DevFest 2024西安站',
-    timeDate: '2024-12-08',
-    content:
-      '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-    status: 'completed',
-    imgSrc: './src/assets/activities/17336357070040458.webp',
-  },
-  {
-    title: 'Android小组参加GDG DevFest 2024西安站',
-    timeDate: '2024-12-08',
-    content:
-      '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-    status: 'completed',
-    imgSrc: './src/assets/activities/17336357070040458.webp',
-  },
-  {
-    title: 'Android小组参加GDG DevFest 2024西安站',
-    timeDate: '2024-12-08',
-    content:
-      '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-    status: 'completed',
-    imgSrc: './src/assets/activities/17336357070040458.webp',
-  },
-];
+// const activitiesData = [
+//   {
+//     title: 'Android小组参加GDG DevFest 2024西安站',
+//     timeDate: '2024-12-08',
+//     content:
+//       '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
+//     status: 'completed',
+//     imgSrc: './src/assets/activities/17336357070040458.webp',
+//   },
+//   {
+//     title: 'Android小组参加GDG DevFest 2024西安站',
+//     timeDate: '2024-12-08',
+//     content:
+//       '2024年11月24日下午，西安息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
+//     status: 'completed',
+//     imgSrc: './src/assets/activities/17325230781181098.webp',
+//   },
+//   {
+//     title: 'Android小组参加GDG DevFest 2024西安站',
+//     timeDate: '2024-12-08',
+//     content: '2024年11月24日下午，西安的天空',
+//     status: 'completed',
+//     imgSrc: './src/assets/activities/17325230781181098.webp',
+//   },
+//   {
+//     title: 'Android小组参加GDG DevFest 2024西安站',
+//     timeDate: '2024-12-08',
+//     content:
+//       '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
+//     status: 'completed',
+//     imgSrc: './src/assets/activities/17336357070040458.webp',
+//   },
+//   {
+//     title: 'Android小组参加GDG DevFest 2024西安站',
+//     timeDate: '2024-12-08',
+//     content:
+//       '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
+//     status: 'completed',
+//     imgSrc: './src/assets/activities/17336357070040458.webp',
+//   },
+//   {
+//     title: 'Android小组参加GDG DevFest 2024西安站',
+//     timeDate: '2024-12-08',
+//     content:
+//       '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
+//     status: 'completed',
+//     imgSrc: './src/assets/activities/17336357070040458.webp',
+//   },
+//   {
+//     title: 'Android小组参加GDG DevFest 2024西安站',
+//     timeDate: '2024-12-08',
+//     content:
+//       '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
+//     status: 'completed',
+//     imgSrc: './src/assets/activities/17336357070040458.webp',
+//   },
+//   {
+//     title: 'Android小组参加GDG DevFest 2024西安站',
+//     timeDate: '2024-12-08',
+//     content:
+//       '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
+//     status: 'completed',
+//     imgSrc: './src/assets/activities/17336357070040458.webp',
+//   },
+//   {
+//     title: 'Android小组参加GDG DevFest 2024西安站',
+//     timeDate: '2024-12-08',
+//     content:
+//       '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
+//     status: 'completed',
+//     imgSrc: './src/assets/activities/17336357070040458.webp',
+//   },
+//   {
+//     title: 'Android小组参加GDG DevFest 2024西安站',
+//     timeDate: '2024-12-08',
+//     content:
+//       '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
+//     status: 'completed',
+//     imgSrc: './src/assets/activities/17336357070040458.webp',
+//   },
+//   {
+//     title: 'Android小组参加GDG DevFest 2024西安站',
+//     timeDate: '2024-12-08',
+//     content:
+//       '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
+//     status: 'completed',
+//     imgSrc: './src/assets/activities/17336357070040458.webp',
+//   },
+//   {
+//     title: 'Android小组参加GDG DevFest 2024西安站',
+//     timeDate: '2024-12-08',
+//     content:
+//       '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
+//     status: 'completed',
+//     imgSrc: './src/assets/activities/17336357070040458.webp',
+//   },
+//   {
+//     title: 'Android小组参加GDG DevFest 2024西安站',
+//     timeDate: '2024-12-08',
+//     content:
+//       '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
+//     status: 'completed',
+//     imgSrc: './src/assets/activities/17336357070040458.webp',
+//   },
+// ];
 
 // 每页显示的活动数量
 const ITEMS_PER_PAGE = 10;
@@ -120,6 +120,23 @@ const Activities: React.FC = () => {
     null
   );
   const activitiesRef = useRef<Array<HTMLDivElement | null>>([]);
+
+  // 获取活动数据
+  const [activitiesData, setArticles] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await getAllArticleInfo();
+        console.log(res);
+        // setArticles(res.data); // 根据你接口的返回结构调整
+      } catch (err) {
+        console.error('获取文章失败:', err);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // 总页数
   const totalPages = Math.ceil(activitiesData.length / ITEMS_PER_PAGE);
