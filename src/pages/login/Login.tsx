@@ -3,7 +3,8 @@ import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Login.scss';
-import { log } from 'console';
+import { getCaptcha } from '@/services/captcha';
+import { postLogin } from '@/services/login';
 
 const Login = () => {
   
@@ -15,12 +16,14 @@ const Login = () => {
 
   const nav = useNavigate();
 
-  const getCaptcha = async () => {
+  const setCaptcha = async () => {
     try {
-      const response = await axios.get('http://10csqn6268959.vicp.fun:54760/api/captcha');
-      console.log(response.data.data);
+      const response = await getCaptcha();
+      console.log(response);
       
-      const { captchaID, captchaImage } = response.data.data;
+      const { captchaID, captchaImage } = response;
+      console.log(captchaID);
+      
       setCaptchaImg(captchaImage);
       setCaptchaID(captchaID);
     } catch (error) {
@@ -30,7 +33,7 @@ const Login = () => {
 
   const refreshCaptcha = () => {
     setCaptchaData(''); 
-    getCaptcha();
+    setCaptcha();
   };
 
   const handleError = (error: any) => {
@@ -49,11 +52,13 @@ const Login = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-        const response = await axios.post('http://10csqn6268959.vicp.fun:54760/api/login', {
-            username,
-            password,
-            captchaData,
-            captchaID 
+      console.log(captchaData);
+      
+        const response = await postLogin({
+          username,
+          password,
+          captchaID,
+          captchaData,
         });
         if (response.status === 200) {
             console.log(response.data);
@@ -73,7 +78,7 @@ const Login = () => {
 };
 
   useEffect(() => {
-    getCaptcha();
+    setCaptcha();
   }, []);
 
   return (

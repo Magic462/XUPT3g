@@ -11,38 +11,33 @@ const Home: React.FC = () => {
 
   const platforms = [
     {
-      id: 'web',
       name: 'Web',
       delay: 0,
-      description:
+      bref_info:
         'Web开发的魅力在于，你的每一行代码都可能改变数百万用户的体验。刚开始可能会觉得繁杂，但一旦上手，你会发现Web让你的创造力得到了最大化的发挥！',
     },
     {
-      id: 'server',
       name: 'Server',
       delay: 100,
-      description:
+      bref_info:
         '服务器开发让你能够处理后端逻辑，保障应用的稳定和安全。了解服务器的构建，能让你的应用运行得更顺畅！',
     },
     {
-      id: 'android',
       name: 'Android',
       delay: 200,
-      description:
+      bref_info:
         '安卓开发为你打开了移动应用的大门，应用程序的每一次更新都能提升用户体验，快来尝试吧！',
     },
     {
-      id: 'ios',
       name: 'iOS',
       delay: 300,
-      description:
+      bref_info:
         'iOS开发注重用户体验，精致的界面让每个应用都独具魅力。用你的创意实现应用的灵魂！',
     },
     {
-      id: 'harmony',
       name: 'HarmonyOS',
       delay: 400,
-      description:
+      bref_info:
         '鸿蒙系统为多设备体验提供了可能，了解其特性，你将能够创建跨平台的应用！',
     },
   ];
@@ -131,16 +126,15 @@ const Home: React.FC = () => {
       <section className="platforms-section">
         <h2>技术平台</h2>
         <div className="platforms-container">
-          {platforms.map((platform, index) => (
+          {platforms.map((platform) => (
             <div
-              key={platform.id}
               className={`platform-card ${platform.delay ? `transition-delay-${platform.delay}` : ''}`}
               style={{
                 transitionDelay: `${platform.delay}ms`,
               }}
             >
               <h3>{platform.name}</h3>
-              <div className="platform-description">{platform.description}</div>
+              <div className="platform-description">{platform.bref_info}</div>
             </div>
           ))}
         </div>
