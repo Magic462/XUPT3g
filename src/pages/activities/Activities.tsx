@@ -17,14 +17,14 @@ const Activities: React.FC = () => {
   // 获取活动数据
   const [activitiesData, setArticleList] = useState<Article[]>([]);
   useEffect(() => {
-    getAllArticleInfo(currentPage)
+    getAllArticleInfo()
       .then((res) => {
         setArticleList(res); // data 现在会被认为是 Article[] 类型
       })
       .catch((err) => {
         console.error('获取文章失败: ', err);
       });
-  }, [currentPage]);
+  }, []);
 
   // 总页数
   const totalPages = 10;
