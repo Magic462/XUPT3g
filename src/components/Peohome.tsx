@@ -131,6 +131,7 @@ const Peohome: React.FC<PeohomeProps> = ({
             <div className="info-item mien-box">
               <label>风采照</label>
               <div className="mien-photo-box">
+                {/* <img src='res/17137928617381890.jpg'></img> */}
                 <img src={mienImg}></img>
               </div>
             </div>

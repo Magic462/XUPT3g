@@ -7,6 +7,7 @@ import '@/assets/icons/font_ry8o2ikys/iconfont.css';
 import '@/assets/icons/font_95rv9yhaqnu/iconfont.css';
 import { useActiveItem } from '@/hooks/useActiveItem';
 import Por from '../../assets/wxqr.webp';
+import { useAuth } from '../../hooks/useAuth'
 
 // 用户数据
 const userData = {
@@ -117,14 +118,7 @@ const Mine = () => {
     handleExpandItem(item);
   };
 
-  // 用户退出，并且清除本地下载的token
-  const userExit = () => {
-    localStorage.removeItem('token')
-    localStorage.removeItem('status')
-    localStorage.removeItem('username')
-    // alert('确认退出登陆')
-    navigate('/');
-  };
+  const { logout } = useAuth();
 
   // 左侧导航各个item渲染
   const RenderNavItem = (item: {
@@ -199,7 +193,8 @@ const Mine = () => {
             </section>
           )}
           <div className="leftnav-exit">
-            <button onClick={() => userExit()}>exit</button>
+            <button onClick={() => logout()}>exit</button>
+            {/* <button onClick={() => userExit()}>exit</button> */}
           </div>
         </div>
       )}

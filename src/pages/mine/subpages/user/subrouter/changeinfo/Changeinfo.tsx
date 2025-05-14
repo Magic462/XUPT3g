@@ -26,18 +26,18 @@ const Changeinfo = () => {
 
     const [userinfo, setUserInfo]=useState(null);
 
-    useEffect(()=>{
-      const fetchUserinfo = async () => {
-        try {
-          const response = await getUseinfo();
-          setUserInfo(response);
-        } catch (error) {
-          console.error('获取验证码失败:', error);
-        }
-      };
+    // useEffect(()=>{
+    //   const fetchUserinfo = async () => {
+    //     try {
+    //       const response = await getUseinfo();
+    //       setUserInfo(response);
+    //     } catch (error) {
+    //       console.error('获取验证码失败:', error);
+    //     }
+    //   };
 
-      fetchUserinfo()
-    },[])
+    //   fetchUserinfo()
+    // },[])
 
   return (
     <div className="changeinfo-container">
