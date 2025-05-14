@@ -22,6 +22,7 @@ axiosInstance.interceptors.request.use(
     if (token && config.customAuth) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+
     return config;
   },
   (err: AxiosError) => {

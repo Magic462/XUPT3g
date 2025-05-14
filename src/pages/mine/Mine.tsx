@@ -119,6 +119,10 @@ const Mine = () => {
 
   // 用户退出，并且清除本地下载的token
   const userExit = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('status')
+    localStorage.removeItem('username')
+    // alert('确认退出登陆')
     navigate('/');
   };
 

@@ -1,18 +1,19 @@
-import axiosInstance from '@/utils/request';
+import { post } from '@/utils/request/http';
 
-export const postLogin = ({
-          username,
-          password,
-          captchaID,
-          captchaData,
-        }) => {
-  return axiosInstance.post('/api/login',{
-          username,
-          password,
-          captchaID,
-          captchaData,
-        });
+interface LoginRequest {
+  username: string;
+  password: string;
+  captchaID: string;
+  captchaData: string;
+}
+
+interface LoginResponse {
+  status: string;
+  token: string;
+  username: string;
+}
+
+export const postLogin = async (data: LoginRequest): Promise<LoginResponse> => {
+  const response = await post<LoginResponse>('api/login', data);
+  return response;
 };
-// export const postLogin = (data) => {
-//   return axiosInstance.post('/api/login',data);
-// };

@@ -1,6 +1,8 @@
 import { useActiveItem } from '@/hooks/useActiveItem';
 import './Changeinfo.scss';
 import '@/assets/icons/font_ejn49oukscw/iconfont.css';
+// import { getUseinfo } from '@/services/userinfo';
+import { useEffect, useState } from 'react';
 
 const peo = {
   portrait: '//mobile.xupt.edu.cn/res/15342187758400435.gif',
@@ -21,6 +23,21 @@ const peo = {
 const Changeinfo = () => {
   const { activeItem: photoItem, handleItemClick: handlePhotoClick } =
     useActiveItem<string>();
+
+    const [userinfo, setUserInfo]=useState(null);
+
+    useEffect(()=>{
+      const fetchUserinfo = async () => {
+        try {
+          const response = await getUseinfo();
+          setUserInfo(response);
+        } catch (error) {
+          console.error('获取验证码失败:', error);
+        }
+      };
+
+      fetchUserinfo()
+    },[])
 
   return (
     <div className="changeinfo-container">

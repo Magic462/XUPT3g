@@ -3,8 +3,6 @@ import './Home.scss';
 import '../../assets/wxqr.webp';
 
 const Home: React.FC = () => {
-  const [visibleCards, setVisibleCards] = useState<number[]>([]);
-
   // 获得当前年
   const now = new Date();
   const year = now.getFullYear();

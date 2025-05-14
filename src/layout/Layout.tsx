@@ -18,15 +18,32 @@ const MainLayout: React.FC = () => {
     showSubNav: false,
   });
 
-  const menuItems = [
-    { path: '/activities', label: '活动' },
-    // { path: '/blogs', label: 'Blogs' },
-    { path: '/members', label: '成员风采' },
-    { path: '/graduate', label: '毕业去处' },
-    { path: '/mine', label: '我的' },
-    { path: '/trainingplan', label: '培养计划' },
-    { path: '/login', label: '登录' },
-  ];
+
+  // 记录是否已登录
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
+  // 检查用户是否已登录
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token);
+  }, []);
+
+const menuItems = isLoggedIn
+    ? [
+        { path: '/activities', label: '活动' },
+        { path: '/members', label: '成员风采' },
+        { path: '/graduate', label: '毕业去处' },
+        { path: '/trainingplan', label: '培养计划' },
+        { path: '/mine', label: '我的' },
+      ]
+    : [
+        { path: '/activities', label: '活动' },
+        { path: '/members', label: '成员风采' },
+        { path: '/graduate', label: '毕业去处' },
+        { path: '/trainingplan', label: '培养计划' },
+        { path: '/login', label: '登录' }
+      ];
+
 
   const now = new Date();
   const year = now.getFullYear();

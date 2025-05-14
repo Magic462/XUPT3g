@@ -19,10 +19,7 @@ const Login = () => {
   const setCaptcha = async () => {
     try {
       const response = await getCaptcha();
-      console.log(response);
-      
       const { captchaID, captchaImage } = response;
-      console.log(captchaID);
       
       setCaptchaImg(captchaImage);
       setCaptchaID(captchaID);
@@ -52,28 +49,27 @@ const Login = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      console.log(captchaData);
+      const response = await postLogin({
+        username,
+        password,
+        captchaID,
+        captchaData,
+      });
+      console.log(response);
       
-        const response = await postLogin({
-          username,
-          password,
-          captchaID,
-          captchaData,
-        });
-        if (response.status === 200) {
-            console.log(response.data);
-            
-            const token = response.data.token;
-            console.log(token);
-            
-            localStorage.setItem('token', token);
-            alert('登录成功！');
-            nav('/');
-        }
+      localStorage.setItem('token', response.token);
+      localStorage.setItem('status', response.status);
+      localStorage.setItem('username', response.username);
+      alert('登录成功！');
+      if(response.status==='0'){
+        nav('/mine/admin/editdonation')
+      }else if(response.status==='1'||response.status==='2'){
+        nav('/mine/user/myinfo');
+      }
     } catch (error) {
-        handleError(error);
-        console.error('请求错误:', error);
-        refreshCaptcha();
+      handleError(error);
+      console.error('请求错误:', error);
+      refreshCaptcha();
     }
 };
 

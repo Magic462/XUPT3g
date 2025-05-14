@@ -1,5 +1,11 @@
-import axiosInstance from '@/utils/request';
+import { get } from '@/utils/request/http';
 
-export const getCaptcha = () => {
-  return axiosInstance.get('/api/captcha');
+interface Captcha {
+  captchaID: string;
+  captchaImage: string;
+}
+
+export const getCaptcha = async (): Promise<Captcha> => {
+  const response = await get<Captcha>('api/captcha');
+  return response;
 };
