@@ -1,10 +1,10 @@
 .activities-container {
   background-color: #e4e4e4;
+  min-height: 100vh;
 }
 .activities-header {
   height: 12rem;
-  // background-color: #fff;
-  // background-color: transparent;
+  overflow: hidden;
   border-bottom: 0.2rem solid #ffffffb0;
   display: flex;
   align-items: center;
@@ -14,10 +14,11 @@
 
 // 活动列表
 .activities-lists-container {
-  min-height: 100vh;
+  // min-height: 100vh;
   width: 100%;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   padding: 3rem 0;
 
   // 每个活动盒子
@@ -135,13 +136,25 @@
 }
 // 底部翻页
 .pagination {
+  // overflow: hidden;
   display: flex;
   justify-content: center;
+  // justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  gap: 2rem;
   margin-top: 2rem;
   padding-bottom: 2rem;
 
+  .page-button-pages {
+    // width: ;
+    display: flex;
+    // justify-content: center;
+    // justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    // max-width: 90%;
+    overflow: hidden;
+  }
   .page-button {
     padding: 0.5rem 1rem;
     border: 1px solid #ddd;
@@ -159,6 +172,14 @@
       color: #fff;
       border-color: #1677ff;
     }
+  }
+
+  .page-button-left,
+  .page-button-right {
+    background-color: transparent;
+    .iconfont {
+      font-size: 1.3rem;
+    }
 
     &:disabled {
       cursor: not-allowed;
@@ -167,7 +188,7 @@
   }
 }
 
-// 移动端时间轴事件换位
+//  移动端时间轴事件换位
 @media (max-width: 768px) {
   .timeline-node {
     flex-direction: column-reverse;

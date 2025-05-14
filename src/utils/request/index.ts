@@ -14,8 +14,24 @@ const axiosInstance: AxiosInstance = axios.create({
 });
 
 // 请求拦截器
+// axiosInstance.interceptors.request.use(
+//   (config: InternalAxiosRequestConfig & { customAuth?: boolean }) => {
+//     const token = localStorage.getItem('token');
+
+//     // 只有明确标记了customAuth才添加token
+//     if (token && config.customAuth) {
+//       config.headers.Authorization = `Bearer ${token}`;
+//     }
+//     return config;
+//   },
+//   (err: AxiosError) => {
+//     return Promise.reject(err);
+//   }
+// );
+
 axiosInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig & { customAuth?: boolean }) => {
+    // 明确使用扩展类型
     const token = localStorage.getItem('token');
 
     // 只有明确标记了customAuth才添加token
