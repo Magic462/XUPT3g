@@ -17,6 +17,5 @@ export function showMessage(type: MessageType, text: string) {
       console.error(`❌ [错误] ${text}`);
       break;
   }
-
   // TODO：在这里加入弹窗提示
 }

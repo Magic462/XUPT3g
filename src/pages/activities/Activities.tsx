@@ -6,9 +6,9 @@ import StackCarousel from './components/stackcarousel';
 import { Article } from '@/types/article';
 import { getAllArticleInfo } from '@/services/activities';
 
-const ITEMS_PER_PAGE = 20;
-
 const Activities: React.FC = () => {
+  const [pageNum, setPageNum] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [activeTimelineNode, setActiveTimelineNode] = useState<number | null>(
     null
@@ -17,24 +17,24 @@ const Activities: React.FC = () => {
   // 获取活动数据
   const [activitiesData, setArticleList] = useState<Article[]>([]);
   useEffect(() => {
-    getAllArticleInfo()
+    getAllArticleInfo(currentPage)
       .then((res) => {
-        setArticleList(res); // data 现在会被认为是 Article[] 类型
+        console.log(res.activities);
+        setArticleList(res.activities); // data 现在会被认为是 Article[] 类型
+        setTotalPages(res.total);
+        setPageNum(res.ITEMS_PER_PAGE);
       })
       .catch((err) => {
         console.error('获取文章失败: ', err);
       });
-  }, []);
-
-  // 总页数
-  const totalPages = 10;
+  }, [currentPage]);
 
   // 当前活动页
-  const getCurrentActivities = () => {
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    const endIndex = startIndex + ITEMS_PER_PAGE;
-    return activitiesData.slice(startIndex, endIndex);
-  };
+  // const getCurrentActivities = () => {
+  //   const startIndex = (currentPage - 1) * pageNum;
+  //   const endIndex = startIndex + pageNum;
+  //   return activitiesData.slice(startIndex, endIndex);
+  // };
 
   // 滑动计算scroll控制盒子动效
   useEffect(() => {
@@ -85,7 +85,7 @@ const Activities: React.FC = () => {
       <div className="activities-lists-container">
         {/* 活动盒子以及旁边的时间轴 */}
         <section className="activities-lists">
-          {getCurrentActivities().map((activity, index) => (
+          {activitiesData.map((activity, index) => (
             <div
               key={index}
               className="activity-card"
