@@ -3,20 +3,10 @@ import './Activities.scss';
 import '@/assets/icons/font_95rv9yhaqnu/iconfont.css';
 import '@/assets/icons/font_5wqplvdpjmq/iconfont.css';
 import StackCarousel from './components/stackcarousel';
+import { Article } from '@/types/article';
 import { getAllArticleInfo } from '@/services/activities';
 
-const ITEMS_PER_PAGE = 10;
-
-interface Article {
-  aid: number;
-  title: string;
-  img: string;
-  status: number;
-  summary: string;
-  time: string;
-  view: number;
-  content: string;
-}
+const ITEMS_PER_PAGE = 20;
 
 const Activities: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,19 +17,17 @@ const Activities: React.FC = () => {
   // 获取活动数据
   const [activitiesData, setArticleList] = useState<Article[]>([]);
   useEffect(() => {
-    getAllArticleInfo()
+    getAllArticleInfo(currentPage)
       .then((res) => {
-        console.log(res);
-        // console.log(res.data);
         setArticleList(res); // data 现在会被认为是 Article[] 类型
       })
       .catch((err) => {
         console.error('获取文章失败: ', err);
       });
-  }, []);
+  }, [currentPage]);
 
   // 总页数
-  const totalPages = Math.ceil(activitiesData.length / ITEMS_PER_PAGE);
+  const totalPages = 10;
 
   // 当前活动页
   const getCurrentActivities = () => {
@@ -123,7 +111,6 @@ const Activities: React.FC = () => {
               <div
                 className={`activity-bref-box ${activeTimelineNode === index ? 'card-active' : ' '}`}
               >
-                {/* <div className="activity-bref-box-cover"> */}
                 {/* 文字信息盒子 */}
                 <div className="activity-bref-info">
                   <h3 className="activity-title">{activity.title}</h3>
@@ -136,21 +123,21 @@ const Activities: React.FC = () => {
                   <img src={activity.img} alt="" />
                 </div>
               </div>
-              {/* </div> */}
             </div>
           ))}
+        </section>
+        {/* 翻页 */}
+        {totalPages > 1 && (
+          <div className="pagination">
+            <button
+              className="page-button-left"
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              <i className="iconfont icon-youshuangxianjiantou1"></i>
+            </button>
 
-          {/* 翻页 */}
-          {totalPages > 1 && (
-            <div className="pagination">
-              <button
-                className="page-button"
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1}
-              >
-                上一页
-              </button>
-
+            <div className="page-button-pages">
               {getPageNumbers().map((number) => (
                 <button
                   key={number}
@@ -160,17 +147,17 @@ const Activities: React.FC = () => {
                   {number}
                 </button>
               ))}
-
-              <button
-                className="page-button"
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
-              >
-                下一页
-              </button>
             </div>
-          )}
-        </section>
+
+            <button
+              className="page-button-right"
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              <i className="iconfont icon-youshuangxianjiantou"></i>
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
