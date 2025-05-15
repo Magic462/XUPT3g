@@ -60,7 +60,7 @@ export const getRecentActivities = async (
 
   const recentActivities: Article[] = res.activities
     .filter((item: Article) => item.status === 1)
-    .slice(0, 6)
+    .slice(0, 7)
     .map((item: Article) => ({
       ...item,
       img: item.img ? BASE_IMG_URL + item.img : DEFAULT_IMAGE,
