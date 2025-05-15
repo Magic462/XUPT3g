@@ -1,44 +1,15 @@
 import { useState, useEffect } from 'react';
 import './Home.scss';
 import '../../assets/wxqr.webp';
+import { getQQcontact } from '@/services/qqcontact';
+import { getDirection } from '@/services/directions';
 
 const Home: React.FC = () => {
   // 获得当前年
   const now = new Date();
   const year = now.getFullYear();
-
-  const platforms = [
-    {
-      name: 'Web',
-      delay: 0,
-      bref_info:
-        'Web开发的魅力在于，你的每一行代码都可能改变数百万用户的体验。刚开始可能会觉得繁杂，但一旦上手，你会发现Web让你的创造力得到了最大化的发挥！',
-    },
-    {
-      name: 'Server',
-      delay: 100,
-      bref_info:
-        '服务器开发让你能够处理后端逻辑，保障应用的稳定和安全。了解服务器的构建，能让你的应用运行得更顺畅！',
-    },
-    {
-      name: 'Android',
-      delay: 200,
-      bref_info:
-        '安卓开发为你打开了移动应用的大门，应用程序的每一次更新都能提升用户体验，快来尝试吧！',
-    },
-    {
-      name: 'iOS',
-      delay: 300,
-      bref_info:
-        'iOS开发注重用户体验，精致的界面让每个应用都独具魅力。用你的创意实现应用的灵魂！',
-    },
-    {
-      name: 'HarmonyOS',
-      delay: 400,
-      bref_info:
-        '鸿蒙系统为多设备体验提供了可能，了解其特性，你将能够创建跨平台的应用！',
-    },
-  ];
+  const [qqnumber,serQqNumber]=useState('')
+  const [platforms,setPlatforms]=useState([])
 
   // 使用IntersectionObserver 接口监听元素是否进入视口，并实现只要进入视口反复出现动画
   useEffect(() => {
@@ -64,6 +35,32 @@ const Home: React.FC = () => {
     };
   }, []);
 
+  // 获取qq群联系方式
+  useEffect(() => {
+    const fetchQQ = async ()=>{
+      try{
+        const response = await getQQcontact();
+        serQqNumber(response.qqnumber)
+      } catch (error){
+        console.log('获取qq号失败', error);
+      }
+    }
+    fetchQQ()
+  }, []);
+
+  // 获取方向简介
+  useEffect(() => {
+    const fetchDirection = async ()=>{
+      try{
+        const response = await getDirection();
+        // console.log(response);
+        setPlatforms(response)
+      } catch (error){
+        console.log('获取qq号失败', error);
+      }
+    }
+    fetchDirection()
+  }, []);
   // 实现即将滚动到platforms-section时卡片依次弹出
   // useEffect(() => {
   //   const handleScroll = () => {
@@ -130,9 +127,10 @@ const Home: React.FC = () => {
               style={{
                 transitionDelay: `${platform.delay}ms`,
               }}
+              key={platform.delay}
             >
               <h3>{platform.name}</h3>
-              <div className="platform-description">{platform.bref_info}</div>
+              <div className="platform-description">{platform.brefInfo}</div>
             </div>
           ))}
         </div>
@@ -142,7 +140,7 @@ const Home: React.FC = () => {
         <div className="footer-links">
           <div className="vx">微信公众号</div>
           <img src="./src/assets/wxqr.webp" alt="" />
-          <div className="qq">qq纳新群: 1623728627</div>
+          <div className="qq">qq纳新群: {qqnumber}</div>
         </div>
         <div className="copyright">
           © {year} 西邮移动应用开发实验室. All rights reserved.

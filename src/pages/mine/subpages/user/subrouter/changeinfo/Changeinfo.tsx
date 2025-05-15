@@ -9,7 +9,7 @@ const peo = {
   gender: '男',
   classGrade: '软件1302',
   year: 2013,
-  phone: '15229098768',
+  tel: '15229098768',
   isGraduate: true,
   username: 'yangyuan',
   name: '杨远',
@@ -106,7 +106,7 @@ const Changeinfo = () => {
           </div>
           <div className="changeinfo-item">
             <label>电 话</label>
-            <input type="text" placeholder={peo.phone} />
+            <input type="text" placeholder={peo.tel} />
           </div>
           <div className="changeinfo-item">
             <label>签 名</label>

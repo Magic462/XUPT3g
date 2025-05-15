@@ -9,7 +9,7 @@ interface DataItem {
   gender: string;
   classGrade: string;
   year: number;
-  phone: string;
+  tel: string;
   isGraduate: boolean;
   username: string;
   name: string;
@@ -84,7 +84,7 @@ const Myinfo: React.FC = () => {
           gender={dataList.gender}
           classGrade={dataList.classGrade}
           year={dataList.year}
-          phone={dataList.phone}
+          tel={dataList.tel}
           isGraduate={dataList.isGraduate}
           username={dataList.username}
           name={dataList.name}

@@ -1,5 +1,7 @@
-import axiosInstance from '@/utils/request';
+import { get } from '@/utils/request/http';
+import { Direction } from '@/types/direction';
 
-export const getDirectionInfo = () => {
-  return axiosInstance.get('/api/team');
+export const getDirection = async (): Promise<Direction[]> => {
+  const response = await get<Direction[]>('api/team');
+  return response;
 };

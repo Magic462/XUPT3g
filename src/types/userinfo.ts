@@ -3,7 +3,7 @@ export interface Userinfo {
   gender: string;
   classGrade: string;
   year: number;
-  phone: string;
+  tel: string;
   isGraduate: boolean;
   username: string;
   name: string;
