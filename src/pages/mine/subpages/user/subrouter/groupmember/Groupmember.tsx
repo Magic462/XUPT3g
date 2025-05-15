@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Memlist from '@/components/Memlist';
+import Memlist from '@/pages/mine/subpages/administrator/subrouter/allmember/components/Memlist';
 import './Groupmember.scss';
 
 interface DataItem {

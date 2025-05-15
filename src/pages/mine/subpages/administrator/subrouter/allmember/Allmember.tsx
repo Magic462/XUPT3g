@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 // import { lazy, Suspense,useRef } from 'react';
-import Memlist from '@/components/Memlist';
+import Memlist from '@/pages/mine/subpages/administrator/subrouter/allmember/components/Memlist';
 // const Memlist = lazy(() => import('@/components/Memlist'));
 import './Allmember.scss';
 import { useActiveItem } from '@/hooks/useActiveItem';
+import DeleteConfirmModal from '@/components/DeleteConfirmModal';
 
 interface DataItem {
   username: string;
@@ -41,18 +42,7 @@ const Allmember: React.FC = () => {
   const { activeItem: activeGraduate, handleItemClick: handleGraduateClick } =
     useActiveItem<string>('graduated');
 
-  // 这个之后要根据数据中现有的组去录入吧
-  //   const CLICK_ITEMS = {
-  //     WEB: 'web',
-  //     ANDROID: 'android',
-  //     SERVER: 'server',
-  //     IOS: 'ios',
-  //     HARMONYOS: 'harmonyos',
-  //     };
-  // 多数地方用到了这个封装成hook?
-  //   const [teamClick, setTeamClick] = useState<keyof typeof CLICK_ITEMS | null>(
-  //     null
-  //   );
+  const [isDeleteModal, setIsDeleteModal] = useState(false);
 
   useEffect(() => {
     // 模拟从后端获取数据，实际应用中需要使用axios等库进行真实请求
@@ -223,32 +213,17 @@ const Allmember: React.FC = () => {
             graduateImg={item.graduateImg}
             signature={item.signature}
             status={status}
+            // 控制删除弹窗
+            onHandlerDelete={setIsDeleteModal}
           />
         ))}
       </div>
-      {/* {dataList.map((item, index) => (
-        <div
-          key={index}
-          className="lazy-load"
-          data-index={index}
-          style={{ minHeight: '100px', margin: '20px', border: '1px solid #ccc' }}
-        >
-          {visibleIndexes.includes(index) ? (
-            <Suspense fallback={<div>Loading...</div>}>
-              <Memlist
-                username={item.username}
-                name={item.name}
-                team={item.team}
-                graduateImg={item.graduateImg}
-                signature={item.signature}
-                status={status}
-              />
-            </Suspense>
-          ) : (
-            <div>Scroll to load {item.name}</div>
-          )}
-        </div>
-      ))} */}
+      {isDeleteModal && (
+        <DeleteConfirmModal
+          remindMessage="确认删除该成员吗"
+          onHandlerDelete={setIsDeleteModal}
+        ></DeleteConfirmModal>
+      )}
     </div>
   );
 };

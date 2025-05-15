@@ -3,7 +3,7 @@ import '@/assets/icons/font_ponx0ykgm9/iconfont.css';
 
 interface DeleteConfirmProps {
   remindMessage: string;
-  onHandlerDelete: (isDelete: boolean) => void;
+  onHandlerDelete: (isDeleteModal: boolean) => void;
 }
 
 const DeleteConfirmModal: React.FC<DeleteConfirmProps> = ({

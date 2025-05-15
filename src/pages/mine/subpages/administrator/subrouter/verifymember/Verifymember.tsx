@@ -111,6 +111,12 @@ const Verifymember = () => {
             <input type="text" name="" id="" />
           </li>
           <li className="add-member-info-item">
+            <label htmlFor="">组别：</label>
+            <select name="" id="">
+              <input type="text" name="" id="" />
+            </select>
+          </li>
+          <li className="add-member-info-item">
             <label htmlFor="">入学年：</label>
             <select name="" id="">
               {years.map((item) => (

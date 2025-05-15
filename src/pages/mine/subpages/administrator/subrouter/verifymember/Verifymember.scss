@@ -7,8 +7,7 @@
   color: #fff;
 
   .add-member-title {
-    font-size: 2.4rem;
-    font-weight: 800;
+    font-size: 2rem;
     margin-bottom: 2rem;
     letter-spacing: 0.2rem;
 
@@ -35,10 +34,10 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
 
       label {
-        font-size: 1.2rem;
+        font-size: 1rem;
         font-weight: 600;
         // width: 30%;
         text-align: right;
@@ -55,7 +54,7 @@
         border: none;
         border-bottom: 2px solid #1890ff;
         color: #fff;
-        font-size: 1.05rem;
+        font-size: 1rem;
         outline: none;
         transition: border-color 0.3s;
 
@@ -69,9 +68,9 @@
 
 .add-member-post-btn {
   margin-top: 1rem;
-  width: 10rem;
-  height: 3.5rem;
-  font-size: 1.3rem;
+  width: 8.5rem;
+  height: 2.8rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: #fff;
   background: linear-gradient(to right, #1890ff, #40a9ff);
@@ -99,4 +98,10 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 1rem;
+}
+
+@media (max-width: 1200px) {
+  .add-member-box .add-member-info-box {
+    padding: 3rem 4rem 1rem 4rem;
+  }
 }
