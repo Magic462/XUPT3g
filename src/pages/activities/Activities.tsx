@@ -3,7 +3,8 @@ import './Activities.scss';
 import '@/assets/icons/font_95rv9yhaqnu/iconfont.css';
 import '@/assets/icons/font_5wqplvdpjmq/iconfont.css';
 import StackCarousel from './components/stackcarousel';
-import Footerpagination from './components/footerpagination';
+// import Footerpagination from './components/footerpagination';
+import Footerpagination from '@/components/FooterPagination';
 import { Article } from '@/types/article';
 import { getAllArticleInfo } from '@/services/activities';
 
@@ -11,11 +12,11 @@ const Activities: React.FC = () => {
   const [pageNum, setPageNum] = useState(0);
   // const [totalActivity, setTotalActivity] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  // const getCurrentPage =
   const [activeTimelineNode, setActiveTimelineNode] = useState<number | null>(
     null
   );
   const activitiesRef = useRef<Array<HTMLDivElement | null>>([]);
+
   // 获取活动数据
   const [activitiesData, setArticleList] = useState<Article[]>([]);
   useEffect(() => {
@@ -71,7 +72,7 @@ const Activities: React.FC = () => {
         <section className="activities-lists">
           {activitiesData.map((activity, index) => (
             <div
-              key={index}
+              key={activity.aid}
               className="activity-card"
               ref={(e) => {
                 activitiesRef.current[index] = e;
@@ -114,17 +115,15 @@ const Activities: React.FC = () => {
         </section>
         {/* 翻页 */}
         {pageNum > 1 && (
-          <>
-            <div className="test-pagination">
-              {pageNum > 0 && (
-                <Footerpagination
-                  pageNum={pageNum}
-                  onPageChange={setCurrentPage}
-                  currentPage={currentPage}
-                />
-              )}
-            </div>
-          </>
+          <div className="pagination">
+            {pageNum > 0 && (
+              <Footerpagination
+                pageNum={pageNum}
+                onPageChange={setCurrentPage}
+                currentPage={currentPage}
+              />
+            )}
+          </div>
         )}
       </div>
     </div>

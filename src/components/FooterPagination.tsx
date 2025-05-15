@@ -1,6 +1,7 @@
-import './footerpagination.scss';
+import './Footerpagination.scss';
 import { useState, useEffect } from 'react';
 import React from 'react';
+import '@/assets/icons/font_5wqplvdpjmq/iconfont.css';
 
 interface FooterpaginationProps {
   pageNum: number;

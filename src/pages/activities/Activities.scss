@@ -139,53 +139,6 @@
 .pagination {
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  margin-top: 4rem;
-  // padding-bottom: 2rem;
-
-  .page-button-pages {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    overflow: hidden;
-  }
-  .page-button {
-    padding: 0.5rem 1rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: #fff;
-    cursor: pointer;
-    transition: all 0.2s ease;
-
-    &:hover {
-      background-color: #f5f5f5;
-    }
-
-    &.active {
-      background-color: #1677ff;
-      color: #fff;
-      border-color: #1677ff;
-    }
-  }
-
-  .page-button-left,
-  .page-button-right {
-    background-color: transparent;
-    .iconfont {
-      font-size: 1.3rem;
-    }
-
-    &:disabled {
-      cursor: not-allowed;
-      opacity: 0.5;
-    }
-  }
-}
-
-.test-pagination {
-  display: flex;
-  justify-content: center;
   // flex-direction: column;
   align-items: center;
   gap: 2rem;

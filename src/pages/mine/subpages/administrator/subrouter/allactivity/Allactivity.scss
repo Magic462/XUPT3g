@@ -58,7 +58,7 @@
     margin: 0.2rem 0 1rem 0;
   }
 
-  .activity-item-content {
+  .activity-item-summary {
     font-size: 0.95rem;
     color: rgb(122, 121, 121);
     padding: 0 0.5rem;
@@ -110,6 +110,14 @@
   }
 }
 
+// 底部翻页
+.admin-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 4rem;
+}
 @media (max-width: 992px) {
   .activity-item-box {
     display: block;
