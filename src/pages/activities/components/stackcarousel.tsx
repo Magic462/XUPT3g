@@ -1,44 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import './stackcarousel.scss';
+import { getRecentActivities } from '@/services/activities';
+import { Article } from '@/types/article';
 
-const images = [
-  {
-    title: '00我实验室同学参加Google InnoCamp 2017谷歌创新特训营阿海',
-    imgSrc: './src/assets/activities/17336357070040458.webp',
-    midOrder: -4,
-  },
-  {
-    title: '11Android小组参加GDG DevFest 2024西安站',
-    imgSrc: './src/assets/activities/17336357070040458.webp',
-    midOrder: -2,
-  },
-  {
-    title: '22啊哈哈哈哈啊哈哈哈啊哈哈哈啊哈哈',
-    imgSrc: './src/assets/activities/17325230781181098.webp',
-    midOrder: -1,
-  },
-  {
-    title: '33嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻西西i下西ii嘻嘻嘻嘻嘻嘻嘻',
-    imgSrc: './src/assets/activities/17325230781181098.webp',
-    midOrder: 0,
-  },
-  {
-    title: '44的白人弄完热播i环绕接口规范时间粉红色色哦啤酒反绒皮王继鹏',
-    imgSrc: './src/assets/activities/17325230781181098.webp',
-    midOrder: 1,
-  },
-  {
-    title: '55你不会是对哦按段大局电脑那我到i到平均法哦覅加啊四坡放假安排',
-    imgSrc: './src/assets/activities/17325230781181098.webp',
+// const recentActivities = [
+//   {
+//     title: '00我实验室同学参加Google InnoCamp 2017谷歌创新特训营阿海',
+//     imgSrc: './src/assets/activities/17336357070040458.webp',
+//     midOrder: -4,
+//   },
+//   {
+//     title: '11Android小组参加GDG DevFest 2024西安站',
+//     imgSrc: './src/assets/activities/17336357070040458.webp',
+//     midOrder: -2,
+//   },
+//   {
+//     title: '22啊哈哈哈哈啊哈哈哈啊哈哈哈啊哈哈',
+//     imgSrc: './src/assets/activities/17325230781181098.webp',
+//     midOrder: -1,
+//   },
+//   {
+//     title: '33嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻西西i下西ii嘻嘻嘻嘻嘻嘻嘻',
+//     imgSrc: './src/assets/activities/17325230781181098.webp',
+//     midOrder: 0,
+//   },
+//   {
+//     title: '44的白人弄完热播i环绕接口规范时间粉红色色哦啤酒反绒皮王继鹏',
+//     imgSrc: './src/assets/activities/17325230781181098.webp',
+//     midOrder: 1,
+//   },
+//   {
+//     title: '55你不会是对哦按段大局电脑那我到i到平均法哦覅加啊四坡放假安排',
+//     imgSrc: './src/assets/activities/17325230781181098.webp',
 
-    midOrder: 2,
-  },
-  {
-    title: '66你不会是对哦按段大局电脑那我到i到平均法哦覅加啊四坡放假安排',
-    imgSrc: './src/assets/activities/17325230781181098.webp',
-    midOrder: 3,
-  },
-];
+//     midOrder: 2,
+//   },
+//   {
+//     title: '66你不会是对哦按段大局电脑那我到i到平均法哦覅加啊四坡放假安排',
+//     imgSrc: './src/assets/activities/17325230781181098.webp',
+//     midOrder: 3,
+//   },
+// ];
 
 const initialOrder = [
   'first',
@@ -56,6 +58,18 @@ const StackCarousel: React.FC = () => {
   const [isLargeScreen, setIsLargeScreen] = useState<boolean>(
     window.innerWidth >= 991
   );
+  const [recentActivities, setRecentActivities] = useState<Article[]>([]);
+
+  // 获取最近发布的六个活动
+  useEffect(() => {
+    getRecentActivities()
+      .then((res) => {
+        setRecentActivities(res.recentActivities);
+      })
+      .catch((err) => {
+        console.error('获取最近文章失败: ', err);
+      });
+  }, []);
 
   // 模拟栈
   const handlePrev = () => {
@@ -63,7 +77,9 @@ const StackCarousel: React.FC = () => {
     newOrder.push(newOrder.shift()!);
     setOrder(newOrder);
 
-    setIndex((prev) => (prev - 1 + images.length) % images.length);
+    setIndex(
+      (prev) => (prev - 1 + recentActivities.length) % recentActivities.length
+    );
   };
 
   const handleNext = () => {
@@ -71,7 +87,7 @@ const StackCarousel: React.FC = () => {
     newOrder.unshift(newOrder.pop()!);
     setOrder(newOrder);
 
-    setIndex((prev) => (prev + 1) % images.length);
+    setIndex((prev) => (prev + 1) % recentActivities.length);
   };
 
   const handleIndicatorClick = (targetIdx: number) => {
@@ -115,13 +131,13 @@ const StackCarousel: React.FC = () => {
     <div className="carousel-out">
       <div className="carousel-inner">
         <div className="carousel-inner-viewbox">
-          {images.map((item, i) => (
+          {recentActivities.map((item, i) => (
             <div key={i} className={`carousel-recent-box`} id={order[i]}>
               <div className="carousel-recent-title">{item.title}</div>
               {/* 大尺寸才显示活动文章封面 */}
               {isLargeScreen && (
                 <div className="carousel-recent-cover">
-                  <img src={item.imgSrc} alt="" />
+                  <img src={item.img} alt="" />
                 </div>
               )}
             </div>
@@ -141,7 +157,7 @@ const StackCarousel: React.FC = () => {
       </div>
 
       <div className="carousel-dots">
-        {images.map((_, i) => (
+        {recentActivities.map((_, i) => (
           <p
             key={i}
             onClick={() => handleIndicatorClick(i)}

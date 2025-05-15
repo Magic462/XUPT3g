@@ -1,9 +1,5 @@
 import { get } from '@/utils/request/http';
-
-interface Captcha {
-  captchaID: string;
-  captchaImage: string;
-}
+import { Captcha } from '@/types/captcha';
 
 export const getCaptcha = async (): Promise<Captcha> => {
   const response = await get<Captcha>('api/captcha');
