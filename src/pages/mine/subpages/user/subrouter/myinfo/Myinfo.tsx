@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Peohome from '@/components/Peohome';
 import './Myinfo.scss';
-import Por from '../../../../../../assets/wxqr.webp'
+// import Por from '../../../../../../assets/wxqr.webp'
 import { getUseinfo } from '@/services/userinfo';
 
 interface DataItem {
@@ -19,10 +19,10 @@ interface DataItem {
   company: string;
 }
 
-interface ResponseData {
-  status: number;
-  data: DataItem;
-}
+// interface ResponseData {
+//   status: number;
+//   data: DataItem;
+// }
 
 const Myinfo: React.FC = () => {
   const [dataList, setDataList] = useState<DataItem | null>(null);
@@ -58,6 +58,8 @@ const Myinfo: React.FC = () => {
         const fetchUserinfo = async () => {
           try {
             const response = await getUseinfo();
+            console.log(response);
+            
             setDataList(response);
           } catch (error) {
             console.error('获取验证码失败:', error);
