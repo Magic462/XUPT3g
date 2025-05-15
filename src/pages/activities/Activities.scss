@@ -136,23 +136,17 @@
 }
 // 底部翻页
 .pagination {
-  // overflow: hidden;
   display: flex;
   justify-content: center;
-  // justify-content: space-between;
   align-items: center;
   gap: 2rem;
-  margin-top: 2rem;
-  padding-bottom: 2rem;
+  margin-top: 4rem;
+  // padding-bottom: 2rem;
 
   .page-button-pages {
-    // width: ;
     display: flex;
-    // justify-content: center;
-    // justify-content: space-between;
     align-items: center;
     gap: 1rem;
-    // max-width: 90%;
     overflow: hidden;
   }
   .page-button {

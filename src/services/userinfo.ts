@@ -1,21 +1,7 @@
 import { get } from '@/utils/request/http';
+import { Userinfo } from '@/types/userinfo';
 
-interface userinfo {
-    portrait: string,
-    gender: string,
-    classGrade: string,
-    year: number,
-    phone: string,
-    isGraduate: boolean,
-    username: string,
-    name: string,
-    team: string,
-    mienImg: string,
-    signature: string,
-    company: string
-}
-
-export const getUseinfo = async (): Promise<userinfo> => {
-  const response = await get<userinfo>('api/userinfo',{ customAuth: true } );
+export const getUseinfo = async (): Promise<Userinfo> => {
+  const response = await get<Userinfo>('api/userinfo', { customAuth: true });
   return response;
 };

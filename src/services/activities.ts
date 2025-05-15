@@ -15,27 +15,56 @@ export const getAllArticleInfo = async (
 ): Promise<{
   activities: Article[];
   total: number;
-  ITEMS_PER_PAGE: number;
+  pageNum: number;
 }> => {
-  const rawData = await get<{ activities: Article[]; total: number }>(
+  const res = await get<{ activities: Article[]; total: number }>(
     'api/activities/list',
     {
       params: {
-        pageSize: pageSize,
-        pageNum: pageNum,
+        pageSize,
+        pageNum,
       },
     }
   );
 
-  const activities = rawData.activities.map((item: Article) => ({
-    ...item,
-    time: formatData(item.time),
-    img: item.img ? BASE_IMG_URL + item.img : DEFAULT_IMAGE,
-  }));
+  const activities = res.activities
+    .filter((item: Article) => item.status === 1)
+    .map((item: Article) => ({
+      ...item,
+      time: formatData(item.time),
+      img: item.img ? BASE_IMG_URL + item.img : DEFAULT_IMAGE,
+    }));
 
   return {
     activities,
-    total: rawData.total,
-    ITEMS_PER_PAGE,
+    total: res.total,
+    pageNum: Math.ceil(res.total / ITEMS_PER_PAGE),
   };
+};
+
+export const getRecentActivities = async (
+  pageSize: number = 1,
+  pageNum: number = ITEMS_PER_PAGE
+): Promise<{
+  recentActivities: Article[];
+}> => {
+  const res = await get<{ activities: Article[]; total: number }>(
+    'api/activities/list',
+    {
+      params: {
+        pageSize,
+        pageNum,
+      },
+    }
+  );
+
+  const recentActivities: Article[] = res.activities
+    .filter((item: Article) => item.status === 1)
+    .slice(0, 6)
+    .map((item: Article) => ({
+      ...item,
+      img: item.img ? BASE_IMG_URL + item.img : DEFAULT_IMAGE,
+    }));
+
+  return { recentActivities };
 };

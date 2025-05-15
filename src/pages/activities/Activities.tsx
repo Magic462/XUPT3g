@@ -8,7 +8,7 @@ import { getAllArticleInfo } from '@/services/activities';
 
 const Activities: React.FC = () => {
   const [pageNum, setPageNum] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
+  const [totalActivity, setTotalActivity] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [activeTimelineNode, setActiveTimelineNode] = useState<number | null>(
     null
@@ -19,22 +19,14 @@ const Activities: React.FC = () => {
   useEffect(() => {
     getAllArticleInfo(currentPage)
       .then((res) => {
-        console.log(res.activities);
-        setArticleList(res.activities); // data 现在会被认为是 Article[] 类型
-        setTotalPages(res.total);
-        setPageNum(res.ITEMS_PER_PAGE);
+        setArticleList(res.activities);
+        setTotalActivity(res.total);
+        setPageNum(res.pageNum);
       })
       .catch((err) => {
         console.error('获取文章失败: ', err);
       });
   }, [currentPage]);
-
-  // 当前活动页
-  // const getCurrentActivities = () => {
-  //   const startIndex = (currentPage - 1) * pageNum;
-  //   const endIndex = startIndex + pageNum;
-  //   return activitiesData.slice(startIndex, endIndex);
-  // };
 
   // 滑动计算scroll控制盒子动效
   useEffect(() => {
@@ -70,7 +62,7 @@ const Activities: React.FC = () => {
 
   const getPageNumbers = () => {
     const pages = [];
-    for (let i = 1; i <= totalPages; i++) {
+    for (let i = 1; i <= pageNum; i++) {
       pages.push(i);
     }
     return pages;
@@ -127,7 +119,7 @@ const Activities: React.FC = () => {
           ))}
         </section>
         {/* 翻页 */}
-        {totalPages > 1 && (
+        {pageNum > 1 && (
           <div className="pagination">
             <button
               className="page-button-left"
@@ -152,7 +144,7 @@ const Activities: React.FC = () => {
             <button
               className="page-button-right"
               onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
+              disabled={currentPage === pageNum}
             >
               <i className="iconfont icon-youshuangxianjiantou"></i>
             </button>
