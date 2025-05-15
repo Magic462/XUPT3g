@@ -1,139 +1,59 @@
+import { getAllArticleInfo } from '@/services/activities';
 import './Allactivity.scss';
+import { useEffect, useState } from 'react';
+import { Article } from '@/types/article';
+import Footerpagination from '@/components/FooterPagination';
+import DeleteConfirmModal from '@/components/DeleteConfirmModal';
 
-const activitiesData = [
-  {
-    title: 'Android小组参加GDG DevFest 2024西安站',
-    timeDate: '2024-12-08',
-    content:
-      '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-    status: 'completed',
-    imgSrc: '../../src/assets/activities/17336357070040458.webp',
-  },
-  {
-    title: 'Android小组参加GDG DevFest 2024西安站',
-    timeDate: '2024-12-08',
-    content:
-      '2024年11月24日下午，西安息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发西安息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-    status: 'completed',
-    imgSrc: '../../src/assets/activities/17325230781181098.webp',
-  },
-  {
-    title: 'Android小组参加GDG DevFest 2024西安站',
-    timeDate: '2024-12-08',
-    content: '2024年11月24日下午，西安的天空',
-    status: 'completed',
-    imgSrc: '../../src/assets/activities/17325230781181098.webp',
-  },
-  {
-    title: 'Android小组参加GDG DevFest 2024西安站',
-    timeDate: '2024-12-08',
-    content:
-      '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-    status: 'completed',
-    imgSrc: '../../src/assets/activities/17336357070040458.webp',
-  },
-  {
-    title: 'Android小组参加GDG DevFest 2024西安站',
-    timeDate: '2024-12-08',
-    content:
-      '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-    status: 'completed',
-    imgSrc: '../../src/assets/activities/17336357070040458.webp',
-  },
-  {
-    title: 'Android小组参加GDG DevFest 2024西安站',
-    timeDate: '2024-12-08',
-    content:
-      '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-    status: 'completed',
-    imgSrc: '../../src/assets/activities/17336357070040458.webp',
-  },
-  {
-    title: 'Android小组参加GDG DevFest 2024西安站',
-    timeDate: '2024-12-08',
-    content:
-      '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-    status: 'completed',
-    imgSrc: '../../src/assets/activities/17336357070040458.webp',
-  },
-  {
-    title: 'Android小组参加GDG DevFest 2024西安站',
-    timeDate: '2024-12-08',
-    content:
-      '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-    status: 'completed',
-    imgSrc: '../../src/assets/activities/17336357070040458.webp',
-  },
-  {
-    title: 'Android小组参加GDG DevFest 2024西安站',
-    timeDate: '2024-12-08',
-    content:
-      '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-    status: 'completed',
-    imgSrc: '../../src/assets/activities/17336357070040458.webp',
-  },
-  {
-    title: 'Android小组参加GDG DevFest 2024西安站',
-    timeDate: '2024-12-08',
-    content:
-      '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-    status: 'completed',
-    imgSrc: '../../src/assets/activities/17336357070040458.webp',
-  },
-  {
-    title: 'Android小组参加GDG DevFest 2024西安站',
-    timeDate: '2024-12-08',
-    content:
-      '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-    status: 'completed',
-    imgSrc: '../../src/assets/activities/17336357070040458.webp',
-  },
-  {
-    title: 'Android小组参加GDG DevFest 2024西安站',
-    timeDate: '2024-12-08',
-    content:
-      '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-    status: 'completed',
-    imgSrc: '../../src/assets/activities/17336357070040458.webp',
-  },
-  {
-    title: 'Android小组参加GDG DevFest 2024西安站',
-    timeDate: '2024-12-08',
-    content:
-      '2024年11月24日下午，西安的天空一片晴朗，阳光如同碎金般洒落在西安神州数码科技园的每一个角落。在这个充满科技气息的园区内，一场属于技术爱好者的盛会——GDG DevFest 2024西安站即将拉开帷幕。实验室的Android小组，一群怀揣着对技术无限热忱的年轻人，正迈着轻快而又激动的步伐，朝着活动现场进发',
-    status: 'completed',
-    imgSrc: '../../src/assets/activities/17336357070040458.webp',
-  },
-];
-
-const Renderactivityitem = (item: {
-  title: string;
-  timeDate: string;
-  content: string;
-  status: string;
-  imgSrc: string;
-}) => {
+const Renderactivityitem = (
+  item: Article,
+  setIsDeleteModal: React.Dispatch<React.SetStateAction<boolean>>
+) => {
   return (
-    <div className="activity-item-box">
+    <div className="activity-item-box" key={item.aid}>
       <div className="activity-item-info-box">
-        <div className="activity-item-time">发布于{item.timeDate}</div>
+        <div className="activity-item-time">发布于{item.time}</div>
         <p className="activity-item-title">{item.title}</p>
-        <div className="activity-item-content">{item.content}</div>
+        <div className="activity-item-summary">{item.summary}</div>
       </div>
       <div className="activity-img-box">
         <div className="activity-img-box-cover">
-          <img src={item.imgSrc} alt="" />
+          <img src={item.img} alt="" />
         </div>
       </div>
       <div className="activity-toedit-btns">
         <button className="activity-edit-btn">编辑</button>
-        <button className="activity-delete-btn">删除</button>
+        <button
+          className="activity-delete-btn"
+          onClick={() => setIsDeleteModal(true)}
+        >
+          删除
+        </button>
       </div>
     </div>
   );
 };
 
 const Allactivity = () => {
+  const [activitiesData, setActivitiesData] = useState<Article[]>();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageNum, setPageNum] = useState(0);
+  const [isDeleteModal, setIsDeleteModal] = useState(false);
+
+  useEffect(() => {
+    const adminGetActivities = async () => {
+      try {
+        const res = await getAllArticleInfo(currentPage);
+        setActivitiesData(res.activities);
+        setPageNum(res.pageNum);
+        console.log(res);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    adminGetActivities();
+  }, [currentPage]);
+
   return (
     <div className="all-activity-container">
       <div className="each-func-title">
@@ -143,8 +63,24 @@ const Allactivity = () => {
         </h2>
       </div>
       <div className="activity-item-container">
-        {activitiesData.map((item) => Renderactivityitem(item))}
+        {activitiesData &&
+          activitiesData.map((item) =>
+            Renderactivityitem(item, setIsDeleteModal)
+          )}
       </div>
+      <div className="admin-pagination">
+        <Footerpagination
+          pageNum={pageNum}
+          onPageChange={setCurrentPage}
+          currentPage={currentPage}
+        ></Footerpagination>
+      </div>
+      {isDeleteModal && (
+        <DeleteConfirmModal
+          remindMessage="该文章是否删除"
+          onHandlerDelete={setIsDeleteModal}
+        ></DeleteConfirmModal>
+      )}
     </div>
   );
 };

@@ -3,29 +3,35 @@ import './Activities.scss';
 import '@/assets/icons/font_95rv9yhaqnu/iconfont.css';
 import '@/assets/icons/font_5wqplvdpjmq/iconfont.css';
 import StackCarousel from './components/stackcarousel';
+// import Footerpagination from './components/footerpagination';
+import Footerpagination from '@/components/FooterPagination';
 import { Article } from '@/types/article';
 import { getAllArticleInfo } from '@/services/activities';
 
 const Activities: React.FC = () => {
   const [pageNum, setPageNum] = useState(0);
-  const [totalActivity, setTotalActivity] = useState(0);
+  // const [totalActivity, setTotalActivity] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [activeTimelineNode, setActiveTimelineNode] = useState<number | null>(
     null
   );
   const activitiesRef = useRef<Array<HTMLDivElement | null>>([]);
+
   // 获取活动数据
   const [activitiesData, setArticleList] = useState<Article[]>([]);
   useEffect(() => {
-    getAllArticleInfo(currentPage)
-      .then((res) => {
+    const fetchData = async () => {
+      try {
+        const res = await getAllArticleInfo(currentPage);
         setArticleList(res.activities);
-        setTotalActivity(res.total);
+        // setTotalActivity(res.total);
         setPageNum(res.pageNum);
-      })
-      .catch((err) => {
+      } catch (err) {
         console.error('获取文章失败: ', err);
-      });
+      }
+    };
+
+    fetchData();
   }, [currentPage]);
 
   // 滑动计算scroll控制盒子动效
@@ -55,19 +61,6 @@ const Activities: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [currentPage]);
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const getPageNumbers = () => {
-    const pages = [];
-    for (let i = 1; i <= pageNum; i++) {
-      pages.push(i);
-    }
-    return pages;
-  };
-
   return (
     <div className="activities-container">
       <header className="activities-header">
@@ -79,7 +72,7 @@ const Activities: React.FC = () => {
         <section className="activities-lists">
           {activitiesData.map((activity, index) => (
             <div
-              key={index}
+              key={activity.aid}
               className="activity-card"
               ref={(e) => {
                 activitiesRef.current[index] = e;
@@ -107,7 +100,9 @@ const Activities: React.FC = () => {
                 <div className="activity-bref-info">
                   <h3 className="activity-title">{activity.title}</h3>
                   <div className="activity-date">发布于 {activity.time}</div>
-                  <p className="activity-summary">{activity.summary}</p>
+                  <div className="activity-summary-box">
+                    <p className="activity-summary">{activity.summary}</p>
+                  </div>
                 </div>
 
                 {/* 活动封面盒子 */}
@@ -121,33 +116,13 @@ const Activities: React.FC = () => {
         {/* 翻页 */}
         {pageNum > 1 && (
           <div className="pagination">
-            <button
-              className="page-button-left"
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              <i className="iconfont icon-youshuangxianjiantou1"></i>
-            </button>
-
-            <div className="page-button-pages">
-              {getPageNumbers().map((number) => (
-                <button
-                  key={number}
-                  className={`page-button ${currentPage === number ? 'active' : ''}`}
-                  onClick={() => handlePageChange(number)}
-                >
-                  {number}
-                </button>
-              ))}
-            </div>
-
-            <button
-              className="page-button-right"
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === pageNum}
-            >
-              <i className="iconfont icon-youshuangxianjiantou"></i>
-            </button>
+            {pageNum > 0 && (
+              <Footerpagination
+                pageNum={pageNum}
+                onPageChange={setCurrentPage}
+                currentPage={currentPage}
+              />
+            )}
           </div>
         )}
       </div>

@@ -28,47 +28,20 @@ const Myinfo: React.FC = () => {
   const [dataList, setDataList] = useState<DataItem | null>(null);
   // const [status, setStatus] = useState<number>(0);
 
-  // useEffect(() => {
-  //   // 模拟从后端获取数据，实际应用中需要使用axios等库进行真实请求
-  //   const mockData: ResponseData = {
-  //     status: 0,
-  //     data: {
-  //       portrait: Por,
-  //       gender: '男',
-  //       classGrade: '软件1302',
-  //       year: 2013,
-  //       phone: '15229098768',
-  //       isGraduate: true,
-  //       username: 'yangyuan',
-  //       name: '杨远',
-  //       team: 'Web',
-  //       mienImg: '//mobile.xupt.edu.cn/res/14905423740937914.jpg',
-  //       // "graduateImg": "//mobile.xupt.edu.cn/res/14957725307919851.jpg",
-  //       signature: '啊啊啊啊啊啊回来了',
-  //       company: 'shopee',
-  //     },
-  //   };
-  //   setDataList(mockData.data);
-  //   setStatus(mockData.status);
-  // }, []);
+  useEffect(() => {
+    const fetchUserinfo = async () => {
+      try {
+        const response = await getUseinfo();
+        console.log(response);
 
-  // const [userinfo, setUserInfo]=useState(null);
-      
-      useEffect(()=>{
-        const fetchUserinfo = async () => {
-          try {
-            const response = await getUseinfo();
-            console.log(response);
-            
-            setDataList(response);
-          } catch (error) {
-            console.error('获取验证码失败:', error);
-          }
-        };
-  
-        fetchUserinfo()
-      },[])
-  
+        setDataList(response);
+      } catch (error) {
+        console.error('获取验证码失败:', error);
+      }
+    };
+
+    fetchUserinfo();
+  }, []);
 
   return (
     <div className="myinfo-container">

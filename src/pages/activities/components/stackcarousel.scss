@@ -106,19 +106,6 @@
     align-items: center;
     position: relative;
     &:hover {
-      // &::after {
-      //   content: '';
-      //   position: absolute;
-      //   top: 50%;
-      //   left: 50%;
-      //   transform: translate(-50%, -50%);
-      //   width: 3rem;
-      //   height: 3rem;
-      //   background-color: #68686844;
-      //   border-radius: 1rem;
-      //   border: 0.1rem solid black;
-      //   // background-color: #1677ff6c;
-      // }
       color: black;
     }
   }
@@ -137,7 +124,6 @@
 
 .carousel-dots {
   position: absolute;
-  // bottom: -25px;
   bottom: 0;
   width: 100%;
   text-align: center;

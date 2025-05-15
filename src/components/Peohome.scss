@@ -3,7 +3,6 @@
   padding: 1rem 2rem;
   border-radius: 1rem;
   background-color: #fff;
-  // box-shadow: 0 0 0.5rem rgba(150, 157, 165, 0.795);
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.89);
 
   .header-section {
@@ -13,8 +12,8 @@
     position: relative;
 
     .header-photo-box {
-      width: 5.6rem;
-      height: 5.6rem;
+      width: 5.4rem;
+      height: 5.4rem;
       border-radius: 50%;
       box-sizing: border-box;
       border: 0.1rem solid #333;
@@ -24,8 +23,8 @@
       align-items: center;
 
       img {
-        width: 5rem;
-        height: 5rem;
+        width: 4.8rem;
+        height: 4.8rem;
         border-radius: 50%;
       }
     }
@@ -40,7 +39,7 @@
     }
 
     .user-info h2 {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       margin: 0;
     }
 
@@ -55,7 +54,7 @@
 }
 
 .basic-info-section {
-  padding: 1rem 1.5rem;
+  padding: 0rem 1.5rem;
 
   .basic-info-box {
     display: flex;
@@ -64,7 +63,7 @@
   }
 
   h3 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     padding-bottom: 5px;
     margin-bottom: 15px;
   }
@@ -73,12 +72,15 @@
     .info-item {
       display: flex;
       align-items: center;
-      margin-bottom: 10px;
+      // margin-bottom: 10px;
+      margin-bottom: 0.5rem;
       label {
+        font-size: 0.9rem;
         width: 7rem;
         color: #555;
       }
       span {
+        font-size: 0.8rem;
         color: #333;
       }
     }

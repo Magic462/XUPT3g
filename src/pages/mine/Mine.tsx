@@ -7,7 +7,7 @@ import '@/assets/icons/font_ry8o2ikys/iconfont.css';
 import '@/assets/icons/font_95rv9yhaqnu/iconfont.css';
 import { useActiveItem } from '@/hooks/useActiveItem';
 import Por from '../../assets/wxqr.webp';
-import { useAuth } from '../../hooks/useAuth'
+import { useAuth } from '../../hooks/useAuth';
 
 // 用户数据
 const userData = {
@@ -194,7 +194,6 @@ const Mine = () => {
           )}
           <div className="leftnav-exit">
             <button onClick={() => logout()}>exit</button>
-            {/* <button onClick={() => userExit()}>exit</button> */}
           </div>
         </div>
       )}

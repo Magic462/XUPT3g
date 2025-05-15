@@ -1,7 +1,7 @@
 .mem-item {
   display: flex;
   align-items: flex-start;
-  padding: 1.2rem 4rem;
+  padding: 1rem 3rem;
   box-sizing: border-box;
   position: relative;
   height: 100%;
@@ -18,8 +18,8 @@
   }
 
   .mem-img-container {
-    width: 6rem;
-    height: 6rem;
+    width: 5.5rem;
+    height: 5.5rem;
     box-sizing: border-box;
     border-radius: 50%;
     border: 0.1rem solid rgba(0, 0, 0, 0.13);
@@ -30,8 +30,8 @@
     margin-right: 1rem;
 
     .mem-img {
-      width: 5.5rem;
-      height: 5.5rem;
+      width: 4.8rem;
+      height: 4.8rem;
       border-radius: 50%;
     }
   }
@@ -41,21 +41,28 @@
       display: flex;
       align-items: center;
       .mem-name {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         font-weight: 800;
-        .mem-status-label {
-          background-color: #4caf50;
-          color: white;
-          padding: 2px 5px;
-          border-radius: 3px;
-          font-size: 0.7rem;
-        }
+      }
+      .mem-status-label {
+        margin-left: 0.5rem;
+        background-color: #4caf50;
+        color: white;
+        height: 1.2rem;
+        width: 2.5rem;
+        // padding: 2px 5px;
+        // border-radius: 3px;
+        text-align: center;
+        line-height: 1.2rem;
+        border-radius: 1rem;
+        font-size: 0.7rem;
       }
     }
     .mem-signature {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       color: #777;
-      margin-top: 5px;
+      margin: 0.4rem 0 0 0.5rem;
+      // margin-top: 0.4rem;
     }
     .mem-team {
       width: 3rem;
@@ -65,13 +72,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #777;
+      color: #4b4b4b;
       font-size: 0.7em;
-      margin-top: 0.8rem;
+      margin-top: 0.6rem;
+      margin: 0.6rem 0 0 0.5rem;
     }
   }
   .mem-buttons {
-    // width: 6rem;
     height: 100%;
     display: flex;
     flex-direction: column;
