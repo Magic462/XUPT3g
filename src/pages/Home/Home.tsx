@@ -4,12 +4,41 @@ import '../../assets/wxqr.webp';
 import { getQQcontact } from '@/services/qqcontact';
 import { getDirection } from '@/services/directions';
 
+  const fakeData = [
+  { id: 1, name: 'Web', description: '构建用户界面和交互' },
+  { id: 2, name: 'Server', description: '处理业务逻辑和数据存储' },
+  { id: 3, name: 'Android', description: '机器学习与数据智能' },
+  { id: 4, name: 'iOS', description: '机器学习与数据智能' },
+  { id: 5, name: 'HarmonyOS', description: '机器学习与数据智能' },
+];
+
 const Home: React.FC = () => {
   // 获得当前年
   const now = new Date();
   const year = now.getFullYear();
-  const [qqnumber,serQqNumber]=useState('')
-  const [platforms,setPlatforms]=useState([])
+  const [qqnumber,serQqNumber]=useState('');
+  const [platforms,setPlatforms]=useState([]);
+
+
+    // 获取方向简介
+  useEffect(() => {
+    const fetchDirection = async ()=>{
+      try{
+        const response = await getDirection();
+        // console.log(response);
+        if (Array.isArray(response) && response.length > 0) {
+          setPlatforms(response);
+        } else {
+          console.warn('后端返回数据为空或格式错误，使用假数据');
+          setPlatforms(fakeData);
+        }
+      } catch (error){
+        console.log('获取qq号失败', error);
+        setPlatforms(fakeData);
+      }
+    }
+    fetchDirection()
+  }, []);
 
   // 使用IntersectionObserver 接口监听元素是否进入视口，并实现只要进入视口反复出现动画
   useEffect(() => {
@@ -33,7 +62,7 @@ const Home: React.FC = () => {
     return () => {
       observer.disconnect();
     };
-  }, []);
+  }, [platforms]);
 
   // 获取qq群联系方式
   useEffect(() => {
@@ -46,20 +75,6 @@ const Home: React.FC = () => {
       }
     }
     fetchQQ()
-  }, []);
-
-  // 获取方向简介
-  useEffect(() => {
-    const fetchDirection = async ()=>{
-      try{
-        const response = await getDirection();
-        // console.log(response);
-        setPlatforms(response)
-      } catch (error){
-        console.log('获取qq号失败', error);
-      }
-    }
-    fetchDirection()
   }, []);
   // 实现即将滚动到platforms-section时卡片依次弹出
   // useEffect(() => {

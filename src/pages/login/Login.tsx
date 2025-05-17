@@ -5,6 +5,7 @@ import axios from 'axios';
 import './Login.scss';
 import { getCaptcha } from '@/services/captcha';
 import { postLogin } from '@/services/login';
+import { useAuth } from '@/context/AuthContext';
 
 const Login = () => {
   
@@ -46,6 +47,8 @@ const Login = () => {
       }
   };
 
+  const { login } = useAuth();
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -55,16 +58,18 @@ const Login = () => {
         captchaID,
         captchaData,
       });
-      console.log(response);
+      // console.log(response);
       
-      localStorage.setItem('token', response.token);
-      localStorage.setItem('status', response.status);
-      localStorage.setItem('username', response.username);
-      alert('登录成功！');
+      // localStorage.setItem('token', response.token);
+      // localStorage.setItem('status', response.status);
+      // localStorage.setItem('username', response.username);
+      // alert('登录成功！');
       if(response.status==='0'){
         nav('/mine/admin/editdonation')
+        login(response.token, response.status,response.username)
       }else if(response.status==='1'||response.status==='2'){
         nav('/mine/user/myinfo');
+        login(response.token, response.status,response.username)
       }
     } catch (error) {
       handleError(error);

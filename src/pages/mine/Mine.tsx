@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { Outlet, useNavigate, useOutletContext } from 'react-router-dom';
 import './Mine.scss';
 import '@/assets/icons/font_4k8jwf31qbs/iconfont.css';
@@ -7,7 +7,7 @@ import '@/assets/icons/font_ry8o2ikys/iconfont.css';
 import '@/assets/icons/font_95rv9yhaqnu/iconfont.css';
 import { useActiveItem } from '@/hooks/useActiveItem';
 import Por from '../../assets/wxqr.webp';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from '@/context/AuthContext';
 
 // 用户数据
 const userData = {
@@ -118,7 +118,15 @@ const Mine = () => {
     handleExpandItem(item);
   };
 
+  // 退出登录函数
   const { logout } = useAuth();
+  // 检查token是否过期
+  const { token, checkTokenValid } = useAuth();
+  useEffect(() => {
+  if (!checkTokenValid()) {
+    // token 无效会自动 logout 并跳转
+  }
+}, [checkTokenValid]);
 
   // 左侧导航各个item渲染
   const RenderNavItem = (item: {
