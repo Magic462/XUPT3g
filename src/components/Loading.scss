@@ -1,10 +1,9 @@
-
-  
-  @keyframes animate {
-    0%, 100% {
-      color: #fff;
-      filter: blur(3px);
-    //   text-shadow: 
+@keyframes animate {
+  0%,
+  100% {
+    color: #fff;
+    filter: blur(3px);
+    //   text-shadow:
     //     0 0 10px #00b3ff,
     //     0 0 20px #00b3ff,
     //     0 0 40px #00b3ff,
@@ -15,49 +14,70 @@
     //     0 0 480px #00b3ff,
     //     0 0 600px #00b3ff,
     //     0 0 720px #00b3ff;
-    text-shadow: 
-    0 0 10px #5de31c,
-    0 0 20px #5de31c,
-    0 0 40px #5de31c,
-    0 0 80px #5de31c,
-    0 0 120px #5de31c,
-    0 0 240px #5de31c,
-    0 0 320px #5de31c,
-    0 0 480px #5de31c,
-    0 0 600px #5de31c,
-    0 0 720px #5de31c;
-    }
-    25%, 75% {
-      color: #000;
-      filter: blur(0);
-      text-shadow: none;
-    }
+    text-shadow:
+      0 0 10px #5de31c,
+      0 0 20px #5de31c,
+      0 0 40px #5de31c,
+      0 0 80px #5de31c,
+      0 0 120px #5de31c,
+      0 0 240px #5de31c,
+      0 0 320px #5de31c,
+      0 0 480px #5de31c,
+      0 0 600px #5de31c,
+      0 0 720px #5de31c;
   }
-  .loading {
-    background-color: #000;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  h1 {
+  25%,
+  75% {
     color: #000;
-    font-size: 8em;
+    filter: blur(0);
+    text-shadow: none;
+  }
+}
+.loading {
+  background-color: #000;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+h1 {
+  color: #000;
+  font-size: 8em;
 
-    span {
-      animation: animate 1s linear infinite;
+  span {
+    animation: animate 1s linear infinite;
 
-      // 设置动画延迟
-      &:nth-child(1) { animation-delay: 0s; }
-      &:nth-child(2) { animation-delay: 0.1s; }
-      &:nth-child(3) { animation-delay: 0.2s; }
-      &:nth-child(4) { animation-delay: 0.3s; }
-      &:nth-child(5) { animation-delay: 0.4s; }
-      &:nth-child(6) { animation-delay: 0.5s; }
-      &:nth-child(7) { animation-delay: 0.6s; }
-      &:nth-child(8) { animation-delay: 0.7s; }
-      &:nth-child(9) { animation-delay: 0.8s; }
-      &:nth-child(10) { animation-delay: 0.9s; }
+    // 设置动画延迟
+    &:nth-child(1) {
+      animation-delay: 0s;
+    }
+    &:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+    &:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+    &:nth-child(4) {
+      animation-delay: 0.3s;
+    }
+    &:nth-child(5) {
+      animation-delay: 0.4s;
+    }
+    &:nth-child(6) {
+      animation-delay: 0.5s;
+    }
+    &:nth-child(7) {
+      animation-delay: 0.6s;
+    }
+    &:nth-child(8) {
+      animation-delay: 0.7s;
+    }
+    &:nth-child(9) {
+      animation-delay: 0.8s;
+    }
+    &:nth-child(10) {
+      animation-delay: 0.9s;
     }
   }
+}

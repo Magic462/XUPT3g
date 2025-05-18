@@ -1,10 +1,10 @@
 @font-face {
-  font-family: "iconfont"; /* Project id  */
+  font-family: 'iconfont'; /* Project id  */
   src: url('iconfont.ttf?t=1743864798009') format('truetype');
 }
 
 .iconfont {
-  font-family: "iconfont" !important;
+  font-family: 'iconfont' !important;
   font-size: 16px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
@@ -12,6 +12,5 @@
 }
 
 .icon-jiantou_liebiaoxiangyou:before {
-  content: "\eb03";
+  content: '\eb03';
 }
-

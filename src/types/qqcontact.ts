@@ -1,3 +1,3 @@
 export interface QQcontact {
-    qqnumber: string;
-  }
+  qqnumber: string;
+}

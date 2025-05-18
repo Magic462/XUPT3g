@@ -63,7 +63,7 @@ const Login = () => {
       // localStorage.setItem('token', response.token);
       // localStorage.setItem('status', response.status);
       // localStorage.setItem('username', response.username);
-      // alert('登录成功！');
+      // alert('登录成功！'); 
       if(response.status==='0'){
         nav('/mine/admin/editdonation')
         login(response.token, response.status,response.username)

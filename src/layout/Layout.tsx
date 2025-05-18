@@ -19,10 +19,9 @@ const MainLayout: React.FC = () => {
     showSubNav: false,
   });
 
+  const { token } = useAuth();
 
-const { token } = useAuth();
-
-const menuItems = token
+  const menuItems = token
     ? [
         { path: '/activities', label: '活动' },
         { path: '/members', label: '成员风采' },
@@ -35,9 +34,8 @@ const menuItems = token
         { path: '/members', label: '成员风采' },
         { path: '/graduate', label: '毕业去处' },
         { path: '/trainingplan', label: '培养计划' },
-        { path: '/login', label: '登录' }
+        { path: '/login', label: '登录' },
       ];
-
 
   const now = new Date();
   const year = now.getFullYear();

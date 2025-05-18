@@ -35,7 +35,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   // 登录
-  const login = (newToken: string, newStatus: AuthStatus, newUsername: string) => {
+  const login = (
+    newToken: string,
+    newStatus: AuthStatus,
+    newUsername: string
+  ) => {
     localStorage.setItem('token', newToken);
     localStorage.setItem('status', newStatus || '');
     localStorage.setItem('username', newUsername);
@@ -67,7 +71,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, status, username, login, logout, checkTokenValid }}>
+    <AuthContext.Provider
+      value={{ token, status, username, login, logout, checkTokenValid }}
+    >
       {children}
     </AuthContext.Provider>
   );

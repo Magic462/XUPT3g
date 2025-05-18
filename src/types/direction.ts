@@ -1,6 +1,6 @@
 export interface Direction {
-    brefInfo: string;
-    delay: number;
-    isExist: boolean;
-    name: string;
-  }
+  brefInfo: string;
+  delay: number;
+  isExist: boolean;
+  name: string;
+}

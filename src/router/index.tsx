@@ -1,7 +1,6 @@
 import { Navigate, RouteObject } from 'react-router-dom';
 // 实现路由懒加载
 import { Suspense, lazy } from 'react';
-import { useEffect,useState } from 'react';
 import Layout from '../layout/Layout';
 import Loading from '../components/Loading';
 const Home = lazy(() => import('../pages/Home/Home'));
@@ -12,7 +11,6 @@ const Activities = lazy(() => import('../pages/activities/Activities'));
 const Members = lazy(() => import('../pages/members/Members'));
 const Graduate = lazy(() => import('../pages/Graduate/Graduate'));
 const Login = lazy(() => import('../pages/login/Login'));
-const Register = lazy(() => import('../pages/register/Register'));
 const Blogs = lazy(() => import('../pages/blogs/Blogs'));
 // import Notfound from '@/pages/notfound/Notfound';
 const Notfound = lazy(() => import('../pages/notfound/Notfound'));
@@ -288,14 +286,6 @@ const routes: RouteObject[] = [
         element: (
           <Suspense fallback={<Loading />}>
             <Login />
-          </Suspense>
-        ),
-      },
-      {
-        path: '/register',
-        element: (
-          <Suspense fallback={<Loading />}>
-            <Register />
           </Suspense>
         ),
       },

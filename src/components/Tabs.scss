@@ -159,7 +159,7 @@
 }
 
 .tab.active::before {
-  content: "";
+  content: '';
   position: absolute;
   left: -5px;
   top: 0;
@@ -171,7 +171,7 @@
 }
 
 .tab.active::after {
-  content: "";
+  content: '';
   position: absolute;
   right: -5px;
   bottom: 0;
@@ -210,7 +210,7 @@
   cursor: pointer;
   color: #555d71;
   &:last-child {
-      border: none;
+    border: none;
   }
 }
 
@@ -228,5 +228,4 @@
       padding: 0 40px;
     }
   }
-
 }

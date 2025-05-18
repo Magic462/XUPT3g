@@ -1,4 +1,4 @@
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Outlet, useNavigate, useOutletContext } from 'react-router-dom';
 import './Mine.scss';
 import '@/assets/icons/font_4k8jwf31qbs/iconfont.css';
@@ -123,10 +123,10 @@ const Mine = () => {
   // 检查token是否过期
   const { token, checkTokenValid } = useAuth();
   useEffect(() => {
-  if (!checkTokenValid()) {
-    // token 无效会自动 logout 并跳转
-  }
-}, [checkTokenValid]);
+    if (!checkTokenValid()) {
+      // token 无效会自动 logout 并跳转
+    }
+  }, [checkTokenValid]);
 
   // 左侧导航各个item渲染
   const RenderNavItem = (item: {
