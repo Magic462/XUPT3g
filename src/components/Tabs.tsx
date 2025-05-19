@@ -33,7 +33,7 @@ const Tabs = ({ tabs, onTabChange }) => {
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
-    onTabChange(tab); // 通知父组件选中的年份
+    onTabChange(tab); // 通知父组件选中的年份或方向
     setIsDropdownVisible(false); // 点击菜单项后隐藏下拉菜单
   };
 

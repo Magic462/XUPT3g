@@ -7,12 +7,12 @@ const People = ({ members }) => {
       {members.map((member) => (
         <div key={member.id} className="people-comp">
           <div className="people-photo">
-            <img src={member.photo} alt={member.name} />
+            <img src={member.mienImg} alt={member.name} />
           </div>
           <h2>{member.name}</h2>
           <div className="people-bottom">
             <p className="people-team">
-              {member.direction}组&nbsp;{member.company}
+              {member.team}组&nbsp;{member.company}
             </p>
             <p className="people-signature">{member.message}</p>
             <p className="people-more">
