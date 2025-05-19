@@ -55,6 +55,9 @@ axiosInstance.interceptors.response.use(
         return data;
       case 401:
         showMessage('warning', '登录失效，请重新登录');
+        localStorage.removeItem('token');
+        localStorage.removeItem('status');
+        localStorage.removeItem('username');
         window.location.href = '/login';
         return Promise.reject(res.data);
       default:

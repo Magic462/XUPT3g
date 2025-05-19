@@ -7,7 +7,7 @@ interface PeohomeProps {
   gender: string;
   classGrade: string;
   year: number;
-  phone: string;
+  tel: string;
   isGraduate: boolean;
   username: string;
   name: string;
@@ -40,7 +40,7 @@ const Peohome: React.FC<PeohomeProps> = ({
   gender,
   classGrade,
   year,
-  phone,
+  tel,
   isGraduate,
   username,
   name,
@@ -115,7 +115,7 @@ const Peohome: React.FC<PeohomeProps> = ({
             </div>
             <div className="info-item">
               <label>电 话</label>
-              <span>{phone}</span>
+              <span>{tel}</span>
             </div>
             <div className="info-item">
               <label>个性签名</label>

@@ -3,6 +3,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import './Layout.scss';
 import useClickOutside from '../hooks/useClickOutside';
 import '@/assets/icons/font_4k8jwf31qbs/iconfont.css';
+import { useAuth } from '@/context/AuthContext';
 
 const MainLayout: React.FC = () => {
   const location = useLocation();
@@ -18,17 +19,9 @@ const MainLayout: React.FC = () => {
     showSubNav: false,
   });
 
+  const { token } = useAuth();
 
-  // 记录是否已登录
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  
-  // 检查用户是否已登录
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    setIsLoggedIn(!!token);
-  }, []);
-
-const menuItems = isLoggedIn
+  const menuItems = token
     ? [
         { path: '/activities', label: '活动' },
         { path: '/members', label: '成员风采' },
@@ -41,9 +34,8 @@ const menuItems = isLoggedIn
         { path: '/members', label: '成员风采' },
         { path: '/graduate', label: '毕业去处' },
         { path: '/trainingplan', label: '培养计划' },
-        { path: '/login', label: '登录' }
+        { path: '/login', label: '登录' },
       ];
-
 
   const now = new Date();
   const year = now.getFullYear();

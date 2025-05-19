@@ -3,7 +3,7 @@ export interface Userinfo {
   gender: string;
   classGrade: string;
   year: number;
-  phone: string;
+  tel: string;
   isGraduate: boolean;
   username: string;
   name: string;
@@ -11,4 +11,21 @@ export interface Userinfo {
   mienImg: string;
   signature: string;
   company: string;
+}
+
+export interface Userchangeinfo {
+  username: string;
+  gender?: string;
+  classGrade?: string;
+  tel?: string;
+  name?: string;
+  team?: string;
+  signature?: string;
+  company?: string;
+}
+
+export interface Response {
+  status: string;
+  token: string;
+  // username: string;
 }
