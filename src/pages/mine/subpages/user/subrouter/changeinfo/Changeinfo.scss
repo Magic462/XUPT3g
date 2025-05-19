@@ -35,10 +35,6 @@
       background-color: rgba(0, 0, 0, 0.219);
     }
 
-    &:active {
-      background-color: #1890ff;
-      color: white;
-    }
     img {
       width: 100%;
     }
@@ -58,6 +54,10 @@
       box-shadow: 0 0 0.15rem rgba(150, 157, 165, 0.918);
       &:hover {
         cursor: pointer;
+      }
+      &.photo-choice-active {
+        background-color: #1890ff;
+        color: white;
       }
     }
   }
