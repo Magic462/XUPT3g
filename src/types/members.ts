@@ -5,6 +5,8 @@ export interface Members {
   mienImg: string;
   signature: string;
   company: string;
+  year: string;
+  graduateImg: string;
 }
 
 export interface MembersResponse {

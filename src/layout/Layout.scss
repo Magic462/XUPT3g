@@ -201,13 +201,7 @@
     letter-spacing: 1px;
     transition: color 0.3s ease;
     text-transform: uppercase;
-    cursor: pointer;
-
-    .address {
-      &:hover {
-        color: #fff;
-      }
-    }
+    cursor: default;
   }
 
   p {
