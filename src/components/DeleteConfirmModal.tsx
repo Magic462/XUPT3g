@@ -20,7 +20,7 @@ const DeleteConfirmModal: React.FC<DeleteConfirmProps> = ({
       <div className="modal-content">
         <div className="delete-title">
           <i className="iconfont icon-jinggao"></i>
-          慎重考虑是否删除
+          慎重考虑
         </div>
 
         <div className="delete-remind-tips">

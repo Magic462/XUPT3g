@@ -22,7 +22,7 @@ const peo = {
 
 const Changeinfo = () => {
   const { activeItem: photoItem, handleItemClick: handlePhotoClick } =
-    useActiveItem<string>();
+    useActiveItem<string>('profile-photo');
 
   const [userinfo, setUserInfo] = useState(null);
 
@@ -38,6 +38,10 @@ const Changeinfo = () => {
 
   //   fetchUserinfo()
   // },[])
+  // useEffect(() => {
+  //   if (photoItem === 'profile-item') {
+  //   }
+  // }, [photoItem]);
 
   return (
     <div className="changeinfo-container">
@@ -50,23 +54,35 @@ const Changeinfo = () => {
       <div className="changeinfo-box">
         <div className="changeinfo-photochange-box">
           <div className="photo-box">
-            <img
-              src="http://mobile.xupt.edu.cn/res/15342187758400435.gif"
-              alt=""
-            />
+            {photoItem === 'profile-photo' ? (
+              <div className="">
+                <img
+                  src="http://mobile.xupt.edu.cn/res/15342187758400435.gif"
+                  alt=""
+                />
+                <input type="file" />
+              </div>
+            ) : (
+              <div className="">
+                <img
+                  src="//mobile.xupt.edu.cn/res/14905423740937914.jpg"
+                  alt=""
+                />
+              </div>
+            )}
           </div>
           <div className="change-photo-btn">
             <button
               key="profile-photo"
               onClick={() => handlePhotoClick('profile-photo')}
-              className={photoItem === 'profile-photo' ? 'active' : ''}
+              className={`${photoItem === 'profile-photo' ? 'photo-choice-active' : ''}`}
             >
               小头像
             </button>
             <button
               key="mien-photo"
               onClick={() => handlePhotoClick('mien-photo')}
-              className={photoItem === 'mien-photo' ? 'active' : ''}
+              className={`${photoItem === 'mien-photo' ? 'photo-choice-active' : ''}`}
             >
               风采照
             </button>

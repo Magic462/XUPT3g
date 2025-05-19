@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './Editdirection.scss';
 import '@/assets/icons/font_38lh8lcfn7/iconfont.css';
+import DeleteConfirmModal from '@/components/DeleteConfirmModal';
 
 const directionData = [
   {
@@ -42,7 +43,8 @@ const Renderdirectionitem = (
     ifexit: number;
     bref_info: string;
   },
-  toggleEdit: () => void
+  toggleEdit: () => void,
+  setIsDeleteModal: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   return (
     <div className="direction-item-box">
@@ -64,7 +66,12 @@ const Renderdirectionitem = (
         >
           编辑
         </button>
-        <button className="direction-move-btn">移除</button>
+        <button
+          className="direction-move-btn"
+          onClick={() => setIsDeleteModal(true)}
+        >
+          移除
+        </button>
       </div>
     </div>
   );
@@ -72,6 +79,7 @@ const Renderdirectionitem = (
 
 const Editdirection = () => {
   const [edit, setEdit] = useState(false);
+  const [isDeleteModal, setIsDeleteModal] = useState(false);
 
   return (
     <div className="edit-direction-container">
@@ -130,9 +138,21 @@ const Editdirection = () => {
       )}
       <div className="direction-item-container">
         {directionData.map((item) =>
-          Renderdirectionitem(item, () => setEdit(!edit))
+          Renderdirectionitem(
+            item,
+            () => setEdit(!edit),
+            setIsDeleteModal
+            // onHandlerDelete(setIsDeleteModal)
+          )
         )}
       </div>
+      {/* 确认移除弹窗 */}
+      {isDeleteModal && (
+        <DeleteConfirmModal
+          remindMessage="是否将其设置为已不存在"
+          onHandlerDelete={setIsDeleteModal}
+        ></DeleteConfirmModal>
+      )}
     </div>
   );
 };
