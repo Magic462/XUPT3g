@@ -15,7 +15,7 @@ const Member = () => {
   useEffect(() => {
     const fetchDirection = async () => {
       try {
-        const response = await getDirection();
+        const response = await getDirection(true);
         // console.log(response);
         const platforms = [...new Set(response.map((item) => item.name))];
         // console.log(platforms);
