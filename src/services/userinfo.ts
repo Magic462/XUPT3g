@@ -14,6 +14,5 @@ export const postChangeInfo = async (
   const response = await post<Response>('api/changeinfo', data, {
     customAuth: true,
   });
-  console.log(response);
   return response;
 };

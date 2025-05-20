@@ -1,5 +1,5 @@
-import { get } from '@/utils/request/http';
-import { Direction } from '@/types/direction';
+import { get, post } from '@/utils/request/http';
+import { Direction, Directionres } from '@/types/direction';
 
 // 游客端看到的存在的方向的信息
 export const getDirection = async (): Promise<Direction[]> => {
@@ -7,18 +7,25 @@ export const getDirection = async (): Promise<Direction[]> => {
   return response;
 };
 
-// 用户端看到的具体的各方向信息
+// 用户端获取方向信息
 export const getAllDirection = async (
-  isExist: boolean = false
+  isExist?: boolean
 ): Promise<Direction[]> => {
+  const params = isExist !== undefined ? { isExist } : {};
+
   const response = await get<Direction[]>('api/team/allinfo', {
-    params: {
-      isExist,
-    },
+    params,
     customAuth: true,
   });
   return response;
 };
 
-// 上传小头像接口
-// export const post
+// 管理上传方向信息
+export const postDirectionInfo = async (
+  direction: Direction
+): Promise<Directionres> => {
+  const response = await post<Directionres>('api/team', direction, {
+    customAuth: true,
+  });
+  return response;
+};

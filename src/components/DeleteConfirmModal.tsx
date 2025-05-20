@@ -29,16 +29,16 @@ const DeleteConfirmModal: React.FC<DeleteConfirmProps> = ({
 
         <div className="action-buttons">
           <button
-            className="cancel-button"
-            onClick={() => onHandlerDelete(false)}
-          >
-            取消
-          </button>
-          <button
             className="confirm-button"
             onClick={() => onHandlerDelete(true)}
           >
             确认
+          </button>
+          <button
+            className="cancel-button"
+            onClick={() => onHandlerDelete(false)}
+          >
+            取消
           </button>
         </div>
       </div>

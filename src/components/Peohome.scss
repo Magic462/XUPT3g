@@ -71,8 +71,6 @@
   .basic-info-section-left {
     .info-item {
       display: flex;
-      align-items: center;
-      // margin-bottom: 10px;
       margin-bottom: 0.5rem;
       label {
         font-size: 0.9rem;
@@ -80,6 +78,7 @@
         color: #555;
       }
       span {
+        display: inline-block;
         font-size: 0.8rem;
         color: #333;
       }

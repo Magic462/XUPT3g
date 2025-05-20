@@ -1,6 +1,6 @@
 export interface Userinfo {
   portrait: string;
-  gender: string;
+  gender: number;
   classGrade: string;
   year: number;
   tel: string;
@@ -15,13 +15,15 @@ export interface Userinfo {
 
 export interface Userchangeinfo {
   username: string;
-  gender?: string;
+  gender?: number;
   classGrade?: string;
   tel?: string;
   name?: string;
   team?: string;
   signature?: string;
   company?: string;
+  mienImg?: string;
+  portrait?: string;
 }
 
 export interface Response {

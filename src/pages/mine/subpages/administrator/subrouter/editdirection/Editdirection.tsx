@@ -1,47 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Editdirection.scss';
 import '@/assets/icons/font_38lh8lcfn7/iconfont.css';
 import DeleteConfirmModal from '@/components/DeleteConfirmModal';
-
-const directionData = [
-  {
-    name: 'web',
-    ifexit: 1,
-    bref_info:
-      'Web开发的魅力在于，你的每一行代码都可能改变数百万用户的体验。刚开始可能会觉得繁杂，但一旦上手，你会发现Web让你的创造力得到了最大化的发挥！',
-  },
-  {
-    name: 'iOS',
-    ifexit: 1,
-    bref_info:
-      'Web开发的魅力在于，你的每一行代码都可能改变数百万用户的体验。刚开始可能会觉得繁杂，但一旦上手，你会发现Web让你的创造力得到了最大化的发挥！',
-  },
-  {
-    name: 'Andriod',
-    ifexit: 1,
-    bref_info:
-      'Web开发的魅力在于，你的每一行代码都可能改变数百万用户的体验。刚开始可能会觉得繁杂，但一旦上手，你会发现Web让你的创造力得到了最大化的发挥！',
-  },
-  {
-    name: 'HarmonyOS',
-    ifexit: 1,
-    bref_info:
-      'Web开发的魅力在于，你的每一行代码都可能改变数百万用户的体验。刚开始可能会觉得繁杂，但一旦上手，你会发现Web让你的创造力得到了最大化的发挥！',
-  },
-
-  {
-    name: 'PM',
-    ifexit: 1,
-    bref_info:
-      'Web开发的魅力在于，你的每一行代码都可能改变数百万用户的体验。刚开始可能会觉得繁杂，但一旦上手，你会发现Web让你的创造力得到了最大化的发挥！',
-  },
-];
+import { getAllDirection } from '@/services/directions';
+import { Direction } from '@/types/direction';
 
 const Renderdirectionitem = (
   item: {
+    tid: number;
     name: string;
-    ifexit: number;
-    bref_info: string;
+    isExist: boolean;
+    brefInfo: string;
+    trainPlan?: string;
   },
   toggleEdit: () => void,
   setIsDeleteModal: React.Dispatch<React.SetStateAction<boolean>>
@@ -51,11 +21,15 @@ const Renderdirectionitem = (
       <div className="direction-info-box">
         <div className="direction-info-top-box">
           <div className="direction-name">{item.name}</div>
-          <div className="direction-status">
-            {item.ifexit === 1 ? '现有' : '现无'}
+          <div
+            className={`direction-status ${
+              item.isExist ? 'exist-yes' : 'exist-no'
+            } `}
+          >
+            {item.isExist ? '现有' : '现无'}
           </div>
         </div>
-        <div className="direction-brefinfo">简介: {item.bref_info}</div>
+        <div className="direction-brefinfo">简介: {item.brefInfo}</div>
       </div>
       <div className="direction-edit-btns">
         <button
@@ -80,6 +54,21 @@ const Renderdirectionitem = (
 const Editdirection = () => {
   const [edit, setEdit] = useState(false);
   const [isDeleteModal, setIsDeleteModal] = useState(false);
+  const [directions, setDirections] = useState<Direction[]>([]);
+
+  useEffect(() => {
+    const fetchDirection = async () => {
+      try {
+        const res = await getAllDirection();
+        console.log(res);
+        setDirections(res);
+      } catch (err) {
+        console.log('获取方向信息失败：', err);
+      }
+    };
+
+    fetchDirection();
+  }, []);
 
   return (
     <div className="edit-direction-container">
@@ -136,8 +125,9 @@ const Editdirection = () => {
           </div>
         </>
       )}
+      {/* 各个方向list */}
       <div className="direction-item-container">
-        {directionData.map((item) =>
+        {directions.map((item) =>
           Renderdirectionitem(
             item,
             () => setEdit(!edit),

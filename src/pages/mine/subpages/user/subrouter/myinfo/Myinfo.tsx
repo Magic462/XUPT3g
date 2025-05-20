@@ -1,31 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Peohome from '@/components/Peohome';
 import './Myinfo.scss';
-// import Por from '../../../../../../assets/wxqr.webp'
 import { getUseinfo } from '@/services/userinfo';
-
-interface DataItem {
-  portrait: string; // 头像
-  gender: string;
-  classGrade: string;
-  year: number;
-  tel: string;
-  isGraduate: boolean;
-  username: string;
-  name: string;
-  team: string;
-  mienImg: string; // 风采照
-  signature: string; // 个性签名
-  company: string;
-}
-
-// interface ResponseData {
-//   status: number;
-//   data: DataItem;
-// }
+import { Userinfo } from '@/types/userinfo';
 
 const Myinfo: React.FC = () => {
-  const [dataList, setDataList] = useState<DataItem | null>(null);
+  const [dataList, setDataList] = useState<Userinfo | null>(null);
   // const [status, setStatus] = useState<number>(0);
 
   useEffect(() => {

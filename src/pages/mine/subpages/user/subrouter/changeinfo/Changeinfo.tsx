@@ -7,13 +7,13 @@ import ImgCrop from 'antd-img-crop';
 import { postChangeInfo, getUseinfo } from '@/services/userinfo';
 import { getAllDirection } from '@/services/directions';
 import { Direction } from '@/types/direction';
-import { Userchangeinfo } from '@/types/userinfo';
+import { Userchangeinfo, Userinfo } from '@/types/userinfo';
 
 const Changeinfo = () => {
   const { activeItem: photoItem, handleItemClick: handlePhotoClick } =
     useActiveItem<string>('profile-photo');
 
-  const [userinfo, setUserInfo] = useState(null);
+  const [userinfo, setUserInfo] = useState<Userinfo>(null);
   const [directions, setDirections] = useState<Direction[]>([]);
   const [formData, setFormData] = useState<Userchangeinfo>();
 
@@ -21,6 +21,7 @@ const Changeinfo = () => {
     const fetchUserinfo = async () => {
       try {
         const response = await getUseinfo();
+        console.log(response);
         setUserInfo(response);
       } catch (error) {
         console.error('获取个人信息:', error);
@@ -49,12 +50,14 @@ const Changeinfo = () => {
       setFormData({
         username: localStorage.getItem('username'),
         name: userinfo.name || '',
-        gender: userinfo.gender?.toString() || '',
+        gender: userinfo.gender || 1,
         classGrade: userinfo.classGrade || '',
         team: userinfo.team || '',
         company: userinfo.company || '',
         tel: userinfo.tel || '',
         signature: userinfo.signature || '',
+        mienImg: userinfo.mienImg || '',
+        portrait: userinfo.portrait || '',
       });
     }
   }, [userinfo]);
@@ -84,11 +87,19 @@ const Changeinfo = () => {
                 <ImgCrop rotationSlider>
                   <Upload
                     showUploadList={false}
+                    beforeUpload={(file) => {
+                      const isJpg = file.type === 'image/jpeg';
+                      if (!isJpg) {
+                        alert('只允许上传 JPG 格式的图片');
+                      }
+                      return isJpg || Upload.LIST_IGNORE;
+                    }}
                     customRequest={({ file, onSuccess }) => {
                       const url = URL.createObjectURL(file as File);
                       setUserInfo((prev) =>
                         prev ? { ...prev, portrait: url } : prev
                       );
+                      setFormData({ ...formData, portrait: url });
                       onSuccess?.('ok');
                     }}
                   >
@@ -105,11 +116,19 @@ const Changeinfo = () => {
                 <ImgCrop rotationSlider aspect={4 / 3}>
                   <Upload
                     showUploadList={false}
+                    beforeUpload={(file) => {
+                      const isJpg = file.type === 'image/jpeg';
+                      if (!isJpg) {
+                        alert('只允许上传 JPG 格式的图片');
+                      }
+                      return isJpg || Upload.LIST_IGNORE;
+                    }}
                     customRequest={({ file, onSuccess }) => {
                       const url = URL.createObjectURL(file as File);
                       setUserInfo((prev) =>
                         prev ? { ...prev, mienImg: url } : prev
                       );
+                      setFormData({ ...formData, mienImg: url });
                       onSuccess?.('ok');
                     }}
                   >
@@ -160,7 +179,10 @@ const Changeinfo = () => {
                 type="text"
                 placeholder={userinfo.gender === 1 ? '女' : '男'}
                 onChange={(e) =>
-                  setFormData({ ...formData, gender: e.target.value })
+                  setFormData({
+                    ...formData,
+                    gender: e.target.value === '女' ? 1 : 0,
+                  })
                 }
               />
             </div>
@@ -174,26 +196,25 @@ const Changeinfo = () => {
                 }
               />
             </div>
-            <div className="changeinfo-item">
-              <label>组 别</label>
-              <select
-                value={formData.team}
-                name=""
-                id=""
-                onChange={(e) =>
-                  setFormData({ ...formData, team: e.target.value })
-                }
-              >
-                {/* { directions&& directions.map(item)=>{console.log(item)} } */}
-                {/* {directions &&
-                  directions.map((item) => (
-                    <option value={item.name}>{item.name}</option>
-                  ))} */}
-                {directions.map((item) => (
-                  <option value="item.name">{item.name}</option>
-                ))}
-              </select>
-            </div>
+            {directions && (
+              <div className="changeinfo-item">
+                <label>组 别</label>
+                <select
+                  name="组别"
+                  id=""
+                  value={formData?.team || ''}
+                  onChange={(e) => {
+                    setFormData({ ...formData, team: e.target.value });
+                  }}
+                >
+                  {directions.map((item: Direction) => (
+                    <option value={item.name} key={item.tid}>
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
 
             <div className="changeinfo-item">
               <label>公 司</label>
@@ -202,6 +223,12 @@ const Changeinfo = () => {
                 placeholder={userinfo.company}
                 onChange={(e) =>
                   setFormData({ ...formData, company: e.target.value })
+                }
+                disabled={localStorage.getItem('status') === '1'}
+                className={
+                  localStorage.getItem('status') === '1'
+                    ? 'gratuate-company'
+                    : ''
                 }
               />
             </div>
@@ -217,8 +244,7 @@ const Changeinfo = () => {
             </div>
             <div className="changeinfo-item">
               <label>签 名</label>
-              <input
-                type="text"
+              <textarea
                 placeholder={userinfo.signature}
                 onChange={(e) =>
                   setFormData({ ...formData, signature: e.target.value })

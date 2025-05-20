@@ -1,10 +1,9 @@
 import { get, post } from '@/utils/request/http';
 import { Donationinfo, Donationres } from '@/types/donation';
-import Donation from '@/pages/mine/subpages/user/subrouter/donations/Donations';
 
 // 获得某一年捐款信息
 export const getDonationInfo = async (
-  year: number = 2020
+  year: number
 ): Promise<Donationinfo[]> => {
   const response = await get<Donationinfo[]>('/api/donation/list', {
     params: {
@@ -17,14 +16,20 @@ export const getDonationInfo = async (
 
 // 上传某一年捐款信息
 export const PostdonationInfo = async (
-  year: number,
-  donations: Donationinfo[]
+  year: number = 2025,
+  donations: Donationinfo[] = [
+    {
+      name: '测试',
+      money: 100,
+      time: '2025',
+      team: 'Web',
+    },
+  ]
 ): Promise<Donationres> => {
   const response = await post<Donationres>(
     `/api/donation/list/${year}`,
     donations,
     {
-      // params: {}
       customAuth: true,
     }
   );

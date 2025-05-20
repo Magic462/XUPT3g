@@ -1,41 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 // import axios from 'axios';
 import './Peohome.scss';
+import { Userinfo } from '@/types/userinfo';
 
-interface PeohomeProps {
-  portrait: string; // 头像
-  gender: string;
-  classGrade: string;
-  year: number;
-  tel: string;
-  isGraduate: boolean;
-  username: string;
-  name: string;
-  team: string;
-  mienImg: string; // 风采照
-  signature: string; // 个性签名
-  company: string;
-}
-
-// interface UserData {
-//     portrait: string;
-//     gender: string;
-//     classGrade: string;
-//     year: number;
-//     phone: string;
-//     isGraduate: boolean;
-//     username: string;
-//     name: string;
-//     team: string;
-//     mienImg: string;
-// }
-
-// interface ResponseData {
-//   status: number;
-//   data: DataItem[];
-// }
-
-const Peohome: React.FC<PeohomeProps> = ({
+const Peohome: React.FC<Userinfo> = ({
   portrait,
   gender,
   classGrade,
@@ -98,7 +66,7 @@ const Peohome: React.FC<PeohomeProps> = ({
             </div>
             <div className="info-item">
               <label>性 别</label>
-              <span>{gender}</span>
+              <span>{gender === 1 ? '女' : '男'}</span>
             </div>
             <div className="info-item">
               <label>专 业</label>
@@ -119,7 +87,7 @@ const Peohome: React.FC<PeohomeProps> = ({
             </div>
             <div className="info-item">
               <label>个性签名</label>
-              <span>{signature}</span>{' '}
+              <span>{signature}</span>
               {/* 接口数据未包含签名字段，可按需处理 */}
             </div>
             <div className="info-item">

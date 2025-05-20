@@ -94,6 +94,7 @@
   }
 
   input {
+    box-sizing: border-box;
     width: 100%;
     outline: none;
     border: none;
@@ -102,6 +103,28 @@
 
     &:focus {
       border-bottom: 0.15rem solid #0888ffd0;
+    }
+  }
+  select {
+    box-sizing: border-box;
+    width: 100%;
+    outline: none;
+    border: none;
+    padding: 0 1rem;
+    border-bottom: 0.1rem solid #a7a7a762;
+    &:focus {
+      border-bottom: 0.15rem solid #0888ffd0;
+    }
+  }
+  textarea {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 2rem;
+    resize: vertical;
+    outline: none;
+    padding: 0.5rem;
+    &:focus {
+      border: 0.15rem solid #0888ffd0;
     }
   }
 }
@@ -135,6 +158,11 @@
     }
   }
 }
+
+.gratuate-company {
+  cursor: not-allowed;
+}
+
 @media (max-width: 768px) {
   .changeinfo-photochange-box {
     margin-bottom: 4rem;
@@ -142,7 +170,7 @@
   .changeinfo-box {
     display: flex;
     flex-direction: column;
-    padding: 4rem 4rem;
+    padding: 5rem 3rem;
 
     .changeinfo-basicchange-box {
       width: 100%;
@@ -154,6 +182,10 @@
         flex-direction: column;
       }
     }
+  }
+
+  .changeinfo-basicchange-box label {
+    margin-bottom: 0.5rem;
   }
 }
 
@@ -169,6 +201,6 @@
   .changeinfo-box {
     display: flex;
     flex-direction: column;
-    padding: 4rem 2rem;
+    padding: 5rem 2rem;
   }
 }
