@@ -1,109 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Tabs from '../../components/Tabs';
 import People from '../../components/People';
-// import Photo from '../../assets/trainplan.png';
-// import Img from '../../assets/layout.png';
-import Photo from '../../assets/face.webp';
-// import Photo from '//mobile.xupt.edu.cn/res/14957725307919851.jpg'
-import Img from '../../assets/face.webp';
-import Zp1 from '../../assets/wjc.webp';
-import Zp2 from '../../assets/szq.webp';
-import Zp3 from '../../assets/yke.webp';
+import { getYears } from '@/services/years';
+import { getMembers } from '@/services/members';
+import { Members } from '@/types/members';
 
 const Graduate = () => {
-  // 假数据
-  const members = [
-    {
-      id: 1,
-      name: '陈柏赫',
-      status: 0,
-      direction: 'web',
-      enrollment_year: 2022,
-      photo: Photo,
-      company: '字节生活服务',
-      message: '玩原神玩的。玩原神玩的。玩原神玩的。玩元神',
-    },
-    {
-      id: 2,
-      name: '吴建琛',
-      status: 0,
-      direction: 'web',
-      enrollment_year: 2020,
-      photo: Img,
-      company: '',
-      message: '玩原神玩的。',
-    },
-    {
-      id: 3,
-      name: '吴建琛',
-      status: 0,
-      direction: 'web',
-      enrollment_year: 2020,
-      photo: Zp1,
-      company: '字节生活服务',
-      message: '玩原神玩的。',
-    },
-    {
-      id: 4,
-      name: '尚子琪',
-      status: 0,
-      direction: 'web',
-      enrollment_year: 2020,
-      photo: Zp2,
-      company: '字节生活服务',
-      message: '玩原神玩的。',
-    },
-    {
-      id: 5,
-      name: '杨可儿',
-      status: 0,
-      direction: 'web',
-      enrollment_year: 2020,
-      photo: Zp3,
-      company: '字节生活服务',
-      message: '玩原神玩的。',
-    },
-    {
-      id: 6,
-      name: '张三',
-      status: 0,
-      direction: 'web',
-      enrollment_year: 2020,
-      photo: Photo,
-      company: '字节生活服务',
-      message: '玩原神玩的。',
-    },
-    {
-      id: 7,
-      name: '李四',
-      status: 1,
-      direction: 'ios',
-      enrollment_year: 2021,
-      photo: Photo,
-      company: '某科技公司',
-      message: '感谢母校的培养！',
-    },
-  ];
-  const years = [
-    '2018',
-    '2019',
-    '2020',
-    '2021',
-    '2022',
-    '2023',
-    '2024',
-    '2025',
-  ];
+  const [years, setYears] = useState<string[]>([]);
   const [selectedYear, setSelectedYear] = useState(years[0]);
-  //   // 根据选中的年份过滤成员
-  const filteredMembers = members.filter(
-    (member) => member.enrollment_year.toString() === selectedYear
-  );
+  // 获取years
+  useEffect(() => {
+    const fetchDirection = async () => {
+      try {
+        const response = await getYears();
+        console.log(response);
+        if (Array.isArray(response) && response.length > 0) {
+          setYears(response);
+          setSelectedYear(response[0]);
+        }
+      } catch (error) {
+        console.log('获取年份失败', error);
+      }
+    };
+    fetchDirection();
+  }, []);
+  // Tabs懒加载
+  const [membersMap, setMembersMap] = useState<Record<string, Members[]>>({});
+  useEffect(() => {
+    // 未选中的Tab或者已经缓存的就不请求
+    if (!selectedYear || membersMap[selectedYear]) return;
+    const fetchData = async () => {
+      try {
+        const response = await getMembers(true, undefined, selectedYear);
+        console.log(response);
+        const data = response.data;
+        console.log(data);
+
+        setMembersMap((prev) => ({ ...prev, [selectedYear]: data }));
+      } catch (error) {
+        console.error('获取成员失败', error);
+      } finally {
+        // setLoadingMap((prev) => ({ ...prev, [selectedYear]: false }));
+      }
+    };
+
+    fetchData();
+  }, [selectedYear, membersMap]);
 
   return (
     <div>
-      <Tabs tabs={years} onTabChange={setSelectedYear} />
-      <People members={filteredMembers} />
+      {years.length > 0 && <Tabs tabs={years} onTabChange={setSelectedYear} />}
+      {/* 传入props:graduateImg */}
+      <People members={membersMap[selectedYear] || []} imgKey="graduateImg" />
     </div>
   );
 };

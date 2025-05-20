@@ -27,5 +27,4 @@ export interface Userchangeinfo {
 export interface Response {
   status: string;
   token: string;
-  // username: string;
 }

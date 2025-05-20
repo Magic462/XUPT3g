@@ -171,7 +171,7 @@ const MainLayout: React.FC = () => {
           <div className="menu-footer">
             <div className="footer-links">
               <div>Find us:</div>
-              <div className="address">西邮东区逸夫楼FZ155</div>
+              <div>西邮东区逸夫楼FZ155</div>
             </div>
             <p>© {year} Laboratory. All rights reserved.</p>
           </div>
