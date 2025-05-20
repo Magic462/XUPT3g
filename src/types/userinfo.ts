@@ -12,3 +12,20 @@ export interface Userinfo {
   signature: string;
   company: string;
 }
+
+export interface Userchangeinfo {
+  username: string;
+  gender?: string;
+  classGrade?: string;
+  tel?: string;
+  name?: string;
+  team?: string;
+  signature?: string;
+  company?: string;
+}
+
+export interface Response {
+  status: string;
+  token: string;
+  // username: string;
+}

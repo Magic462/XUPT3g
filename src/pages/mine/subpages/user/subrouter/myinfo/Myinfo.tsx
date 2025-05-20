@@ -33,10 +33,9 @@ const Myinfo: React.FC = () => {
       try {
         const response = await getUseinfo();
         console.log(response);
-
         setDataList(response);
       } catch (error) {
-        console.error('获取验证码失败:', error);
+        console.error('获取个人信息:', error);
       }
     };
 

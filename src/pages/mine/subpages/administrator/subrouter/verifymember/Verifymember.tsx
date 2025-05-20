@@ -1,61 +1,61 @@
 import './Verifymember.scss';
 
-const registers = [
-  {
-    name: '张三',
-    stuId: '23044011',
-    group: 'web',
-    // passworld
-    gender: '男',
-    classGrade: '软件1302',
-    year: 2013,
-  },
-  {
-    name: '张三',
-    stuId: '23044011',
-    group: 'web',
-    // passworld
-    gender: '男',
-    classGrade: '软件1302',
-    year: 2013,
-  },
-  {
-    name: '张三',
-    stuId: '23044011',
-    group: 'web',
-    // passworld
-    gender: '男',
-    classGrade: '软件1302',
-    year: 2013,
-  },
-  {
-    name: '张三',
-    stuId: '23044011',
-    group: 'web',
-    // passworld
-    gender: '男',
-    classGrade: '软件1302',
-    year: 2013,
-  },
-  {
-    name: '张三',
-    stuId: '23044011',
-    group: 'web',
-    // passworld
-    gender: '男',
-    classGrade: '软件1302',
-    year: 2013,
-  },
-  {
-    name: '张三',
-    stuId: '23044011',
-    group: 'web',
-    // passworld
-    gender: '男',
-    classGrade: '软件1302',
-    year: 2013,
-  },
-];
+// const registers = [
+//   {
+//     name: '张三',
+//     stuId: '23044011',
+//     group: 'web',
+//     // passworld
+//     gender: '男',
+//     classGrade: '软件1302',
+//     year: 2013,
+//   },
+//   {
+//     name: '张三',
+//     stuId: '23044011',
+//     group: 'web',
+//     // passworld
+//     gender: '男',
+//     classGrade: '软件1302',
+//     year: 2013,
+//   },
+//   {
+//     name: '张三',
+//     stuId: '23044011',
+//     group: 'web',
+//     // passworld
+//     gender: '男',
+//     classGrade: '软件1302',
+//     year: 2013,
+//   },
+//   {
+//     name: '张三',
+//     stuId: '23044011',
+//     group: 'web',
+//     // passworld
+//     gender: '男',
+//     classGrade: '软件1302',
+//     year: 2013,
+//   },
+//   {
+//     name: '张三',
+//     stuId: '23044011',
+//     group: 'web',
+//     // passworld
+//     gender: '男',
+//     classGrade: '软件1302',
+//     year: 2013,
+//   },
+//   {
+//     name: '张三',
+//     stuId: '23044011',
+//     group: 'web',
+//     // passworld
+//     gender: '男',
+//     classGrade: '软件1302',
+//     year: 2013,
+//   },
+// ];
 
 const years = [2024, 2023, 2022, 2021, 2020, 2019];
 

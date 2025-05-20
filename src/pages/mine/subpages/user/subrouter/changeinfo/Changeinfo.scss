@@ -1,11 +1,19 @@
+.changeinfo-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .changeinfo-box {
   background-color: #fff;
   border-radius: 0.8rem;
   display: flex;
-  padding: 5rem 1rem;
+  padding: 3rem 1rem 7rem 1rem;
   justify-content: space-around;
   align-items: center;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.795);
+  position: relative;
+  width: 90%;
 }
 
 .changeinfo-photochange-box {
@@ -19,22 +27,30 @@
     height: 12rem;
     border-radius: 50%;
     overflow: hidden;
-    position: relative;
     margin-bottom: 2rem;
 
-    &::before {
-      font-family: 'iconfont';
-      content: '\e663';
-      font-size: 3rem;
-      position: absolute;
-      text-align: center;
-      line-height: 12rem;
-      color: #fff;
+    .ant-upload-select {
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.219);
+      cursor: pointer;
     }
 
+    .image-wrapper {
+      position: relative;
+
+      &::before {
+        font-family: 'iconfont';
+        content: '\e663';
+        font-size: 3rem;
+        position: absolute;
+        text-align: center;
+        line-height: 12rem;
+        color: #fff;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.219);
+      }
+    }
     img {
       width: 100%;
     }
@@ -90,6 +106,35 @@
   }
 }
 
+.changeinfo-post-btnbox {
+  position: absolute;
+  bottom: 2rem;
+  button {
+    margin-top: 1rem;
+    width: 8.5rem;
+    height: 2.8rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(to right, #1890ff, #40a9ff);
+    border: none;
+    border-radius: 2rem;
+    box-shadow: 0 0.3rem 0.6rem rgba(24, 144, 255, 0.4);
+    transition: all 0.25s ease;
+    letter-spacing: 0.1rem;
+
+    &:hover {
+      cursor: pointer;
+      transform: translateY(-2px);
+      box-shadow: 0 0.3rem 1rem rgba(24, 143, 255, 0.623);
+      letter-spacing: 0.2rem;
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+}
 @media (max-width: 768px) {
   .changeinfo-photochange-box {
     margin-bottom: 4rem;
@@ -109,6 +154,14 @@
         flex-direction: column;
       }
     }
+  }
+}
+
+.clickable-img {
+  cursor: pointer;
+  transition: 0.3s;
+  &:hover {
+    filter: brightness(0.85);
   }
 }
 
