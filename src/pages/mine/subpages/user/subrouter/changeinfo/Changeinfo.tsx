@@ -1,12 +1,13 @@
-import { useActiveItem } from '@/hooks/useActiveItem';
 import './Changeinfo.scss';
 import '@/assets/icons/font_ejn49oukscw/iconfont.css';
-import { postChangeInfo, getUseinfo } from '@/services/userinfo';
+import { useActiveItem } from '@/hooks/useActiveItem';
 import { useEffect, useState } from 'react';
-import Upload from 'antd/es/upload'; // 只引入 Upload
+import Upload from 'antd/es/upload';
 import ImgCrop from 'antd-img-crop';
+import { postChangeInfo, getUseinfo } from '@/services/userinfo';
 import { getAllDirection } from '@/services/directions';
 import { Direction } from '@/types/direction';
+import { Userchangeinfo } from '@/types/userinfo';
 
 const Changeinfo = () => {
   const { activeItem: photoItem, handleItemClick: handlePhotoClick } =
@@ -14,6 +15,7 @@ const Changeinfo = () => {
 
   const [userinfo, setUserInfo] = useState(null);
   const [directions, setDirections] = useState<Direction[]>([]);
+  const [formData, setFormData] = useState<Userchangeinfo>();
 
   useEffect(() => {
     const fetchUserinfo = async () => {
@@ -41,6 +43,21 @@ const Changeinfo = () => {
 
     fetchDirection();
   }, []);
+
+  useEffect(() => {
+    if (userinfo) {
+      setFormData({
+        username: localStorage.getItem('username'),
+        name: userinfo.name || '',
+        gender: userinfo.gender?.toString() || '',
+        classGrade: userinfo.classGrade || '',
+        team: userinfo.team || '',
+        company: userinfo.company || '',
+        tel: userinfo.tel || '',
+        signature: userinfo.signature || '',
+      });
+    }
+  }, [userinfo]);
 
   const fetchChangeinfo = async (changeInfo) => {
     try {
@@ -129,60 +146,90 @@ const Changeinfo = () => {
           <div className="changeinfo-basicchange-box">
             <div className="changeinfo-item">
               <label>姓 名</label>
-              <input type="text" placeholder={userinfo.name} />
+              <input
+                type="text"
+                placeholder={userinfo.name}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
+              />
             </div>
             <div className="changeinfo-item">
               <label>姓 别</label>
               <input
                 type="text"
                 placeholder={userinfo.gender === 1 ? '女' : '男'}
+                onChange={(e) =>
+                  setFormData({ ...formData, gender: e.target.value })
+                }
               />
             </div>
             <div className="changeinfo-item">
               <label>专 业</label>
-              <input type="text" placeholder={userinfo.classGrade} />
+              <input
+                type="text"
+                placeholder={userinfo.classGrade}
+                onChange={(e) =>
+                  setFormData({ ...formData, classGrade: e.target.value })
+                }
+              />
             </div>
             <div className="changeinfo-item">
               <label>组 别</label>
-              <select name="" id="">
+              <select
+                value={formData.team}
+                name=""
+                id=""
+                onChange={(e) =>
+                  setFormData({ ...formData, team: e.target.value })
+                }
+              >
                 {/* { directions&& directions.map(item)=>{console.log(item)} } */}
                 {/* {directions &&
                   directions.map((item) => (
                     <option value={item.name}>{item.name}</option>
                   ))} */}
-                {/* <option value=""></option> */}
-                {/* <option value="">Web</option>
-                <option value="">Android</option>
-                <option value="">Server</option>
-                <option value="">iOS</option>
-                <option value="">HarmonyOS</option>
-                <option value="">PM</option>
-                <option value="">Windows</option> */}
+                {directions.map((item) => (
+                  <option value="item.name">{item.name}</option>
+                ))}
               </select>
-              {/* <input type="text" placeholder={userinfo.group} /> */}
             </div>
 
             <div className="changeinfo-item">
               <label>公 司</label>
-              <input type="text" placeholder={userinfo.company} />
+              <input
+                type="text"
+                placeholder={userinfo.company}
+                onChange={(e) =>
+                  setFormData({ ...formData, company: e.target.value })
+                }
+              />
             </div>
             <div className="changeinfo-item">
               <label>电 话</label>
-              <input type="text" placeholder={userinfo.tel} />
+              <input
+                type="text"
+                placeholder={userinfo.tel}
+                onChange={(e) =>
+                  setFormData({ ...formData, tel: e.target.value })
+                }
+              />
             </div>
             <div className="changeinfo-item">
               <label>签 名</label>
-              <input type="text" placeholder={userinfo.signature} />
+              <input
+                type="text"
+                placeholder={userinfo.signature}
+                onChange={(e) =>
+                  setFormData({ ...formData, signature: e.target.value })
+                }
+              />
             </div>
           </div>
           <div className="changeinfo-post-btnbox">
             <button
               onClick={() => {
-                fetchChangeinfo({
-                  username: 'dengaiqi',
-                  gender: '0',
-                  name: '等等等',
-                });
+                fetchChangeinfo(formData);
               }}
             >
               保存修改

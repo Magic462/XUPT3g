@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './DonationList.scss';
+import { useEnterToFocusNextInput } from '@/hooks/useEnterToNextInput';
 
 const data = [
   {
@@ -100,7 +101,36 @@ const Yeardonation = () => {
 };
 
 const DonationList = () => {
-  const [role, useRole] = useState('admin');
+  const role = localStorage.getItem('status');
+  const [showModal, setShowModal] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    money: '',
+    team: '',
+    remark: '',
+    time: '',
+  });
+  const inputCount = 3;
+  const { getRef, handleKeyDown } = useEnterToFocusNextInput(inputCount);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = () => {
+    console.log('提交捐款信息：', formData);
+    // TODO: 调接口上传数据
+    //   setFormData({
+    //     ...formData,
+    //     name: '',
+    //     money: '',
+    //     team: '',
+    //     remark: '',
+    //     time: '',
+    //   });
+  };
+
   return (
     <>
       <div className="donation-controls-box">
@@ -109,14 +139,64 @@ const DonationList = () => {
           <option>2024</option>
           <option>2023</option>
         </select>
-        {role === 'admin' && <div className="edit-donation-post-box">+</div>}
+        {role === '0' && (
+          <div
+            className="edit-donation-post-box"
+            onClick={() => setShowModal(true)}
+          >
+            +
+          </div>
+        )}
       </div>
-      {/* <select name="" id="">
-        <option value="">2025</option>
-        <option value="">2024</option>
-        <option value="">2023</option>
-      </select> */}
-      <Yeardonation></Yeardonation>
+
+      <Yeardonation />
+
+      {showModal && (
+        <div className="donation-modal">
+          <div className="modal-content">
+            <h3>录入捐款信息</h3>
+            <input
+              type="text"
+              name="name"
+              placeholder="姓名"
+              value={formData.name}
+              onChange={handleChange}
+              ref={getRef(0)}
+              onKeyDown={handleKeyDown(0)}
+            />
+            <input
+              type="text"
+              name="team"
+              placeholder="组别"
+              value={formData.team}
+              onChange={handleChange}
+              ref={getRef(1)}
+              onKeyDown={handleKeyDown(1)}
+            />
+            <input
+              type="text"
+              name="money"
+              placeholder="金额"
+              value={formData.money}
+              onChange={handleChange}
+              ref={getRef(2)}
+              onKeyDown={handleKeyDown(2, handleSubmit)}
+            />
+
+            <div className="modal-actions">
+              <button className="donation-post" onClick={handleSubmit}>
+                提交
+              </button>
+              <button
+                className="donation-cancel"
+                onClick={() => setShowModal(false)}
+              >
+                取消
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
