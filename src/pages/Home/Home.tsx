@@ -23,8 +23,8 @@ const Home: React.FC = () => {
   useEffect(() => {
     const fetchDirection = async () => {
       try {
-        const response = await getDirection();
-        // console.log(response);
+        const response = await getDirection(true);
+        console.log(response);
         if (Array.isArray(response) && response.length > 0) {
           setPlatforms(response);
         } else {
