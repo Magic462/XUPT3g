@@ -10,8 +10,8 @@ const BASE_IMG_URL = '//mobile.xupt.edu.cn/';
 const ITEMS_PER_PAGE = 10;
 
 export const getAllArticleInfo = async (
-  pageSize,
-  pageNum: number = ITEMS_PER_PAGE
+  pageNum,
+  pageSize: number = ITEMS_PER_PAGE
 ): Promise<{
   activities: Article[];
   total: number;
@@ -43,8 +43,8 @@ export const getAllArticleInfo = async (
 };
 
 export const getRecentActivities = async (
-  pageSize: number = 1,
-  pageNum: number = ITEMS_PER_PAGE
+  pageNum: number = 1,
+  pageSize: number = ITEMS_PER_PAGE
 ): Promise<{
   recentActivities: Article[];
 }> => {

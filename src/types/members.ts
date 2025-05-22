@@ -7,8 +7,10 @@ export interface Members {
   company: string;
   year: string;
   graduateImg: string;
+  isGraduate: number;
 }
 
 export interface MembersResponse {
   data: Members[];
+  total?: number;
 }

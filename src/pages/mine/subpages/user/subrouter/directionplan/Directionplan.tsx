@@ -92,7 +92,7 @@ const Directionplan = () => {
     });
   };
 
-  // 回到容器顶部,bingqie波浪收回
+  // 回到容器顶部,并且波浪收回
   const scrollTop = () => {
     const scrollContainer = document.querySelector('.mine-each-func');
     if (scrollContainer) {
@@ -101,7 +101,7 @@ const Directionplan = () => {
         behavior: 'smooth',
       });
 
-      // 淡出回到顶部模块（可选）
+      // 淡出回到顶部模块
       gsap.to('.back-top-box', {
         opacity: 0,
         duration: 0.6,
@@ -113,6 +113,11 @@ const Directionplan = () => {
       });
     }
   };
+
+  // // 获取方向培养方案
+  // useEffect(() => {
+  //   const
+  // }, []);
 
   return (
     <div className="direction-plan-container">
@@ -297,7 +302,7 @@ const Directionplan = () => {
         </div>
       </div>
 
-      {/* 这个锚点用于撑高页面，确保可以触发滚动到底部逻辑 */}
+      {/* 锚点撑高页面，确保可以触发滚动到底部 */}
       <div style={{ height: '3rem' }} id="wave-anchor" />
 
       {/* 回到顶部动画盒子 */}

@@ -7,7 +7,7 @@ interface MemlistProps {
   team: string;
   graduateImg: string;
   signature: string;
-  status: number;
+  isGraduate: number;
   onHandlerDelete: (isDeletModal: boolean) => void;
 }
 
@@ -17,7 +17,7 @@ const Memlist: React.FC<MemlistProps> = ({
   team,
   graduateImg,
   signature,
-  status,
+  isGraduate,
   onHandlerDelete,
 }) => {
   return (
@@ -28,12 +28,13 @@ const Memlist: React.FC<MemlistProps> = ({
       <div className="mem-info">
         <div className="mem-name-status">
           <span className="mem-name">{name}</span>
-          {status === 0 && <span className="mem-status-label">已毕业</span>}
+
+          {isGraduate === 1 && <span className="mem-status-label">已毕业</span>}
         </div>
         <div className="mem-signature">{signature}</div>
         <div className="mem-team">{team}</div>
       </div>
-      {status === 0 ? (
+      {/* {status === 0 ? (
         <div className="mem-buttons">
           <button className="view-button">查看</button>
           <button
@@ -45,7 +46,13 @@ const Memlist: React.FC<MemlistProps> = ({
         </div>
       ) : (
         <button className="blog-button">个人博客</button>
-      )}
+      )} */}
+      <div className="mem-buttons">
+        <button className="view-button">查看</button>
+        <button className="delete-button" onClick={() => onHandlerDelete(true)}>
+          删除
+        </button>
+      </div>
     </div>
   );
 };

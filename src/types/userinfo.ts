@@ -25,3 +25,9 @@ export interface Userchangeinfo {
   mienImg?: string | File;
   portrait?: string | File;
 }
+
+export interface ChangeUserResponse {
+  status: string;
+  token?: string;
+  data?: string | object;
+}

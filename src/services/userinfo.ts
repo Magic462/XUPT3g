@@ -1,6 +1,5 @@
 import { get, post } from '@/utils/request/http';
-import { Userinfo, Userchangeinfo } from '@/types/userinfo';
-import { Response } from '@/types/response';
+import { Userinfo, Userchangeinfo, ChangeUserResponse } from '@/types/userinfo';
 
 // 获取个人信息
 export const getUseinfo = async (): Promise<Userinfo> => {
@@ -11,8 +10,8 @@ export const getUseinfo = async (): Promise<Userinfo> => {
 // 上传修改信息
 export const postChangeInfo = async (
   data: Userchangeinfo
-): Promise<Response> => {
-  const response = await post<Response>('api/changeinfo', data, {
+): Promise<ChangeUserResponse> => {
+  const response = await post<ChangeUserResponse>('api/changeinfo', data, {
     customAuth: true,
   });
   return response;

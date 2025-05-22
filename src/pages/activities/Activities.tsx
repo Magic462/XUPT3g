@@ -10,21 +10,19 @@ import { getAllArticleInfo } from '@/services/activities';
 
 const Activities: React.FC = () => {
   const [pageNum, setPageNum] = useState(0);
-  // const [totalActivity, setTotalActivity] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [activeTimelineNode, setActiveTimelineNode] = useState<number | null>(
     null
   );
   const activitiesRef = useRef<Array<HTMLDivElement | null>>([]);
+  const [activitiesData, setArticleList] = useState<Article[]>([]);
 
   // 获取活动数据
-  const [activitiesData, setArticleList] = useState<Article[]>([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await getAllArticleInfo(currentPage);
         setArticleList(res.activities);
-        // setTotalActivity(res.total);
         setPageNum(res.pageNum);
       } catch (err) {
         console.error('获取文章失败: ', err);
@@ -115,7 +113,7 @@ const Activities: React.FC = () => {
         </section>
         {/* 翻页 */}
         {pageNum > 1 && (
-          <div className="pagination">
+          <div className="tourist-pagination">
             {pageNum > 0 && (
               <Footerpagination
                 pageNum={pageNum}

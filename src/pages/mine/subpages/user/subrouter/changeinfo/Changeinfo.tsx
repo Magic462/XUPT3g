@@ -86,17 +86,31 @@ const Changeinfo = () => {
   const handleSubmit = async () => {
     const data = { ...formData }; // 拷贝一份防止污染
 
-    // 如果 mienImg 是 File，先上传图片
+    // 如果 portrait 是 File，先上传图片
     if (data.portrait instanceof File) {
-      const uploadRes = await getPictureUrl(data.portrait);
+      const uploadRes = await fetchPictureUrl(data.portrait);
       console.log(uploadRes);
-      //  if (uploadRes.code === 200 && uploadRes.data?.url) {
-      //    data.mienImg = uploadRes.data.url; // 替换成 URL
-      //  } else {
-      //    // 处理上传失败
-      //    return;
-      //  }
+
+      if (uploadRes?.success && uploadRes?.url) {
+        data.portrait = uploadRes.url;
+      } else {
+        alert('头像上传失败，请重试');
+        return;
+      }
     }
+
+    // 2. 处理 mienImg 上传
+    if (data.mienImg instanceof File) {
+      const uploadRes = await fetchPictureUrl(data.mienImg);
+      if (uploadRes?.success && uploadRes?.url) {
+        data.mienImg = uploadRes.url;
+      } else {
+        alert('风采照上传失败，请重试');
+        return;
+      }
+    }
+
+    await fetchChangeInfo(data);
   };
 
   return (
@@ -137,7 +151,8 @@ const Changeinfo = () => {
                         src={
                           formData?.portrait instanceof File
                             ? URL.createObjectURL(formData.portrait)
-                            : userinfo.portrait
+                            : 'http://10csqn6268959.vicp.fun:54760' +
+                              userinfo.portrait
                         }
                         alt="头像"
                         className="clickable-img"

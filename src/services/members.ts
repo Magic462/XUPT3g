@@ -17,5 +17,6 @@ export const getMembers = async (
       pageNum,
     },
   });
+  console.log(response);
   return response;
 };
