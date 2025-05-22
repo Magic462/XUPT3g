@@ -13,7 +13,7 @@ const Graduate = () => {
     const fetchDirection = async () => {
       try {
         const response = await getYears();
-        console.log(response);
+        // console.log(response);
         if (Array.isArray(response) && response.length > 0) {
           setYears(response);
           setSelectedYear(response[0]);
@@ -32,9 +32,9 @@ const Graduate = () => {
     const fetchData = async () => {
       try {
         const response = await getMembers(true, undefined, selectedYear);
-        console.log(response);
+        // console.log(response);
         const data = response.data;
-        console.log(data);
+        // console.log(data);
 
         setMembersMap((prev) => ({ ...prev, [selectedYear]: data }));
       } catch (error) {
