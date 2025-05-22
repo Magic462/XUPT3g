@@ -4,6 +4,7 @@ import People from '../../components/People';
 import { getYears } from '@/services/years';
 import { getMembers } from '@/services/members';
 import { Members } from '@/types/members';
+import '../Graduate/Graduate.scss'
 
 const Graduate = () => {
   const [years, setYears] = useState<string[]>([]);
@@ -48,7 +49,7 @@ const Graduate = () => {
   }, [selectedYear, membersMap]);
 
   return (
-    <div>
+    <div className='graduated-container'>
       {years.length > 0 && <Tabs tabs={years} onTabChange={setSelectedYear} />}
       {/* 传入props:graduateImg */}
       <People members={membersMap[selectedYear] || []} imgKey="graduateImg" />
