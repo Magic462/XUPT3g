@@ -1,142 +1,14 @@
-// .tabs-container {
-//   padding: 20px 0 0;
-//   background-color: #a9a8a8;
-//   overflow: hidden;
-//   border-radius: 12px 12px 0 0;
-//   z-index: 2;
-// }
-
-// .tabs {
-//   display: flex;
-//   justify-content: center;
-// }
-
-// .tab {
-//   font-size: 1.6rem;
-//   padding: 10px 30px;
-//   cursor: pointer;
-//   color:#f0f0f0;
-//   height: 52px;
-// }
-
-// .tab.active {
-//   // font-weight: bold;
-//   // color: #fff;
-//   // background-color: #4f554c;
-//   // background-clip: text;
-//   // -webkit-text-stroke: 4px transparent;
-//   color:#4f554c;
-//   background-color: #fff;
-//   z-index: 1;
-//   box-shadow: 24px 40px 0 #ffffff, -24px 40px 0 0 #ffffff;
-//   border-radius: 12px 12px 0 0;
-//   opacity: 1;
-// }
-
-// .tab.active::before {
-//   content: '';
-//   position: absolute;
-//   left: -6px;
-//   bottom: 0;
-//   width: 12px;
-//   height: 52px;
-//   border-top-left-radius: 12px;
-//   background-color: #fff;
-//   transform: skewX(-15deg); // 重点
-// }
-
-// .tab.active::after {
-//   content: '';
-//   position: absolute;
-//   left: -6px;
-//   bottom: 0;
-//   width: 12px;
-//   height: 52px;
-//   border-top-left-radius: 12px;
-//   background-color: #fff;
-//   transform: skewX(15deg); // 重点
-// }
-// .tab.no-active::before {
-//   content: '';
-//   position: absolute;
-//   left: 6px;
-//   bottom: 0;
-//   width: 12px;
-//   height: 52px;
-//   border-top-left-radius: 12px;
-//   background-color: #fff;
-//   transform: skewX(15deg); // 重点
-// }
-
-// .tab.no-active::after {
-//   content: '';
-//   position: absolute;
-//   left: 6px;
-//   bottom: 0;
-//   width: 12px;
-//   height: 52px;
-//   border-top-left-radius: 12px;
-//   background-color: #fff;
-//   transform: skewX(-15deg); // 重点
-// }
-
-// .more-tab {
-//   position: relative;
-//   padding: 10px 20px;
-//   cursor: pointer;
-//   font-size: 1.4rem;
-// }
-
-// .more-dropdown {
-//   display: none;
-//   position: absolute;
-//   top: 48px;
-//   right: 0;
-//   background-color: white;
-//   border: 1px solid #ccc;
-//   border-radius: 5px;
-//   z-index: 1000;
-// }
-
-// .more-tab:hover .more-dropdown {
-//   display: block;
-// }
-
-// .more-item {
-//   padding: 10px;
-//   border-bottom: 1px dashed #adacac;
-//   cursor: pointer;
-//   color:#f0f0f0;
-//   background-color: #4f554c;
-//   background-clip: text;
-//   -webkit-text-stroke: 4px transparent;
-//   &:last-child {
-//     border: none;
-//   }
-// }
-
-// .more-item:hover {
-//   // background-color: #f0f0f0;
-//   font-weight: bold;
-// }
-
-// .tab-content {
-//   // margin-top: 20px;
-// }
-
 .tabs-container {
   padding: 1.8rem 0 0;
   background-color: #a9a8a8;
-  // overflow: hidden;
-  border-radius: 12px 12px 0 0;
-  height: 52px;
-  // z-index: 2;
+  height: 3rem;
 }
 
 .tabs {
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
 
 .tab {
@@ -144,7 +16,7 @@
   padding: 0 60px;
   cursor: pointer;
   color: #f0f0f0;
-  height: 52px;
+  height: 3rem;
   position: relative;
   display: flex;
   align-items: center;
@@ -164,7 +36,7 @@
   left: -5px;
   top: 0;
   width: 12px;
-  height: 52px;
+  height: 3rem;
   transform: skewX(-15deg);
   background-color: #fff;
   border-top-left-radius: 12px;
@@ -176,7 +48,7 @@
   right: -5px;
   bottom: 0;
   width: 12px;
-  height: 52px;
+  height: 3rem;
   transform: skewX(15deg);
   background-color: #fff;
   border-top-right-radius: 12px;

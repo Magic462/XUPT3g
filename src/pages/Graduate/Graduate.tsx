@@ -4,6 +4,7 @@ import People from '../../components/People';
 import { getYears } from '@/services/years';
 import { getMembers } from '@/services/members';
 import { Members } from '@/types/members';
+import '../Graduate/Graduate.scss'
 
 const Graduate = () => {
   const [years, setYears] = useState<string[]>([]);
@@ -13,7 +14,7 @@ const Graduate = () => {
     const fetchDirection = async () => {
       try {
         const response = await getYears();
-        console.log(response);
+        // console.log(response);
         if (Array.isArray(response) && response.length > 0) {
           setYears(response);
           setSelectedYear(response[0]);
@@ -32,9 +33,9 @@ const Graduate = () => {
     const fetchData = async () => {
       try {
         const response = await getMembers(true, undefined, selectedYear);
-        console.log(response);
+        // console.log(response);
         const data = response.data;
-        console.log(data);
+        // console.log(data);
 
         setMembersMap((prev) => ({ ...prev, [selectedYear]: data }));
       } catch (error) {
@@ -48,7 +49,7 @@ const Graduate = () => {
   }, [selectedYear, membersMap]);
 
   return (
-    <div>
+    <div className='graduated-container'>
       {years.length > 0 && <Tabs tabs={years} onTabChange={setSelectedYear} />}
       {/* 传入props:graduateImg */}
       <People members={membersMap[selectedYear] || []} imgKey="graduateImg" />
