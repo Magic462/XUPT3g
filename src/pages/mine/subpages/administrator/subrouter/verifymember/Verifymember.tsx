@@ -1,61 +1,5 @@
+import { useEnterToFocusNextInput } from '@/hooks/useEnterToNextInput';
 import './Verifymember.scss';
-
-// const registers = [
-//   {
-//     name: '张三',
-//     stuId: '23044011',
-//     group: 'web',
-//     // passworld
-//     gender: '男',
-//     classGrade: '软件1302',
-//     year: 2013,
-//   },
-//   {
-//     name: '张三',
-//     stuId: '23044011',
-//     group: 'web',
-//     // passworld
-//     gender: '男',
-//     classGrade: '软件1302',
-//     year: 2013,
-//   },
-//   {
-//     name: '张三',
-//     stuId: '23044011',
-//     group: 'web',
-//     // passworld
-//     gender: '男',
-//     classGrade: '软件1302',
-//     year: 2013,
-//   },
-//   {
-//     name: '张三',
-//     stuId: '23044011',
-//     group: 'web',
-//     // passworld
-//     gender: '男',
-//     classGrade: '软件1302',
-//     year: 2013,
-//   },
-//   {
-//     name: '张三',
-//     stuId: '23044011',
-//     group: 'web',
-//     // passworld
-//     gender: '男',
-//     classGrade: '软件1302',
-//     year: 2013,
-//   },
-//   {
-//     name: '张三',
-//     stuId: '23044011',
-//     group: 'web',
-//     // passworld
-//     gender: '男',
-//     classGrade: '软件1302',
-//     year: 2013,
-//   },
-// ];
 
 const years = [2024, 2023, 2022, 2021, 2020, 2019];
 
@@ -88,6 +32,8 @@ const years = [2024, 2023, 2022, 2021, 2020, 2019];
 // };
 
 const Verifymember = () => {
+  const inputCount = 2;
+  const { getRef, handleKeyDown } = useEnterToFocusNextInput(inputCount);
   return (
     <div className="verify-member-container">
       <div className="each-func-title">
@@ -104,11 +50,17 @@ const Verifymember = () => {
         <ul className="add-member-info-box">
           <li className="add-member-info-item">
             <label htmlFor="">姓名：</label>
-            <input type="text" />
+            <input type="text" ref={getRef(0)} onKeyDown={handleKeyDown(0)} />
           </li>
           <li className="add-member-info-item">
             <label htmlFor="">用户名：</label>
-            <input type="text" name="" id="" />
+            <input
+              type="text"
+              name=""
+              id=""
+              ref={getRef(1)}
+              onKeyDown={handleKeyDown(1)}
+            />
           </li>
           <li className="add-member-info-item">
             <label htmlFor="">组别：</label>

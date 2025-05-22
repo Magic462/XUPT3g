@@ -4,10 +4,18 @@ import { MembersResponse } from '@/types/members';
 export const getMembers = async (
   isGraduate?: boolean,
   direction?: string,
-  year?: string
+  year?: string,
+  pageSize?: number,
+  pageNum?: number
 ): Promise<MembersResponse> => {
   const response = await get<MembersResponse>('api/members', {
-    params: { isGraduate, team: direction, year: year },
+    params: {
+      isGraduate,
+      team: direction,
+      year,
+      pageSize,
+      pageNum,
+    },
   });
   return response;
 };

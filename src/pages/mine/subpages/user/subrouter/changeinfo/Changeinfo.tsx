@@ -8,6 +8,7 @@ import { postChangeInfo, getUseinfo } from '@/services/userinfo';
 import { getAllDirection } from '@/services/directions';
 import { Direction } from '@/types/direction';
 import { Userchangeinfo, Userinfo } from '@/types/userinfo';
+import { getPictureUrl } from '@/services/picture';
 
 const Changeinfo = () => {
   const { activeItem: photoItem, handleItemClick: handlePhotoClick } =
@@ -62,12 +63,39 @@ const Changeinfo = () => {
     }
   }, [userinfo]);
 
-  const fetchChangeinfo = async (changeInfo) => {
+  // 调用上传图片接口函数
+  const fetchPictureUrl = async (picture) => {
+    try {
+      const response = await getPictureUrl(picture);
+      return response;
+    } catch (err) {
+      console.log('上传图片失败', err);
+    }
+  };
+
+  // 调用修改个人信息接口函数
+  const fetchChangeInfo = async (changeInfo) => {
     try {
       const response = await postChangeInfo(changeInfo);
       console.log(response);
     } catch (err) {
       console.log('修改失败：', err);
+    }
+  };
+
+  const handleSubmit = async () => {
+    const data = { ...formData }; // 拷贝一份防止污染
+
+    // 如果 mienImg 是 File，先上传图片
+    if (data.portrait instanceof File) {
+      const uploadRes = await getPictureUrl(data.portrait);
+      console.log(uploadRes);
+      //  if (uploadRes.code === 200 && uploadRes.data?.url) {
+      //    data.mienImg = uploadRes.data.url; // 替换成 URL
+      //  } else {
+      //    // 处理上传失败
+      //    return;
+      //  }
     }
   };
 
@@ -95,17 +123,22 @@ const Changeinfo = () => {
                       return isJpg || Upload.LIST_IGNORE;
                     }}
                     customRequest={({ file, onSuccess }) => {
-                      const url = URL.createObjectURL(file as File);
-                      setUserInfo((prev) =>
-                        prev ? { ...prev, portrait: url } : prev
-                      );
-                      setFormData({ ...formData, portrait: url });
+                      const fileObj = file as File;
+                      // 只更新 formData，保留 File 对象
+                      setFormData((prev) => ({
+                        ...prev,
+                        portrait: fileObj,
+                      }));
                       onSuccess?.('ok');
                     }}
                   >
                     <div className="image-wrapper">
                       <img
-                        src={userinfo.portrait}
+                        src={
+                          formData?.portrait instanceof File
+                            ? URL.createObjectURL(formData.portrait)
+                            : userinfo.portrait
+                        }
                         alt="头像"
                         className="clickable-img"
                       />
@@ -113,6 +146,7 @@ const Changeinfo = () => {
                   </Upload>
                 </ImgCrop>
               ) : (
+                // 风采照上传部分
                 <ImgCrop rotationSlider aspect={4 / 3}>
                   <Upload
                     showUploadList={false}
@@ -124,17 +158,22 @@ const Changeinfo = () => {
                       return isJpg || Upload.LIST_IGNORE;
                     }}
                     customRequest={({ file, onSuccess }) => {
-                      const url = URL.createObjectURL(file as File);
-                      setUserInfo((prev) =>
-                        prev ? { ...prev, mienImg: url } : prev
-                      );
-                      setFormData({ ...formData, mienImg: url });
+                      const fileObj = file as File;
+                      // 只更新 formData，保留 File 对象
+                      setFormData((prev) => ({
+                        ...prev,
+                        mienImg: fileObj,
+                      }));
                       onSuccess?.('ok');
                     }}
                   >
                     <div className="image-wrapper">
                       <img
-                        src={userinfo.mienImg}
+                        src={
+                          formData?.mienImg instanceof File
+                            ? URL.createObjectURL(formData.mienImg)
+                            : userinfo.mienImg
+                        }
                         alt="风采照"
                         className="clickable-img"
                       />
@@ -255,7 +294,7 @@ const Changeinfo = () => {
           <div className="changeinfo-post-btnbox">
             <button
               onClick={() => {
-                fetchChangeinfo(formData);
+                handleSubmit();
               }}
             >
               保存修改

@@ -13,16 +13,6 @@ export function useEnterToFocusNextInput<
 
   const getRef = (index: number) => refs.current[index];
 
-  // const handleKeyDown = (index: number) => (e: React.KeyboardEvent) => {
-  //   if (e.key === 'Enter') {
-  //     e.preventDefault();
-
-  //     if (index < refs.current.length - 1) {
-  //       refs.current[index + 1].current?.focus();
-  //     }
-  //   }
-  // };
-
   // 调用要传是第几个input
   const handleKeyDown =
     (index: number, callback?: () => void) => (e: React.KeyboardEvent) => {

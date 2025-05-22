@@ -1,5 +1,6 @@
 import { get, post } from '@/utils/request/http';
-import { Userinfo, Userchangeinfo, Response } from '@/types/userinfo';
+import { Userinfo, Userchangeinfo } from '@/types/userinfo';
+import { Response } from '@/types/response';
 
 // 获取个人信息
 export const getUseinfo = async (): Promise<Userinfo> => {

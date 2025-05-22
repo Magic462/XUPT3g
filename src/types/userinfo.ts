@@ -22,11 +22,6 @@ export interface Userchangeinfo {
   team?: string;
   signature?: string;
   company?: string;
-  mienImg?: string;
-  portrait?: string;
-}
-
-export interface Response {
-  status: string;
-  token: string;
+  mienImg?: string | File;
+  portrait?: string | File;
 }

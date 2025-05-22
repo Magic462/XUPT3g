@@ -8,12 +8,12 @@
     box-sizing: border-box;
     // margin: 5px 5px;
     margin: 5px 8px;
-    padding: 0.8rem;
-    border-radius: 12px;
+    padding: 0.6rem 0.8rem;
+    // border-radius: 12px;
     background-color: transparent;
     border: 0.1rem solid #fff;
     color: #fff;
-    font-size: 1.1rem;
+    font-size: 1rem;
     cursor: pointer;
     &:hover {
       color: #1890ff;
@@ -23,7 +23,7 @@
     &.direction-plan-btn-active {
       background-color: #1890ff;
       color: white;
-      border: none;
+      // border: none;
     }
   }
 }

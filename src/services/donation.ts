@@ -28,7 +28,7 @@ export const PostdonationInfo = async (
 ): Promise<Donationres> => {
   const response = await post<Donationres>(
     `/api/donation/list/${year}`,
-    donations,
+    { donations },
     {
       customAuth: true,
     }
