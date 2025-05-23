@@ -15,7 +15,7 @@ const userData = {
   portrait: Por,
 };
 
-// 导航栏项
+// 一级导航栏项
 const EXPANDABLE_ITEMS = {
   SETTING: 'setting',
   DONATIONEDIT: 'donationEdit',
@@ -27,9 +27,19 @@ const EXPANDABLE_ITEMS = {
   DIRECTIONPLAN: 'directionplan',
   EDITTRAININGPLAN: 'edittrainplan',
 } as const;
+// 二级导航栏项
+const SUB_EXPANDABLE_ITEMS = {
+  MYINFO: 'myinfo',
+  CHANGEINFO: 'changeInfo',
+  ALLMEMBER: 'allmember',
+  POSTACTIVITY: 'postactivity',
+  ADDMEMBER: 'addMember',
+  ACTIVITY: 'activity',
+};
 
 type ExpandableItem = (typeof EXPANDABLE_ITEMS)[keyof typeof EXPANDABLE_ITEMS];
-
+type SubExpandableItem =
+  (typeof SUB_EXPANDABLE_ITEMS)[keyof typeof SUB_EXPANDABLE_ITEMS];
 // 用户端导航配置
 const userNavItem = [
   {
@@ -37,8 +47,16 @@ const userNavItem = [
     icon: 'icon-shezhi',
     label: '设置',
     children: [
-      { path: '/mine/user/myinfo', label: '个人信息' },
-      { path: '/mine/user/changeinfo', label: '个人设置' },
+      {
+        key: SUB_EXPANDABLE_ITEMS.MYINFO,
+        path: '/mine/user/myinfo',
+        label: '个人信息',
+      },
+      {
+        key: SUB_EXPANDABLE_ITEMS.CHANGEINFO,
+        path: '/mine/user/changeinfo',
+        label: '个人设置',
+      },
     ],
   },
   {
@@ -68,8 +86,16 @@ const adminNavItem = [
     icon: 'icon-dongtai',
     label: '发布动态',
     children: [
-      { path: '/mine/admin/postactivity', label: '新建动态' },
-      { path: '/mine/admin/allactivity', label: '动态列表' },
+      {
+        key: SUB_EXPANDABLE_ITEMS.POSTACTIVITY,
+        path: '/mine/admin/postactivity',
+        label: '新建动态',
+      },
+      {
+        key: SUB_EXPANDABLE_ITEMS.ACTIVITY,
+        path: '/mine/admin/allactivity',
+        label: '动态列表',
+      },
     ],
   },
   {
@@ -77,8 +103,16 @@ const adminNavItem = [
     icon: 'icon-chengyuan',
     label: '成员管理',
     children: [
-      { path: '/mine/admin/allmember', label: '成员列表' },
-      { path: '/mine/admin/verifymember', label: '审核注册' },
+      {
+        key: SUB_EXPANDABLE_ITEMS.ALLMEMBER,
+        path: '/mine/admin/allmember',
+        label: '成员列表',
+      },
+      {
+        key: SUB_EXPANDABLE_ITEMS.ADDMEMBER,
+        path: '/mine/admin/verifymember',
+        label: '添加成员',
+      },
     ],
   },
   {
@@ -109,6 +143,11 @@ const Mine = () => {
   const navigate = useNavigate();
   const { activeItem: expandItem, handleItemClick: handleExpandItem } =
     useActiveItem<ExpandableItem>();
+
+  // 管理子盒子的点击样式
+  const { activeItem: childItem, handleItemClick: handleChildItem } =
+    useActiveItem<SubExpandableItem>();
+
   // 统一处理导航和展开,点击传递盒子的key和path
   const handleNavClick = (item: ExpandableItem, path?: string) => {
     if (path) {
@@ -134,14 +173,18 @@ const Mine = () => {
     icon: string;
     label: string;
     path?: string;
-    children?: Array<{ path: string; label: string }>;
+    children?: Array<{ path: string; label: string; key: SubExpandableItem }>;
   }) => {
     // 当前导航项是否处于展开
     const isActive = expandItem === item.key;
 
     return (
       <li key={item.key} className={`nav-${item.key}`}>
-        <span onClick={() => handleNavClick(item.key, item.path)}>
+        <span
+          // className="nav-active"
+          className={expandItem === item.key ? 'nav-active' : ''}
+          onClick={() => handleNavClick(item.key, item.path)}
+        >
           <div className="">
             <i className={`nav-icon iconfont ${item.icon}`}></i>
             {item.label}
@@ -153,7 +196,14 @@ const Mine = () => {
         {item.children && isActive && (
           <ul className="nav-each-func-box">
             {item.children.map((child) => (
-              <li key={child.path} onClick={() => navigate(child.path)}>
+              <li
+                className={childItem === child.key ? 'each-func-active' : ''}
+                key={child.key}
+                onClick={() => {
+                  handleChildItem(child.key);
+                  navigate(child.path);
+                }}
+              >
                 {child.label}
               </li>
             ))}
