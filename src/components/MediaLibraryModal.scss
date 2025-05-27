@@ -1,0 +1,150 @@
+.media-library-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.media-library-modal {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 520px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+h3 {
+  margin: 0 0 12px 0;
+  font-weight: bold;
+}
+
+.media-library-toolbar {
+  display: flex;
+  justify-content: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+
+  button {
+    background: #eee;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover:not(:disabled) {
+      background: #ddd;
+    }
+
+    &.delete-btn {
+      color: #f33;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.media-library-content {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.media-library-item {
+  width: 100px;
+  height: 100px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+  }
+
+  &.selected {
+    border-color: #1890ff;
+    box-shadow: 0 0 5px #1890ff;
+  }
+
+  .checkmark {
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    background-color: #1890ff;
+    color: white;
+    font-size: 14px;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    line-height: 18px;
+    pointer-events: none;
+  }
+}
+
+.upload-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 36px;
+  font-weight: bold;
+  color: #999;
+  border: 1px dashed #999;
+  cursor: pointer;
+
+  .upload-label {
+    user-select: none;
+  }
+
+  &:hover {
+    color: #1890ff;
+    border-color: #1890ff;
+  }
+}
+
+.media-library-footer {
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+
+  button {
+    background: #1890ff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover:not(:disabled) {
+      background: #40a9ff;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+}

@@ -1,4 +1,4 @@
 export interface PictureResponse {
-  url: 'string';
+  url: string;
   success: boolean;
 }

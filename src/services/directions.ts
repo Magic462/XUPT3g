@@ -3,9 +3,9 @@ import { Direction, Directionres } from '@/types/direction';
 
 // 游客端看到的存在的方向的信息
 export const getDirection = async (isExist?: boolean): Promise<Direction[]> => {
-  const response = await get<Direction[]>('api/team',{
-    params:{
-      isExist
+  const response = await get<Direction[]>('api/team', {
+    params: {
+      isExist,
     },
   });
   return response;
@@ -25,11 +25,30 @@ export const getAllDirection = async (
 };
 
 // 管理上传方向信息
+// export const postDirectionInfo = async (
+//   direction: Direction
+// ): Promise<Directionres> => {
+//   const response = await post<Directionres>('api/team', direction, {
+//     customAuth: true,
+//   });
+//   return response;
+// };
+
 export const postDirectionInfo = async (
-  direction: Direction
+  name: string = '测试',
+  brefInfo: string = '测试简介',
+  trainplan: string = '测试方向培养方案'
 ): Promise<Directionres> => {
-  const response = await post<Directionres>('api/team', direction, {
-    customAuth: true,
-  });
+  const response = await post<Directionres>(
+    'api/team',
+    {
+      name,
+      brefInfo,
+      trainplan,
+    },
+    {
+      customAuth: true,
+    }
+  );
   return response;
 };
