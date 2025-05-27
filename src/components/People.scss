@@ -67,7 +67,7 @@
     p,
     a {
       opacity: 0;
-      transition: 0.5s;
+      // transition: 0.5s;
     }
 
     p {
@@ -96,12 +96,6 @@
       bottom: 0.2rem;
       width: 100%;
       display: grid;
-  //       display: flex;
-  // flex-direction: column;
-  // justify-content: center;
-  // align-items: center;
-
-  // min-height: 4rem;
       gap: 0.3rem;
     }
 
@@ -154,7 +148,7 @@
 
     &:active {
       transform: scale(0.7);
-      box-shadow: 0 0 5px rgba(255, 255, 255, 0.3) inset;
+      // box-shadow: 0 0 5px rgba(255, 255, 255, 0.3) inset;
     }
 
     .people-more-title {

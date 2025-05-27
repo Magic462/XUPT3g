@@ -24,22 +24,23 @@ const People: React.FC<PeopleProps> = ({ members, imgKey = 'mienImg' }) => {
           <h2>{member.name}</h2>
           <div className="people-bottom">
             {!member.company ? (
-  // company 为空，占位
-  <>
-    <p className="people-team">{member.team}组</p>
-    <p className="people-company placeholder">&nbsp;</p>
-  </>
-) : member.company.length > 8 ? (
-  // company 太长，合并一行
-  <p className="people-team">{member.team}组&nbsp;{member.company}</p>
-) : (
-  // 正常情况，两行显示
-  <>
-    <p className="people-team">{member.team}组</p>
-    <p className="people-company">{member.company}</p>
-  </>
-)}
-
+              // company 为空，占位
+              <>
+                <p className="people-team">{member.team}组</p>
+                <p className="people-company placeholder">&nbsp;</p>
+              </>
+            ) : member.company.length > 8 ? (
+              // company 太长，合并一行
+              <p className="people-team">
+                {member.team}组&nbsp;{member.company}
+              </p>
+            ) : (
+              // 正常情况，两行显示
+              <>
+                <p className="people-team">{member.team}组</p>
+                <p className="people-company">{member.company}</p>
+              </>
+            )}
 
             <p className="people-more">
               <a href="#">
