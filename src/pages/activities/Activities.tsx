@@ -3,7 +3,6 @@ import './Activities.scss';
 import '@/assets/icons/font_95rv9yhaqnu/iconfont.css';
 import '@/assets/icons/font_5wqplvdpjmq/iconfont.css';
 import StackCarousel from './components/stackcarousel';
-// import Footerpagination from './components/footerpagination';
 import Footerpagination from '@/components/FooterPagination';
 import { Article } from '@/types/article';
 import { getAllArticleInfo } from '@/services/activities';
@@ -32,11 +31,8 @@ const Activities: React.FC = () => {
     fetchData();
   }, [currentPage]);
 
-  // 滑动计算scroll控制盒子动效
+  // 给页面中间盒子添加动效
   useEffect(() => {
-    // 翻页返回顶部
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
     const handleScroll = () => {
       const scrollPosition = window.scrollY + window.innerHeight / 2;
 
@@ -57,7 +53,7 @@ const Activities: React.FC = () => {
     handleScroll();
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [currentPage]);
+  }, [currentPage]); // ✅ 没有 window.scrollTo
 
   return (
     <div className="activities-container">
@@ -91,23 +87,29 @@ const Activities: React.FC = () => {
               </div>
 
               {/* 活动卡片小盒子 */}
-              <div
-                className={`activity-bref-box ${activeTimelineNode === index ? 'card-active' : ' '}`}
+              <a
+                href={`/activities/${activity.aid}`}
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                {/* 文字信息盒子 */}
-                <div className="activity-bref-info">
-                  <h3 className="activity-title">{activity.title}</h3>
-                  <div className="activity-date">发布于 {activity.time}</div>
-                  <div className="activity-summary-box">
-                    <p className="activity-summary">{activity.summary}</p>
+                <div
+                  className={`activity-bref-box ${activeTimelineNode === index ? 'card-active' : ' '}`}
+                >
+                  {/* 文字信息盒子 */}
+                  <div className="activity-bref-info">
+                    <h3 className="activity-title">{activity.title}</h3>
+                    <div className="activity-date">发布于 {activity.time}</div>
+                    <div className="activity-summary-box">
+                      <p className="activity-summary">{activity.summary}</p>
+                    </div>
+                  </div>
+
+                  {/* 活动封面盒子 */}
+                  <div className="activity-bref-bg">
+                    <img src={activity.img} alt="" />
                   </div>
                 </div>
-
-                {/* 活动封面盒子 */}
-                <div className="activity-bref-bg">
-                  <img src={activity.img} alt="" />
-                </div>
-              </div>
+              </a>
             </div>
           ))}
         </section>

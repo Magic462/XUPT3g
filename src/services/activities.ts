@@ -1,6 +1,6 @@
 import { formatData } from '@/utils/time';
 import { Article } from '@/types/article';
-import { get } from '@/utils/request/http';
+import { del, get, post, put } from '@/utils/request/http';
 
 // 默认图片
 const DEFAULT_IMAGE = 'https://mobile.xupt.edu.cn/res/static/wiki_default.jpg';
@@ -9,8 +9,9 @@ const BASE_IMG_URL = '//mobile.xupt.edu.cn/';
 // 每页显示的活动数量
 const ITEMS_PER_PAGE = 10;
 
+// 分页获取文章
 export const getAllArticleInfo = async (
-  pageNum,
+  pageNum: number,
   pageSize: number = ITEMS_PER_PAGE
 ): Promise<{
   activities: Article[];
@@ -21,14 +22,16 @@ export const getAllArticleInfo = async (
     'api/activities/list',
     {
       params: {
-        pageSize,
         pageNum,
+        pageSize,
       },
     }
   );
 
+  console.log(res);
+
   const activities = res.activities
-    .filter((item: Article) => item.status === 1)
+    // .filter((item: Article) => item.status === 1)
     .map((item: Article) => ({
       ...item,
       time: formatData(item.time),
@@ -42,6 +45,7 @@ export const getAllArticleInfo = async (
   };
 };
 
+// 获取最近发布的七篇文章
 export const getRecentActivities = async (
   pageNum: number = 1,
   pageSize: number = ITEMS_PER_PAGE
@@ -59,7 +63,6 @@ export const getRecentActivities = async (
   );
 
   const recentActivities: Article[] = res.activities
-    .filter((item: Article) => item.status === 1)
     .slice(0, 7)
     .map((item: Article) => ({
       ...item,
@@ -67,4 +70,66 @@ export const getRecentActivities = async (
     }));
 
   return { recentActivities };
+};
+
+// 查询文章
+export const getActivityContent = async (aid: number): Promise<Article> => {
+  const res = await get<Article>('/api/activity', {
+    params: {
+      aid,
+    },
+  });
+  return res;
+};
+
+// 添加文章接口
+export const postArticle = async (
+  title: string,
+  content: string,
+  img: string
+  // summary: string
+) => {
+  const res = await post(
+    '/api/activity',
+    {
+      title,
+      content,
+      img,
+      // summary,
+    },
+    {
+      customAuth: true,
+    }
+  );
+  console.log(res);
+  return res;
+};
+
+// 修改活动接口
+export const changeActivity = async (
+  aid: number = 265,
+  title: string = '修改测试',
+  content: string = '修改测试',
+  img: string = '',
+  summary: string = '修改测试'
+) => {
+  const res = await put(
+    '/api/activities',
+    { aid, title, content, img, summary },
+    { customAuth: true }
+  );
+  console.log('修改活动接口', res);
+  return res;
+};
+
+// 删除活动接口
+export const deleteActivity = async (aid: number = 265) => {
+  const res = await del('/api/activity', {
+    params: {
+      aid,
+    },
+    customAuth: true,
+  });
+  console.log('删除活动接口', res);
+  return res;
 };

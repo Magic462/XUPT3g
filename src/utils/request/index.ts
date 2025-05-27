@@ -9,7 +9,7 @@ import { showMessage } from '@/utils/message';
 // 创建axios实例
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: 'http://10csqn6268959.vicp.fun:54760',
-  timeout: 10000,
+  timeout: 30000,
   headers: { 'Content-Type': 'application/json' },
 });
 

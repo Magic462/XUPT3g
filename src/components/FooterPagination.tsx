@@ -13,7 +13,6 @@ const Footerpagination: React.FC<FooterpaginationProps> = ({
   onPageChange,
   currentPage,
 }) => {
-  // const [currentPage, onPageChange] = useState(1);
   const [isMobile, setIsMobile] = useState(window.innerWidth > 768);
   useEffect(() => {
     const handleResize = () => {
@@ -26,7 +25,6 @@ const Footerpagination: React.FC<FooterpaginationProps> = ({
 
   const handlePageChange = (page: number) => {
     onPageChange(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const generatePagination = () => {

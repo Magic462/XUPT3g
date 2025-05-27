@@ -21,7 +21,7 @@ const StackCarousel: React.FC = () => {
   );
   const [recentActivities, setRecentActivities] = useState<Article[]>([]);
 
-  // 获取最近发布的六个活动
+  // 获取最近发布的七个活动
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -96,8 +96,24 @@ const StackCarousel: React.FC = () => {
     <div className="carousel-out">
       <div className="carousel-inner">
         <div className="carousel-inner-viewbox">
+          <i
+            className="iconfont icon-youshuangxianjiantou1"
+            onClick={handlePrev}
+          ></i>
           {recentActivities.map((item, i) => (
-            <div key={i} className={`carousel-recent-box`} id={order[i]}>
+            <div
+              key={item.aid}
+              className={`carousel-recent-box`}
+              id={order[i]}
+              onClick={() =>
+                window.open(
+                  `/activities/${item.aid}`,
+                  '_blank',
+                  'noopener,noreferrer'
+                )
+              }
+              // onClick={() => console.log(1)}
+            >
               <div className="carousel-recent-title">{item.title}</div>
               {/* 大尺寸才显示活动文章封面 */}
               {isLargeScreen && (
@@ -108,13 +124,7 @@ const StackCarousel: React.FC = () => {
             </div>
           ))}
         </div>
-      </div>
 
-      <div className="carousel-arrow">
-        <i
-          className="iconfont icon-youshuangxianjiantou1"
-          onClick={handlePrev}
-        ></i>
         <i
           className="iconfont icon-youshuangxianjiantou"
           onClick={handleNext}

@@ -8,6 +8,11 @@ const Home = lazy(() => import('../pages/Home/Home'));
 const Mine = lazy(() => import('../pages/mine/Mine'));
 const Trainingplan = lazy(() => import('../pages/trainplan/Trainplan'));
 const Activities = lazy(() => import('../pages/activities/Activities'));
+const ActivityContent = lazy(
+  () => import('@/pages/activities/ActivityContent')
+);
+
+// const ActivityContent = lazy(() => import('../pages/activitycontent/ActivityContent'));
 const Members = lazy(() => import('../pages/members/Members'));
 const Graduate = lazy(() => import('../pages/Graduate/Graduate'));
 const Login = lazy(() => import('../pages/login/Login'));
@@ -116,6 +121,14 @@ const routes: RouteObject[] = [
         element: (
           <Suspense fallback={<Loading />}>
             <Activities />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/activities/:aid',
+        element: (
+          <Suspense fallback={<Loading />}>
+            <ActivityContent />
           </Suspense>
         ),
       },
