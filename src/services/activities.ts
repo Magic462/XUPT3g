@@ -1,6 +1,6 @@
 import { formatData } from '@/utils/time';
 import { Article } from '@/types/article';
-import { get, post } from '@/utils/request/http';
+import { get, post, put } from '@/utils/request/http';
 
 // 默认图片
 const DEFAULT_IMAGE = 'https://mobile.xupt.edu.cn/res/static/wiki_default.jpg';
@@ -75,15 +75,15 @@ export const getRecentActivities = async (
 
 // 查询文章
 export const getActivityContent = async (aid: number) => {
-  const res = await get('/api/activty', {
+  const res = await get('/api/activity', {
     params: {
       aid,
     },
   });
-  console.log(res);
   return res;
 };
 
+// 添加文章接口
 export const postArticle = async (
   title: string,
   content: string,
@@ -105,3 +105,27 @@ export const postArticle = async (
   console.log(res);
   return res;
 };
+
+// 修改活动接口
+export const changeActivity = async (
+  aid: number = 265,
+  title: string = '修改测试',
+  content: string = '修改测试',
+  img: string = '',
+  summary: string = '修改测试'
+) => {
+  const res = await put(
+    '/api/activities',
+    { aid, title, content, img, summary },
+    { customAuth: true }
+  );
+  console.log('修改活动接口', res);
+  return res;
+};
+
+// 删除活动接口
+// export const deleteActivity = async (aid: number = 265) => {
+//   const res = await put('/api/activity', aid, { customAuth: true });
+//   console.log('删除活动接口', res);
+//   return res;
+// };

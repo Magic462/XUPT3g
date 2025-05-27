@@ -7,8 +7,10 @@ import StackCarousel from './components/stackcarousel';
 import Footerpagination from '@/components/FooterPagination';
 import { Article } from '@/types/article';
 import { getAllArticleInfo } from '@/services/activities';
+import { useNavigate } from 'react-router-dom';
 
 const Activities: React.FC = () => {
+  const navigate = useNavigate();
   const [pageNum, setPageNum] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [activeTimelineNode, setActiveTimelineNode] = useState<number | null>(
@@ -92,6 +94,7 @@ const Activities: React.FC = () => {
 
               {/* 活动卡片小盒子 */}
               <div
+                onClick={() => navigate(`/activities/${activity.aid}`)}
                 className={`activity-bref-box ${activeTimelineNode === index ? 'card-active' : ' '}`}
               >
                 {/* 文字信息盒子 */}
