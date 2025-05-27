@@ -1,28 +1,49 @@
 import { getActivityContent } from '@/services/activities';
 import './ActivityContent.scss';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Article } from '@/types/article';
+import Footertop from '@/components/Footertop';
 
 const ActivityContent: React.FC = () => {
-  //content = '';
+  const [activity, setActivity] = useState<Article>();
   const { aid } = useParams<{ aid: string }>();
   const aidNum = Number(aid);
 
-  useEffect(() => {
-    fetchAtivityContent(aidNum);
-  }, [aidNum]);
   const fetchAtivityContent = async (aidNum: number) => {
     try {
       const response = await getActivityContent(aidNum);
-      console.log(response);
+      setActivity(response);
     } catch (err) {
       console.log(err);
     }
   };
 
+  useEffect(() => {
+    fetchAtivityContent(aidNum);
+  }, [aidNum]);
+
   return (
-    <div className="id-activity-box">
-      <div className="">文章内容</div>
+    <div className="id-activity-container">
+      <div className="id-activity-page">
+        {activity && (
+          <>
+            <div
+              className="id-activity-title"
+              style={{
+                backgroundImage: `linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url(//mobile.xupt.edu.cn/${activity.img})`,
+              }}
+            >
+              <p>{activity.title}</p>
+            </div>
+            <div
+              className="id-activity-content"
+              dangerouslySetInnerHTML={{ __html: activity.content }}
+            ></div>
+          </>
+        )}
+      </div>
+      <Footertop></Footertop>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { formatData } from '@/utils/time';
 import { Article } from '@/types/article';
-import { get, post, put } from '@/utils/request/http';
+import { del, get, post, put } from '@/utils/request/http';
 
 // 默认图片
 const DEFAULT_IMAGE = 'https://mobile.xupt.edu.cn/res/static/wiki_default.jpg';
@@ -63,7 +63,6 @@ export const getRecentActivities = async (
   );
 
   const recentActivities: Article[] = res.activities
-    .filter((item: Article) => item.status === 1)
     .slice(0, 7)
     .map((item: Article) => ({
       ...item,
@@ -74,8 +73,8 @@ export const getRecentActivities = async (
 };
 
 // 查询文章
-export const getActivityContent = async (aid: number) => {
-  const res = await get('/api/activity', {
+export const getActivityContent = async (aid: number): Promise<Article> => {
+  const res = await get<Article>('/api/activity', {
     params: {
       aid,
     },
@@ -124,8 +123,13 @@ export const changeActivity = async (
 };
 
 // 删除活动接口
-// export const deleteActivity = async (aid: number = 265) => {
-//   const res = await put('/api/activity', aid, { customAuth: true });
-//   console.log('删除活动接口', res);
-//   return res;
-// };
+export const deleteActivity = async (aid: number = 265) => {
+  const res = await del('/api/activity', {
+    params: {
+      aid,
+    },
+    customAuth: true,
+  });
+  console.log('删除活动接口', res);
+  return res;
+};

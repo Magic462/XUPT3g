@@ -44,3 +44,5 @@ export const addMember = async (
   console.log('添加成员接口：', res);
   return res;
 };
+
+// 删除成员接口

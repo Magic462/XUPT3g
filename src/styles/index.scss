@@ -19,6 +19,9 @@ button {
   border: none;
 }
 
+a {
+  text-decoration: none;
+}
 // 媒体查询配置
 /* 超大屏幕设备（大桌面显示器及电视） */
 @media (min-width: 1200px) {
