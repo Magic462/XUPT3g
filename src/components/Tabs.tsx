@@ -61,7 +61,7 @@ const Tabs = ({ tabs, onTabChange }) => {
                 {additionalTabs.map((tab) => (
                   <div
                     key={tab}
-                    className="more-item"
+                    className={`more-item ${activeTab === tab ? 'active' : ''}`}
                     onClick={() => handleTabClick(tab)}
                   >
                     {tab}

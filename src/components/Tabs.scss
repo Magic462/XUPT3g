@@ -83,6 +83,11 @@
   &:last-child {
     border: none;
   }
+  &.active {
+    background-color: #4f554c;
+    background-clip: text;
+    -webkit-text-stroke: 3px transparent;
+  }
 }
 
 .more-item:hover {

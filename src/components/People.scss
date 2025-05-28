@@ -43,6 +43,9 @@
       a {
         opacity: 1;
       }
+      .people-signature {
+        opacity: 1;
+      }
     }
 
     h2 {
@@ -100,12 +103,24 @@
     }
 
     .people-signature {
-      font-size: 0.85rem;
-      margin: 0.5rem 0 1rem 0;
-      display: -webkit-box;
-      -webkit-line-clamp: 1;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+      width: 90%;
+      font-size: 0.74rem;
+      // min-height: 20%;
+      // max-width: 100%;
+      padding: 0.2rem;
+      position: absolute;
+      z-index: 1000;
+      background-color: rgba(255, 255, 255, 0.9);
+      color: #333;
+      border-radius: 0.5rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      letter-spacing: 0.1rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
     }
   }
 }

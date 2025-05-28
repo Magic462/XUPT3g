@@ -1,5 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './People.scss';
+
+interface Members {
+  uid: string;
+  name: string;
+  team: string;
+  company?: string;
+  [key: string]: string | undefined;
+  signature?: string;
+}
 
 interface PeopleProps {
   members: Members[];
@@ -9,6 +18,14 @@ interface PeopleProps {
 // const People = ({ members }) => {
 
 const People: React.FC<PeopleProps> = ({ members, imgKey = 'mienImg' }) => {
+  const [showSignatureCard, setShowSignatureCard] = useState<string | null>(
+    null
+  );
+
+  const handleSignatureClick = (uid: string) => {
+    setShowSignatureCard((prev) => (prev === uid ? null : uid));
+  };
+
   return (
     <div className="people-container">
       {members.map((member) => (
@@ -42,13 +59,30 @@ const People: React.FC<PeopleProps> = ({ members, imgKey = 'mienImg' }) => {
               </>
             )}
 
-            <p className="people-more">
+            {/* <p className="people-more">
               <a href="#">
+                <span className="people-more-cover"></span>
+                <span className="people-more-title">个性签名</span>
+              </a>
+            </p> */}
+            <p className="people-more">
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleSignatureClick(member.uid);
+                }}
+              >
                 <span className="people-more-cover"></span>
                 <span className="people-more-title">个性签名</span>
               </a>
             </p>
           </div>
+          {showSignatureCard === member.uid && (
+            <div className="people-signature">
+              <p>{member.signature || '这个人目前还没有说什么...'}</p>
+            </div>
+          )}
         </div>
       ))}
     </div>

@@ -33,7 +33,7 @@ const Login = () => {
     setCaptcha();
   };
 
-  const handleError = (error: any) => {
+  const handleError = (error: unknown) => {
     if (axios.isAxiosError(error)) {
       if (error.response) {
         alert('错误：' + error.response.data.message);
