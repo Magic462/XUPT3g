@@ -1,14 +1,25 @@
-import { getAllArticleInfo } from '@/services/activities';
 import './Allactivity.scss';
-import { useEffect, useState } from 'react';
-import { Article } from '@/types/article';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState, useCallback } from 'react';
+import { message } from '@/utils/message';
 import Footerpagination from '@/components/FooterPagination';
 import DeleteConfirmModal from '@/components/DeleteConfirmModal';
+import { deleteActivity, getAllArticleInfo } from '@/services/activities';
+import { Article } from '@/types/article';
 
-const Renderactivityitem = (
-  item: Article,
-  setIsDeleteModal: React.Dispatch<React.SetStateAction<boolean>>
-) => {
+interface RenderActivityItemProps {
+  item: Article;
+  onOpenDeleteModal: () => void;
+  onHandleDelAid: (delId: number) => void;
+}
+
+const RenderActivityItem: React.FC<RenderActivityItemProps> = ({
+  item,
+  onOpenDeleteModal,
+  onHandleDelAid,
+}) => {
+  const navigate = useNavigate();
+
   return (
     <div className="activity-item-box" key={item.aid}>
       <div className="activity-item-info-box">
@@ -22,10 +33,18 @@ const Renderactivityitem = (
         </div>
       </div>
       <div className="activity-toedit-btns">
-        <button className="activity-edit-btn">编辑</button>
+        <button
+          className="activity-edit-btn"
+          onClick={() => navigate(`/mine/admin/postactivity?aid=${item.aid}`)}
+        >
+          编辑
+        </button>
         <button
           className="activity-delete-btn"
-          onClick={() => setIsDeleteModal(true)}
+          onClick={() => {
+            onOpenDeleteModal();
+            onHandleDelAid(item.aid);
+          }}
         >
           删除
         </button>
@@ -39,20 +58,34 @@ const Allactivity = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageNum, setPageNum] = useState(0);
   const [isDeleteModal, setIsDeleteModal] = useState(false);
+  const [delId, setDelId] = useState<number>();
+
+  const delActivityResponse = async (delId: number) => {
+    try {
+      const response = await deleteActivity(delId);
+      console.log(response);
+      await adminGetActivities();
+      setIsDeleteModal(false);
+      message.success('删除成功');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const adminGetActivities = useCallback(async () => {
+    try {
+      const res = await getAllArticleInfo(currentPage);
+      setActivitiesData(res.activities);
+      setPageNum(res.pageNum);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [currentPage]);
 
   useEffect(() => {
-    const adminGetActivities = async () => {
-      try {
-        const res = await getAllArticleInfo(currentPage);
-        setActivitiesData(res.activities);
-        setPageNum(res.pageNum);
-        console.log(res);
-      } catch (err) {
-        console.log(err);
-      }
-    };
     adminGetActivities();
-  }, [currentPage]);
+  }, [adminGetActivities]);
 
   return (
     <div className="all-activity-container">
@@ -64,10 +97,16 @@ const Allactivity = () => {
       </div>
       <div className="activity-item-container">
         {activitiesData &&
-          activitiesData.map((item) =>
-            Renderactivityitem(item, setIsDeleteModal)
-          )}
+          activitiesData.map((item) => (
+            <RenderActivityItem
+              key={item.aid}
+              item={item}
+              onOpenDeleteModal={() => setIsDeleteModal(true)}
+              onHandleDelAid={setDelId}
+            />
+          ))}
       </div>
+
       <div className="admin-pagination">
         <Footerpagination
           pageNum={pageNum}
@@ -77,8 +116,10 @@ const Allactivity = () => {
       </div>
       {isDeleteModal && (
         <DeleteConfirmModal
+          delId={delId}
           remindMessage="该文章是否删除"
           onHandlerDelete={setIsDeleteModal}
+          onDelete={delActivityResponse}
         ></DeleteConfirmModal>
       )}
     </div>

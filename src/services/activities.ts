@@ -123,7 +123,7 @@ export const changeActivity = async (
 };
 
 // 删除活动接口
-export const deleteActivity = async (aid: number = 265) => {
+export const deleteActivity = async (aid: number = 266) => {
   const res = await del('/api/activity', {
     params: {
       aid,

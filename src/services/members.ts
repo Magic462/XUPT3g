@@ -1,4 +1,4 @@
-import { get, post } from '@/utils/request/http';
+import { get, post, del } from '@/utils/request/http';
 import { MembersResponse } from '@/types/members';
 
 export const getMembers = async (
@@ -24,7 +24,7 @@ export const getMembers = async (
 // 添加成员
 export const addMember = async (
   name: string = '张三测试',
-  username: string = 'zhangsan222',
+  username: string = 'zhangsanceshi',
   team: string = 'Web',
   year: number = 2023
 ) => {
@@ -46,3 +46,13 @@ export const addMember = async (
 };
 
 // 删除成员接口
+export const delMember = async (uid: number) => {
+  const res = await del('/api/members', {
+    params: {
+      uid,
+    },
+    customAuth: true,
+  });
+  console.log(res);
+  return res;
+};

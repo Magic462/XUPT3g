@@ -1,14 +1,19 @@
 import './Postactivity.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Upload from 'antd/es/upload';
 import ImgCrop from 'antd-img-crop';
 import RichTextEditor from '@/components/RichTextEditor';
-import { postArticle } from '@/services/activities';
+import { getActivityContent, postArticle } from '@/services/activities';
 // import { getPictureUrl } from '@/services/uploadImg';
 import { getPictureUrl } from '@/services/picture';
+import { message } from '@/utils/message';
 import { AriticleRequast } from '@/types/article';
+import { useSearchParams } from 'react-router-dom';
 
 const Postactivity = () => {
+  const [searchParams] = useSearchParams();
+  const aid = searchParams.get('aid');
+
   const [postCover, setPostCover] = useState(false);
   const [coverFile, setCoverFile] = useState<File | null>(null);
   const [articleHTML, setActiveHTML] = useState<string | null>(null);
@@ -18,14 +23,30 @@ const Postactivity = () => {
     img: '',
   });
 
+  useEffect(() => {
+    if (aid) {
+      const fetchAcity = async () => {
+        try {
+          const response = await getActivityContent(Number(aid));
+          console.log(response);
+          setPostActiveInfo(response);
+          setActiveHTML(response.content);
+        } catch (err) {
+          message.error('获取文章信息', err);
+        }
+      };
+
+      fetchAcity();
+    }
+  }, [aid]);
+
   const handleSubmit = async () => {
-    if (!coverFile) return alert('请先选择封面图');
-    if (!postArticleInfo.title.trim()) return alert('请输入标题');
+    if (!coverFile) return message.warning('请先选择封面图');
+    if (!postArticleInfo.title.trim()) return message.warning('请输入标题');
     if (!articleHTML || articleHTML.trim() === '<p><br></p>')
-      return alert('请输入文章内容');
+      return message.warning('请输入文章内容');
 
     try {
-      // 上传封面图，获取服务器 URL
       const res = await getPictureUrl(coverFile);
       const imageUrl = res.url;
 
@@ -37,7 +58,8 @@ const Postactivity = () => {
       );
 
       console.log('文章发布成功:', result);
-      alert('文章发布成功');
+      // alert('文章发布成功');
+      message.success('文章发布成功');
 
       // 重置状态
       setPostCover(false);
@@ -112,7 +134,11 @@ const Postactivity = () => {
                     {coverFile ? (
                       <div className="cover-preview-container">
                         <img
-                          src={URL.createObjectURL(coverFile)}
+                          src={
+                            postArticleInfo
+                              ? postArticleInfo.img
+                              : URL.createObjectURL(coverFile)
+                          }
                           alt="封面预览"
                           className="cover-preview-img"
                         />

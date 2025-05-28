@@ -1,4 +1,5 @@
 export interface Donationinfo {
+  id?: number;
   name: string;
   team: string;
   money: number;

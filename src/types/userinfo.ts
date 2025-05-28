@@ -1,4 +1,5 @@
 export interface Userinfo {
+  uid?: number;
   portrait: string;
   gender: number;
   classGrade: string;
@@ -11,6 +12,7 @@ export interface Userinfo {
   mienImg: string;
   signature: string;
   company: string;
+  graduateImg?: string;
 }
 
 export interface Userchangeinfo {

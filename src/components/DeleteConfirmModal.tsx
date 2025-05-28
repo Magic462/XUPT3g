@@ -2,13 +2,17 @@ import './DeleteConfirmModal.scss';
 import '@/assets/icons/font_ponx0ykgm9/iconfont.css';
 
 interface DeleteConfirmProps {
+  delId: number;
   remindMessage: string;
   onHandlerDelete: (isDeleteModal: boolean) => void;
+  onDelete: (delId: number) => void;
 }
 
 const DeleteConfirmModal: React.FC<DeleteConfirmProps> = ({
+  delId,
   remindMessage,
   onHandlerDelete,
+  onDelete,
 }) => {
   return (
     <div className="delete-confirm-container">
@@ -28,10 +32,7 @@ const DeleteConfirmModal: React.FC<DeleteConfirmProps> = ({
         </div>
 
         <div className="action-buttons">
-          <button
-            className="confirm-button"
-            onClick={() => onHandlerDelete(true)}
-          >
+          <button className="confirm-button" onClick={() => onDelete(delId)}>
             确认
           </button>
           <button

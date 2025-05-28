@@ -1,4 +1,4 @@
-import { get, post } from '@/utils/request/http';
+import { del, get, post } from '@/utils/request/http';
 import { Direction, Directionres } from '@/types/direction';
 
 // 游客端看到的存在的方向的信息
@@ -50,5 +50,16 @@ export const postDirectionInfo = async (
       customAuth: true,
     }
   );
+  return response;
+};
+
+// 移除方向
+export const delDirection = async (tid: number) => {
+  const response = await del('api/team', {
+    params: {
+      tid,
+    },
+    customAuth: true,
+  });
   return response;
 };

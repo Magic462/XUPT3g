@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
 import './DonationList.scss';
 import { useEnterToFocusNextInput } from '@/hooks/useEnterToNextInput';
-import { getDonationInfo, PostdonationInfo } from '@/services/donation';
+import { getDonationInfo, postDonationInfo } from '@/services/donation';
 import { Donationinfo } from '@/types/donation';
+import message from 'antd/es/message';
 
 interface YeardonationProps {
   donations: Donationinfo[];
 }
 // 最早捐款年份
 const MIN_DONATION_YEAR = 2015;
+const inputCount = 2;
 
 const Yeardonation: React.FC<YeardonationProps> = ({ donations }) => {
   return (
@@ -20,9 +22,9 @@ const Yeardonation: React.FC<YeardonationProps> = ({ donations }) => {
         </tr>
       </thead>
       <tbody>
-        {donations.map((item, index) => {
+        {donations.map((item) => {
           return (
-            <tr key={index}>
+            <tr key={item.id}>
               <td>{item.name}</td>
               <td>{item.money}</td>
             </tr>
@@ -36,25 +38,27 @@ const Yeardonation: React.FC<YeardonationProps> = ({ donations }) => {
 const DonationList = () => {
   const role = localStorage.getItem('status');
   const [showModal, setShowModal] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    money: 0,
-    team: '',
-    remark: '爱心捐款',
-    time: '',
-  });
+
   // 调用enter自动聚焦下一个input
-  const inputCount = 3;
   const { getRef, handleKeyDown } = useEnterToFocusNextInput(inputCount);
 
   const [donations, setDonations] = useState<Donationinfo[]>([]);
-  const [year, setYear] = useState<number>(() => new Date().getFullYear());
+  const [pendingDonations, setPendingDonations] = useState<Donationinfo[]>([]);
+  const [time, setTime] = useState<number>(() => new Date().getFullYear());
   // 距今捐款时间数组
   const currentYear = new Date().getFullYear();
   const years: number[] = [];
   for (let i = currentYear; i >= MIN_DONATION_YEAR; i--) {
     years.push(i);
   }
+
+  const [formData, setFormData] = useState({
+    name: '',
+    money: '',
+    team: 'other',
+    remark: '爱心捐款',
+    time: `${time}`,
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -63,23 +67,56 @@ const DonationList = () => {
 
   // 提交
   const handleSubmit = () => {
-    console.log('提交捐款信息：', formData);
-    fetchPostInfo();
+    if (pendingDonations.length < 1) {
+      message.warning('未录入任何捐款信息');
+      return;
+    }
+    fetchPostResponse();
   };
 
-  const fetchPostInfo = async () => {
+  // 继续录入
+  const continueSubmit = () => {
+    if (!formData.name || !formData.money) {
+      // alert('');
+      message.warning('请完整填写姓名和金额');
+      return;
+    }
+    setPendingDonations([
+      ...pendingDonations,
+      { ...formData, money: Number(formData.money) },
+    ]);
+
+    message.success('录入成功，请继续录入');
+
+    setFormData({
+      name: '',
+      money: '',
+      team: 'other',
+      remark: '爱心捐款',
+      time: `${time}`,
+    });
+  };
+
+  // 提交请求
+  const fetchPostResponse = async () => {
     try {
-      const response = await PostdonationInfo();
+      const response = await postDonationInfo(pendingDonations);
       console.log(response);
+      message.success('提交成功');
+      setShowModal(false);
+      setPendingDonations([]);
+      const res = await getDonationInfo(time);
+      setDonations(res);
     } catch (err) {
       console.log('上传捐款失败：', err);
+      message.error('提交失败，请稍后再试');
     }
   };
 
   useEffect(() => {
     const fetchDonations = async () => {
       try {
-        const response = await getDonationInfo(year);
+        const response = await getDonationInfo(time);
         setDonations(response);
       } catch (err) {
         console.log('获取捐款信息失败：', err);
@@ -87,16 +124,20 @@ const DonationList = () => {
     };
 
     fetchDonations();
-  }, [year]);
+  }, [time]);
+
+  useEffect(() => {
+    console.log(pendingDonations);
+  }, [pendingDonations]);
 
   return (
     <>
       <div className="donation-controls-box">
         {years && (
           <select
-            value={year || ''}
+            value={time || ''}
             onChange={(e) => {
-              setYear(Number(e.target.value));
+              setTime(Number(e.target.value));
             }}
           >
             {years.map((item) => (
@@ -133,24 +174,18 @@ const DonationList = () => {
             />
             <input
               type="text"
-              name="team"
-              placeholder="组别"
-              value={formData.team}
-              onChange={handleChange}
-              ref={getRef(1)}
-              onKeyDown={handleKeyDown(1)}
-            />
-            <input
-              type="text"
               name="money"
               placeholder="金额"
               value={formData.money}
               onChange={handleChange}
-              ref={getRef(2)}
-              onKeyDown={handleKeyDown(2, handleSubmit)}
+              ref={getRef(1)}
+              onKeyDown={handleKeyDown(1, continueSubmit)}
             />
 
             <div className="modal-actions">
+              <button className="donation-continue" onClick={continueSubmit}>
+                继续录入
+              </button>
               <button className="donation-post" onClick={handleSubmit}>
                 提交
               </button>

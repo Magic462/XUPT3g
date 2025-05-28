@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 // import { lazy, Suspense,useRef } from 'react';
 import Memlist from '@/pages/mine/subpages/administrator/subrouter/allmember/components/Memlist';
 // const Memlist = lazy(() => import('@/components/Memlist'));
 import './Allmember.scss';
 import { useActiveItem } from '@/hooks/useActiveItem';
 import DeleteConfirmModal from '@/components/DeleteConfirmModal';
-import { getMembers } from '@/services/members';
-import { Members } from '@/types/members';
 import FooterPagination from '@/components/FooterPagination';
+import { Members } from '@/types/members';
 import { Direction } from '@/types/direction';
+import { delMember, getMembers } from '@/services/members';
 import { getAllDirection } from '@/services/directions';
+import { message } from '@/utils/message';
 
 // 每页显示的成员数量
 const ITEMS_PER_PAGE = 10;
@@ -22,6 +23,7 @@ const Allmember: React.FC = () => {
     useActiveItem<string>('graduated');
 
   const [isDeleteModal, setIsDeleteModal] = useState(false);
+  const [delId, setDelId] = useState<number>();
 
   const [filterMembers, setFilterMembers] = useState<Members[]>([]);
   const [pageNum, setPageNum] = useState(0);
@@ -29,16 +31,13 @@ const Allmember: React.FC = () => {
   const [allTeams, setAllTeams] = useState<Direction[]>([]);
   const [team, setTeam] = useState<string>();
   const [isGraduate, setIsGraduate] = useState<boolean>();
+
   // const [other, setOther] = useState<Direction[]>([]);
 
   // 获取组别信息
   useEffect(() => {
     const fetchTeams = async () => {
       try {
-        // const existRes = await getAllDirection(true);
-        // setTeams(existRes);
-        // const noExistRes = await getAllDirection(false);
-        // setOther(noExistRes);
         const response = await getAllDirection();
         setAllTeams(response);
       } catch (err) {
@@ -49,32 +48,41 @@ const Allmember: React.FC = () => {
     fetchTeams();
   }, []);
 
-  // 分页获取成员信息
-  useEffect(() => {
-    const fetchMembers = async () => {
-      console.log(currentPage);
-      try {
-        const response = await getMembers(
-          isGraduate,
-          team,
-          undefined,
-          ITEMS_PER_PAGE,
-          currentPage
-        );
-        setFilterMembers(response.data);
-        setPageNum(Math.ceil(response.total / ITEMS_PER_PAGE));
-        console.log(Math.ceil(response.total / ITEMS_PER_PAGE));
-      } catch (err) {
-        console.log('获取成员信息失败：', err);
-      }
-    };
-
-    fetchMembers();
+  const fetchMembers = useCallback(async () => {
+    console.log(currentPage);
+    try {
+      const response = await getMembers(
+        isGraduate,
+        team,
+        undefined,
+        ITEMS_PER_PAGE,
+        currentPage
+      );
+      setFilterMembers(response.data);
+      setPageNum(Math.ceil(response.total / ITEMS_PER_PAGE));
+    } catch (err) {
+      console.log('获取成员信息失败：', err);
+    }
   }, [currentPage, team, isGraduate]);
 
+  // 分页获取成员信息
   useEffect(() => {
-    console.log(pageNum);
-  }, [pageNum]);
+    fetchMembers();
+  }, [fetchMembers]);
+
+  const delMemberResponse = async () => {
+    try {
+      const response = await delMember(delId);
+      console.log(response);
+      message.success('删除成功');
+      await fetchMembers();
+      setIsDeleteModal(false);
+      return;
+    } catch (err) {
+      message.error('删除失败');
+      console.log('删除成员失败', err);
+    }
+  };
 
   return (
     <div className="allmember-container">
@@ -130,17 +138,13 @@ const Allmember: React.FC = () => {
         </div>
       </div>
       <div className="allmember-item-box">
-        {filterMembers.map((item, index) => (
+        {filterMembers.map((item) => (
           <Memlist
-            key={index}
-            username={item.username}
-            name={item.name}
-            team={item.team}
-            graduateImg={item.graduateImg}
-            signature={item.signature}
-            isGraduate={item.isGraduate}
+            key={item.uid}
+            member={item}
             // 控制删除弹窗
             onHandlerDelete={setIsDeleteModal}
+            onHandleDelAid={setDelId}
           />
         ))}
       </div>
@@ -156,17 +160,13 @@ const Allmember: React.FC = () => {
           )}
         </div>
       )}
-      {/* <FooterPagination
-        pageNum={pageNum}
-        onPageChange={setCurrentPage}
-        currentPage={currentPage}
-      /> */}
-
       {/* 确认删除弹窗 */}
       {isDeleteModal && (
         <DeleteConfirmModal
+          delId={delId}
           remindMessage="确认删除该成员吗"
           onHandlerDelete={setIsDeleteModal}
+          onDelete={delMemberResponse}
         ></DeleteConfirmModal>
       )}
     </div>

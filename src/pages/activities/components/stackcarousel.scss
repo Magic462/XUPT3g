@@ -103,13 +103,6 @@
   opacity: 0.2;
 }
 
-.carousel-arrow .left {
-  left: 0;
-}
-.carousel-arrow .right {
-  right: 0;
-}
-
 .carousel-dots {
   position: absolute;
   bottom: 0;
@@ -169,9 +162,5 @@
   }
   .carousel-inner .carousel-inner-viewbox {
     width: 70%;
-  }
-
-  .carousel-arrow {
-    color: black;
   }
 }

@@ -4,18 +4,21 @@ import '@/assets/icons/font_38lh8lcfn7/iconfont.css';
 import DeleteConfirmModal from '@/components/DeleteConfirmModal';
 import { getAllDirection } from '@/services/directions';
 import { Direction } from '@/types/direction';
+import { message } from '@/utils/message';
 
-const Renderdirectionitem = (
-  item: {
-    tid: number;
-    name: string;
-    isExist: boolean;
-    brefInfo: string;
-    trainPlan?: string;
-  },
-  toggleEdit: () => void,
-  setIsDeleteModal: React.Dispatch<React.SetStateAction<boolean>>
-) => {
+interface RenderDirectionItemProps {
+  item: Direction;
+  toggleEdit: () => void;
+  setIsDeleteModal: React.Dispatch<React.SetStateAction<boolean>>;
+  onHandleDelTid: (delId: number) => void;
+}
+
+const RenderDirectionItem: React.FC<RenderDirectionItemProps> = ({
+  item,
+  toggleEdit,
+  setIsDeleteModal,
+  onHandleDelTid,
+}) => {
   return (
     <div className="direction-item-box">
       <div className="direction-info-box">
@@ -42,7 +45,10 @@ const Renderdirectionitem = (
         </button>
         <button
           className="direction-move-btn"
-          onClick={() => setIsDeleteModal(true)}
+          onClick={() => {
+            setIsDeleteModal(true);
+            onHandleDelTid(item.tid);
+          }}
         >
           移除
         </button>
@@ -55,21 +61,34 @@ const Editdirection = () => {
   const [edit, setEdit] = useState(false);
   const [isDeleteModal, setIsDeleteModal] = useState(false);
   const [directions, setDirections] = useState<Direction[]>([]);
+  const [delId, setDelId] = useState<number>();
+
+  const fetchDirection = async () => {
+    try {
+      const res = await getAllDirection();
+      console.log(res);
+      setDirections(res);
+    } catch (err) {
+      console.log('获取方向信息失败：', err);
+    }
+  };
 
   useEffect(() => {
-    const fetchDirection = async () => {
-      try {
-        const res = await getAllDirection();
-        console.log(res);
-        setDirections(res);
-      } catch (err) {
-        console.log('获取方向信息失败：', err);
-      }
-    };
-
     fetchDirection();
   }, []);
 
+  const delDirectionResponse = async (delId: number) => {
+    try {
+      const response = await delDirectionResponse(delId);
+      console.log(response);
+      message.success('移除成功');
+      await fetchDirection();
+      setIsDeleteModal(false);
+    } catch (err) {
+      message.error('移除失败');
+      console.log('移除失败：', err);
+    }
+  };
   return (
     <div className="edit-direction-container">
       <div className="each-func-title">
@@ -127,20 +146,29 @@ const Editdirection = () => {
       )}
       {/* 各个方向list */}
       <div className="direction-item-container">
-        {directions.map((item) =>
-          Renderdirectionitem(
-            item,
-            () => setEdit(!edit),
-            setIsDeleteModal
-            // onHandlerDelete(setIsDeleteModal)
-          )
-        )}
+        {directions.map((item) => (
+          // Renderdirectionitem(
+          //   item,
+          //   () => setEdit(!edit),
+          //   setIsDeleteModal
+          //   // onHandlerDelete(setIsDeleteModal)
+          // )
+          <RenderDirectionItem
+            key={item.tid}
+            item={item}
+            toggleEdit={() => setEdit(!edit)}
+            setIsDeleteModal={setIsDeleteModal}
+            onHandleDelTid={setDelId}
+          ></RenderDirectionItem>
+        ))}
       </div>
       {/* 确认移除弹窗 */}
       {isDeleteModal && (
         <DeleteConfirmModal
+          delId={delId}
           remindMessage="是否将其设置为已不存在"
           onHandlerDelete={setIsDeleteModal}
+          onDelete={delDirectionResponse}
         ></DeleteConfirmModal>
       )}
     </div>

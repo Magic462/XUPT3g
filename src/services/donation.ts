@@ -16,21 +16,13 @@ export const getDonationInfo = async (
 
 // 上传某一年捐款信息
 export const postDonationInfo = async (
-  year: number = 2025,
-  donations: Donationinfo[] = [
-    {
-      name: '测试',
-      money: 100,
-      time: '2025-01-01 00:00:00',
-      team: 'Web',
-      remark: '测试捐款',
-    },
-  ]
+  donations: Donationinfo[]
 ): Promise<Donationres> => {
+  // console.log(year, donations);
   const response = await post<Donationres>(
     `/api/donation/list`,
     {
-      year,
+      // year,
       donations,
     },
     {

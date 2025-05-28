@@ -64,12 +64,16 @@ if (!window.__mediaMenuRegistered) {
 }
 
 interface RichTextEditorProps {
+  initHTML?: string;
   onGetHTML?: (html: string) => void;
 }
 
-const RichTextEditor: React.FC<RichTextEditorProps> = ({ onGetHTML }) => {
+const RichTextEditor: React.FC<RichTextEditorProps> = ({
+  initHTML,
+  onGetHTML,
+}) => {
   const [editor, setEditor] = useState<IDomEditor | null>(null);
-  const [html, setHtml] = useState('<p>hello</p>');
+  const [html, setHtml] = useState('');
   const [mediaVisible, setMediaVisible] = useState(false);
 
   const toolbarConfig: Partial<IToolbarConfig> = {
@@ -78,6 +82,13 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ onGetHTML }) => {
       keys: ['media'],
     },
   };
+
+  // useEffect(() => {
+  //   if (editor && initHTML && initHTML !== editor.getHtml()) {
+  //     editor.setHtml(initHTML);
+  //     setHtml(initHTML);
+  //   }
+  // }, [editor, initHTML]);
 
   const editorConfig: Partial<IEditorConfig> = {
     placeholder: '在这里编辑新闻动态吧...',
@@ -139,7 +150,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ onGetHTML }) => {
         />
         <Editor
           defaultConfig={editorConfig}
-          value={html}
+          defaultHtml={initHTML || ''} // 直接通过 prop 初始化内容
           onCreated={setEditor}
           onChange={(editor) => {
             const currentHtml = editor.getHtml();

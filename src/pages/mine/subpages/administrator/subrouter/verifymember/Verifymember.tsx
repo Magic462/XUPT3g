@@ -1,5 +1,11 @@
 import { useEnterToFocusNextInput } from '@/hooks/useEnterToNextInput';
 import './Verifymember.scss';
+import { useEffect, useState } from 'react';
+import { message } from '@/utils/message';
+import { Direction } from '@/types/direction';
+import { getAllDirection } from '@/services/directions';
+import { addMember } from '@/services/members';
+import { getUseinfo } from '@/services/userinfo';
 
 const years = [2024, 2023, 2022, 2021, 2020, 2019];
 
@@ -30,10 +36,36 @@ const years = [2024, 2023, 2022, 2021, 2020, 2019];
 //     </div>
 //   );
 // };
+const inputCount = 2;
 
 const Verifymember = () => {
-  const inputCount = 2;
   const { getRef, handleKeyDown } = useEnterToFocusNextInput(inputCount);
+  const [teams, setTeams] = useState<Direction[]>([]);
+  useEffect(() => {
+    const fetchTeams = async () => {
+      try {
+        const response = await getAllDirection();
+        setTeams(response);
+        const res = await getUseinfo('zhangsan222');
+        console.log(res);
+      } catch (err) {
+        message.error('请求组别失败');
+        console.log('请求组别失败：', err);
+      }
+    };
+
+    fetchTeams();
+  }, []);
+
+  const handleAddMember = async () => {
+    try {
+      const response = await addMember();
+      console.log(response);
+    } catch (err) {
+      message.error('添加成员失败');
+      console.log('添加成员失败：', err);
+    }
+  };
   return (
     <div className="verify-member-container">
       <div className="each-func-title">
@@ -64,8 +96,12 @@ const Verifymember = () => {
           </li>
           <li className="add-member-info-item">
             <label htmlFor="">组别：</label>
-            <select name="" id="">
-              <input type="text" name="" id="" />
+            <select name="组别" id="">
+              {teams.map((item: Direction) => (
+                <option value={item.name} key={item.tid}>
+                  {item.name}
+                </option>
+              ))}
             </select>
           </li>
           <li className="add-member-info-item">
@@ -77,7 +113,12 @@ const Verifymember = () => {
             </select>
           </li>
           <li className="add-member-post-btn-box">
-            <button className="add-member-post-btn">确认添加</button>
+            <button
+              className="add-member-post-btn"
+              onClick={() => handleAddMember()}
+            >
+              确认添加
+            </button>
           </li>
         </ul>
       </div>

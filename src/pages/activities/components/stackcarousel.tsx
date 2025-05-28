@@ -95,11 +95,11 @@ const StackCarousel: React.FC = () => {
   return (
     <div className="carousel-out">
       <div className="carousel-inner">
+        <i
+          className="iconfont icon-youshuangxianjiantou1"
+          onClick={handlePrev}
+        ></i>
         <div className="carousel-inner-viewbox">
-          <i
-            className="iconfont icon-youshuangxianjiantou1"
-            onClick={handlePrev}
-          ></i>
           {recentActivities.map((item, i) => (
             <div
               key={item.aid}
