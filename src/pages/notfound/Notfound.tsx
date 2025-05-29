@@ -12,7 +12,7 @@ const Notfound = () => {
         <div className="back-to-laboratory-box">
           <a href="/" className="back-to-laboratory">
             <span className="back-to-laboratory-cover"></span>
-            <span className="back-to-laboratory-title">Laboratory</span>
+            <span className="back-to-laboratory-title">返回首页</span>
           </a>
         </div>
       </div>

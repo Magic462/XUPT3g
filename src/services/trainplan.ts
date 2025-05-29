@@ -1,7 +1,8 @@
 import { get, post } from '@/utils/request/http';
 
 export const getTrainPlan = async (): Promise<string> => {
-  const res = await get<string>('/api/trainpla');
+  const res = await get<string>('/api/trainplan');
+  console.log(res);
   return res;
 };
 

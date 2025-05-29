@@ -27,7 +27,7 @@ const GlobalMessage: React.FC<MessageProps> = ({
   }, [duration, onClose]);
 
   return (
-    <div className={`custom-message ${type}`} id={id}>
+    <div className={`Global-message ${type}`} id={id}>
       {content}
     </div>
   );

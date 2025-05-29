@@ -22,6 +22,7 @@ const Edittrainplan = () => {
   }, []);
 
   const handleSubmit = async () => {
+    setTrainPlan(articleHTML);
     try {
       const response = await postTrainPlan();
       console.log(response);
@@ -41,7 +42,7 @@ const Edittrainplan = () => {
         </h2>
       </div>
       <div className="edit-direction-box">
-        <button onClick={() => handleSubmit}>发布</button>
+        <button onClick={() => handleSubmit()}>发布</button>
       </div>
       {/* 引入富文本编辑 */}
       <RichTextEditor initHTML={trainPlan} onGetHTML={setActiveHTML} />

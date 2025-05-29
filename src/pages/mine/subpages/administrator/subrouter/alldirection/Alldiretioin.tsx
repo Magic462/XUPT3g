@@ -37,7 +37,9 @@ const RenderDirectionItem: React.FC<RenderDirectionItemProps> = ({
       <div className="direction-edit-btns">
         <button
           className="direction-edit-btn"
-          onClick={() => navigate(`/mine/admin/editdirection?aid=${item.tid}`)}
+          onClick={() =>
+            navigate(`/mine/admin/editdirection?name=${item.name}`)
+          }
         >
           编辑
         </button>

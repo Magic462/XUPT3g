@@ -83,12 +83,12 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
     },
   };
 
-  // useEffect(() => {
-  //   if (editor && initHTML && initHTML !== editor.getHtml()) {
-  //     editor.setHtml(initHTML);
-  //     setHtml(initHTML);
-  //   }
-  // }, [editor, initHTML]);
+  useEffect(() => {
+    if (editor && initHTML && initHTML !== editor.getHtml()) {
+      editor.setHtml(initHTML);
+      setHtml(initHTML);
+    }
+  }, [editor, initHTML]);
 
   const editorConfig: Partial<IEditorConfig> = {
     placeholder: '在这里编辑新闻动态吧...',

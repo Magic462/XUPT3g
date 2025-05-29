@@ -8,20 +8,22 @@ import { Direction } from '@/types/direction';
 
 const Editdirection = () => {
   const [searchParams] = useSearchParams();
-  const tid = searchParams.get('tid');
+  const name = searchParams.get('name');
 
   const [articleHTML, setActiveHTML] = useState<string | null>(null);
   const [postDirectionInfo, setPostDirectionInfo] = useState<Direction>({
     brefInfo: '',
     name: '',
     trainPlan: '',
+    brefInfo: '',
   });
 
   useEffect(() => {
-    if (tid) {
+    if (name) {
+      // console.log(1);
       const fetchDirection = async () => {
         try {
-          const response = await getAllDirection(Number(tid));
+          const response = await getAllDirection(name);
           console.log(response);
           setPostDirectionInfo(response[0]);
         } catch (err) {
@@ -31,9 +33,12 @@ const Editdirection = () => {
 
       fetchDirection();
     }
-  }, [tid]);
+  }, [name]);
 
   const handleSubmit = async () => {
+    if (postDirectionInfo.brefInfo.trim().length < 15) {
+      return message.warning('方向简介不能少于15个字！');
+    }
     if (!articleHTML || articleHTML.trim() === '<p><br></p>')
       return message.warning('请输入活动培养方案');
 
@@ -54,7 +59,7 @@ const Editdirection = () => {
 
   return (
     <div className="edit-diretion-container">
-      <div className="each-func-name">
+      <div className="each-func-title">
         <h2>
           <i className="each-func-icons iconfont icon-dongtai"></i>
           添加方向
@@ -63,7 +68,7 @@ const Editdirection = () => {
 
       <div className="edit-diretion-box">
         <div className="edit-diretion-baseinfo-box">
-          <div className="edit-diretion-name-box">
+          <div className="edit-diretion-title-box">
             <input
               type="text"
               placeholder="请输入方向名称..."
@@ -83,7 +88,18 @@ const Editdirection = () => {
           </div>
         </div>
         <div className="edit-diretion-brefinfo-box">
-          <textarea name="" id=""></textarea>
+          <textarea
+            name=""
+            id=""
+            placeholder="在这里编辑方向简介，不低于15字..."
+            value={postDirectionInfo.brefInfo}
+            onChange={(e) =>
+              setPostDirectionInfo({
+                ...postDirectionInfo,
+                brefInfo: e.target.value,
+              })
+            }
+          ></textarea>
         </div>
 
         <RichTextEditor

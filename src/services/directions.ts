@@ -13,14 +13,14 @@ export const getDirection = async (isExist?: boolean): Promise<Direction[]> => {
 
 // 用户端获取方向信息
 export const getAllDirection = async (
-  tid?: number,
+  name?: string,
   isExist?: boolean
 ): Promise<Direction[]> => {
   // const params = isExist !== undefined ? { isExist } : {};
 
   const response = await get<Direction[]>('api/team/allinfo', {
     params: {
-      tid,
+      name,
       isExist,
     },
     customAuth: true,
