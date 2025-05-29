@@ -1,8 +1,8 @@
 export interface Direction {
-  tid: number;
+  tid?: number;
   brefInfo: string;
   delay?: number;
-  isExist: boolean;
+  isExist?: boolean;
   name: string;
   trainPlan?: string;
 }

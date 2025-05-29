@@ -13,12 +13,16 @@ export const getDirection = async (isExist?: boolean): Promise<Direction[]> => {
 
 // 用户端获取方向信息
 export const getAllDirection = async (
+  tid?: number,
   isExist?: boolean
 ): Promise<Direction[]> => {
-  const params = isExist !== undefined ? { isExist } : {};
+  // const params = isExist !== undefined ? { isExist } : {};
 
   const response = await get<Direction[]>('api/team/allinfo', {
-    params,
+    params: {
+      tid,
+      isExist,
+    },
     customAuth: true,
   });
   return response;
@@ -34,7 +38,7 @@ export const getAllDirection = async (
 //   return response;
 // };
 
-export const postDirectionInfo = async (
+export const postDirection = async (
   name: string = '测试',
   brefInfo: string = '测试简介',
   trainplan: string = '测试方向培养方案'

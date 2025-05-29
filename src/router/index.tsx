@@ -38,6 +38,12 @@ const Allmember = lazy(
   () =>
     import('@/pages/mine/subpages/administrator/subrouter/allmember/Allmember')
 );
+const Alldiretion = lazy(
+  () =>
+    import(
+      '@/pages/mine/subpages/administrator/subrouter/alldirection/Alldiretioin'
+    )
+);
 const Editdirection = lazy(
   () =>
     import(
@@ -169,6 +175,14 @@ const routes: RouteObject[] = [
                 element: (
                   <Suspense fallback={<Loading />}>
                     <Allmember />
+                  </Suspense>
+                ),
+              },
+              {
+                path: 'alldirection',
+                element: (
+                  <Suspense fallback={<Loading />}>
+                    <Alldiretion />
                   </Suspense>
                 ),
               },

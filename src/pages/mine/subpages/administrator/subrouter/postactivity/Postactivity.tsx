@@ -25,18 +25,18 @@ const Postactivity = () => {
 
   useEffect(() => {
     if (aid) {
-      const fetchAcity = async () => {
+      const fetchActivity = async () => {
         try {
           const response = await getActivityContent(Number(aid));
           console.log(response);
           setPostActiveInfo(response);
-          setActiveHTML(response.content);
+          // setActiveHTML(response.content);
         } catch (err) {
           message.error('获取文章信息', err);
         }
       };
 
-      fetchAcity();
+      fetchActivity();
     }
   }, [aid]);
 
@@ -103,7 +103,10 @@ const Postactivity = () => {
           </div>
         </div>
 
-        <RichTextEditor onGetHTML={setActiveHTML} />
+        <RichTextEditor
+          initHTML={postArticleInfo.content}
+          onGetHTML={setActiveHTML}
+        />
 
         {postCover && (
           <>

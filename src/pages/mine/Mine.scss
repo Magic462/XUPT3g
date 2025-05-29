@@ -15,6 +15,19 @@
 
   z-index: 1000; // 确保在最上层
   padding-top: 3rem;
+  position: relative;
+
+  .mine-leftnav-decorate-box {
+    position: absolute;
+    top: 0.5rem;
+    left: 1rem;
+    span {
+      width: 1rem;
+      height: 1rem;
+      border-radius: 1rem;
+      margin-right: 0.3rem;
+    }
+  }
 }
 
 .leftnav-profile-container {

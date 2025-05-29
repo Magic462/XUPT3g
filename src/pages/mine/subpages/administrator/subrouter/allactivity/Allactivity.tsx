@@ -54,7 +54,7 @@ const RenderActivityItem: React.FC<RenderActivityItemProps> = ({
 };
 
 const Allactivity = () => {
-  const [activitiesData, setActivitiesData] = useState<Article[]>();
+  const [activitiesData, setActivitiesData] = useState<Article[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageNum, setPageNum] = useState(0);
   const [isDeleteModal, setIsDeleteModal] = useState(false);

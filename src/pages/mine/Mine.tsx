@@ -84,17 +84,17 @@ const adminNavItem = [
   {
     key: EXPANDABLE_ITEMS.ACTIVITY,
     icon: 'icon-dongtai',
-    label: '发布动态',
+    label: '动态管理',
     children: [
-      {
-        key: SUB_EXPANDABLE_ITEMS.POSTACTIVITY,
-        path: '/mine/admin/postactivity',
-        label: '新建动态',
-      },
       {
         key: SUB_EXPANDABLE_ITEMS.ACTIVITY,
         path: '/mine/admin/allactivity',
         label: '动态列表',
+      },
+      {
+        key: SUB_EXPANDABLE_ITEMS.POSTACTIVITY,
+        path: '/mine/admin/postactivity',
+        label: '新建动态',
       },
     ],
   },
@@ -119,7 +119,18 @@ const adminNavItem = [
     key: EXPANDABLE_ITEMS.DIRECTION,
     icon: 'icon-guanli',
     label: '方向管理',
-    path: '/mine/admin/editdirection',
+    children: [
+      {
+        key: SUB_EXPANDABLE_ITEMS.ALLMEMBER,
+        path: '/mine/admin/alldirection',
+        label: '方向列表',
+      },
+      {
+        key: SUB_EXPANDABLE_ITEMS.ADDMEMBER,
+        path: '/mine/admin/editdirection',
+        label: '添加方向',
+      },
+    ],
   },
   {
     key: EXPANDABLE_ITEMS.EDITTRAININGPLAN,
@@ -218,6 +229,24 @@ const Mine = () => {
       {/* 左侧导航栏 */}
       {showSubNav && (
         <div className="mine-leftnav">
+          <div className="mine-leftnav-decorate-box">
+            <span
+              className="mine-leftnav-decorate-red"
+              style={{ backgroundColor: '#FF0040' }}
+            ></span>
+            <span
+              className="mine-leftnav-decorate-yellow"
+              style={{ backgroundColor: '#FFA300' }}
+            ></span>
+            <span
+              className="mine-leftnav-decorate-blue"
+              style={{ backgroundColor: '#15BAE7' }}
+            ></span>
+            <span
+              className="mine-leftnav-decorate-green"
+              style={{ backgroundColor: '#59C442' }}
+            ></span>
+          </div>
           <div className="leftnav-profile-container">
             <div className="leftnav-profile-box">
               <img src={userData.portrait} alt="" />
