@@ -84,11 +84,10 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   };
 
   useEffect(() => {
-    if (editor && initHTML && initHTML !== editor.getHtml()) {
-      editor.setHtml(initHTML);
+    if (initHTML) {
       setHtml(initHTML);
     }
-  }, [editor, initHTML]);
+  }, [initHTML]);
 
   const editorConfig: Partial<IEditorConfig> = {
     placeholder: '在这里编辑新闻动态吧...',
@@ -150,7 +149,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
         />
         <Editor
           defaultConfig={editorConfig}
-          defaultHtml={initHTML || ''} // 直接通过 prop 初始化内容
+          value={html}
           onCreated={setEditor}
           onChange={(editor) => {
             const currentHtml = editor.getHtml();
