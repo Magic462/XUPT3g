@@ -1,26 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Memlist.scss';
 import { Members } from '@/types/members';
+import Peohome from '@/components/Peohome';
+import { useNavigate } from 'react-router-dom';
+// import { Userinfo } from '@/types/userinfo';
 
 interface MemlistProps {
   member: Members;
   onHandlerDelete: (isDeletModal: boolean) => void;
   onHandleDelAid: (delId: number) => void;
+  // onHandleShowPeohome: (isShowPeohome) => void;
 }
 
 const Memlist: React.FC<MemlistProps> = ({
   member,
   onHandlerDelete,
   onHandleDelAid,
+  // onHandleShowPeohome,
 }) => {
+  const [peohomeShow, setPeohomeShow] = useState<boolean>(false);
+  const navigate = useNavigate();
   return (
     <div className="mem-item">
       <div className="mem-img-container">
-        <img
-          src={member.graduateImg}
-          alt={member.username}
-          className="mem-img"
-        />
+        <img src={member.portrait} alt={member.username} className="mem-img" />
+        {/* {member.isGraduate === 1 ? (
+          <img
+            src={member.graduateImg}
+            alt={member.username}
+            className="mem-img"
+          />
+        ) : (
+          <img
+            src={member.portrait}
+            alt={member.username}
+            className="mem-img"
+          />
+        )} */}
       </div>
       <div className="mem-info">
         <div className="mem-name-status">
@@ -33,21 +49,11 @@ const Memlist: React.FC<MemlistProps> = ({
         <div className="mem-signature">{member.signature}</div>
         <div className="mem-team">{member.team}</div>
       </div>
-      {/* {status === 0 ? (
-        <div className="mem-buttons">
-          <button className="view-button">查看</button>
-          <button
-            className="delete-button"
-            onClick={() => onHandlerDelete(true)}
-          >
-            删除
-          </button>
-        </div>
-      ) : (
-        <button className="blog-button">个人博客</button>
-      )} */}
+
       <div className="mem-buttons">
-        <button className="view-button">查看</button>
+        <button className="view-button" onClick={() => setPeohomeShow(true)}>
+          查看
+        </button>
         <button
           className="delete-button"
           onClick={() => {
@@ -58,6 +64,40 @@ const Memlist: React.FC<MemlistProps> = ({
           删除
         </button>
       </div>
+      {peohomeShow && (
+        <div className="mem-item-peohome-overlay">
+          <div className="mem-item-peohome">
+            <Peohome
+              portrait={member.portrait}
+              gender={member.gender}
+              classGrade={member.classGrade}
+              year={member.year}
+              tel={member.tel}
+              isGraduate={member.isGraduate === 1 ? true : false}
+              username={member.username}
+              name={member.name}
+              team={member.team}
+              mienImg={member.mienImg}
+              signature={member.signature}
+              company={member.company}
+            ></Peohome>
+            <div
+              className="mem-item-peohome-close"
+              onClick={() => setPeohomeShow(false)}
+            >
+              关闭
+            </div>
+            <div
+              className="mem-item-peohome-to-edit"
+              onClick={() =>
+                navigate(`/mine/user/changeinfo?username=${member.username}`)
+              }
+            >
+              前往编辑
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

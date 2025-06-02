@@ -3,11 +3,16 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import RichTextEditor from '@/components/RichTextEditor';
 import { message } from '@/utils/message';
-import { getAllDirection, postDirection } from '@/services/directions';
+import {
+  getAllDirection,
+  postDirection,
+  putDirection,
+} from '@/services/directions';
 import { Direction } from '@/types/direction';
 
 const Editdirection = () => {
   const [searchParams] = useSearchParams();
+  const [tid, setTid] = useState<number>();
   const name = searchParams.get('name');
 
   const [articleHTML, setActiveHTML] = useState<string | null>(null);
@@ -19,37 +24,53 @@ const Editdirection = () => {
 
   useEffect(() => {
     if (name) {
-      // console.log(1);
       const fetchDirection = async () => {
         try {
           const response = await getAllDirection(name);
           console.log(response);
           setPostDirectionInfo(response[0]);
+          setTid(response[0].tid);
         } catch (err) {
           message.error('获取文章信息', err);
         }
       };
-
       fetchDirection();
     }
   }, [name]);
 
   const handleSubmit = async () => {
-      if (!postDirectionInfo.name.trim()) {
-    return message.warning('请填写方向名称！');
-  }
+    if (!postDirectionInfo.name.trim()) {
+      return message.warning('请填写方向名称！');
+    }
     if (postDirectionInfo.brefInfo.trim().length < 15) {
       return message.warning('方向简介不能少于15个字！');
     }
-    if (!articleHTML || articleHTML.trim() === '<p><br></p>')
+    if (!articleHTML || articleHTML.trim() === '<p><br></p>') {
+      console.log(articleHTML);
       return message.warning('请输入活动培养方案');
+    }
+    setPostDirectionInfo({ ...postDirectionInfo, trainPlan: articleHTML });
 
     try {
-      // 提交方向信息
-      const result = await postDirection();
+      if (name) {
+        // 编辑该方向
+        console.log('现在是编辑方向接口');
+        postDirectionInfo.tid = tid;
+        const response = await putDirection(postDirectionInfo);
 
-      console.log('方向添加/编辑成功:', result);
-      message.success('方向添加/编辑成功');
+        console.log('方向编辑成功:', response);
+        message.success('方向编辑成功');
+      } else {
+        // 新增方向
+        const response = await postDirection(
+          postDirectionInfo.name,
+          postDirectionInfo.brefInfo,
+          postDirectionInfo.trainPlan
+        );
+
+        console.log('方向添加:', response);
+        message.success('方向添加成功');
+      }
 
       // 重置状态
       setPostDirectionInfo({ name: '', trainPlan: '', brefInfo: '' });

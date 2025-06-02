@@ -19,9 +19,12 @@ const Changeinfo = () => {
   const [directions, setDirections] = useState<Direction[]>([]);
   const [formData, setFormData] = useState<Userchangeinfo>();
 
+  const [searchParams] = useSearchParams();
+  const urlUsername = searchParams.get('username');
+
   useEffect(() => {
     const fetchUserinfo = async () => {
-      const username = localStorage.getItem('username');
+      const username = urlUsername || localStorage.getItem('username');
       try {
         const response = await getUserinfo(username);
         console.log(response);
@@ -32,7 +35,7 @@ const Changeinfo = () => {
     };
 
     fetchUserinfo();
-  }, []);
+  }, [urlUsername]);
 
   useEffect(() => {
     const fetchDirection = async () => {
@@ -86,7 +89,7 @@ const Changeinfo = () => {
   };
 
   const handleSubmit = async () => {
-    const data = { ...formData }; // 拷贝一份防止污染
+    const data = { ...formData };
 
     // 如果 portrait 是 File，先上传图片
     if (data.portrait instanceof File) {

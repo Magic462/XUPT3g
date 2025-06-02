@@ -12,6 +12,7 @@ export interface Members {
   gender: number;
   portrait: string;
   tel: string;
+  classGrade?: string;
 }
 
 export interface MembersResponse {
