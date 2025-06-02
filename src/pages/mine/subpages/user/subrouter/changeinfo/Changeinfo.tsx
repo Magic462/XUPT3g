@@ -130,11 +130,21 @@ const Changeinfo = () => {
                   <Upload
                     showUploadList={false}
                     beforeUpload={(file) => {
-                      const isJpg = file.type === 'image/jpeg';
-                      if (!isJpg) {
-                        alert('只允许上传 JPG 格式的图片');
+                      const isValidType = [
+                        'image/jpeg',
+                        'image/png',
+                        'image/webp',
+                      ].includes(file.type);
+                      if (!isValidType) {
+                        alert('只允许上传 JPG/PNG/WEBP 格式的图片');
+                        return Upload.LIST_IGNORE;
                       }
-                      return isJpg || Upload.LIST_IGNORE;
+                      const isLt2M = file.size <= 2 * 1024 * 1024;
+                      if (!isLt2M) {
+                        alert('图片不能超过 2MB');
+                        return Upload.LIST_IGNORE;
+                      }
+                      return true;
                     }}
                     customRequest={({ file, onSuccess }) => {
                       const fileObj = file as File;
@@ -166,11 +176,21 @@ const Changeinfo = () => {
                   <Upload
                     showUploadList={false}
                     beforeUpload={(file) => {
-                      const isJpg = file.type === 'image/jpeg';
-                      if (!isJpg) {
-                        alert('只允许上传 JPG 格式的图片');
+                      const isValidType = [
+                        'image/jpeg',
+                        'image/png',
+                        'image/webp',
+                      ].includes(file.type);
+                      if (!isValidType) {
+                        alert('只允许上传 JPG/PNG/WEBP 格式的图片');
+                        return Upload.LIST_IGNORE;
                       }
-                      return isJpg || Upload.LIST_IGNORE;
+                      const isLt2M = file.size <= 2 * 1024 * 1024;
+                      if (!isLt2M) {
+                        alert('图片不能超过 2MB');
+                        return Upload.LIST_IGNORE;
+                      }
+                      return true;
                     }}
                     customRequest={({ file, onSuccess }) => {
                       const fileObj = file as File;
