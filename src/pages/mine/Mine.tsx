@@ -11,7 +11,6 @@ import { useAuth } from '@/context/AuthContext';
 
 // 用户数据
 const userData = {
-  // portrait: '//mobile.xupt.edu.cn/res/15342187758400435.',
   portrait: Por,
 };
 
@@ -150,7 +149,6 @@ const Mine = () => {
   // 管理员/用户身份识别
   const [role, setRole] = useState(Number(localStorage.getItem('status')));
 
-
   // 点击子盒子冒泡触发父盒子的点击事件,传递子盒子的key给父盒子,再传给useActiveItem然后得到激活状态展开对应的子盒子的子内容?
   const navigate = useNavigate();
   const { activeItem: expandItem, handleItemClick: handleExpandItem } =
@@ -230,7 +228,7 @@ const Mine = () => {
       {/* 左侧导航栏 */}
       {showSubNav && (
         <div className="mine-leftnav">
-          {/* <div className="mine-leftnav-decorate-box">
+          <div className="mine-leftnav-decorate-box">
             <div
               className="mine-leftnav-decorate-red"
               style={{ backgroundColor: '#FF0040' }}
@@ -247,7 +245,7 @@ const Mine = () => {
               className="mine-leftnav-decorate-green"
               style={{ backgroundColor: '#59C442' }}
             ></div>
-          </div> */}
+          </div>
           <div className="leftnav-profile-container">
             <div className="leftnav-profile-box">
               <img src={userData.portrait} alt="" />
@@ -260,9 +258,7 @@ const Mine = () => {
               <ul className="user-func">
                 {userNavItem.map((item) => RenderNavItem(item))}
               </ul>
-              <button
-                onClick={() => setRole(role === 1 ? 0 : 1)}
-              >
+              <button onClick={() => setRole(role === 1 ? 0 : 1)}>
                 交换身份
               </button>
             </section>
@@ -273,9 +269,7 @@ const Mine = () => {
               <ul className="administrator-func">
                 {adminNavItem.map((item) => RenderNavItem(item))}
               </ul>
-              <button
-                onClick={() => setRole(role === 0 ? 1 : 0)}
-              >
+              <button onClick={() => setRole(role === 0 ? 1 : 0)}>
                 交换身份
               </button>
             </section>

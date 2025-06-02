@@ -13,6 +13,7 @@ export const getDirection = async (isExist?: boolean): Promise<Direction[]> => {
 
 // 用户端获取方向信息
 export const getAllDirection = async (
+  // tid?:number,
   name?: string,
   isExist?: boolean
 ): Promise<Direction[]> => {
@@ -29,19 +30,10 @@ export const getAllDirection = async (
 };
 
 // 管理上传方向信息
-// export const postDirectionInfo = async (
-//   direction: Direction
-// ): Promise<Directionres> => {
-//   const response = await post<Directionres>('api/team', direction, {
-//     customAuth: true,
-//   });
-//   return response;
-// };
-
 export const postDirection = async (
-  name: string = '测试',
-  brefInfo: string = '测试简介',
-  trainplan: string = '测试方向培养方案',
+  name: string,
+  brefInfo: string,
+  trainplan: string,
   isExist: boolean = true
 ): Promise<Directionres> => {
   const response = await post<Directionres>(
@@ -59,27 +51,16 @@ export const postDirection = async (
   return response;
 };
 
-// // 移除方向
-// export const delDirection = async (tid: number) => {
-//   const response = await del('api/team', {
-//     params: {
-//       tid,
-//     },
-//     customAuth: true,
-//   });
-//   return response;
-// };
-
 // 修改方向信息
-export const changeDirection = async (tid: number, isExist: string) => {
-  const response = await put(
-    `/api/team/${tid}`,
-    {
-      isExist,
-    },
-    {
-      customAuth: true,
-    }
-  );
+export const putDirection = async (params: {
+  tid?: number;
+  name?: string;
+  brefInfo?: string;
+  trainplan?: string;
+  isExist?: boolean;
+}) => {
+  const response = await put(`/api/team`, params, {
+    customAuth: true,
+  });
   return response;
 };

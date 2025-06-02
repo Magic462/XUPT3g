@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 // import { lazy, Suspense,useRef } from 'react';
 import Memlist from '@/pages/mine/subpages/administrator/subrouter/allmember/components/Memlist';
-// const Memlist = lazy(() => import('@/components/Memlist'));
 import './Allmember.scss';
 import { useActiveItem } from '@/hooks/useActiveItem';
 import DeleteConfirmModal from '@/components/DeleteConfirmModal';
@@ -51,13 +50,12 @@ const Allmember: React.FC = () => {
   const fetchMembers = useCallback(async () => {
     console.log(currentPage);
     try {
-      const response = await getMembers(
+      const response = await getMembers({
         isGraduate,
-        team,
-        undefined,
-        ITEMS_PER_PAGE,
-        currentPage
-      );
+        direction: team,
+        pageSize: ITEMS_PER_PAGE,
+        pageNum: currentPage,
+      });
       setFilterMembers(response.data);
       setPageNum(Math.ceil(response.total / ITEMS_PER_PAGE));
     } catch (err) {
