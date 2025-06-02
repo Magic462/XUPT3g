@@ -5,7 +5,7 @@ import { message } from '@/utils/message';
 import { Direction } from '@/types/direction';
 import { getAllDirection } from '@/services/directions';
 import { addMember } from '@/services/members';
-import { getUseinfo } from '@/services/userinfo';
+import { getUserinfo } from '@/services/userinfo';
 
 const years = [2024, 2023, 2022, 2021, 2020, 2019];
 
@@ -46,7 +46,7 @@ const Verifymember = () => {
       try {
         const response = await getAllDirection();
         setTeams(response);
-        const res = await getUseinfo('zhangsan222');
+        const res = await getUserinfo('zhangsan222');
         console.log(res);
       } catch (err) {
         message.error('请求组别失败');
