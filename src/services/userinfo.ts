@@ -2,8 +2,12 @@ import { get, post } from '@/utils/request/http';
 import { Userinfo, Userchangeinfo, ChangeUserResponse } from '@/types/userinfo';
 
 // 获取个人信息
-export const getUseinfo = async (): Promise<Userinfo> => {
-  const response = await get<Userinfo>('api/userinfo', { customAuth: true });
+export const getUseinfo = async (username:string): Promise<Userinfo> => {
+  const response = await get<Userinfo>('api/userinfo', { 
+    params:{
+      username
+    },
+    customAuth: true });
   return response;
 };
 
