@@ -2,7 +2,7 @@ import { get, post } from '@/utils/request/http';
 import { Userinfo, Userchangeinfo, ChangeUserResponse } from '@/types/userinfo';
 
 // 获取个人信息
-export const getUseinfo = async (username:string): Promise<Userinfo> => {
+export const getUserinfo = async (username:string = 'admin'): Promise<Userinfo> => {
   const response = await get<Userinfo>('api/userinfo', { 
     params:{
       username

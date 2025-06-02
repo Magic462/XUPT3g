@@ -4,7 +4,7 @@ import { useActiveItem } from '@/hooks/useActiveItem';
 import { useEffect, useState } from 'react';
 import Upload from 'antd/es/upload';
 import ImgCrop from 'antd-img-crop';
-import { postChangeInfo, getUseinfo } from '@/services/userinfo';
+import { postChangeInfo, getUserinfo } from '@/services/userinfo';
 import { getAllDirection } from '@/services/directions';
 import { Direction } from '@/types/direction';
 import { Userchangeinfo, Userinfo } from '@/types/userinfo';
@@ -21,7 +21,7 @@ const Changeinfo = () => {
   useEffect(() => {
     const fetchUserinfo = async () => {
       try {
-        const response = await getUseinfo();
+        const response = await getUserinfo();
         console.log(response);
         setUserInfo(response);
       } catch (error) {
