@@ -4,7 +4,7 @@ import './Alldirection.scss';
 import '@/assets/icons/font_38lh8lcfn7/iconfont.css';
 import DeleteConfirmModal from '@/components/DeleteConfirmModal';
 import { Direction } from '@/types/direction';
-import { getAllDirection, delDirection } from '@/services/directions';
+import { getAllDirection } from '@/services/directions';
 import { message } from '@/utils/message';
 
 interface RenderDirectionItemProps {
@@ -79,8 +79,8 @@ const Alldirection = () => {
 
   const delDirectionResponse = async (delId: number) => {
     try {
-      const response = await delDirection(delId);
-      console.log(response);
+      // const response = await delDirection(delId);
+      // console.log(response);
       message.success('移除成功');
       await fetchDirection();
       setIsDeleteModal(false);

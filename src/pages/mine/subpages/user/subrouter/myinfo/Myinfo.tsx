@@ -3,7 +3,6 @@ import Peohome from '@/components/Peohome';
 import './Myinfo.scss';
 import { getUserinfo } from '@/services/userinfo';
 import { Userinfo } from '@/types/userinfo';
-import { userInfo } from 'os';
 
 const Myinfo: React.FC = () => {
   const [dataList, setDataList] = useState<Userinfo | null>(null);
@@ -11,9 +10,9 @@ const Myinfo: React.FC = () => {
 
   useEffect(() => {
     const fetchUserinfo = async () => {
-      const username = localStorage.getItem('username')
+      const username = localStorage.getItem('username');
       try {
-        const response = await getUserinfo();
+        const response = await getUserinfo(username);
         console.log(response);
         setDataList(response);
       } catch (error) {

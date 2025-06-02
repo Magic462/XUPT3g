@@ -20,8 +20,9 @@ const Changeinfo = () => {
 
   useEffect(() => {
     const fetchUserinfo = async () => {
+      const username = localStorage.getItem('username');
       try {
-        const response = await getUserinfo();
+        const response = await getUserinfo(username);
         console.log(response);
         setUserInfo(response);
       } catch (error) {

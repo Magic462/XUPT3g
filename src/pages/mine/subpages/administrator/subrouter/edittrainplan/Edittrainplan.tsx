@@ -47,8 +47,7 @@ const Edittrainplan = () => {
         <button onClick={() => handleSubmit()}>发布</button>
       </div>
       {/* 引入富文本编辑 */}
-      <RichTextEditor></RichTextEditor>
-      {/* <RichTextEditor initHTML={trainPlan} onGetHTML={setActiveHTML} /> */}
+      <RichTextEditor initHTML={trainPlan} onGetHTML={setActiveHTML} />
     </div>
   );
 };

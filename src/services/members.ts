@@ -23,10 +23,10 @@ export const getMembers = async (
 
 // 添加成员
 export const addMember = async (
-  name: string = '张三测试',
-  username: string = 'zhangsanceshi',
-  team: string = 'Web',
-  year: number = 2023
+  name: string,
+  username: string,
+  team: string,
+  year: number
 ) => {
   const res = await post(
     '/api/members',
