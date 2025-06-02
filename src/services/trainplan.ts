@@ -1,8 +1,8 @@
 import { get, post } from '@/utils/request/http';
+import { TrainPlanRes } from '@/types/trainplan';
 
-export const getTrainPlan = async (): Promise<string> => {
-  const res = await get<string>('/api/trainplan');
-  console.log(res);
+export const getTrainPlan = async (): Promise<TrainPlanRes> => {
+  const res = await get<TrainPlanRes>('/api/trainplan');
   return res;
 };
 
