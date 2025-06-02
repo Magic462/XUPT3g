@@ -130,12 +130,16 @@ const Changeinfo = () => {
                   <Upload
                     showUploadList={false}
                     beforeUpload={(file) => {
-                      const isValidType = ['image/jpeg', 'image/png', 'image/webp'].includes(file.type);
+                      const isValidType = [
+                        'image/jpeg',
+                        'image/png',
+                        'image/webp',
+                      ].includes(file.type);
                       if (!isValidType) {
                         alert('只允许上传 JPG/PNG/WEBP 格式的图片');
                         return Upload.LIST_IGNORE;
                       }
-                      const isLt2M = file.size <= 2 * 1024 * 1024; 
+                      const isLt2M = file.size <= 2 * 1024 * 1024;
                       if (!isLt2M) {
                         alert('图片不能超过 2MB');
                         return Upload.LIST_IGNORE;
@@ -172,12 +176,16 @@ const Changeinfo = () => {
                   <Upload
                     showUploadList={false}
                     beforeUpload={(file) => {
-                      const isValidType = ['image/jpeg', 'image/png', 'image/webp'].includes(file.type);
+                      const isValidType = [
+                        'image/jpeg',
+                        'image/png',
+                        'image/webp',
+                      ].includes(file.type);
                       if (!isValidType) {
                         alert('只允许上传 JPG/PNG/WEBP 格式的图片');
                         return Upload.LIST_IGNORE;
                       }
-                      const isLt2M = file.size <= 2 * 1024 * 1024; 
+                      const isLt2M = file.size <= 2 * 1024 * 1024;
                       if (!isLt2M) {
                         alert('图片不能超过 2MB');
                         return Upload.LIST_IGNORE;
