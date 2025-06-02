@@ -12,7 +12,9 @@ const Edittrainplan = () => {
     const fetchTrainPlan = async () => {
       try {
         const response = await getTrainPlan();
-        setTrainPlan(response);
+        console.log(response);
+        
+        setTrainPlan(response.content);
       } catch (err) {
         message.error('获取培养方案失败');
         console.log('获取培养方案失败：', err);
