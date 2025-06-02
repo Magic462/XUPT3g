@@ -9,6 +9,7 @@ import { getAllDirection } from '@/services/directions';
 import { Direction } from '@/types/direction';
 import { Userchangeinfo, Userinfo } from '@/types/userinfo';
 import { getPictureUrl } from '@/services/picture';
+const { Dragger } = Upload;
 
 const Changeinfo = () => {
   const { activeItem: photoItem, handleItemClick: handlePhotoClick } =
@@ -114,6 +115,46 @@ const Changeinfo = () => {
     await fetchChangeInfo(data);
   };
 
+  //限制图片格式、分辨率、大小
+const checkImageBeforeUpload = (file: File): Promise<boolean | typeof Upload.LIST_IGNORE> => {
+  const isValidType = ['image/jpeg', 'image/png', 'image/webp'].includes(file.type);
+  if (!isValidType) {
+    alert('只允许上传 JPG/PNG/WEBP 格式的图片');
+    return Promise.resolve(Upload.LIST_IGNORE);
+  }
+
+  const isLt2M = file.size <= 2 * 1024 * 1024;
+  if (!isLt2M) {
+    alert('图片不能超过 2MB');
+    return Promise.resolve(Upload.LIST_IGNORE);
+  }
+
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const image = new Image();
+      image.onload = () => {
+        const { width, height } = image;
+        if (width < 300 || height < 300) {
+          alert('图片分辨率不能低于 300×300');
+          resolve(Upload.LIST_IGNORE);
+        } else {
+          resolve(true);
+        }
+      };
+      image.onerror = () => {
+        alert('图片读取失败');
+        resolve(Upload.LIST_IGNORE);
+      };
+      image.src = e.target?.result as string;
+    };
+    reader.readAsDataURL(file);
+  });
+};
+
+
+
+
   return (
     <div className="changeinfo-container">
       <div className="each-func-title">
@@ -128,25 +169,27 @@ const Changeinfo = () => {
             <div className="photo-box">
               {photoItem === 'profile-photo' ? (
                 <ImgCrop rotationSlider>
-                  <Upload
+                  <Dragger
                     showUploadList={false}
-                    beforeUpload={(file) => {
-                      const isValidType = [
-                        'image/jpeg',
-                        'image/png',
-                        'image/webp',
-                      ].includes(file.type);
-                      if (!isValidType) {
-                        alert('只允许上传 JPG/PNG/WEBP 格式的图片');
-                        return Upload.LIST_IGNORE;
-                      }
-                      const isLt2M = file.size <= 2 * 1024 * 1024;
-                      if (!isLt2M) {
-                        alert('图片不能超过 2MB');
-                        return Upload.LIST_IGNORE;
-                      }
-                      return true;
-                    }}
+                    accept="image/jpeg,image/png,image/webp"
+                    // beforeUpload={(file) => {
+                    //   const isValidType = [
+                    //     'image/jpeg',
+                    //     'image/png',
+                    //     'image/webp',
+                    //   ].includes(file.type);
+                    //   if (!isValidType) {
+                    //     alert('只允许上传 JPG/PNG/WEBP 格式的图片');
+                    //     return Upload.LIST_IGNORE;
+                    //   }
+                    //   const isLt2M = file.size <= 2 * 1024 * 1024;
+                    //   if (!isLt2M) {
+                    //     alert('图片不能超过 2MB');
+                    //     return Upload.LIST_IGNORE;
+                    //   }
+                    //   return true;
+                    // }}
+                    beforeUpload={checkImageBeforeUpload}
                     customRequest={({ file, onSuccess }) => {
                       const fileObj = file as File;
                       // 只更新 formData，保留 File 对象
@@ -168,30 +211,31 @@ const Changeinfo = () => {
                         className="clickable-img"
                       />
                     </div>
-                  </Upload>
+                  </Dragger>
                 </ImgCrop>
               ) : (
                 // 风采照上传部分
                 <ImgCrop rotationSlider aspect={4 / 3}>
                   <Upload
                     showUploadList={false}
-                    beforeUpload={(file) => {
-                      const isValidType = [
-                        'image/jpeg',
-                        'image/png',
-                        'image/webp',
-                      ].includes(file.type);
-                      if (!isValidType) {
-                        alert('只允许上传 JPG/PNG/WEBP 格式的图片');
-                        return Upload.LIST_IGNORE;
-                      }
-                      const isLt2M = file.size <= 2 * 1024 * 1024;
-                      if (!isLt2M) {
-                        alert('图片不能超过 2MB');
-                        return Upload.LIST_IGNORE;
-                      }
-                      return true;
-                    }}
+                    // beforeUpload={(file) => {
+                    //   const isValidType = [
+                    //     'image/jpeg',
+                    //     'image/png',
+                    //     'image/webp',
+                    //   ].includes(file.type);
+                    //   if (!isValidType) {
+                    //     alert('只允许上传 JPG/PNG/WEBP 格式的图片');
+                    //     return Upload.LIST_IGNORE;
+                    //   }
+                    //   const isLt2M = file.size <= 2 * 1024 * 1024;
+                    //   if (!isLt2M) {
+                    //     alert('图片不能超过 2MB');
+                    //     return Upload.LIST_IGNORE;
+                    //   }
+                    //   return true;
+                    // }}
+                    beforeUpload={checkImageBeforeUpload}
                     customRequest={({ file, onSuccess }) => {
                       const fileObj = file as File;
                       // 只更新 formData，保留 File 对象
