@@ -1,17 +1,17 @@
 export interface Userinfo {
   uid?: number;
-  portrait: string;
-  gender: number;
-  classGrade: string;
+  portrait?: string;
+  gender?: number;
+  classGrade?: string;
   year: number;
-  tel: string;
-  isGraduate: boolean;
+  tel?: string;
+  isGraduate?: boolean;
   username: string;
   name: string;
   team: string;
-  mienImg: string;
-  signature: string;
-  company: string;
+  mienImg?: string;
+  signature?: string;
+  company?: string;
   graduateImg?: string;
 }
 

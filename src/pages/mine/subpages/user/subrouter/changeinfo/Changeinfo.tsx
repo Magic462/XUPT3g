@@ -20,8 +20,9 @@ const Changeinfo = () => {
 
   useEffect(() => {
     const fetchUserinfo = async () => {
+      const username = localStorage.getItem('username');
       try {
-        const response = await getUserinfo();
+        const response = await getUserinfo(username);
         console.log(response);
         setUserInfo(response);
       } catch (error) {
@@ -161,8 +162,7 @@ const Changeinfo = () => {
                         src={
                           formData?.portrait instanceof File
                             ? URL.createObjectURL(formData.portrait)
-                            : 'http://10csqn6268959.vicp.fun:54760' +
-                              userinfo.portrait
+                            : userinfo.portrait
                         }
                         alt="头像"
                         className="clickable-img"

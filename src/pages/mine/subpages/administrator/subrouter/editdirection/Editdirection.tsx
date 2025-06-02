@@ -15,7 +15,6 @@ const Editdirection = () => {
     brefInfo: '',
     name: '',
     trainPlan: '',
-    brefInfo: '',
   });
 
   useEffect(() => {
@@ -36,6 +35,9 @@ const Editdirection = () => {
   }, [name]);
 
   const handleSubmit = async () => {
+      if (!postDirectionInfo.name.trim()) {
+    return message.warning('请填写方向名称！');
+  }
     if (postDirectionInfo.brefInfo.trim().length < 15) {
       return message.warning('方向简介不能少于15个字！');
     }
@@ -82,7 +84,7 @@ const Editdirection = () => {
             />
           </div>
           <div className="edit-diretion-btn-box">
-            <div className="edit-diretion-btn" onClick={() => handleSubmit}>
+            <div className="edit-diretion-btn" onClick={() => handleSubmit()}>
               添加
             </div>
           </div>

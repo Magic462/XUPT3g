@@ -1,4 +1,4 @@
-import { del, get, post } from '@/utils/request/http';
+import { get, post, put } from '@/utils/request/http';
 import { Direction, Directionres } from '@/types/direction';
 
 // 游客端看到的存在的方向的信息
@@ -41,7 +41,8 @@ export const getAllDirection = async (
 export const postDirection = async (
   name: string = '测试',
   brefInfo: string = '测试简介',
-  trainplan: string = '测试方向培养方案'
+  trainplan: string = '测试方向培养方案',
+  isExist: boolean = true
 ): Promise<Directionres> => {
   const response = await post<Directionres>(
     'api/team',
@@ -49,6 +50,7 @@ export const postDirection = async (
       name,
       brefInfo,
       trainplan,
+      isExist,
     },
     {
       customAuth: true,
@@ -57,13 +59,27 @@ export const postDirection = async (
   return response;
 };
 
-// 移除方向
-export const delDirection = async (tid: number) => {
-  const response = await del('api/team', {
-    params: {
-      tid,
+// // 移除方向
+// export const delDirection = async (tid: number) => {
+//   const response = await del('api/team', {
+//     params: {
+//       tid,
+//     },
+//     customAuth: true,
+//   });
+//   return response;
+// };
+
+// 修改方向信息
+export const changeDirection = async (tid: number, isExist: string) => {
+  const response = await put(
+    `/api/team/${tid}`,
+    {
+      isExist,
     },
-    customAuth: true,
-  });
+    {
+      customAuth: true,
+    }
+  );
   return response;
 };

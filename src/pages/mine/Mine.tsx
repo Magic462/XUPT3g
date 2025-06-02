@@ -148,7 +148,8 @@ const Mine = () => {
   }>();
 
   // 管理员/用户身份识别
-  const [role, setRole] = useState('user');
+  const [role, setRole] = useState(Number(localStorage.getItem('status')));
+
 
   // 点击子盒子冒泡触发父盒子的点击事件,传递子盒子的key给父盒子,再传给useActiveItem然后得到激活状态展开对应的子盒子的子内容?
   const navigate = useNavigate();
@@ -229,30 +230,30 @@ const Mine = () => {
       {/* 左侧导航栏 */}
       {showSubNav && (
         <div className="mine-leftnav">
-          <div className="mine-leftnav-decorate-box">
-            <span
+          {/* <div className="mine-leftnav-decorate-box">
+            <div
               className="mine-leftnav-decorate-red"
               style={{ backgroundColor: '#FF0040' }}
-            ></span>
-            <span
+            ></div>
+            <div
               className="mine-leftnav-decorate-yellow"
               style={{ backgroundColor: '#FFA300' }}
-            ></span>
-            <span
+            ></div>
+            <div
               className="mine-leftnav-decorate-blue"
               style={{ backgroundColor: '#15BAE7' }}
-            ></span>
-            <span
+            ></div>
+            <div
               className="mine-leftnav-decorate-green"
               style={{ backgroundColor: '#59C442' }}
-            ></span>
-          </div>
+            ></div>
+          </div> */}
           <div className="leftnav-profile-container">
             <div className="leftnav-profile-box">
               <img src={userData.portrait} alt="" />
             </div>
           </div>
-          {role === 'user' ? (
+          {role !== 0 ? (
             // 用户端
             <section className="nav-user">
               <h3 className="nav-title">个人端</h3>
@@ -260,7 +261,7 @@ const Mine = () => {
                 {userNavItem.map((item) => RenderNavItem(item))}
               </ul>
               <button
-                onClick={() => setRole(role === 'user' ? 'admin' : 'user')}
+                onClick={() => setRole(role === 1 ? 0 : 1)}
               >
                 交换身份
               </button>
@@ -273,7 +274,7 @@ const Mine = () => {
                 {adminNavItem.map((item) => RenderNavItem(item))}
               </ul>
               <button
-                onClick={() => setRole(role === 'user' ? 'admin' : 'user')}
+                onClick={() => setRole(role === 0 ? 1 : 0)}
               >
                 交换身份
               </button>
