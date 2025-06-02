@@ -26,7 +26,7 @@ const Edittrainplan = () => {
   const handleSubmit = async () => {
     setTrainPlan(articleHTML);
     try {
-      const response = await postTrainPlan();
+      const response = await postTrainPlan(articleHTML);
       console.log(response);
       message.success('发布成功');
       await getTrainPlan();

@@ -3,6 +3,7 @@ import { Navigate, RouteObject } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import Layout from '../layout/Layout';
 import Loading from '../components/Loading';
+// import Home from'../pages/Home/Home'
 const Home = lazy(() => import('../pages/Home/Home'));
 // 懒加载组件
 const Mine = lazy(() => import('../pages/mine/Mine'));
@@ -17,9 +18,7 @@ const Members = lazy(() => import('../pages/members/Members'));
 const Graduate = lazy(() => import('../pages/Graduate/Graduate'));
 const Login = lazy(() => import('../pages/login/Login'));
 const Blogs = lazy(() => import('../pages/blogs/Blogs'));
-// import Notfound from '@/pages/notfound/Notfound';
 const Notfound = lazy(() => import('../pages/notfound/Notfound'));
-// const Home = lazy(() => import('../pages/Home/Home'));
 
 // mine三级路由引入
 const Administrator = lazy(

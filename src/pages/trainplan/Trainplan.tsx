@@ -1,15 +1,33 @@
-import React from 'react';
+import React,{ useEffect,useState } from 'react';
 import './Trainplan.scss';
 import Footertop from '@/components/Footertop';
+import { getTrainPlan } from '@/services/trainplan';
 
 const Trainingplan: React.FC = () => {
+  const [Trainplan,setTrainPlan]=useState<string>('')
+
+  useEffect(() => {
+    const fetchTrainPlan = async () => {
+      try {
+        const response = await getTrainPlan();
+        console.log(response.content);
+        
+        setTrainPlan(response.content);
+      } catch (error) {
+        console.log('获取培养计划失败', error);
+      }
+    };
+    fetchTrainPlan();
+  }, []);
+
   return (
     <div className="plan-container">
       <div className="plan-page">
         <div className="plan-title">
           <p>西邮移动应用开发实验室培养计划</p>
         </div>
-        <h2>写在开始之前✨：</h2>
+        <div dangerouslySetInnerHTML={{ __html: Trainplan }} />
+        {/* <h2>写在开始之前✨：</h2>
         <p>
           在计算机领域，编程能力本质上是一种可习得的技术素养，其核心价值不在于与生俱来的智力天赋，而取决于系统性的实践积累与持续性的学习投入。
           我一直坚信环境可以塑造一个人，在从萌新成长为编程大神的道路上，你缺少的从来不是天赋，而是一群能陪你肝代码的队友。
@@ -172,7 +190,7 @@ const Trainingplan: React.FC = () => {
             <li>《Go语言趣学指南》</li>
             <li>《Go语言高级编程》</li>
           </ul>
-        </p>
+        </p> */}
       </div>
       <Footertop></Footertop>
     </div>

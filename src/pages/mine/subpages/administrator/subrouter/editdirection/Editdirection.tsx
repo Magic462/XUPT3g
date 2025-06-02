@@ -91,7 +91,7 @@ const Editdirection = () => {
           <textarea
             name=""
             id=""
-            placeholder="在这里编辑方向简介，不低于15字..."
+            placeholder="在这里编辑方向简介,少于15字..."
             value={postDirectionInfo.brefInfo}
             onChange={(e) =>
               setPostDirectionInfo({
