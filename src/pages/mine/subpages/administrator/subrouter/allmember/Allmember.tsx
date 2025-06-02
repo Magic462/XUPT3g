@@ -31,8 +31,6 @@ const Allmember: React.FC = () => {
   const [team, setTeam] = useState<string>();
   const [isGraduate, setIsGraduate] = useState<boolean>();
 
-  // const [other, setOther] = useState<Direction[]>([]);
-
   // 获取组别信息
   useEffect(() => {
     const fetchTeams = async () => {
@@ -50,12 +48,13 @@ const Allmember: React.FC = () => {
   const fetchMembers = useCallback(async () => {
     console.log(currentPage);
     try {
-      const response = await getMembers({
+      const response = await getMembers(
         isGraduate,
-        direction: team,
-        pageSize: ITEMS_PER_PAGE,
-        pageNum: currentPage,
-      });
+        team,
+        undefined,
+        ITEMS_PER_PAGE,
+        currentPage
+      );
       setFilterMembers(response.data);
       setPageNum(Math.ceil(response.total / ITEMS_PER_PAGE));
     } catch (err) {

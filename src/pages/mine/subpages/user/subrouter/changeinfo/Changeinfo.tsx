@@ -10,6 +10,7 @@ import { Direction } from '@/types/direction';
 import { Userchangeinfo, Userinfo } from '@/types/userinfo';
 import { getPictureUrl } from '@/services/picture';
 import { useSearchParams } from 'react-router-dom';
+import { message } from '@/utils/message';
 
 const Changeinfo = () => {
   const { activeItem: photoItem, handleItemClick: handlePhotoClick } =
@@ -81,10 +82,11 @@ const Changeinfo = () => {
   // 调用修改个人信息接口函数
   const fetchChangeInfo = async (changeInfo) => {
     try {
-      const response = await postChangeInfo(changeInfo);
-      console.log(response);
+      await postChangeInfo(changeInfo);
+      message.success('修改成功');
     } catch (err) {
       console.log('修改失败：', err);
+      message.error('修改失败');
     }
   };
 

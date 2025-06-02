@@ -24,19 +24,6 @@ const Memlist: React.FC<MemlistProps> = ({
     <div className="mem-item">
       <div className="mem-img-container">
         <img src={member.portrait} alt={member.username} className="mem-img" />
-        {/* {member.isGraduate === 1 ? (
-          <img
-            src={member.graduateImg}
-            alt={member.username}
-            className="mem-img"
-          />
-        ) : (
-          <img
-            src={member.portrait}
-            alt={member.username}
-            className="mem-img"
-          />
-        )} */}
       </div>
       <div className="mem-info">
         <div className="mem-name-status">
