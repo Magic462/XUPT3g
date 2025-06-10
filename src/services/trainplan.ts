@@ -3,7 +3,7 @@ import { TrainPlanRes } from '@/types/trainplan';
 
 export const getTrainPlan = async (): Promise<TrainPlanRes> => {
   const res = await get<TrainPlanRes>('/api/trainplan');
-  console.log(res);
+  // console.log(res);
   
   return res;
 };
@@ -16,6 +16,6 @@ export const postTrainPlan = async (content: string = '实验室培养方案') =
     { customAuth: true }
   );
 
-  console.log('上传实验室培养方案接口：', res);
+  // console.log('上传实验室培养方案接口：', res);
   return res;
 };
