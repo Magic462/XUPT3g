@@ -33,7 +33,7 @@ export const getAllDirection = async (
 export const postDirection = async (
   name: string,
   brefInfo: string,
-  trainplan: string,
+  trainPlan: string,
   isExist: boolean = true
 ): Promise<Directionres> => {
   const response = await post<Directionres>(
@@ -41,7 +41,7 @@ export const postDirection = async (
     {
       name,
       brefInfo,
-      trainplan,
+      trainPlan,
       isExist,
     },
     {
@@ -56,9 +56,10 @@ export const putDirection = async (params: {
   tid?: number;
   name?: string;
   brefInfo?: string;
-  trainplan?: string;
+  trainPlan?: string;
   isExist?: boolean;
 }) => {
+  console.log('修改方向信息', params);
   const response = await put(`/api/team`, params, {
     customAuth: true,
   });

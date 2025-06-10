@@ -25,6 +25,7 @@ const EXPANDABLE_ITEMS = {
   MEMBER: 'member',
   DIRECTIONPLAN: 'directionplan',
   EDITTRAININGPLAN: 'edittrainplan',
+  GROUPMEMBER: 'groupMember',
 } as const;
 // 二级导航栏项
 const SUB_EXPANDABLE_ITEMS = {
@@ -63,6 +64,12 @@ const userNavItem = [
     icon: 'icon-aixinjuankuan',
     label: '捐款信息',
     path: '/mine/user/donation',
+  },
+  {
+    key: EXPANDABLE_ITEMS.GROUPMEMBER,
+    icon: 'icon-chengyuan',
+    label: '成员列表',
+    path: '/mine/user/groupmember',
   },
   {
     key: EXPANDABLE_ITEMS.DIRECTIONPLAN,
@@ -141,9 +148,8 @@ const adminNavItem = [
 
 const Mine = () => {
   // 从一级路由Layout读取showSubNav状态
-  const { showSubNav, setShowSubNav } = useOutletContext<{
+  const { showSubNav } = useOutletContext<{
     showSubNav: boolean;
-    setShowSubNav: (value: boolean) => void;
   }>();
 
   // 管理员/用户身份识别

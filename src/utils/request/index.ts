@@ -8,7 +8,7 @@ import { message } from '@/utils/message';
 
 // 创建axios实例
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: 'http://192.168.1.16:8080',
+  baseURL: 'http://10csqn6268959.vicp.fun',
   timeout: 10000,
   headers: { 'Content-Type': 'application/json' },
 });

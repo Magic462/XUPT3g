@@ -1,24 +1,31 @@
 import { useEffect, useState } from 'react';
 import './DonationList.scss';
 import { useEnterToFocusNextInput } from '@/hooks/useEnterToNextInput';
-import { getDonationInfo, postDonationInfo } from '@/services/donation';
+import {
+  getDonationInfo,
+  postDonationInfo,
+  deleteDonation,
+} from '@/services/donation';
 import { Donationinfo } from '@/types/donation';
-import message from 'antd/es/message';
+import { message } from '@/utils/message';
+import DeleteConfirmModal from './DeleteConfirmModal';
 
 interface YeardonationProps {
   donations: Donationinfo[];
+  onDelete: (id: number) => void;
 }
 // 最早捐款年份
 const MIN_DONATION_YEAR = 2015;
 const inputCount = 2;
 
-const Yeardonation: React.FC<YeardonationProps> = ({ donations }) => {
+const Yeardonation: React.FC<YeardonationProps> = ({ donations, onDelete }) => {
   return (
     <table>
       <thead>
         <tr>
           <th>捐款人姓名</th>
           <th>捐款金额</th>
+          <th>操作</th>
         </tr>
       </thead>
       <tbody>
@@ -27,6 +34,11 @@ const Yeardonation: React.FC<YeardonationProps> = ({ donations }) => {
             <tr key={item.id}>
               <td>{item.name}</td>
               <td>{item.money}</td>
+              <td>
+                <div className="delete-btn" onClick={() => onDelete(item.id)}>
+                  <span>×</span>
+                </div>
+              </td>
             </tr>
           );
         })}
@@ -38,6 +50,8 @@ const Yeardonation: React.FC<YeardonationProps> = ({ donations }) => {
 const DonationList = () => {
   const role = localStorage.getItem('status');
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteId, setDeleteId] = useState<number>(0);
 
   // 调用enter自动聚焦下一个input
   const { getRef, handleKeyDown } = useEnterToFocusNextInput(inputCount);
@@ -59,6 +73,14 @@ const DonationList = () => {
     remark: '爱心捐款',
     time: `${time}`,
   });
+
+  // 添加这个useEffect来同步time和formData.time
+  useEffect(() => {
+    setFormData((prev) => ({
+      ...prev,
+      time: `${time}`,
+    }));
+  }, [time]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -120,15 +142,30 @@ const DonationList = () => {
         setDonations(response);
       } catch (err) {
         console.log('获取捐款信息失败：', err);
+        message.warning('获取捐款信息失败');
       }
     };
 
     fetchDonations();
   }, [time]);
 
-  useEffect(() => {
-    console.log(pendingDonations);
-  }, [pendingDonations]);
+  const handleDelete = async (id: number) => {
+    try {
+      await deleteDonation(id);
+      message.success('删除成功');
+      const res = await getDonationInfo(time);
+      setDonations(res);
+      setShowDeleteModal(false);
+    } catch (err) {
+      console.error('删除失败：', err);
+      message.error('删除失败，请稍后再试');
+    }
+  };
+
+  const handleDeleteClick = (id: number) => {
+    setDeleteId(id);
+    setShowDeleteModal(true);
+  };
 
   return (
     <>
@@ -157,12 +194,28 @@ const DonationList = () => {
         )}
       </div>
 
-      {donations && <Yeardonation donations={donations}></Yeardonation>}
+      {donations && (
+        <Yeardonation donations={donations} onDelete={handleDeleteClick} />
+      )}
+
+      {showDeleteModal && (
+        <DeleteConfirmModal
+          delId={deleteId}
+          remindMessage={`确定要删除 ${donations.find((d) => d.id === deleteId)?.name} 的捐款记录吗？`}
+          onHandlerDelete={setShowDeleteModal}
+          onDelete={handleDelete}
+        />
+      )}
 
       {showModal && (
         <div className="donation-modal">
           <div className="modal-content">
             <h3>录入捐款信息</h3>
+            <div className="donation-input-header">
+              <span className="donation-count">
+                已录入{pendingDonations.length}人
+              </span>
+            </div>
             <input
               type="text"
               name="name"

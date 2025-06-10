@@ -30,7 +30,6 @@ const Postactivity = () => {
           const response = await getActivityContent(Number(aid));
           console.log(response);
           setPostActiveInfo(response);
-          // setActiveHTML(response.content);
         } catch (err) {
           message.error('获取文章信息', err);
         }

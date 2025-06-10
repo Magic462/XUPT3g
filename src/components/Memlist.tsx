@@ -3,6 +3,7 @@ import './Memlist.scss';
 import { Members } from '@/types/members';
 import Peohome from '@/components/Peohome';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/context/AuthContext';
 // import { Userinfo } from '@/types/userinfo';
 
 interface MemlistProps {
@@ -20,6 +21,9 @@ const Memlist: React.FC<MemlistProps> = ({
 }) => {
   const [peohomeShow, setPeohomeShow] = useState<boolean>(false);
   const navigate = useNavigate();
+  const { status } = useAuth();
+  const isAdmin = status === '0';
+
   return (
     <div className="mem-item">
       <div className="mem-img-container">
@@ -41,15 +45,17 @@ const Memlist: React.FC<MemlistProps> = ({
         <button className="view-button" onClick={() => setPeohomeShow(true)}>
           查看
         </button>
-        <button
-          className="delete-button"
-          onClick={() => {
-            onHandlerDelete(true);
-            onHandleDelAid(member.uid);
-          }}
-        >
-          删除
-        </button>
+        {isAdmin && (
+          <button
+            className="delete-button"
+            onClick={() => {
+              onHandlerDelete(true);
+              onHandleDelAid(member.uid);
+            }}
+          >
+            删除
+          </button>
+        )}
       </div>
       {peohomeShow && (
         <div className="mem-item-peohome-overlay">

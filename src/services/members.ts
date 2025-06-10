@@ -1,12 +1,13 @@
 import { get, post, del } from '@/utils/request/http';
-import { MembersResponse } from '@/types/members';
+import { MembersResponse, Members } from '@/types/members';
 
 export const getMembers = async (
   isGraduate?: boolean,
   direction?: string,
   year?: string,
   pageSize?: number,
-  pageNum?: number
+  pageNum?: number,
+  name?: string
 ): Promise<MembersResponse> => {
   const response = await get<MembersResponse>('api/members', {
     params: {
@@ -15,8 +16,22 @@ export const getMembers = async (
       year,
       pageSize,
       pageNum,
+      name,
     },
   });
+
+  console.log(response);
+  return response;
+};
+
+// 搜索成员
+export const getMember = async (name: string): Promise<Members> => {
+  const response = await get<Members>('api/member', {
+    params: {
+      name,
+    },
+  });
+
   console.log(response);
   return response;
 };

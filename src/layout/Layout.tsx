@@ -19,7 +19,7 @@ const MainLayout: React.FC = () => {
     showSubNav: false,
   });
 
-  const { token } = useAuth();
+  const { token, status } = useAuth();
 
   const menuItems = token
     ? [
@@ -27,7 +27,7 @@ const MainLayout: React.FC = () => {
         { path: '/members', label: '成员风采' },
         { path: '/graduate', label: '毕业去处' },
         { path: '/trainingplan', label: '培养计划' },
-        { path: '/mine', label: '我的' },
+        { path: status === '0' ? '/mine/admin' : '/mine/user', label: '我的' },
       ]
     : [
         { path: '/activities', label: '活动' },
