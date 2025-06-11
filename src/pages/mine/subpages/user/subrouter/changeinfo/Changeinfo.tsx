@@ -11,6 +11,8 @@ import { Userchangeinfo, Userinfo } from '@/types/userinfo';
 import { getPictureUrl } from '@/services/picture';
 import { useSearchParams } from 'react-router-dom';
 const { Dragger } = Upload;
+import { useSearchParams } from 'react-router-dom';
+import { message } from '@/utils/message';
 
 const Changeinfo = () => {
   const { activeItem: photoItem, handleItemClick: handlePhotoClick } =
@@ -82,10 +84,11 @@ const Changeinfo = () => {
   // 调用修改个人信息接口函数
   const fetchChangeInfo = async (changeInfo) => {
     try {
-      const response = await postChangeInfo(changeInfo);
-      console.log(response);
+      await postChangeInfo(changeInfo);
+      message.success('修改成功');
     } catch (err) {
       console.log('修改失败：', err);
+      message.error('修改失败');
     }
   };
 
@@ -120,44 +123,45 @@ const Changeinfo = () => {
   };
 
   //限制图片格式、分辨率、大小
-const checkImageBeforeUpload = (file: File): Promise<boolean | typeof Upload.LIST_IGNORE> => {
-  const isValidType = ['image/jpeg', 'image/png', 'image/webp'].includes(file.type);
-  if (!isValidType) {
-    alert('只允许上传 JPG/PNG/WEBP 格式的图片');
-    return Promise.resolve(Upload.LIST_IGNORE);
-  }
+  const checkImageBeforeUpload = (
+    file: File
+  ): Promise<boolean | typeof Upload.LIST_IGNORE> => {
+    const isValidType = ['image/jpeg', 'image/png', 'image/webp'].includes(
+      file.type
+    );
+    if (!isValidType) {
+      alert('只允许上传 JPG/PNG/WEBP 格式的图片');
+      return Promise.resolve(Upload.LIST_IGNORE);
+    }
 
-  const isLt2M = file.size <= 2 * 1024 * 1024;
-  if (!isLt2M) {
-    alert('图片不能超过 2MB');
-    return Promise.resolve(Upload.LIST_IGNORE);
-  }
+    const isLt2M = file.size <= 2 * 1024 * 1024;
+    if (!isLt2M) {
+      alert('图片不能超过 2MB');
+      return Promise.resolve(Upload.LIST_IGNORE);
+    }
 
-  return new Promise((resolve) => {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const image = new Image();
-      image.onload = () => {
-        const { width, height } = image;
-        if (width < 300 || height < 300) {
-          alert('图片分辨率不能低于 300×300');
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const image = new Image();
+        image.onload = () => {
+          const { width, height } = image;
+          if (width < 300 || height < 300) {
+            alert('图片分辨率不能低于 300×300');
+            resolve(Upload.LIST_IGNORE);
+          } else {
+            resolve(true);
+          }
+        };
+        image.onerror = () => {
+          alert('图片读取失败');
           resolve(Upload.LIST_IGNORE);
-        } else {
-          resolve(true);
-        }
+        };
+        image.src = e.target?.result as string;
       };
-      image.onerror = () => {
-        alert('图片读取失败');
-        resolve(Upload.LIST_IGNORE);
-      };
-      image.src = e.target?.result as string;
-    };
-    reader.readAsDataURL(file);
-  });
-};
-
-
-
+      reader.readAsDataURL(file);
+    });
+  };
 
   return (
     <div className="changeinfo-container">

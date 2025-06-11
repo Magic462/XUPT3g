@@ -20,6 +20,11 @@ declare global {
 declare module '@wangeditor/editor' {
   interface IEditorConfig {
     uploadImgFromMedia?: () => void;
+    XSSFilter: boolean;
+    pasteFilterStyle: boolean;
+    customParseHtml?: (html: string) => HTMLElement;
+
+    // sanitize: boolean;
   }
 }
 
@@ -83,14 +88,50 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
     },
   };
 
+  // function preprocessHTML(html: string): string {
+  //   // 替换 <div class="media-wrap image-wrap"> 包裹的 img 为直接 img
+  //   return html.replace(
+  //     /<div class="media-wrap image-wrap">\s*(<img[^>]*>)\s*<\/div>/g,
+  //     '$1'
+  //   );
+  // }
+
+  // useEffect(() => {
+  //   if (initHTML) {
+  //     console.log(initHTML);
+  //     const cleanHTML = preprocessHTML(initHTML);
+  //     setHtml(cleanHTML);
+  //   }
+
+  // }, [initHTML]);
+  // editor.dangerouslyInsertHtml(
+  //   '<div class="media-wrap image-wrap"><img src="xxx.jpg" /></div>'
+  // );
+
   useEffect(() => {
     if (initHTML) {
+      console.log(initHTML);
       setHtml(initHTML);
+      if (editor) {
+        editor.setHtml(initHTML);
+      }
+    } else {
+      setHtml('<p><br></p>');
+      if (editor) {
+        editor.setHtml('<p><br></p>');
+      }
     }
-  }, [initHTML]);
+  }, [initHTML, editor]);
 
   const editorConfig: Partial<IEditorConfig> = {
     placeholder: '在这里编辑新闻动态吧...',
+    XSSFilter: false,
+    pasteFilterStyle: false,
+    customParseHtml: (html: string) => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      return doc.body;
+    },
     MENU_CONF: {
       uploadImage: {
         server: '', // 禁用默认上传

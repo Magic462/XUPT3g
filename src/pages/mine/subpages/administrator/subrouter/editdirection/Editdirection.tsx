@@ -30,6 +30,7 @@ const Editdirection = () => {
           console.log(response);
           setPostDirectionInfo(response[0]);
           setTid(response[0].tid);
+          setActiveHTML(response[0].trainPlan);
         } catch (err) {
           message.error('获取文章信息', err);
         }
@@ -49,14 +50,17 @@ const Editdirection = () => {
       console.log(articleHTML);
       return message.warning('请输入活动培养方案');
     }
-    setPostDirectionInfo({ ...postDirectionInfo, trainPlan: articleHTML });
 
     try {
       if (name) {
         // 编辑该方向
         console.log('现在是编辑方向接口');
-        postDirectionInfo.tid = tid;
-        const response = await putDirection(postDirectionInfo);
+        const updatedInfo = {
+          ...postDirectionInfo,
+          tid,
+          trainplan: articleHTML,
+        };
+        const response = await putDirection(updatedInfo);
 
         console.log('方向编辑成功:', response);
         message.success('方向编辑成功');
@@ -65,7 +69,7 @@ const Editdirection = () => {
         const response = await postDirection(
           postDirectionInfo.name,
           postDirectionInfo.brefInfo,
-          postDirectionInfo.trainPlan
+          articleHTML
         );
 
         console.log('方向添加:', response);
@@ -74,7 +78,7 @@ const Editdirection = () => {
 
       // 重置状态
       setPostDirectionInfo({ name: '', trainPlan: '', brefInfo: '' });
-      setActiveHTML(null);
+      setActiveHTML('<p><br></p>');
     } catch (err) {
       console.error('方向编辑失败', err);
     }

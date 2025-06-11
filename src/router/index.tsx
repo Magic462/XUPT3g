@@ -162,6 +162,18 @@ const routes: RouteObject[] = [
             ),
             children: [
               {
+                index: true,
+                element: <Navigate to="editdonation" replace />,
+              },
+              {
+                path: 'editdonation',
+                element: (
+                  <Suspense fallback={<Loading />}>
+                    <Editdonation />
+                  </Suspense>
+                ),
+              },
+              {
                 path: 'allactivity',
                 element: (
                   <Suspense fallback={<Loading />}>
@@ -190,14 +202,6 @@ const routes: RouteObject[] = [
                 element: (
                   <Suspense fallback={<Loading />}>
                     <Editdirection />
-                  </Suspense>
-                ),
-              },
-              {
-                path: 'editdonation',
-                element: (
-                  <Suspense fallback={<Loading />}>
-                    <Editdonation />
                   </Suspense>
                 ),
               },

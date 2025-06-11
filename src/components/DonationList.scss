@@ -1,11 +1,22 @@
 table {
-  border-collapse: separate;
-  border-spacing: 0;
   width: 100%;
+  border-collapse: collapse;
   border-radius: 0.8rem;
   overflow: hidden;
   background-color: #fff;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.89);
+
+  th,
+  td {
+    padding: 12px;
+    text-align: center;
+    vertical-align: middle;
+    height: 48px;
+  }
+
+  td:last-child {
+    width: 80px;
+  }
 }
 
 th {
@@ -197,6 +208,43 @@ select {
       justify-content: flex-end;
       gap: 12px;
       margin-top: 20px;
+    }
+  }
+}
+
+.donation-input-header {
+  display: flex;
+  // justify-content: flex-end;
+  margin-bottom: 0.1rem;
+
+  .donation-count {
+    color: #302f2f;
+    font-size: 0.9rem;
+  }
+}
+
+.delete-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #eee;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  span {
+    color: #666;
+    font-size: 16px;
+    line-height: 1;
+    transition: all 0.3s ease;
+  }
+
+  &:hover {
+    background-color: #ff4d4f;
+    span {
+      color: #fff;
     }
   }
 }

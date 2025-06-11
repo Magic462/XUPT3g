@@ -30,7 +30,6 @@ const Postactivity = () => {
           const response = await getActivityContent(Number(aid));
           console.log(response);
           setPostActiveInfo(response);
-          // setActiveHTML(response.content);
         } catch (err) {
           message.error('获取文章信息', err);
         }
@@ -41,7 +40,9 @@ const Postactivity = () => {
   }, [aid]);
 
   const handleSubmit = async () => {
-    if (!coverFile) return message.warning('请先选择封面图');
+    if (!coverFile && !postArticleInfo.img) {
+      return message.warning('请先选择封面图');
+    }
     if (!postArticleInfo.title.trim()) return message.warning('请输入标题');
     if (!articleHTML || articleHTML.trim() === '<p><br></p>')
       return message.warning('请输入文章内容');

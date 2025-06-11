@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useCallback } from 'react';
 // import { lazy, Suspense,useRef } from 'react';
-import Memlist from '@/pages/mine/subpages/administrator/subrouter/allmember/components/Memlist';
+import Memlist from '@/components/Memlist';
 import './Allmember.scss';
 import { useActiveItem } from '@/hooks/useActiveItem';
 import DeleteConfirmModal from '@/components/DeleteConfirmModal';
 import FooterPagination from '@/components/FooterPagination';
 import { Members } from '@/types/members';
 import { Direction } from '@/types/direction';
-import { delMember, getMembers } from '@/services/members';
+import { delMember, getMembers, getMember } from '@/services/members';
 import { getAllDirection } from '@/services/directions';
 import { message } from '@/utils/message';
+import '@/assets/icons/font_rkifxavxcn/iconfont.css';
 
 // 每页显示的成员数量
 const ITEMS_PER_PAGE = 10;
@@ -23,6 +24,9 @@ const Allmember: React.FC = () => {
 
   const [isDeleteModal, setIsDeleteModal] = useState(false);
   const [delId, setDelId] = useState<number>();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<Members>();
+  const [showSearchResults, setShowSearchResults] = useState(false);
 
   const [filterMembers, setFilterMembers] = useState<Members[]>([]);
   const [pageNum, setPageNum] = useState(0);
@@ -30,8 +34,6 @@ const Allmember: React.FC = () => {
   const [allTeams, setAllTeams] = useState<Direction[]>([]);
   const [team, setTeam] = useState<string>();
   const [isGraduate, setIsGraduate] = useState<boolean>();
-
-  // const [other, setOther] = useState<Direction[]>([]);
 
   // 获取组别信息
   useEffect(() => {
@@ -41,6 +43,7 @@ const Allmember: React.FC = () => {
         setAllTeams(response);
       } catch (err) {
         console.log('获取组别信息失败：', err);
+        message.warning('获取组别信息失败');
       }
     };
 
@@ -50,16 +53,18 @@ const Allmember: React.FC = () => {
   const fetchMembers = useCallback(async () => {
     console.log(currentPage);
     try {
-      const response = await getMembers({
+      const response = await getMembers(
         isGraduate,
-        direction: team,
-        pageSize: ITEMS_PER_PAGE,
-        pageNum: currentPage,
-      });
+        team,
+        undefined,
+        ITEMS_PER_PAGE,
+        currentPage
+      );
       setFilterMembers(response.data);
       setPageNum(Math.ceil(response.total / ITEMS_PER_PAGE));
     } catch (err) {
       console.log('获取成员信息失败：', err);
+      message.warning('获取成员信息失败');
     }
   }, [currentPage, team, isGraduate]);
 
@@ -82,6 +87,36 @@ const Allmember: React.FC = () => {
     }
   };
 
+  // 处理搜索
+  const handleSearch = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && searchQuery.trim()) {
+      try {
+        const response = await getMember(searchQuery.trim());
+        setSearchResults(response);
+        setShowSearchResults(true);
+        console.log(response);
+      } catch (err) {
+        console.log('搜索成员失败：', err);
+        message.warning('搜索成员失败');
+      }
+    }
+  };
+
+  // 点击外部关闭搜索结果
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const searchContainer = document.querySelector('.search-container');
+      if (searchContainer && !searchContainer.contains(event.target as Node)) {
+        setShowSearchResults(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="allmember-container">
       <div className="each-func-title">
@@ -89,6 +124,41 @@ const Allmember: React.FC = () => {
           <i className={`each-func-icons iconfont icon-chengyuan`}></i>
           成员列表
         </h2>
+      </div>
+      <div className="search-container">
+        <div className="search-box">
+          <input
+            type="text"
+            placeholder="搜索成员..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleSearch}
+          />
+          <i className="iconfont icon-sousuo search-icon"></i>
+        </div>
+        {/* {showSearchResults && (
+          <div className="search-results">
+            {searchResults.map((member) => (
+              <div key={member.uid} className="search-result-item">
+                <span className="member-name">{member.name}</span>
+                <span className="member-team">{member.team}</span>
+              </div>
+            ))}
+          </div>
+          
+        )} */}
+        {showSearchResults && (
+          <div className="search-results">
+            {searchResults ? (
+              <div key={searchResults.uid} className="search-result-item">
+                <span className="searchResults-name">{searchResults.name}</span>
+                <span className="searchResults-team">{searchResults.team}</span>
+              </div>
+            ) : (
+              <div className="search-result-empty">抱歉，未查询到该用户</div>
+            )}
+          </div>
+        )}
       </div>
       <div className="filter-buttons">
         <div className="filter-teams">
