@@ -11,7 +11,7 @@ import { Userchangeinfo, Userinfo } from '@/types/userinfo';
 import { getPictureUrl } from '@/services/picture';
 import { useSearchParams } from 'react-router-dom';
 const { Dragger } = Upload;
-import { useSearchParams } from 'react-router-dom';
+// import { useSearchParams } from 'react-router-dom';
 import { message } from '@/utils/message';
 
 const Changeinfo = () => {
