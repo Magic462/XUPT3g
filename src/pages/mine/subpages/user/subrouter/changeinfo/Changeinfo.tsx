@@ -9,6 +9,7 @@ import { getAllDirection } from '@/services/directions';
 import { Direction } from '@/types/direction';
 import { Userchangeinfo, Userinfo } from '@/types/userinfo';
 import { getPictureUrl } from '@/services/picture';
+import { useSearchParams } from 'react-router-dom';
 const { Dragger } = Upload;
 
 const Changeinfo = () => {
@@ -169,29 +170,12 @@ const checkImageBeforeUpload = (file: File): Promise<boolean | typeof Upload.LIS
       {userinfo && directions && (
         <div className="changeinfo-box">
           <div className="changeinfo-photochange-box">
-            <div className="photo-box">
+            <div className="photo-box" title="点击或拖拽上传图片">
               {photoItem === 'profile-photo' ? (
                 <ImgCrop rotationSlider>
                   <Dragger
                     showUploadList={false}
                     accept="image/jpeg,image/png,image/webp"
-                    // beforeUpload={(file) => {
-                    //   const isValidType = [
-                    //     'image/jpeg',
-                    //     'image/png',
-                    //     'image/webp',
-                    //   ].includes(file.type);
-                    //   if (!isValidType) {
-                    //     alert('只允许上传 JPG/PNG/WEBP 格式的图片');
-                    //     return Upload.LIST_IGNORE;
-                    //   }
-                    //   const isLt2M = file.size <= 2 * 1024 * 1024;
-                    //   if (!isLt2M) {
-                    //     alert('图片不能超过 2MB');
-                    //     return Upload.LIST_IGNORE;
-                    //   }
-                    //   return true;
-                    // }}
                     beforeUpload={checkImageBeforeUpload}
                     customRequest={({ file, onSuccess }) => {
                       const fileObj = file as File;
@@ -221,23 +205,6 @@ const checkImageBeforeUpload = (file: File): Promise<boolean | typeof Upload.LIS
                 <ImgCrop rotationSlider aspect={4 / 3}>
                   <Upload
                     showUploadList={false}
-                    // beforeUpload={(file) => {
-                    //   const isValidType = [
-                    //     'image/jpeg',
-                    //     'image/png',
-                    //     'image/webp',
-                    //   ].includes(file.type);
-                    //   if (!isValidType) {
-                    //     alert('只允许上传 JPG/PNG/WEBP 格式的图片');
-                    //     return Upload.LIST_IGNORE;
-                    //   }
-                    //   const isLt2M = file.size <= 2 * 1024 * 1024;
-                    //   if (!isLt2M) {
-                    //     alert('图片不能超过 2MB');
-                    //     return Upload.LIST_IGNORE;
-                    //   }
-                    //   return true;
-                    // }}
                     beforeUpload={checkImageBeforeUpload}
                     customRequest={({ file, onSuccess }) => {
                       const fileObj = file as File;
