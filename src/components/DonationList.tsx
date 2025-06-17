@@ -13,19 +13,24 @@ import DeleteConfirmModal from './DeleteConfirmModal';
 interface YeardonationProps {
   donations: Donationinfo[];
   onDelete: (id: number) => void;
+  role: string;
 }
 // 最早捐款年份
 const MIN_DONATION_YEAR = 2015;
 const inputCount = 2;
 
-const Yeardonation: React.FC<YeardonationProps> = ({ donations, onDelete }) => {
+const Yeardonation: React.FC<YeardonationProps> = ({
+  donations,
+  onDelete,
+  role,
+}) => {
   return (
     <table>
       <thead>
         <tr>
           <th>捐款人姓名</th>
           <th>捐款金额</th>
-          <th>操作</th>
+          {role === '0' && <th>操作</th>}
         </tr>
       </thead>
       <tbody>
@@ -34,11 +39,13 @@ const Yeardonation: React.FC<YeardonationProps> = ({ donations, onDelete }) => {
             <tr key={item.id}>
               <td>{item.name}</td>
               <td>{item.money}</td>
-              <td>
-                <div className="delete-btn" onClick={() => onDelete(item.id)}>
-                  <span>×</span>
-                </div>
-              </td>
+              {role === '0' && (
+                <td>
+                  <div className="delete-btn" onClick={() => onDelete(item.id)}>
+                    <span>×</span>
+                  </div>
+                </td>
+              )}
             </tr>
           );
         })}
@@ -195,7 +202,11 @@ const DonationList = () => {
       </div>
 
       {donations && (
-        <Yeardonation donations={donations} onDelete={handleDeleteClick} />
+        <Yeardonation
+          donations={donations}
+          onDelete={handleDeleteClick}
+          role={role}
+        />
       )}
 
       {showDeleteModal && (

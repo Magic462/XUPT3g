@@ -5,16 +5,26 @@ import './Allmember.scss';
 import { useActiveItem } from '@/hooks/useActiveItem';
 import DeleteConfirmModal from '@/components/DeleteConfirmModal';
 import FooterPagination from '@/components/FooterPagination';
+import Peohome from '@/components/Peohome';
 import { Members } from '@/types/members';
 import { Direction } from '@/types/direction';
 import { delMember, getMembers, getMember } from '@/services/members';
 import { getAllDirection } from '@/services/directions';
 import { message } from '@/utils/message';
 import '@/assets/icons/font_rkifxavxcn/iconfont.css';
+import { useNavigate } from 'react-router-dom';
 
 // 每页显示的成员数量
 const ITEMS_PER_PAGE = 10;
 
+// 防抖函数
+const debounce = (func: (...args) => void, wait: number) => {
+  let timeout: NodeJS.Timeout;
+  return (...args) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
+};
 const Allmember: React.FC = () => {
   const { activeItem: activeGroup, handleItemClick: handleGroupClick } =
     useActiveItem<string>('');
@@ -22,11 +32,15 @@ const Allmember: React.FC = () => {
   const { activeItem: activeGraduate, handleItemClick: handleGraduateClick } =
     useActiveItem<string>('graduated');
 
+  const navigate = useNavigate();
   const [isDeleteModal, setIsDeleteModal] = useState(false);
   const [delId, setDelId] = useState<number>();
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState<Members>();
+  const [searchResults, setSearchResults] = useState<Members[]>();
   const [showSearchResults, setShowSearchResults] = useState(false);
+
+  const [showMemberInfo, setShowMemberInfo] = useState(false);
+  const [selectedMember, setSelectedMember] = useState<Members | null>(null);
 
   const [filterMembers, setFilterMembers] = useState<Members[]>([]);
   const [pageNum, setPageNum] = useState(0);
@@ -88,18 +102,33 @@ const Allmember: React.FC = () => {
   };
 
   // 处理搜索
-  const handleSearch = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && searchQuery.trim()) {
+  const handleSearch = async (query: string) => {
+    if (query.trim()) {
       try {
-        const response = await getMember(searchQuery.trim());
+        const response = await getMember(query.trim());
         setSearchResults(response);
         setShowSearchResults(true);
-        console.log(response);
       } catch (err) {
         console.log('搜索成员失败：', err);
         message.warning('搜索成员失败');
       }
+    } else {
+      setShowSearchResults(false);
+      setSearchResults([]);
     }
+  };
+
+  // 使用useCallback和防抖包装搜索函数
+  const debouncedSearch = useCallback(
+    debounce((query: string) => handleSearch(query), 300),
+    []
+  );
+
+  // 处理输入变化
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+    debouncedSearch(value);
   };
 
   // 点击外部关闭搜索结果
@@ -117,6 +146,12 @@ const Allmember: React.FC = () => {
     };
   }, []);
 
+  // 处理搜索结果点击
+  const handleSearchResultClick = (member: Members) => {
+    setSelectedMember(member);
+    setShowMemberInfo(true);
+  };
+
   return (
     <div className="allmember-container">
       <div className="each-func-title">
@@ -131,32 +166,63 @@ const Allmember: React.FC = () => {
             type="text"
             placeholder="搜索成员..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyDown={handleSearch}
+            onChange={handleInputChange}
           />
           <i className="iconfont icon-sousuo search-icon"></i>
         </div>
-        {/* {showSearchResults && (
-          <div className="search-results">
-            {searchResults.map((member) => (
-              <div key={member.uid} className="search-result-item">
-                <span className="member-name">{member.name}</span>
-                <span className="member-team">{member.team}</span>
-              </div>
-            ))}
-          </div>
-          
-        )} */}
         {showSearchResults && (
           <div className="search-results">
-            {searchResults ? (
-              <div key={searchResults.uid} className="search-result-item">
-                <span className="searchResults-name">{searchResults.name}</span>
-                <span className="searchResults-team">{searchResults.team}</span>
-              </div>
+            {searchResults && searchResults.length > 0 ? (
+              searchResults.map((member) => (
+                <div
+                  key={member.uid}
+                  className="search-result-item"
+                  onClick={() => handleSearchResultClick(member)}
+                >
+                  <span className="searchResults-name">{member.name}</span>
+                  <span className="searchResults-team">{member.team}</span>
+                </div>
+              ))
             ) : (
               <div className="search-result-empty">抱歉，未查询到该用户</div>
             )}
+          </div>
+        )}
+        {showMemberInfo && selectedMember && (
+          <div className="search-member-info-container">
+            <Peohome
+              portrait={selectedMember.portrait}
+              gender={selectedMember.gender}
+              classGrade={selectedMember.classGrade}
+              year={selectedMember.year}
+              tel={selectedMember.tel}
+              isGraduate={selectedMember.isGraduate === 1 ? true : false}
+              username={selectedMember.username}
+              name={selectedMember.name}
+              team={selectedMember.team}
+              mienImg={selectedMember.mienImg}
+              signature={selectedMember.signature}
+              company={selectedMember.company}
+            />
+            <div
+              className="search-member-detail-close"
+              onClick={() => {
+                setShowMemberInfo(false);
+                setSelectedMember(null);
+              }}
+            >
+              关闭
+            </div>
+            <div
+              className="search-member-detail-edit"
+              onClick={() =>
+                navigate(
+                  `/mine/user/changeinfo?username=${selectedMember.username}`
+                )
+              }
+            >
+              前往编辑
+            </div>
           </div>
         )}
       </div>
