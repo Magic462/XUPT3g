@@ -1,3 +1,31 @@
+// table {
+//   width: 100%;
+//   border-collapse: collapse;
+//   border-radius: 0.8rem;
+//   overflow: hidden;
+//   background-color: #fff;
+//   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.89);
+//   // display: unset;
+
+//   th,
+//   td {
+//     padding: 12px;
+//     text-align: center;
+//     vertical-align: middle;
+//     height: 48px;
+//   }
+
+//   td:last-child {
+//     width: 80px;
+//   }
+// }
+
+// td {
+//   font-size: 0.9rem;
+//   color: #000000;
+//   text-align: center;
+//   padding: 0.6rem 0;
+// }
 table {
   width: 100%;
   border-collapse: collapse;
@@ -5,21 +33,10 @@ table {
   overflow: hidden;
   background-color: #fff;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.89);
-
-  th,
-  td {
-    padding: 12px;
-    text-align: center;
-    vertical-align: middle;
-    height: 48px;
-  }
-
-  td:last-child {
-    width: 80px;
-  }
 }
 
 th {
+  flex: 1;
   background-color: #f0f2f5;
   color: #000000;
   font-size: 0.95rem;
@@ -31,12 +48,11 @@ th {
 
 tr {
   position: relative;
-  height: 3.5rem;
+  height: 3rem;
   transition: background-color 0.2s ease;
-  // font-size: 0.9rem;
 
   &:hover {
-    background-color: #f9f9f9;
+    background-color: #e2e2e250;
   }
 
   &::after {
@@ -50,11 +66,11 @@ tr {
   }
 }
 
+th,
 td {
-  font-size: 0.9rem;
-  color: #000000;
+  font-size: 0.85rem;
+  padding: 0.2rem;
   text-align: center;
-  padding: 0.6rem 0;
 }
 
 .donation-controls-box {

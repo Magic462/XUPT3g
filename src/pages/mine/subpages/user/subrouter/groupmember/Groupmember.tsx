@@ -2,37 +2,36 @@ import React, { useState, useEffect } from 'react';
 import Memlist from '@/components/Memlist';
 import './Groupmember.scss';
 import { Members } from '@/types/members';
+import { getUserinfo } from '@/services/userinfo';
+import { getMembers } from '@/services/members';
 
 const Groupmember: React.FC = () => {
+  const [team, setTeam] = useState<string | null>(null);
   const [dataList, setDataList] = useState<Members[]>([]);
+  const fetchGroup = async () => {
+    // const response = await getGroupMembers(userInfo.team);
+    // setDataList(response.data.dataList);
+    const response = await getUserinfo(localStorage.getItem('username'));
+    console.log(response);
+    setTeam(response.team);
+  };
+
+  const fetchMembers = async (direction: string) => {
+    const response = await getMembers(false, direction);
+    // setDataList(response.data.dataList)
+    console.log(response);
+    setDataList(response.data);
+  };
 
   useEffect(() => {
-    // 模拟从后端获取数据，实际应用中需要使用axios等库进行真实请求
-    const mockData = {
-      status: 1,
-      data: {
-        dataList: [
-          {
-            uid: 1,
-            username: 'yangyuan',
-            name: '杨远',
-            team: 'Web',
-            portrait: '//mobile.xupt.edu.cn/res/14957725307919851.jpg',
-            signature: '啊啊啊啊啊啊回来了',
-            company: 'shopee',
-            isGraduate: 0,
-            gender: 1,
-            year: 2021,
-            tel: '12345678901',
-            mienImg: '',
-            graduateImg: '//mobile.xupt.edu.cn/res/14957725307919851.jpg',
-            classGrade: '计科2101',
-          },
-        ],
-      },
-    };
-    setDataList(mockData.data.dataList);
+    fetchGroup();
   }, []);
+
+  useEffect(() => {
+    if (team) {
+      fetchMembers(team);
+    }
+  }, [team]);
 
   return (
     <div className="groupmember-container">

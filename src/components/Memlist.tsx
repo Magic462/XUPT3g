@@ -80,14 +80,16 @@ const Memlist: React.FC<MemlistProps> = ({
             >
               关闭
             </div>
-            <div
-              className="mem-item-peohome-to-edit"
-              onClick={() =>
-                navigate(`/mine/user/changeinfo?username=${member.username}`)
-              }
-            >
-              前往编辑
-            </div>
+            {isAdmin && (
+              <div
+                className="mem-item-peohome-to-edit"
+                onClick={() =>
+                  navigate(`/mine/user/changeinfo?username=${member.username}`)
+                }
+              >
+                前往编辑
+              </div>
+            )}
           </div>
         </div>
       )}

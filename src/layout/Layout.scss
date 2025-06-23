@@ -304,11 +304,11 @@
   }
 }
 
-// @media (max-width: 768px) {
-//   .menu-container {
-//     // height: 100px;
-//     // &.menu-height {
-//     //   height: 110px;
-//     // }
-//   }
-// }
+@media (max-width: 768px) {
+  .menu-container {
+    // height: 100px;
+    &.menu-height {
+      height: 110px;
+    }
+  }
+}
