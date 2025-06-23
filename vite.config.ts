@@ -17,7 +17,7 @@ export default defineConfig({
       ext: '.gz', // 生成的压缩文件扩展名
     }),
     createStyleImportPlugin({
-      // 使用 createStyleImportPlugin 创建插件
+      // 使用 createStyleImportPlugin 创建插件，按需引入antd
       libs: [
         {
           libraryName: 'antd',
@@ -34,5 +34,11 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist', // 确保这里是 'dist'
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      },
+    },
   },
 });
