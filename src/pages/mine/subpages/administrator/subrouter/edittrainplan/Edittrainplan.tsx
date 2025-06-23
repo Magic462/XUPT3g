@@ -13,7 +13,7 @@ const Edittrainplan = () => {
       try {
         const response = await getTrainPlan();
         console.log(response);
-        
+
         setTrainPlan(response.content);
       } catch (err) {
         message.error('获取培养方案失败');

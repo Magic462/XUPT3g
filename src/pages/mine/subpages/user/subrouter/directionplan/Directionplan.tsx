@@ -3,7 +3,7 @@ import { useActiveItem } from '@/hooks/useActiveItem';
 import './Directionplan.scss';
 import { useEffect, useRef, useState } from 'react';
 import { getAllDirection } from '@/services/directions';
-import { Direction } from '@/types/direction';
+// import { Direction } from '@/types/direction';
 
 // 获取现有的方向数据
 const nowDirections = [

@@ -34,10 +34,22 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist', // 确保这里是 'dist'
+    target: 'es2015',
     terserOptions: {
       compress: {
         drop_console: true,
         drop_debugger: true,
+      },
+    },
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react')) return 'react';
+            if (id.includes('antd')) return 'antd';
+            return 'vendor';
+          }
+        },
       },
     },
   },

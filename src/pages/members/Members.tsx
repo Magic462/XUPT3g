@@ -63,7 +63,7 @@ const Member = () => {
         <Tabs tabs={platforms} onTabChange={setSelectedDirection} />
       )}
       {/* 传入props:mienImg */}
-      <People members={membersMap[selectedDirection] || []} imgKey="mienImg" />
+      <People members={(membersMap[selectedDirection] || [])as Members[]} imgKey="mienImg" />
     </div>
   );
 };

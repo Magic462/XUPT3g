@@ -88,9 +88,7 @@ const Home: React.FC = () => {
             </video>
           </div>
           <div className="hero-tip">
-            <h1>
-              西邮移动应用开发实验室
-            </h1>
+            <h1>西邮移动应用开发实验室</h1>
             <p>探索移动应用开发的无限可能</p>
           </div>
         </div>
