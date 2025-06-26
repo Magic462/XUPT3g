@@ -6,6 +6,11 @@ import { createStyleImportPlugin } from 'vite-plugin-style-import';
 import compression from 'vite-plugin-compression';
 
 export default defineConfig({
+    server: {
+    host: '0.0.0.0',  // 关键！允许外部访问
+    port: 5173,
+    strictPort: true   // 禁止自动切换端口
+  },
   plugins: [
     react(),
     compression({
@@ -17,7 +22,7 @@ export default defineConfig({
       ext: '.gz', // 生成的压缩文件扩展名
     }),
     createStyleImportPlugin({
-      // 使用 createStyleImportPlugin 创建插件
+      // 使用 createStyleImportPlugin 创建插件，按需引入antd
       libs: [
         {
           libraryName: 'antd',
@@ -32,7 +37,33 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src'), // 这样 `@` 才能指向 `src`
     },
   },
+  optimizeDeps: {
+    exclude:['react', 'react-dom']
+  },
   build: {
     outDir: 'dist', // 确保这里是 'dist'
+    target: 'es2015',
+    commonjsOptions: {
+      include: [/node_modules/],
+    },
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      },
+    },
+    rollupOptions: {
+      output: {
+        // 新增全局变量绑定
+        globals: {
+          'react': 'React',
+          'react-dom': 'ReactDOM'
+        },
+        manualChunks: {
+          react: ['react', 'react-dom'],
+          antd: ['antd']
+        }
+      }
+    }
   },
 });

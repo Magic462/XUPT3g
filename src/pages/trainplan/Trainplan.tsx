@@ -1,10 +1,10 @@
-import React,{ useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Trainplan.scss';
 import Footertop from '@/components/Footertop';
 import { getTrainPlan } from '@/services/trainplan';
 
 const Trainingplan: React.FC = () => {
-  const [Trainplan,setTrainPlan]=useState<string>('')
+  const [Trainplan, setTrainPlan] = useState<string>('');
 
   useEffect(() => {
     const fetchTrainPlan = async () => {

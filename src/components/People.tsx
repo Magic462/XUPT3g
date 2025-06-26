@@ -1,28 +1,28 @@
 import React, { useState } from 'react';
 import './People.scss';
+import type { Members } from '@/types/members'
 
-interface Members {
-  uid: string;
-  name: string;
-  team: string;
-  company?: string;
-  [key: string]: string | undefined;
-  signature?: string;
-}
+// interface Members {
+//   uid: number;
+//   name: string;
+//   team: string;
+//   company?: string;
+//   signature?: string;
+//   [key: string]: string | number | undefined;
+// }
 
 interface PeopleProps {
   members: Members[];
   imgKey?: 'graduateImg' | 'mienImg';
 }
 
-// const People = ({ members }) => {
 
 const People: React.FC<PeopleProps> = ({ members, imgKey = 'mienImg' }) => {
-  const [showSignatureCard, setShowSignatureCard] = useState<string | null>(
+  const [showSignatureCard, setShowSignatureCard] = useState<number | null>(
     null
   );
 
-  const handleSignatureClick = (uid: string) => {
+  const handleSignatureClick = (uid: number) => {
     setShowSignatureCard((prev) => (prev === uid ? null : uid));
   };
 
@@ -32,8 +32,7 @@ const People: React.FC<PeopleProps> = ({ members, imgKey = 'mienImg' }) => {
         <div key={member.uid} className="people-comp">
           <div className="people-photo">
             <img
-              // src={member.graduateImg || member.mienImg}
-              src={member[imgKey] || ''}
+              src={String(member[imgKey] || '')}
               alt={member.name}
               loading="lazy"
             />

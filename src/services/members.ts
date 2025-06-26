@@ -25,11 +25,12 @@ export const getMembers = async (
 };
 
 // 搜索成员
-export const getMember = async (name: string): Promise<Members> => {
-  const response = await get<Members>('api/member', {
+export const getMember = async (name: string): Promise<Members[]> => {
+  const response = await get<Members[]>('api/member', {
     params: {
       name,
     },
+    customAuth: true,
   });
 
   console.log(response);

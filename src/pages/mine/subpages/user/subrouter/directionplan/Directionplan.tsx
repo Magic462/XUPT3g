@@ -3,7 +3,7 @@ import { useActiveItem } from '@/hooks/useActiveItem';
 import './Directionplan.scss';
 import { useEffect, useRef, useState } from 'react';
 import { getAllDirection } from '@/services/directions';
-import { Direction } from '@/types/direction';
+// import { Direction } from '@/types/direction';
 
 // 获取现有的方向数据
 const nowDirections = [
@@ -127,7 +127,7 @@ const Directionplan = () => {
         ease: 'power1.out',
         delay: 0.3,
         onComplete: () => {
-          setHasAnimated(false); // 重置状态，方便之后重新滑到底又触发
+          setHasAnimated(false);
         },
       });
     }

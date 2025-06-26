@@ -176,7 +176,7 @@ const Mine = () => {
   // 退出登录函数
   const { logout } = useAuth();
   // 检查token是否过期
-  const { token, checkTokenValid } = useAuth();
+  const { checkTokenValid } = useAuth();
   useEffect(() => {
     if (!checkTokenValid()) {
       // token 无效会自动 logout 并跳转

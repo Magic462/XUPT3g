@@ -5,13 +5,29 @@ import axios, {
   InternalAxiosRequestConfig,
 } from 'axios';
 import { message } from '@/utils/message';
+import https from 'https'
+
+// 开发环境：创建忽略证书验证的Agent（仅用于本地测试）
+const devAgent = new https.Agent({ 
+  rejectUnauthorized: false 
+})
 
 // 创建axios实例
-const axiosInstance: AxiosInstance = axios.create({
-  baseURL: 'http://10csqn6268959.vicp.fun',
+const axiosInstance = axios.create({
+  // 动态配置（优先使用环境变量，默认兜底）
+  baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
   timeout: 10000,
-  headers: { 'Content-Type': 'application/json' },
-});
+  headers: {
+    'Content-Type': 'application/json',
+    'X-Requested-With': 'XMLHttpRequest'
+  },
+
+  // 生产环境携带凭据（如需要）
+  withCredentials: import.meta.env.PROD,
+
+  // 开发环境忽略证书验证
+  httpsAgent: import.meta.env.DEV ? devAgent : undefined
+})
 
 // 请求拦截器
 axiosInstance.interceptors.request.use(
