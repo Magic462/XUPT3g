@@ -1,4 +1,4 @@
-import './Footerpagination.scss';
+import './FooterPagination.scss';
 import { useState, useEffect } from 'react';
 import React from 'react';
 import '@/assets/icons/font_5wqplvdpjmq/iconfont.css';
