@@ -43,9 +43,6 @@ export default defineConfig({
   build: {
     outDir: 'dist', // 确保这里是 'dist'
     target: 'es2015',
-    commonjsOptions: {
-      include: [/node_modules/],
-    },
     terserOptions: {
       compress: {
         drop_console: true,
@@ -54,16 +51,14 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        // 新增全局变量绑定
-        globals: {
-          'react': 'React',
-          'react-dom': 'ReactDOM'
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react')) return 'react';
+            if (id.includes('antd')) return 'antd';
+            return 'vendor';
+          }
         },
-        manualChunks: {
-          react: ['react', 'react-dom'],
-          antd: ['antd']
-        }
-      }
-    }
+      },
+    },
   },
 });
