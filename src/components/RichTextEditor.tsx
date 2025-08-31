@@ -207,8 +207,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
         onClose={() => setMediaVisible(false)}
         onInsert={handleInsertImage}
       />
-
-      <div style={{ marginTop: 20 }}>{html}</div>
     </>
   );
 };

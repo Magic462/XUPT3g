@@ -1,5 +1,5 @@
 .id-activity-container {
-  background-color: #e4e4e4;
+  background-color: #e4e4e4cc;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -22,6 +22,9 @@
       letter-spacing: 0.6px;
       line-height: 1.5;
       font-size: 1rem;
+    }
+    p:has(img) {
+      text-align: center;
     }
     h2 {
       font-size: 1.6rem;

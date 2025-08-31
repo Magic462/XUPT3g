@@ -73,6 +73,7 @@ const Memlist: React.FC<MemlistProps> = ({
               mienImg={member.mienImg}
               signature={member.signature}
               company={member.company}
+              graduateImg={member.graduateImg}
             ></Peohome>
             <div
               className="mem-item-peohome-close"

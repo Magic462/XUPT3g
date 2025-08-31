@@ -3,7 +3,7 @@
   height: 100%;
   display: grid;
   grid-template-columns: 15% 85%;
-  background: url('../../assets/logoBack.png');
+  background: url('@/assets/images/logoBack.png');
   // background-color: #1890ff;
 }
 
@@ -50,7 +50,6 @@
   img {
     border-radius: 50%;
     width: 6rem;
-    height: 6rem;
     object-fit: cover;
   }
 }
@@ -168,6 +167,11 @@
   overflow: auto;
   background-color: rgba(73, 72, 77, 0.65);
   background-color: rgba(131, 131, 131, 0.6);
+  scrollbar-width: none; /* Firefox */
+
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+  }
 
   .each-func-title {
     width: 100%;

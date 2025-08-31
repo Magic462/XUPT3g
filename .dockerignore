@@ -1,0 +1,27 @@
+# 忽略依赖（会在容器中重新安装）
+node_modules
+
+# 忽略构建产物（防止误把旧的dist带入builder）
+dist
+dist.zip
+
+# 日志文件
+*.log
+
+# IDE / 编辑器配置文件
+.vscode
+.idea
+
+# Git 配置和忽略文件
+.git
+.gitignore
+
+# 文档、说明
+README.md
+
+# TypeScript 构建缓存
+*.tsbuildinfo
+
+# 临时/杂项文件
+*.swp
+*.DS_Store

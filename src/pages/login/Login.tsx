@@ -13,6 +13,7 @@ const Login = () => {
   const [captchaData, setCaptchaData] = useState<string>('');
   const [captchaImg, setCaptchaImg] = useState<string>('');
   const [captchaID, setCaptchaID] = useState<string>('');
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const nav = useNavigate();
 
@@ -114,7 +115,7 @@ const Login = () => {
               <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
             </svg>
             <input
-              type="text"
+              type={showPassword ? 'text' : 'password'}
               className="input-field"
               placeholder="Password"
               value={password}
@@ -122,6 +123,13 @@ const Login = () => {
                 setPassword(e.target.value);
               }}
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="toggle-password"
+            >
+              {showPassword ? 'Hide' : 'Show'}
+            </button>
           </div>
           <div className="field">
             <svg

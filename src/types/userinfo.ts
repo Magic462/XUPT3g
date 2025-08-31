@@ -5,7 +5,7 @@ export interface Userinfo {
   classGrade?: string;
   year: number;
   tel?: string;
-  isGraduate?: boolean;
+  isGraduate?: boolean | number;
   username: string;
   name: string;
   team: string;
@@ -26,6 +26,7 @@ export interface Userchangeinfo {
   company?: string;
   mienImg?: string | File;
   portrait?: string | File;
+  graduateImg?: string | File;
 }
 
 export interface ChangeUserResponse {

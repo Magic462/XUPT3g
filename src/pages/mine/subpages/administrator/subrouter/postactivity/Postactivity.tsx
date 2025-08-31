@@ -40,16 +40,19 @@ const Postactivity = () => {
   }, [aid]);
 
   const handleSubmit = async () => {
-    if (!coverFile && !postArticleInfo.img) {
-      return message.warning('请先选择封面图');
-    }
+    // if (!coverFile && !postArticleInfo.img) {
+    //   return message.warning('请先选择封面图');
+    // }
     if (!postArticleInfo.title.trim()) return message.warning('请输入标题');
     if (!articleHTML || articleHTML.trim() === '<p><br></p>')
       return message.warning('请输入文章内容');
 
     try {
-      const res = await getPictureUrl(coverFile);
-      const imageUrl = res.url;
+      let imageUrl = 'https://mobile.xupt.edu.cn/res/static/wiki_default.jpg';
+      if (coverFile) {
+        const res = await getPictureUrl(coverFile);
+        imageUrl = res.url;
+      }
 
       // 提交文章信息
       const result = await postArticle(
@@ -59,7 +62,6 @@ const Postactivity = () => {
       );
 
       console.log('文章发布成功:', result);
-      // alert('文章发布成功');
       message.success('文章发布成功');
 
       // 重置状态
@@ -157,7 +159,10 @@ const Postactivity = () => {
                         </div>
                       </div>
                     ) : (
-                      <div className="upload-placeholder">点击上传封面图</div>
+                      <div className="upload-placeholder">
+                        <p>点击上传封面图</p>
+                        <p>未选择则使用默认封面</p>
+                      </div>
                     )}
                   </div>
                 </Upload>

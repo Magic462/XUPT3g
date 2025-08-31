@@ -1,14 +1,13 @@
 import axios, {
   AxiosError,
-  AxiosInstance,
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from 'axios';
 import { message } from '@/utils/message';
 
 // 创建axios实例
-const axiosInstance: AxiosInstance = axios.create({
-  baseURL: 'http://10csqn6268959.vicp.fun',
+const axiosInstance = axios.create({
+  baseURL: '/',
   timeout: 10000,
   headers: { 'Content-Type': 'application/json' },
 });

@@ -15,7 +15,9 @@ const Peohome: React.FC<Userinfo> = ({
   mienImg,
   signature,
   company,
+  graduateImg,
 }) => {
+  // console.log(graduateImg);
   return (
     <div className="peo-home-container">
       <div className="header-section">
@@ -66,10 +68,15 @@ const Peohome: React.FC<Userinfo> = ({
           </div>
           <div className="basic-info-section-right">
             <div className="info-item mien-box">
-              <label>风采照</label>
+              {isGraduate ? <label>毕业照</label> : <label>风采照</label>}
+
               <div className="mien-photo-box">
-                {/* <img src='res/17137928617381890.jpg'></img> */}
-                <img src={mienImg}></img>
+                {isGraduate ? (
+                  <img src={graduateImg} alt="" />
+                ) : (
+                  <img src={mienImg}></img>
+                )}
+                {/* <img src={mienImg}></img> */}
               </div>
             </div>
           </div>

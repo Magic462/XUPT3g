@@ -4,6 +4,7 @@
   justify-content: center;
   padding: 2rem 0;
   cursor: pointer;
+  background-color: #e4e4e4cc;
   .plan-page {
     // min-width: 500px;
     width: 60%;
@@ -14,6 +15,8 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 1rem 2.2rem 2.2rem;
     min-height: 813px;
+    box-sizing: border-box;
+    background-color: #fff;
     p,
     ul {
       margin: 1rem 0;
@@ -74,12 +77,13 @@
       height: 27vh;
       background:
         linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.6)),
-        url('../../assets/goodstudy.jpeg');
+        url(~@/assets/images/goodstudy.jpeg);
       background-size: cover;
       background-repeat: no-repeat;
       border-radius: 8px;
       margin-bottom: 1rem;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
       p {
         position: absolute;
         top: 50%;
@@ -97,11 +101,12 @@
 @media (max-width: 768px) {
   .plan-container {
     .plan-page {
-      min-width: 394px;
+      // min-width: 394px;
+      width: 100%;
       .plan-title {
         height: 10vh;
         p {
-          min-width: 394px;
+          // min-width: 394px;
           font-size: 1.2rem;
         }
       }

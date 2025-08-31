@@ -4,6 +4,20 @@
   justify-content: center;
   align-items: center;
 }
+
+.back-allmember {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 0.5rem;
+  &:hover {
+    color: #1890ff;
+    cursor: pointer;
+  }
+}
 .changeinfo-box {
   background-color: #fff;
   border-radius: 0.8rem;
@@ -21,6 +35,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 
   .photo-box {
     width: 12rem;
@@ -57,7 +72,7 @@
   }
 
   .change-photo-btn {
-    width: 100%;
+    width: 120%;
     display: flex;
     justify-content: space-around;
 

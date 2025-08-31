@@ -10,33 +10,6 @@ import { Userinfo } from '@/types/userinfo';
 
 const years = [2024, 2023, 2022, 2021, 2020, 2019];
 
-// const Renderunverifirdmember = (item: {
-//   name: string;
-//   gender: string;
-//   year: number;
-//   group: string;
-//   stuId: string;
-//   classGrade: string;
-// }) => {
-//   return (
-//     <div className="unverified-member-box">
-//       {/* {registers.map((item) => ( */}
-//       <ul key={item.stuId} className="unverified-member">
-//         <li>姓名：{item.name}</li>
-//         <li>性别：{item.gender}</li>
-//         <li>入学年：{item.year}</li>
-//         <li>方向：{item.group}</li>
-//         <li>专业班级：{item.classGrade}</li>
-//         <li>学号：{item.stuId}</li>
-//         <div className="unverified-member-btns">
-//           <button>通过</button>
-//           <button>不通过</button>
-//         </div>
-//       </ul>
-//       {/* ))} */}
-//     </div>
-//   );
-// };
 const inputCount = 2;
 
 const Verifymember = () => {
@@ -79,6 +52,12 @@ const Verifymember = () => {
 
     try {
       const response = await addMember(name, username, team, year); // 传入表单信息
+      setPostMemberInfo({
+        name: '',
+        username: '',
+        team: teams[0]?.name || '',
+        year: years[0],
+      });
       console.log(response);
       message.success('添加成员成功');
     } catch (err) {

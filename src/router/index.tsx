@@ -17,7 +17,7 @@ const ActivityContent = lazy(
 const Members = lazy(() => import('../pages/members/Members'));
 const Graduate = lazy(() => import('../pages/Graduate/Graduate'));
 const Login = lazy(() => import('../pages/login/Login'));
-const Blogs = lazy(() => import('../pages/blogs/Blogs'));
+// const Blogs = lazy(() => import('../pages/blogs/Blogs'));
 const Notfound = lazy(() => import('../pages/notfound/Notfound'));
 
 // mine三级路由引入
@@ -137,14 +137,14 @@ const routes: RouteObject[] = [
           </Suspense>
         ),
       },
-      {
-        path: '/blogs',
-        element: (
-          <Suspense fallback={<Loading />}>
-            <Blogs />
-          </Suspense>
-        ),
-      },
+      // {
+      //   path: '/blogs',
+      //   element: (
+      //     <Suspense fallback={<Loading />}>
+      //       <Blogs />
+      //     </Suspense>
+      //   ),
+      // },
       {
         path: '/mine',
         element: (

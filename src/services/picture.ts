@@ -17,7 +17,6 @@ export const getPictureUrl = async (image: File): Promise<PictureResponse> => {
     }
   );
 
-  response.url = 'http://10csqn6268959.vicp.fun:54760' + response.url;
   console.log(response);
   return response;
 };

@@ -31,7 +31,8 @@ const ActivityContent: React.FC = () => {
             <div
               className="id-activity-title"
               style={{
-                backgroundImage: `linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url(//mobile.xupt.edu.cn/${activity.img})`,
+                // backgroundImage: `linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url(//mobile.xupt.edu.cn/${activity.img})`,
+                backgroundImage: `linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url(${activity.img})`,
               }}
             >
               <p>{activity.title}</p>

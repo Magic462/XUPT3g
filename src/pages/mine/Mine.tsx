@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet, useNavigate, useOutletContext } from 'react-router-dom';
 import './Mine.scss';
 import '@/assets/icons/font_4k8jwf31qbs/iconfont.css';
@@ -6,13 +6,8 @@ import '@/assets/icons/font_f7int92srzr/iconfont.css';
 import '@/assets/icons/font_ry8o2ikys/iconfont.css';
 import '@/assets/icons/font_95rv9yhaqnu/iconfont.css';
 import { useActiveItem } from '@/hooks/useActiveItem';
-import Por from '../../assets/wxqr.webp';
 import { useAuth } from '@/context/AuthContext';
-
-// 用户数据
-const userData = {
-  portrait: Por,
-};
+import { getUserinfo } from '@/services/userinfo';
 
 // 一级导航栏项
 const EXPANDABLE_ITEMS = {
@@ -153,9 +148,8 @@ const Mine = () => {
   }>();
 
   // 管理员/用户身份识别
-  const [role, setRole] = useState(Number(localStorage.getItem('status')));
+  // const [role, setRole] = useState(Number(localStorage.getItem('status')));
 
-  // 点击子盒子冒泡触发父盒子的点击事件,传递子盒子的key给父盒子,再传给useActiveItem然后得到激活状态展开对应的子盒子的子内容?
   const navigate = useNavigate();
   const { activeItem: expandItem, handleItemClick: handleExpandItem } =
     useActiveItem<ExpandableItem>();
@@ -182,6 +176,23 @@ const Mine = () => {
       // token 无效会自动 logout 并跳转
     }
   }, [checkTokenValid]);
+
+  const [portrait, setPortrait] = useState<string>(null);
+
+  useEffect(() => {
+    const fetchUserinfo = async () => {
+      const username = localStorage.getItem('username');
+      try {
+        const response = await getUserinfo(username);
+        console.log(response.portrait);
+        setPortrait(response.portrait);
+      } catch (error) {
+        console.error('获取个人信息:', error);
+      }
+    };
+
+    fetchUserinfo();
+  }, []);
 
   // 左侧导航各个item渲染
   const RenderNavItem = (item: {
@@ -254,19 +265,16 @@ const Mine = () => {
           </div>
           <div className="leftnav-profile-container">
             <div className="leftnav-profile-box">
-              <img src={userData.portrait} alt="" />
+              <img src={portrait} alt="" />
             </div>
           </div>
-          {role !== 0 ? (
+          {localStorage.getItem('status') !== '0' ? (
             // 用户端
             <section className="nav-user">
               <h3 className="nav-title">个人端</h3>
               <ul className="user-func">
                 {userNavItem.map((item) => RenderNavItem(item))}
               </ul>
-              <button onClick={() => setRole(role === 1 ? 0 : 1)}>
-                交换身份
-              </button>
             </section>
           ) : (
             // 管理员端
@@ -275,9 +283,6 @@ const Mine = () => {
               <ul className="administrator-func">
                 {adminNavItem.map((item) => RenderNavItem(item))}
               </ul>
-              <button onClick={() => setRole(role === 0 ? 1 : 0)}>
-                交换身份
-              </button>
             </section>
           )}
           <div className="leftnav-exit">

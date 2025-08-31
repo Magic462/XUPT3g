@@ -30,7 +30,7 @@ const Allmember: React.FC = () => {
     useActiveItem<string>('');
 
   const { activeItem: activeGraduate, handleItemClick: handleGraduateClick } =
-    useActiveItem<string>('graduated');
+    useActiveItem<string>('');
 
   const navigate = useNavigate();
   const [isDeleteModal, setIsDeleteModal] = useState(false);
@@ -174,13 +174,15 @@ const Allmember: React.FC = () => {
           <div className="search-results">
             {searchResults && searchResults.length > 0 ? (
               searchResults.map((member) => (
-                <div
-                  key={member.uid}
-                  className="search-result-item"
-                  onClick={() => handleSearchResultClick(member)}
-                >
-                  <span className="searchResults-name">{member.name}</span>
-                  <span className="searchResults-team">{member.team}</span>
+                <div className="search-result-item-overlay">
+                  <div
+                    key={member.uid}
+                    className="search-result-item"
+                    onClick={() => handleSearchResultClick(member)}
+                  >
+                    <span className="searchResults-name">{member.name}</span>
+                    <span className="searchResults-team">{member.team}</span>
+                  </div>
                 </div>
               ))
             ) : (
@@ -189,39 +191,42 @@ const Allmember: React.FC = () => {
           </div>
         )}
         {showMemberInfo && selectedMember && (
-          <div className="search-member-info-container">
-            <Peohome
-              portrait={selectedMember.portrait}
-              gender={selectedMember.gender}
-              classGrade={selectedMember.classGrade}
-              year={selectedMember.year}
-              tel={selectedMember.tel}
-              isGraduate={selectedMember.isGraduate === 1 ? true : false}
-              username={selectedMember.username}
-              name={selectedMember.name}
-              team={selectedMember.team}
-              mienImg={selectedMember.mienImg}
-              signature={selectedMember.signature}
-              company={selectedMember.company}
-            />
-            <div
-              className="search-member-detail-close"
-              onClick={() => {
-                setShowMemberInfo(false);
-                setSelectedMember(null);
-              }}
-            >
-              关闭
-            </div>
-            <div
-              className="search-member-detail-edit"
-              onClick={() =>
-                navigate(
-                  `/mine/user/changeinfo?username=${selectedMember.username}`
-                )
-              }
-            >
-              前往编辑
+          <div className="search-member-info-overlay">
+            <div className="search-member-info-container">
+              <Peohome
+                portrait={selectedMember.portrait}
+                gender={selectedMember.gender}
+                classGrade={selectedMember.classGrade}
+                year={selectedMember.year}
+                tel={selectedMember.tel}
+                isGraduate={selectedMember.isGraduate === 1 ? true : false}
+                username={selectedMember.username}
+                name={selectedMember.name}
+                team={selectedMember.team}
+                mienImg={selectedMember.mienImg}
+                signature={selectedMember.signature}
+                company={selectedMember.company}
+                graduateImg={selectedMember.graduateImg}
+              />
+              <div
+                className="search-member-detail-close"
+                onClick={() => {
+                  setShowMemberInfo(false);
+                  setSelectedMember(null);
+                }}
+              >
+                关闭
+              </div>
+              <div
+                className="search-member-detail-edit"
+                onClick={() =>
+                  navigate(
+                    `/mine/user/changeinfo?username=${selectedMember.username}`
+                  )
+                }
+              >
+                前往编辑
+              </div>
             </div>
           </div>
         )}
@@ -240,15 +245,6 @@ const Allmember: React.FC = () => {
               {item.name}
             </button>
           ))}
-          {/* 曾经存在的组
-          <button
-            onClick={() => {
-              handleGroupClick('other');
-            }}
-            className={`filter-button filter-btn-group ${activeGroup === 'other' ? 'active' : ''}`}
-          >
-            other
-          </button> */}
         </div>
         <div className="filter-ifgraduate">
           <button

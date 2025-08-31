@@ -2,6 +2,7 @@ import './Changeinfo.scss';
 import '@/assets/icons/font_ejn49oukscw/iconfont.css';
 import { useActiveItem } from '@/hooks/useActiveItem';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Upload from 'antd/es/upload';
 import ImgCrop from 'antd-img-crop';
 import { postChangeInfo, getUserinfo } from '@/services/userinfo';
@@ -10,8 +11,6 @@ import { Direction } from '@/types/direction';
 import { Userchangeinfo, Userinfo } from '@/types/userinfo';
 import { getPictureUrl } from '@/services/picture';
 import { useSearchParams } from 'react-router-dom';
-const { Dragger } = Upload;
-// import { useSearchParams } from 'react-router-dom';
 import { message } from '@/utils/message';
 
 const Changeinfo = () => {
@@ -59,7 +58,7 @@ const Changeinfo = () => {
       setFormData({
         username: localStorage.getItem('username'),
         name: userinfo.name || '',
-        gender: userinfo.gender || 1,
+        gender: userinfo.gender ?? 1,
         classGrade: userinfo.classGrade || '',
         team: userinfo.team || '',
         company: userinfo.company || '',
@@ -67,6 +66,7 @@ const Changeinfo = () => {
         signature: userinfo.signature || '',
         mienImg: userinfo.mienImg || '',
         portrait: userinfo.portrait || '',
+        graduateImg: userinfo.graduateImg || '',
       });
     }
   }, [userinfo]);
@@ -119,6 +119,17 @@ const Changeinfo = () => {
       }
     }
 
+    // 处理graduate-img上传
+    if (data.graduateImg instanceof File) {
+      const uploadRes = await fetchPictureUrl(data.graduateImg);
+      if (uploadRes?.success && uploadRes?.url) {
+        data.graduateImg = uploadRes.url;
+      } else {
+        alert('毕业照上传失败，请重试');
+        return;
+      }
+    }
+
     await fetchChangeInfo(data);
   };
 
@@ -163,8 +174,22 @@ const Changeinfo = () => {
     });
   };
 
+  const navigate = useNavigate();
+
+  // 返回上一步
+  const handleBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div className="changeinfo-container">
+      {localStorage.getItem('status') === '0' ? (
+        <div className="back-allmember" onClick={handleBack}>
+          返回上一级
+        </div>
+      ) : (
+        ''
+      )}
       <div className="each-func-title">
         <h2>
           <i className={`each-func-icons iconfont icon-shezhi`}></i>
@@ -175,65 +200,51 @@ const Changeinfo = () => {
         <div className="changeinfo-box">
           <div className="changeinfo-photochange-box">
             <div className="photo-box" title="点击或拖拽上传图片">
-              {photoItem === 'profile-photo' ? (
-                <ImgCrop rotationSlider>
-                  <Dragger
-                    showUploadList={false}
-                    accept="image/jpeg,image/png,image/webp"
-                    beforeUpload={checkImageBeforeUpload}
-                    customRequest={({ file, onSuccess }) => {
-                      const fileObj = file as File;
-                      // 只更新 formData，保留 File 对象
-                      setFormData((prev) => ({
-                        ...prev,
-                        portrait: fileObj,
-                      }));
-                      onSuccess?.('ok');
-                    }}
-                  >
-                    <div className="image-wrapper">
-                      <img
-                        src={
-                          formData?.portrait instanceof File
-                            ? URL.createObjectURL(formData.portrait)
-                            : userinfo.portrait
-                        }
-                        alt="头像"
-                        className="clickable-img"
-                      />
-                    </div>
-                  </Dragger>
-                </ImgCrop>
-              ) : (
-                // 风采照上传部分
-                <ImgCrop rotationSlider aspect={4 / 3}>
-                  <Upload
-                    showUploadList={false}
-                    beforeUpload={checkImageBeforeUpload}
-                    customRequest={({ file, onSuccess }) => {
-                      const fileObj = file as File;
-                      // 只更新 formData，保留 File 对象
-                      setFormData((prev) => ({
-                        ...prev,
-                        mienImg: fileObj,
-                      }));
-                      onSuccess?.('ok');
-                    }}
-                  >
-                    <div className="image-wrapper">
-                      <img
-                        src={
-                          formData?.mienImg instanceof File
-                            ? URL.createObjectURL(formData.mienImg)
-                            : userinfo.mienImg
-                        }
-                        alt="风采照"
-                        className="clickable-img"
-                      />
-                    </div>
-                  </Upload>
-                </ImgCrop>
-              )}
+              <ImgCrop rotationSlider aspect={4 / 3}>
+                <Upload
+                  showUploadList={false}
+                  beforeUpload={checkImageBeforeUpload}
+                  customRequest={({ file, onSuccess }) => {
+                    const fileObj = file as File;
+                    setFormData((prev) => {
+                      if (photoItem === 'profile-photo') {
+                        return { ...prev, portrait: fileObj };
+                      } else if (photoItem === 'mien-photo') {
+                        return { ...prev, mienImg: fileObj };
+                      } else if (photoItem === 'graduate-photo') {
+                        return { ...prev, graduateImg: fileObj };
+                      }
+                      return prev;
+                    });
+                    onSuccess?.('ok');
+                  }}
+                >
+                  <div className="image-wrapper">
+                    <img
+                      src={(() => {
+                        const img =
+                          photoItem === 'profile-photo'
+                            ? formData?.portrait
+                            : photoItem === 'mien-photo'
+                              ? formData?.mienImg
+                              : formData?.graduateImg;
+                        const originalUrl =
+                          photoItem === 'profile-photo'
+                            ? userinfo.portrait
+                            : photoItem === 'mien-photo'
+                              ? userinfo.mienImg
+                              : userinfo.graduateImg;
+
+                        return img instanceof File
+                          ? URL.createObjectURL(img)
+                          : originalUrl;
+                      })()}
+                      alt="上传照片"
+                      className="clickable-img"
+                    />
+                  </div>
+                </Upload>
+              </ImgCrop>
             </div>
 
             <div className="change-photo-btn">
@@ -251,9 +262,19 @@ const Changeinfo = () => {
               >
                 风采照
               </button>
+              {userinfo.isGraduate === 1 ? (
+                <button
+                  key="graduate-photo"
+                  onClick={() => handlePhotoClick('graduate-photo')}
+                  className={`${photoItem === 'graduate-photo' ? 'photo-choice-active' : ''}`}
+                >
+                  毕业照
+                </button>
+              ) : (
+                ''
+              )}
             </div>
           </div>
-
           <div className="changeinfo-basicchange-box">
             <div className="changeinfo-item">
               <label>姓 名</label>
@@ -266,18 +287,21 @@ const Changeinfo = () => {
               />
             </div>
             <div className="changeinfo-item">
-              <label>姓 别</label>
-              <input
-                type="text"
-                placeholder={userinfo.gender === 1 ? '女' : '男'}
+              <label>性 别</label>
+              <select
+                value={formData?.gender}
                 onChange={(e) =>
                   setFormData({
                     ...formData,
-                    gender: e.target.value === '女' ? 1 : 0,
+                    gender: Number(e.target.value), // 将字符串转换为数字
                   })
                 }
-              />
+              >
+                <option value={0}>男</option>
+                <option value={1}>女</option>
+              </select>
             </div>
+
             <div className="changeinfo-item">
               <label>专 业</label>
               <input
@@ -316,12 +340,8 @@ const Changeinfo = () => {
                 onChange={(e) =>
                   setFormData({ ...formData, company: e.target.value })
                 }
-                disabled={localStorage.getItem('status') === '1'}
-                className={
-                  localStorage.getItem('status') === '1'
-                    ? 'gratuate-company'
-                    : ''
-                }
+                disabled={userinfo.isGraduate === 0}
+                className={userinfo.isGraduate === 1 ? 'gratuate-company' : ''}
               />
             </div>
             <div className="changeinfo-item">

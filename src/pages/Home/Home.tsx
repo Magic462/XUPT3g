@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import './Home.scss';
-import '../../assets/wxqr.webp';
 import { getQQcontact } from '@/services/qqcontact';
 import { getDirection } from '@/services/directions';
+import layoutback from '@/assets/images/layoutback.gif';
+import wxqr from '@/assets/images/wxqr.webp';
 
 const fakeData = [
   { id: 1, name: 'Web', description: '构建用户界面和交互' },
@@ -81,11 +82,7 @@ const Home: React.FC = () => {
       <section className="hero">
         <div className="hero-content">
           <div className="hero-gif">
-            {/* < img src="./src/assets/layoutback.gif" alt="" /> */}
-            <video autoPlay loop muted>
-              <source src="./src/assets/layoutback.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+            <img src={layoutback} alt="" />
           </div>
           <div className="hero-tip">
             <h1>西邮移动应用开发实验室</h1>
@@ -115,7 +112,7 @@ const Home: React.FC = () => {
       <footer className="home-footer">
         <div className="footer-links">
           <div className="vx">微信公众号</div>
-          <img src="./src/assets/wxqr.webp" alt="" />
+          <img src={wxqr} alt="" />
           <div className="qq">qq纳新群: {qqnumber}</div>
         </div>
         <div className="copyright">
