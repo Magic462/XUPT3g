@@ -3,21 +3,19 @@ import { Navigate, RouteObject } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import Layout from '../layout/Layout';
 import Loading from '../components/Loading';
-// import Home from'../pages/Home/Home'
+
 const Home = lazy(() => import('../pages/Home/Home'));
 // 懒加载组件
 const Mine = lazy(() => import('../pages/mine/Mine'));
 const Trainingplan = lazy(() => import('../pages/trainplan/Trainplan'));
+const Video = lazy(() => import('../pages/video/Video'));
 const Activities = lazy(() => import('../pages/activities/Activities'));
 const ActivityContent = lazy(
   () => import('@/pages/activities/ActivityContent')
 );
-
-// const ActivityContent = lazy(() => import('../pages/activitycontent/ActivityContent'));
 const Members = lazy(() => import('../pages/members/Members'));
 const Graduate = lazy(() => import('../pages/Graduate/Graduate'));
 const Login = lazy(() => import('../pages/login/Login'));
-// const Blogs = lazy(() => import('../pages/blogs/Blogs'));
 const Notfound = lazy(() => import('../pages/notfound/Notfound'));
 
 // mine三级路由引入
@@ -308,6 +306,14 @@ const routes: RouteObject[] = [
         element: (
           <Suspense fallback={<Loading />}>
             <Trainingplan />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/video',
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Video />
           </Suspense>
         ),
       },

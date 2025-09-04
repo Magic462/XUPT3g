@@ -27,6 +27,7 @@ const MainLayout: React.FC = () => {
         { path: '/members', label: '成员风采' },
         { path: '/graduate', label: '毕业去处' },
         { path: '/trainingplan', label: '培养计划' },
+        { path: '/video', label: '视频展示' },
         { path: status === '0' ? '/mine/admin' : '/mine/user', label: '我的' },
       ]
     : [
@@ -34,6 +35,7 @@ const MainLayout: React.FC = () => {
         { path: '/members', label: '成员风采' },
         { path: '/graduate', label: '毕业去处' },
         { path: '/trainingplan', label: '培养计划' },
+        { path: '/video', label: '视频展示' },
         { path: '/login', label: '登录' },
       ];
 
@@ -92,8 +94,18 @@ const MainLayout: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY, lastScrollTime, uiState.menuOpen]);
 
+  // 打开菜单
+  const openMenu = () => {
+    setUiState(prev => ({
+      ...prev,
+      menuOpen: true,
+      mainMenuOpen: true
+    }));
+  };
+
   // 菜单切换
   const toggleMenu = () => {
+    
     setUiState((prev) => ({
       ...prev,
       menuOpen: !prev.menuOpen,
@@ -121,6 +133,7 @@ const MainLayout: React.FC = () => {
             ? 'menu-height'
             : ''
         }`}
+        onMouseEnter={openMenu}
       >
         <button className="menu-toggle" onClick={toggleMenu}>
           <span></span>
