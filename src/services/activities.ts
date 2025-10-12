@@ -27,17 +27,11 @@ export const getAllArticleInfo = async (
       },
     }
   );
-
-  console.log(res);
-
-  const activities = res.activities
-    // .filter((item: Article) => item.status === 1)
-    .map((item: Article) => ({
-      ...item,
-      time: formatData(item.time),
-      // img: item.img ? BASE_IMG_URL + item.img : DEFAULT_IMAGE,
-      img: item.img ? item.img : DEFAULT_IMAGE,
-    }));
+  const activities = res.activities.map((item: Article) => ({
+    ...item,
+    time: formatData(item.time),
+    img: item.img ? item.img : DEFAULT_IMAGE,
+  }));
 
   return {
     activities,
@@ -67,7 +61,7 @@ export const getRecentActivities = async (
     .slice(0, 7)
     .map((item: Article) => ({
       ...item,
-      // img: item.img ? BASE_IMG_URL + item.img : DEFAULT_IMAGE,
+      time: formatData(item.time),
       img: item.img ? item.img : DEFAULT_IMAGE,
     }));
 
@@ -125,7 +119,7 @@ export const changeActivity = async (
 };
 
 // 删除活动接口
-export const deleteActivity = async (aid: number = 266) => {
+export const deleteActivity = async (aid: number) => {
   const res = await del('/api/activity', {
     params: {
       aid,

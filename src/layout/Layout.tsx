@@ -96,16 +96,15 @@ const MainLayout: React.FC = () => {
 
   // 打开菜单
   const openMenu = () => {
-    setUiState(prev => ({
+    setUiState((prev) => ({
       ...prev,
       menuOpen: true,
-      mainMenuOpen: true
+      mainMenuOpen: true,
     }));
   };
 
   // 菜单切换
   const toggleMenu = () => {
-    
     setUiState((prev) => ({
       ...prev,
       menuOpen: !prev.menuOpen,

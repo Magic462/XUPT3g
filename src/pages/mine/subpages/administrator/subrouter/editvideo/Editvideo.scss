@@ -1,0 +1,102 @@
+.edit-video-container {
+    color: #fff;
+
+    .upload-category-tips{
+        font-size: .7rem;
+        color: #eee;
+    }
+
+    .upload-btn {
+        padding: .5rem 1rem ;
+        letter-spacing: 0.2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #1890ff;
+        color: white;
+        font-weight: 700;
+        border: none;
+        border-radius: 0.6rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+            background-color: #40a9ff;
+            box-shadow: 0 0 0.4rem rgba(24, 144, 255, 0.5);
+        }
+    }
+
+    .ant-upload-hint{
+        color: #eee;
+    }
+
+    .category-input{
+        box-sizing: border-box;
+        background-color: transparent;
+        outline: none;
+        border: none;
+        border-bottom: 0.2rem solid #1890ff;
+        padding: 0.3rem 0.5rem;
+        width: 17rem;
+        // font-size: 1.3rem;
+        color: #eee;
+
+        margin-bottom: 1rem;
+        &::placeholder {
+        color: #ccc;
+        }
+    }
+
+    .edit-video-upload-button{
+        width: 5rem;
+        height: 2.5rem;
+        letter-spacing: 0.1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #1890ff;
+        color: white;
+        font-size: 1rem;
+        font-weight: 700;
+        border: none;
+        border-radius: 0.6rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        margin: 1rem 0 .5rem 0;
+
+        &:hover {
+        background-color: #40a9ff;
+        box-shadow: 0 0 0.4rem rgba(24, 144, 255, 0.5);
+        }
+    }
+
+    .video-list-container{
+        margin-top: 2rem;
+    }
+    .delete-btn{
+        width: 5rem;
+        height: 2.5rem;
+        letter-spacing: 0.1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #c71b1b;
+        color: white;
+        font-size: 1rem;
+        font-weight: 700;
+        border: none;
+        border-radius: 0.6rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        // margin: 1rem 0 .5rem 0;
+
+        &:hover {
+        background-color: #b51919;
+        box-shadow: 0 0 0.4rem rgba(255, 39, 24, 0.5);
+        }
+    }
+
+    .category-section{
+        margin-bottom: 1.2rem;
+    }
+}

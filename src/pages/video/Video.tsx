@@ -1,47 +1,90 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import './Video.scss';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
 import Tabs from '../../components/Tabs';
-import { getDirection } from '@/services/directions';
+// import { getDirection } from '@/services/directions';
+import { getVideo } from '@/services/video';
+import { CategorizedVideo } from '@/types/video';
+import { message } from '@/utils/message';
+import sampleVideo from '../../assets/VID_20240815_220604.mp4';
 
-const fakeData = ['Web', 'Server', 'Android', 'iOS', 'HarmonyOS'];
+// const fakeData = ['Web', 'Server', 'Android', 'iOS', 'HarmonyOS'];
 const Video = () => {
   const [platforms, setPlatforms] = useState<string[]>([]);
-  const [selectedDirection, setSelectedDirection] = useState<string>('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [allVideos, setAllVideos] = useState<CategorizedVideo[]>([]);
+  const [selectedVideo, setSelectedVideo] = useState<string>(null);
 
-  // 获取方向简介
-  useEffect(() => {
-    const fetchDirection = async () => {
-      try {
-        const response = await getDirection(true);
-        // console.log(response);
-        const platforms = [...new Set(response.map((item) => item.name))];
-        // console.log(platforms);
-        if (Array.isArray(platforms) && platforms.length > 0) {
-          setPlatforms(platforms);
-          setSelectedDirection(platforms[0]);
-        } else {
-          console.warn('后端返回数据为空或格式错误，使用假数据');
-          setPlatforms(fakeData);
-          setSelectedDirection(fakeData[0]);
-        }
-      } catch (error) {
-        console.log('获取方向失败', error);
-        setPlatforms(fakeData);
-        setSelectedDirection(fakeData[0]);
+  const fetchAllVideos = async () => {
+    try {
+      const res = await getVideo();
+      console.log(res);
+      setAllVideos(res);
+      const categories = [...new Set(res.map((item) => item.category))];
+      if (Array.isArray(categories) && categories.length > 0) {
+        setPlatforms(categories);
+        setSelectedCategory(categories[0]);
       }
-    };
-    fetchDirection();
+    } catch (err) {
+      console.log('获取视频失败：', err);
+      message.error('获取视频失败');
+    }
+  };
+
+  // const fetchSelectedVideo = async (selectedCategory) => {
+  //   try {
+  //     const res = await getVideo(selectedCategory);
+  //     console.log(res);
+  //   } catch (err) {
+  //     console.log('获取视频失败：', err);
+  //     message.error('获取视频失败');
+  //   }
+  // };
+
+  useEffect(() => {
+    fetchAllVideos();
   }, []);
 
-  // 调用获取视频接口
+  useEffect(() => {
+    if (allVideos.length > 0 && selectedCategory) {
+      const res = allVideos.find((item) => item.category === selectedCategory);
+
+      if (res.videos[0].url) {
+        setSelectedVideo(res.videos[0].url);
+      } else {
+        message.error('该分类无视频');
+        return;
+      }
+    }
+  }, [selectedCategory, allVideos]);
 
   return (
-    <div>
-      {platforms.length > 0 && (
-        <Tabs tabs={platforms} onTabChange={setSelectedDirection} />
+    <>
+      {allVideos && (
+        <>
+          {platforms.length > 0 && (
+            <Tabs tabs={platforms} onTabChange={setSelectedCategory} />
+          )}
+          {/* 传入视频 */}
+          {selectedVideo ? (
+            <div className="video-container">
+              <video
+                src={sampleVideo}
+                controls
+                muted
+                autoPlay
+                playsInline
+                loop={true}
+                className="video-box"
+                onError={() => message.error('视频加载失败')}
+              ></video>
+            </div>
+          ) : (
+            <div>暂无视频数据</div>
+          )}
+        </>
       )}
-      {/* 传入视频 */}
-    </div>
+    </>
   );
 };
 

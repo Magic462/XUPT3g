@@ -70,6 +70,7 @@ const Alldirection = () => {
       setDirections(res);
     } catch (err) {
       console.log('获取方向信息失败：', err);
+      message.error('获取方向信息失败');
     }
   };
 

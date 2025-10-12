@@ -5,6 +5,7 @@ import '@/assets/icons/font_4k8jwf31qbs/iconfont.css';
 import '@/assets/icons/font_f7int92srzr/iconfont.css';
 import '@/assets/icons/font_ry8o2ikys/iconfont.css';
 import '@/assets/icons/font_95rv9yhaqnu/iconfont.css';
+import '@/assets/icons/font_g9thzcxyl1a/iconfont.css';
 import { useActiveItem } from '@/hooks/useActiveItem';
 import { useAuth } from '@/context/AuthContext';
 import { getUserinfo } from '@/services/userinfo';
@@ -21,6 +22,7 @@ const EXPANDABLE_ITEMS = {
   DIRECTIONPLAN: 'directionplan',
   EDITTRAININGPLAN: 'edittrainplan',
   GROUPMEMBER: 'groupMember',
+  VIDEAO: 'videao',
 } as const;
 // 二级导航栏项
 const SUB_EXPANDABLE_ITEMS = {
@@ -100,6 +102,12 @@ const adminNavItem = [
     ],
   },
   {
+    key: EXPANDABLE_ITEMS.VIDEAO,
+    icon: 'icon-wenjianshangchuan',
+    label: '视频管理',
+    path: '/mine/admin/editvideo',
+  },
+  {
     key: EXPANDABLE_ITEMS.MEMBEREDIT,
     icon: 'icon-chengyuan',
     label: '成员管理',
@@ -167,6 +175,7 @@ const Mine = () => {
     handleExpandItem(item);
   };
 
+  // 测试暂时取消
   // 退出登录函数
   const { logout } = useAuth();
   // 检查token是否过期
@@ -176,6 +185,7 @@ const Mine = () => {
       // token 无效会自动 logout 并跳转
     }
   }, [checkTokenValid]);
+  // 测试暂时取消
 
   const [portrait, setPortrait] = useState<string>(null);
 

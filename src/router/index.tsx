@@ -71,6 +71,10 @@ const Edittrainplan = lazy(
       '@/pages/mine/subpages/administrator/subrouter/edittrainplan/Edittrainplan'
     )
 );
+const Editvideo = lazy(
+  () =>
+    import('@/pages/mine/subpages/administrator/subrouter/editvideo/Editvideo')
+);
 
 // mine/user
 const Changeinfo = lazy(
@@ -176,6 +180,14 @@ const routes: RouteObject[] = [
                 element: (
                   <Suspense fallback={<Loading />}>
                     <Allactivity />
+                  </Suspense>
+                ),
+              },
+              {
+                path: 'editvideo',
+                element: (
+                  <Suspense fallback={<Loading />}>
+                    <Editvideo />
                   </Suspense>
                 ),
               },

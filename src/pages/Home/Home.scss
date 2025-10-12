@@ -68,9 +68,129 @@
       }
     }
   }
+  .home-bref-intro-section{
+    background-color: rgb(0, 0, 0);
+    color: #fff;
+    padding: 6rem 9rem 0rem 9rem;
+    h2 {
+      letter-spacing: 0.5rem;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      color: #5de31c;
+      //文字倒影
+      -webkit-box-reflect: below -10px -webkit-linear-gradient(
+          transparent,
+          transparent 5%,
+          rgba(255, 255, 255, 0.3)
+        );
+    }
+
+    p{
+      // margin: .1rem;
+      text-indent: 1em;
+      line-height: 1.5rem;
+      margin-top: .5rem;
+    }
+  }
+  .home-activity-section{
+    background-color: rgb(0, 0, 0);
+    color: #fff;
+    padding: 6rem 9rem 0rem 9rem;
+
+    h2 {
+      letter-spacing: 0.5rem;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      color: #5de31c;
+      //文字倒影
+      -webkit-box-reflect: below -10px -webkit-linear-gradient(
+          transparent,
+          transparent 5%,
+          rgba(255, 255, 255, 0.3)
+        );
+    }
+
+
+    .home-activity-container{
+      padding: 0rem 1rem;
+      .home-activity-card{
+        margin-top: 3rem;
+        display: flex;
+        gap: 1.5rem;
+        background-color: rgba(78, 79, 81, 0.3);
+        border-radius: 12px;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+        align-items: flex-start;
+    
+        &:hover {
+          background-color: rgba(78, 79, 81, 0.5);
+          transform: translateY(-5px);
+          box-shadow: 0 8px 16px rgba(93, 227, 28, 0.1);
+        }
+    
+        .home-activity-card-content {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          gap: 0.8rem;
+        }
+    
+        .home-activity-card-title {
+          font-size: 1.3rem;
+          font-weight: bold;
+          letter-spacing: 0.5px;
+          margin-bottom: 0;
+        }
+    
+        .home-activity-card-date {
+          color: #999;
+          font-size: 0.9rem;
+          margin-bottom: 0;
+        }
+    
+        .home-activity-card-summary {
+          font-size: 1rem;
+          line-height: 1.6;
+          word-break: break-all;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          margin-bottom: 0;
+        }
+    
+        // 图片容器 - 在最右侧
+        .home-activity-card-image {
+          width: 270px;
+          height: 180px;
+          // border-radius: .8rem;
+          overflow: hidden;
+          flex-shrink: 0;
+          align-self: center;
+    
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+          }
+    
+          &:hover img {
+            transform: scale(1.05);
+          }
+        }
+      }
+    }
+    .home-activity-none{
+      font-size: 1.3rem;
+      color: #fff;
+    }
+  }
 
   .platforms-section {
-    padding: 6rem 2rem;
+    padding: 4rem 2rem;
     background: linear-gradient(to bottom, rgb(0, 0, 0), rgb(62, 64, 61));
     text-align: center;
     min-height: 100vh;
@@ -210,9 +330,38 @@
   }
 }
 
-// @media (min-width: 769px) {
-//   .home-container .platforms-section .platforms-container {
-//     overflow-x: hidden;
-//     overflow-y: hidden;
-//   }
-// }
+@media (max-width: 768px) {
+  .home-container .home-activity-section{
+    padding: 6rem 1rem 0rem 1rem;
+  }
+  .home-container .home-bref-intro-section{
+    padding: 6rem 1rem 0rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-activity-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .home-activity-card-content {
+    order: 2; // 文字内容在后
+  }
+  
+  .home-activity-card-image {
+    order: 1; // 图片在前
+    width: 100%;
+    height: 200px; // 调整图片高度以适应移动设备
+  }
+  
+  .home-activity-card-title {
+    font-size: 1.3rem; // 调整标题字体大小
+  }
+  
+  .home-activity-card-summary {
+    font-size: 0.95rem; // 调整简介字体大小
+  }
+}

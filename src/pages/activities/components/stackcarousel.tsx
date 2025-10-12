@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import './stackcarousel.scss';
 import { getRecentActivities } from '@/services/activities';
 import { Article } from '@/types/article';
+import React, { useEffect, useState } from 'react';
+import './stackcarousel.scss';
 
 const initialOrder = [
   'first',
@@ -112,7 +112,6 @@ const StackCarousel: React.FC = () => {
                   'noopener,noreferrer'
                 )
               }
-              // onClick={() => console.log(1)}
             >
               <div className="carousel-recent-title">{item.title}</div>
               {/* 大尺寸才显示活动文章封面 */}
