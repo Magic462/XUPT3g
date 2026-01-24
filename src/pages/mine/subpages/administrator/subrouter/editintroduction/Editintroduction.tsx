@@ -14,7 +14,7 @@ const Editintroduction = () => {
         const response = await getIntroduction();
         console.log(response);
 
-        setIntroduction(response.content);
+        setIntroduction(response.introduction);
       } catch (err) {
         message.error('获取简介失败');
         console.log('获取简介失败：', err);
