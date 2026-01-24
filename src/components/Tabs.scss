@@ -20,6 +20,7 @@
   display: flex;
   align-items: center;
   font-weight: bold;
+  position: relative;
 }
 
 .tab.active {
@@ -55,9 +56,12 @@
 
 .more-tab {
   position: relative;
-  padding: 10px 20px;
+  // padding: 10px 20px;
   cursor: pointer;
   font-size: 1.4rem;
+  color: #fff;
+  color: #27292e;
+  letter-spacing: 0.2rem;
 }
 
 .more-dropdown {
@@ -71,9 +75,9 @@
   z-index: 1000;
 }
 
-.more-tab:hover .more-dropdown {
-  display: block;
-}
+// .more-tab:hover .more-dropdown {
+//   display: block;
+// }
 
 .more-item {
   padding: 10px;
@@ -98,10 +102,16 @@
 
 @media (max-width: 768px) {
   .tabs-container {
-    padding: 1.8rem 5.8rem 0 0;
+    padding: 1.8rem 8rem 0 0;
+    .tabs {
+      justify-content: unset;
+    }
     .tab {
       font-size: 1.3rem;
       padding: 0 40px;
     }
+  }
+  .more-tab {
+    padding: 10px 20px;
   }
 }

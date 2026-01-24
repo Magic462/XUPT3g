@@ -12,8 +12,6 @@ const Edittrainplan = () => {
     const fetchTrainPlan = async () => {
       try {
         const response = await getTrainPlan();
-        console.log(response);
-
         setTrainPlan(response.content);
       } catch (err) {
         message.error('获取培养方案失败');
@@ -26,8 +24,7 @@ const Edittrainplan = () => {
   const handleSubmit = async () => {
     setTrainPlan(articleHTML);
     try {
-      const response = await postTrainPlan(articleHTML);
-      console.log(response);
+      await postTrainPlan(articleHTML);
       message.success('发布成功');
       await getTrainPlan();
     } catch (err) {

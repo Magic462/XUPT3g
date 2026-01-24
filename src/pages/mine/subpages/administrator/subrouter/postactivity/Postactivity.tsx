@@ -28,7 +28,6 @@ const Postactivity = () => {
       const fetchActivity = async () => {
         try {
           const response = await getActivityContent(Number(aid));
-          console.log(response);
           setPostActiveInfo(response);
         } catch (err) {
           message.error('获取文章信息', err);

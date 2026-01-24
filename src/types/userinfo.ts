@@ -13,6 +13,7 @@ export interface Userinfo {
   signature?: string;
   company?: string;
   graduateImg?: string;
+  password?: string;
 }
 
 export interface Userchangeinfo {
@@ -27,6 +28,8 @@ export interface Userchangeinfo {
   mienImg?: string | File;
   portrait?: string | File;
   graduateImg?: string | File;
+  isGraduate?: number;
+  password?: string;
 }
 
 export interface ChangeUserResponse {

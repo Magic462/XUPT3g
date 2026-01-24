@@ -9,7 +9,7 @@ export const getMembers = async (
   pageNum?: number,
   name?: string
 ): Promise<MembersResponse> => {
-  const response = await get<MembersResponse>('api/members', {
+  const response = await get<MembersResponse>('xupt-web/api/members', {
     params: {
       isGraduate,
       team: direction,
@@ -20,20 +20,18 @@ export const getMembers = async (
     },
   });
 
-  console.log(response);
   return response;
 };
 
 // 搜索成员
 export const getMember = async (name: string): Promise<Members[]> => {
-  const response = await get<Members[]>('api/member', {
+  const response = await get<Members[]>('xupt-web/api/member', {
     params: {
       name,
     },
     customAuth: true,
   });
 
-  console.log(response);
   return response;
 };
 
@@ -45,7 +43,7 @@ export const addMember = async (
   year: number
 ) => {
   const res = await post(
-    '/api/members',
+    '/xupt-web/api/members',
     {
       name,
       username,
@@ -57,18 +55,16 @@ export const addMember = async (
     }
   );
 
-  console.log('添加成员接口：', res);
   return res;
 };
 
 // 删除成员接口
 export const delMember = async (uid: number) => {
-  const res = await del('/api/members', {
+  const res = await del('/xupt-web/api/members', {
     params: {
       uid,
     },
     customAuth: true,
   });
-  console.log(res);
   return res;
 };

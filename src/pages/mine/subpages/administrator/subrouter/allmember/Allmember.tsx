@@ -46,8 +46,10 @@ const Allmember: React.FC = () => {
   const [pageNum, setPageNum] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [allTeams, setAllTeams] = useState<Direction[]>([]);
-  const [team, setTeam] = useState<string>();
-  const [isGraduate, setIsGraduate] = useState<boolean>();
+  const [team, setTeam] = useState<string | null>(null);
+  const [isGraduate, setIsGraduate] = useState<boolean | null>(null);
+  // 是否展示分页器
+  const [isShowPage, setIsShowPage] = useState(true);
 
   // 获取组别信息
   useEffect(() => {
@@ -65,7 +67,6 @@ const Allmember: React.FC = () => {
   }, []);
 
   const fetchMembers = useCallback(async () => {
-    console.log(currentPage);
     try {
       const response = await getMembers(
         isGraduate,
@@ -89,8 +90,7 @@ const Allmember: React.FC = () => {
 
   const delMemberResponse = async () => {
     try {
-      const response = await delMember(delId);
-      console.log(response);
+      await delMember(delId);
       message.success('删除成功');
       await fetchMembers();
       setIsDeleteModal(false);
@@ -108,6 +108,16 @@ const Allmember: React.FC = () => {
         const response = await getMember(query.trim());
         setSearchResults(response);
         setShowSearchResults(true);
+        console.log('搜索成员结果', response);
+        if (response.length > 0) {
+          setFilterMembers(response);
+          setIsShowPage(false);
+          setTeam(null);
+          setIsGraduate(null);
+          // 清空筛选按钮的激活状态
+          handleGroupClick(null);
+          handleGraduateClick(null);
+        }
       } catch (err) {
         console.log('搜索成员失败：', err);
         message.warning('搜索成员失败');
@@ -239,6 +249,7 @@ const Allmember: React.FC = () => {
               onClick={() => {
                 handleGroupClick(item.name);
                 setTeam(item.name);
+                setIsShowPage(true);
               }}
               className={`filter-button filter-btn-group ${activeGroup === item.name ? 'active' : ''}`}
             >
@@ -251,6 +262,7 @@ const Allmember: React.FC = () => {
             onClick={() => {
               handleGraduateClick('graduated');
               setIsGraduate(true);
+              setIsShowPage(true);
             }}
             className={`filter-button ${activeGraduate === 'graduated' ? 'active' : ''}`}
           >
@@ -279,7 +291,7 @@ const Allmember: React.FC = () => {
         ))}
       </div>
       {/* 翻页 */}
-      {pageNum > 1 && (
+      {pageNum > 1 && isShowPage && (
         <div className="admin-pagination">
           {pageNum > 0 && (
             <FooterPagination

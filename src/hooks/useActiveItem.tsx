@@ -5,8 +5,9 @@ import { useCallback, useEffect, useState } from 'react';
 export function useActiveItem<T extends string>(defaultKey?: T) {
   const [activeItem, setActiveItem] = useState<T | null>(null);
 
-  const handleItemClick = useCallback((key: T) => {
-    setActiveItem(key);
+  // 支持传入 null/undefined 来清空选中状态
+  const handleItemClick = useCallback((key?: T | null) => {
+    setActiveItem(key ?? null);
   }, []);
 
   useEffect(() => {

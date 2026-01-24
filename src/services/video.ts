@@ -5,10 +5,9 @@ import { del, post, get } from '@/utils/request/http';
 export const getVideo = async (
   category?: string
 ): Promise<CategorizedVideo[]> => {
-  const res = await get<CategorizedVideo[]>('/api/videos', {
+  const res = await get<CategorizedVideo[]>('/xupt-web/api/videos', {
     params: { category },
   });
-  console.log('获取视频列表:', res);
   return res;
 };
 
@@ -18,25 +17,22 @@ export const postVideo = async (category: string, video: File) => {
   formData.append('category', category);
   formData.append('video', video);
 
-  const res = await post('/api/videos', formData, {
+  const res = await post('/xupt-web/api/videos', formData, {
     customAuth: true,
     headers: {
       'Content-Type': 'multipart/form-data',
     },
   });
-  console.log('上传视频结果:', res);
   return res;
 };
 
-// 删除视频接口 - 恢复传递url参数
+// 删除视频接口
 export const deleteVideo = async (url: string) => {
-  console.log(url);
-  const res = await del('/api/videos', {
+  const res = await del('/xupt-web/api/videos', {
     params: {
       url,
     },
     customAuth: true,
   });
-  console.log('删除视频结果:', res);
   return res;
 };

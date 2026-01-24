@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { getRecentActivities } from '@/services/activities';
 import { getQQcontact } from '@/services/qqcontact';
 import { getDirection } from '@/services/directions';
-import { Article } from '@/types/article';
 import layoutback from '@/assets/images/layoutback.gif';
 import wxqr from '@/assets/images/wxqr.webp';
 
@@ -28,7 +27,6 @@ const Home: React.FC = () => {
     const fetchDirection = async () => {
       try {
         const response = await getDirection(true);
-        console.log(response);
         if (Array.isArray(response) && response.length > 0) {
           setPlatforms(response);
         } else {
@@ -85,7 +83,6 @@ const Home: React.FC = () => {
     const fetchRencentAcitivities = async () => {
       try {
         const res = await getRecentActivities();
-        console.log(res.recentActivities);
         setRecentActivities(res.recentActivities);
       } catch (err) {
         console.error('获取文章失败: ', err);
@@ -136,18 +133,25 @@ const Home: React.FC = () => {
         <div className="home-activity-container">
           {recentActivities?.length > 0 ? (
             recentActivities?.map((activity) => (
-              <div className={`home-activity-card`} key={activity.aid}>
-                <div className="home-activity-card-content">
-                  <p className="home-activity-card-title">{activity.title}</p>
-                  <p className="home-activity-card-date">{activity.time}</p>
-                  <p className="home-activity-card-summary">
-                    {activity.summary}
-                  </p>
+              <a
+                style={{ color: 'white' }}
+                href={`/activities/${activity.aid}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className={`home-activity-card`} key={activity.aid}>
+                  <div className="home-activity-card-content">
+                    <p className="home-activity-card-title">{activity.title}</p>
+                    <p className="home-activity-card-date">{activity.time}</p>
+                    <p className="home-activity-card-summary">
+                      {activity.summary}
+                    </p>
+                  </div>
+                  <div className="home-activity-card-image">
+                    <img src={activity.img} alt={activity.title} />
+                  </div>
                 </div>
-                <div className="home-activity-card-image">
-                  <img src={activity.img} alt={activity.title} />
-                </div>
-              </div>
+              </a>
             ))
           ) : (
             <div className="home-activity-none">暂无活动</div>

@@ -26,7 +26,6 @@ const StackCarousel: React.FC = () => {
     const fetchData = async () => {
       try {
         const res = await getRecentActivities();
-        console.log(res.recentActivities);
         setRecentActivities(res.recentActivities);
       } catch (err) {
         console.error('获取文章失败: ', err);

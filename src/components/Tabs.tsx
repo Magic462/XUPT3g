@@ -1,44 +1,69 @@
 import React, { useState, useEffect } from 'react';
-import './Tabs.scss'; // 引入样式文件
+import './Tabs.scss';
 
-const Tabs = ({ tabs, onTabChange }) => {
-  const [activeTab, setActiveTab] = useState(tabs[0]); // 默认选中第一个标签
-  const [maxVisibleTabs, setMaxVisibleTabs] = useState(6); // 初始设置最大可见标签数
-  const [isDropdownVisible, setIsDropdownVisible] = useState(false); // 控制下拉菜单的显示与隐藏
+/**
+ * 根据窗口宽度计算最大可见 tab 数
+ * ⚠️ 必须在初始化阶段就算对
+ */
+const getMaxVisibleTabs = () => {
+  const w = window.innerWidth;
+  if (w <= 345) return 0;
+  if (w <= 768) return 1;
+  return 6;
+};
 
+const Tabs = ({ tabs = [], onTabChange }) => {
+  // ✅ 初始化就使用正确的响应式值
+  const [maxVisibleTabs, setMaxVisibleTabs] = useState(getMaxVisibleTabs);
+
+  const [displayTabs, setDisplayTabs] = useState([]);
+  const [activeTab, setActiveTab] = useState(null);
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+
+  /**
+   * 监听窗口 resize
+   */
   useEffect(() => {
     const handleResize = () => {
-      // 当窗口宽度小于等于768px时，设置最大可见标签数为3
-      if (window.innerWidth <= 768) {
-        setMaxVisibleTabs(2);
-      } else {
-        setMaxVisibleTabs(6);
-      }
+      setMaxVisibleTabs(getMaxVisibleTabs());
     };
 
-    // 初始检查
-    handleResize();
-
-    // 监听窗口大小变化
     window.addEventListener('resize', handleResize);
-
-    // 清理监听器
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // 分离可见标签和更多标签
-  const visibleTabs = tabs.slice(0, maxVisibleTabs);
+  /**
+   * tabs 变化时同步内部状态
+   * ⚠️ 移动端首次进入 + 异步数据非常关键
+   */
+  useEffect(() => {
+    if (!tabs || tabs.length === 0) return;
+
+    setDisplayTabs([...tabs]);
+    setActiveTab(tabs[0]);
+    onTabChange?.(tabs[0]);
+  }, [tabs]);
+
+  const visibleTabs = displayTabs.slice(0, maxVisibleTabs);
   const additionalTabs =
-    tabs.length > maxVisibleTabs ? tabs.slice(maxVisibleTabs) : [];
+    displayTabs.length > maxVisibleTabs
+      ? displayTabs.slice(maxVisibleTabs)
+      : [];
 
   const handleTabClick = (tab) => {
+    const isAdditionalTab = additionalTabs.includes(tab);
+
+    if (isAdditionalTab) {
+      setDisplayTabs([tab, ...displayTabs.filter((t) => t !== tab)]);
+    }
+
     setActiveTab(tab);
-    onTabChange(tab); // 通知父组件选中的年份或方向
-    setIsDropdownVisible(false); // 点击菜单项后隐藏下拉菜单
+    onTabChange?.(tab);
+    setIsDropdownVisible(false);
   };
 
   const toggleDropdown = () => {
-    setIsDropdownVisible(!isDropdownVisible);
+    setIsDropdownVisible((v) => !v);
   };
 
   return (
@@ -53,6 +78,7 @@ const Tabs = ({ tabs, onTabChange }) => {
             {tab}
           </div>
         ))}
+
         {additionalTabs.length > 0 && (
           <div className="more-tab" onClick={toggleDropdown}>
             更多
@@ -72,10 +98,8 @@ const Tabs = ({ tabs, onTabChange }) => {
           </div>
         )}
       </div>
-      <div className="tab-content">
-        {/* <h2>{activeTab}</h2> */}
-        {/* 这里可以根据 activeTab 显示具体内容 */}
-      </div>
+
+      <div className="tab-content">{/* 根据 activeTab 渲染内容 */}</div>
     </div>
   );
 };

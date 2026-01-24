@@ -190,6 +190,8 @@
   }
 
   .platforms-section {
+    box-sizing: border-box;
+    overflow: hidden;
     padding: 4rem 2rem;
     background: linear-gradient(to bottom, rgb(0, 0, 0), rgb(62, 64, 61));
     text-align: center;
