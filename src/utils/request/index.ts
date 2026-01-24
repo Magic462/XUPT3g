@@ -5,9 +5,15 @@ import axios, {
 } from 'axios';
 import { message } from '@/utils/message';
 
+interface ServerError {
+  code: number;
+  data: undefined;
+  message: string;
+}
+
 // 创建axios实例
 const axiosInstance = axios.create({
-  baseURL: 'http://10csqn6268959.vicp.fun',
+  baseURL: '/',
   timeout: 50000,
   headers: { 'Content-Type': 'application/json' },
 });
@@ -49,6 +55,11 @@ axiosInstance.interceptors.response.use(
     }
   },
   (err: AxiosError) => {
+    const serverError = err?.response?.data as ServerError;
+    if (serverError.message) {
+      message.error(onErrorReason(serverError.message));
+      return Promise.reject(err);
+    }
     message.error(onErrorReason(err.message));
     return Promise.reject(err);
   }
@@ -56,9 +67,11 @@ axiosInstance.interceptors.response.use(
 
 // 错误消息转中文
 function onErrorReason(message: string): string {
+  if (!message) return '服务异常，请重试!';
   if (message.includes('Network Error')) return '网络异常，请检查网络情况!';
   if (message.includes('timeout')) return '请求超时，请重试!';
-  return '服务异常，请重试!';
+
+  return message;
 }
 
 export default axiosInstance;

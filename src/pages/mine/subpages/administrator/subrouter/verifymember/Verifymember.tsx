@@ -84,7 +84,7 @@ const Verifymember = () => {
       message.success('添加成员成功');
     } catch (err) {
       message.error('添加成员失败');
-      console.log('添加成员失败：', err);
+      console.log('添加成员失败：', err.message);
     }
   };
 
@@ -107,6 +107,7 @@ const Verifymember = () => {
             <input
               type="text"
               ref={getRef(0)}
+              value={postMemberInfo.name || ''}
               onChange={(e) =>
                 setPostMemberInfo({ ...postMemberInfo, name: e.target.value })
               }
@@ -119,6 +120,7 @@ const Verifymember = () => {
             <input
               type="text"
               ref={getRef(1)}
+              value={postMemberInfo.username || ''}
               onChange={(e) =>
                 setPostMemberInfo({
                   ...postMemberInfo,
