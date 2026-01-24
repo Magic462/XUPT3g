@@ -194,7 +194,6 @@ const Mine = () => {
       const username = localStorage.getItem('username');
       try {
         const response = await getUserinfo(username);
-        console.log(response.portrait);
         setPortrait(response.portrait);
       } catch (error) {
         console.error('获取个人信息:', error);

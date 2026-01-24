@@ -19,7 +19,7 @@ export const getAllArticleInfo = async (
   pageNum: number;
 }> => {
   const res = await get<{ activities: Article[]; total: number }>(
-    'api/activities/list',
+    '/xupt-web/api/activities/list',
     {
       params: {
         pageNum,
@@ -48,7 +48,7 @@ export const getRecentActivities = async (
   recentActivities: Article[];
 }> => {
   const res = await get<{ activities: Article[]; total: number }>(
-    'api/activities/list',
+    '/xupt-web/api/activities/list',
     {
       params: {
         pageSize,
@@ -70,7 +70,7 @@ export const getRecentActivities = async (
 
 // 查询文章
 export const getActivityContent = async (aid: number): Promise<Article> => {
-  const res = await get<Article>('/api/activity', {
+  const res = await get<Article>('/xupt-web/api/activity', {
     params: {
       aid,
     },
@@ -86,7 +86,7 @@ export const postArticle = async (
   // summary: string
 ) => {
   const res = await post(
-    '/api/activity',
+    '/xupt-web/api/activity',
     {
       title,
       content,
@@ -97,7 +97,6 @@ export const postArticle = async (
       customAuth: true,
     }
   );
-  console.log(res);
   return res;
 };
 
@@ -110,7 +109,7 @@ export const changeActivity = async (
   summary: string = '修改测试'
 ) => {
   const res = await put(
-    '/api/activities',
+    '/xupt-web/api/activities',
     { aid, title, content, img, summary },
     { customAuth: true }
   );
@@ -120,7 +119,7 @@ export const changeActivity = async (
 
 // 删除活动接口
 export const deleteActivity = async (aid: number) => {
-  const res = await del('/api/activity', {
+  const res = await del('/xupt-web/api/activity', {
     params: {
       aid,
     },

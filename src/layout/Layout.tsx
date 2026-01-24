@@ -62,6 +62,17 @@ const MainLayout: React.FC = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // hover的时候为展开状态
+  const handleMouseEnter = () => {
+    if (!uiState.isMobile) {
+      setUiState((prev) => ({
+        ...prev,
+        menuOpen: true,
+        mainMenuOpen: true,
+      }));
+    }
+  };
+
   // 点击外部关闭主菜单
   useClickOutside(menuRef as React.RefObject<HTMLElement>, () => {
     if (uiState.menuOpen) {
@@ -94,15 +105,6 @@ const MainLayout: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY, lastScrollTime, uiState.menuOpen]);
 
-  // 打开菜单
-  const openMenu = () => {
-    setUiState((prev) => ({
-      ...prev,
-      menuOpen: true,
-      mainMenuOpen: true,
-    }));
-  };
-
   // 菜单切换
   const toggleMenu = () => {
     setUiState((prev) => ({
@@ -127,12 +129,12 @@ const MainLayout: React.FC = () => {
     <div className="main-layout">
       <div
         ref={menuRef}
+        onMouseEnter={handleMouseEnter}
         className={`menu-container ${uiState.menuOpen ? 'open' : ''} ${
           isMinePage && !uiState.menuOpen && uiState.isMobile
             ? 'menu-height'
             : ''
         }`}
-        onMouseEnter={openMenu}
       >
         <button className="menu-toggle" onClick={toggleMenu}>
           <span></span>

@@ -128,7 +128,9 @@ const Login = () => {
               onClick={() => setShowPassword(!showPassword)}
               className="toggle-password"
             >
-              {showPassword ? 'Hide' : 'Show'}
+              <p className="toggle-password-text">
+                {showPassword ? 'Hide' : 'Show'}
+              </p>
             </button>
           </div>
           <div className="field">

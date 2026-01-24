@@ -27,7 +27,6 @@ const Editdirection = () => {
       const fetchDirection = async () => {
         try {
           const response = await getAllDirection(name);
-          console.log(response);
           setPostDirectionInfo(response[0]);
           setTid(response[0].tid);
           setActiveHTML(response[0].trainPlan);
@@ -47,7 +46,6 @@ const Editdirection = () => {
       return message.warning('方向简介不能少于15个字！');
     }
     if (!articleHTML || articleHTML.trim() === '<p><br></p>') {
-      console.log(articleHTML);
       return message.warning('请输入活动培养方案');
     }
 

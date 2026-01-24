@@ -12,14 +12,12 @@ const Groupmember: React.FC = () => {
     // const response = await getGroupMembers(userInfo.team);
     // setDataList(response.data.dataList);
     const response = await getUserinfo(localStorage.getItem('username'));
-    console.log(response);
     setTeam(response.team);
   };
 
   const fetchMembers = async (direction: string) => {
     const response = await getMembers(false, direction);
     // setDataList(response.data.dataList)
-    console.log(response);
     setDataList(response.data);
   };
 

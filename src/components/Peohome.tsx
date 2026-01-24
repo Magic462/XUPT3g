@@ -17,7 +17,6 @@ const Peohome: React.FC<Userinfo> = ({
   company,
   graduateImg,
 }) => {
-  // console.log(graduateImg);
   return (
     <div className="peo-home-container">
       <div className="header-section">

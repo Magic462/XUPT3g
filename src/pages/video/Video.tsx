@@ -2,13 +2,10 @@ import './Video.scss';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import Tabs from '../../components/Tabs';
-// import { getDirection } from '@/services/directions';
 import { getVideo } from '@/services/video';
 import { CategorizedVideo } from '@/types/video';
 import { message } from '@/utils/message';
-import sampleVideo from '../../assets/VID_20240815_220604.mp4';
 
-// const fakeData = ['Web', 'Server', 'Android', 'iOS', 'HarmonyOS'];
 const Video = () => {
   const [platforms, setPlatforms] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('');
@@ -18,7 +15,6 @@ const Video = () => {
   const fetchAllVideos = async () => {
     try {
       const res = await getVideo();
-      console.log(res);
       setAllVideos(res);
       const categories = [...new Set(res.map((item) => item.category))];
       if (Array.isArray(categories) && categories.length > 0) {
@@ -30,16 +26,6 @@ const Video = () => {
       message.error('获取视频失败');
     }
   };
-
-  // const fetchSelectedVideo = async (selectedCategory) => {
-  //   try {
-  //     const res = await getVideo(selectedCategory);
-  //     console.log(res);
-  //   } catch (err) {
-  //     console.log('获取视频失败：', err);
-  //     message.error('获取视频失败');
-  //   }
-  // };
 
   useEffect(() => {
     fetchAllVideos();
@@ -69,7 +55,7 @@ const Video = () => {
           {selectedVideo ? (
             <div className="video-container">
               <video
-                src={sampleVideo}
+                src={selectedVideo}
                 controls
                 muted
                 autoPlay

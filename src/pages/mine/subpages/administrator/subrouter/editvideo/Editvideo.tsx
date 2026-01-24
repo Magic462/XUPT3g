@@ -48,7 +48,6 @@ const Editvideo = () => {
   const fetchAllVideos = async () => {
     try {
       const res = await getVideo();
-      console.log(res);
       setAllVideos(res);
     } catch (err) {
       console.log('获取视频失败：', err);
@@ -202,17 +201,11 @@ const Editvideo = () => {
                         </span>
                       </div>
                       <div className="video-actions">
-                        {/* <a
-                          href={videoItem.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          查看视频
-                        </a> */}
                         <video
+                          // src="http://vjs.zencdn.net/v/oceans.mp4"
                           src={videoItem.url}
                           controls
-                          style={{ maxWidth: '100%' }}
+                          style={{ maxWidth: '60%' }}
                         ></video>
                         <button
                           className="delete-btn"
