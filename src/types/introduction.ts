@@ -1,3 +1,3 @@
 export interface IntroductionRes {
-  content: string;
+  introduction: string;
 }

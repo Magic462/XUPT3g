@@ -21,6 +21,7 @@ const EXPANDABLE_ITEMS = {
   MEMBER: 'member',
   DIRECTIONPLAN: 'directionplan',
   EDITTRAININGPLAN: 'edittrainplan',
+  EDITINTRODUCTION: 'editintroduction',
   GROUPMEMBER: 'groupMember',
   VIDEAO: 'videao',
 } as const;
@@ -146,6 +147,12 @@ const adminNavItem = [
     icon: 'icon-jiasupeiyangjihua',
     label: '培养方案',
     path: '/mine/admin/edittrainplan',
+  },
+  {
+    key: EXPANDABLE_ITEMS.EDITINTRODUCTION,
+    icon: 'icon-dongtai',
+    label: '简介管理',
+    path: '/mine/admin/editintroduction',
   },
 ];
 

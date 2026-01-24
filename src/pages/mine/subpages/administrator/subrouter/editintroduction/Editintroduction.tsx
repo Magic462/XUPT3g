@@ -39,7 +39,7 @@ const Editintroduction = () => {
     <div className="edit-direction-container">
       <div className="each-func-title">
         <h2>
-          <i className={`each-func-icons iconfont icon-jiasupeiyangjihua`}></i>
+          <i className={`each-func-icons iconfont icon-dongtai`}></i>
           修改简介
         </h2>
       </div>
