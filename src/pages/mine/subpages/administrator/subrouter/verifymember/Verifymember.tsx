@@ -8,19 +8,43 @@ import { addMember } from '@/services/members';
 // import { getUserinfo } from '@/services/userinfo';
 import { Userinfo } from '@/types/userinfo';
 
-const years = [2024, 2023, 2022, 2021, 2020, 2019];
-
 const inputCount = 2;
+const MIN_MEMBER_YEAR = 2008;
 
 const Verifymember = () => {
   const { getRef, handleKeyDown } = useEnterToFocusNextInput(inputCount);
+  // const [years, setYears] = useState<number[]>([]);
   const [teams, setTeams] = useState<Direction[]>([]);
+  // 距今成员时间数组
+  const currentYear = new Date().getFullYear();
+  const years: number[] = [];
+  for (let i = currentYear; i >= MIN_MEMBER_YEAR; i--) {
+    years.push(i);
+  }
+
   const [postMemberInfo, setPostMemberInfo] = useState<Userinfo>({
     name: '',
     username: '',
     team: teams[0]?.name, // 默认空字符串（可改成 teams[0]?.name 后补充）
-    year: years[0],
+    year: Number(years[0]),
   });
+
+  // // 获取years
+  // useEffect(() => {
+  //   const fetchDirection = async () => {
+  //     try {
+  //       const response = await getYears();
+  //       // console.log(response);
+  //       if (Array.isArray(response) && response.length > 0) {
+  //         // setYears(response.map((item) => Number(item)));
+  //       }
+  //     } catch (error) {
+  //       console.log('获取年份失败', error);
+  //       message.error('获取年份失败');
+  //     }
+  //   };
+  //   fetchDirection();
+  // }, []);
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -42,7 +66,6 @@ const Verifymember = () => {
   }, []);
 
   const handleAddMember = async () => {
-    console.log(postMemberInfo);
     const { name, username, team, year } = postMemberInfo;
 
     // 校验字段完整性
@@ -51,18 +74,17 @@ const Verifymember = () => {
     }
 
     try {
-      const response = await addMember(name, username, team, year); // 传入表单信息
+      await addMember(name, username, team, year); // 传入表单信息
       setPostMemberInfo({
         name: '',
         username: '',
         team: teams[0]?.name || '',
-        year: years[0],
+        year: Number(years[0]),
       });
-      console.log(response);
       message.success('添加成员成功');
     } catch (err) {
       message.error('添加成员失败');
-      console.log('添加成员失败：', err);
+      console.log('添加成员失败：', err.message);
     }
   };
 
@@ -85,6 +107,7 @@ const Verifymember = () => {
             <input
               type="text"
               ref={getRef(0)}
+              value={postMemberInfo.name || ''}
               onChange={(e) =>
                 setPostMemberInfo({ ...postMemberInfo, name: e.target.value })
               }
@@ -97,6 +120,7 @@ const Verifymember = () => {
             <input
               type="text"
               ref={getRef(1)}
+              value={postMemberInfo.username || ''}
               onChange={(e) =>
                 setPostMemberInfo({
                   ...postMemberInfo,

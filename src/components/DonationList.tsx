@@ -15,7 +15,7 @@ interface YeardonationProps {
   onDelete: (id: number) => void;
   role: string;
 }
-// 最早捐款年份
+
 const MIN_DONATION_YEAR = 2015;
 const inputCount = 2;
 
@@ -34,21 +34,19 @@ const Yeardonation: React.FC<YeardonationProps> = ({
         </tr>
       </thead>
       <tbody>
-        {donations.map((item) => {
-          return (
-            <tr key={item.id}>
-              <td>{item.name}</td>
-              <td>{item.money}</td>
-              {role === '0' && (
-                <td>
-                  <div className="delete-btn" onClick={() => onDelete(item.id)}>
-                    <span>×</span>
-                  </div>
-                </td>
-              )}
-            </tr>
-          );
-        })}
+        {donations.map((item) => (
+          <tr key={item.id}>
+            <td>{item.name}</td>
+            <td>{item.money}</td>
+            {role === '0' && (
+              <td>
+                <div className="delete-btn" onClick={() => onDelete(item.id)}>
+                  <span>×</span>
+                </div>
+              </td>
+            )}
+          </tr>
+        ))}
       </tbody>
     </table>
   );
@@ -60,13 +58,12 @@ const DonationList = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteId, setDeleteId] = useState<number>(0);
 
-  // 调用enter自动聚焦下一个input
   const { getRef, handleKeyDown } = useEnterToFocusNextInput(inputCount);
 
   const [donations, setDonations] = useState<Donationinfo[]>([]);
-  const [pendingDonations, setPendingDonations] = useState<Donationinfo[]>([]);
+  const [totalCount, setTotalCount] = useState(null);
   const [time, setTime] = useState<number>(() => new Date().getFullYear());
-  // 距今捐款时间数组
+
   const currentYear = new Date().getFullYear();
   const years: number[] = [];
   for (let i = currentYear; i >= MIN_DONATION_YEAR; i--) {
@@ -81,7 +78,6 @@ const DonationList = () => {
     time: `${time}`,
   });
 
-  // 添加这个useEffect来同步time和formData.time
   useEffect(() => {
     setFormData((prev) => ({
       ...prev,
@@ -89,108 +85,68 @@ const DonationList = () => {
     }));
   }, [time]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  // 提交
-  const handleSubmit = () => {
-    if (pendingDonations.length < 1) {
-      message.warning('未录入任何捐款信息');
-      return;
-    }
-    fetchPostResponse();
-  };
-
-  // 继续录入
-  const continueSubmit = () => {
-    if (!formData.name || !formData.money) {
-      // alert('');
-      message.warning('请完整填写姓名和金额');
-      return;
-    }
-    setPendingDonations([
-      ...pendingDonations,
-      { ...formData, money: Number(formData.money) },
-    ]);
-
-    message.success('录入成功，请继续录入');
-
-    setFormData({
-      name: '',
-      money: '',
-      team: 'other',
-      remark: '爱心捐款',
-      time: `${time}`,
-    });
-  };
-
-  // 提交请求
-  const fetchPostResponse = async () => {
-    try {
-      const response = await postDonationInfo(pendingDonations);
-      console.log(response);
-      message.success('提交成功');
-      setShowModal(false);
-      setPendingDonations([]);
-      const res = await getDonationInfo(time);
-      setDonations(res);
-    } catch (err) {
-      console.log('上传捐款失败：', err);
-      message.error('提交失败，请稍后再试');
-    }
-  };
-
   useEffect(() => {
     const fetchDonations = async () => {
       try {
-        const response = await getDonationInfo(time);
-        setDonations(response);
-      } catch (err) {
-        console.log('获取捐款信息失败：', err);
+        const res = await getDonationInfo(time);
+        setDonations(res.donations);
+        setTotalCount(res.totalCount);
+      } catch {
         message.warning('获取捐款信息失败');
       }
     };
-
     fetchDonations();
   }, [time]);
+
+  const handleSubmit = async () => {
+    if (!formData.name || !formData.money) {
+      message.warning('请完整填写姓名和金额');
+      return;
+    }
+
+    try {
+      await postDonationInfo([{ ...formData, money: Number(formData.money) }]);
+
+      message.success('录入成功');
+      setFormData({
+        name: '',
+        money: '',
+        team: 'other',
+        remark: '爱心捐款',
+        time: `${time}`,
+      });
+
+      const res = await getDonationInfo(time);
+      setDonations(res.donations);
+    } catch (err) {
+      message.error('录入失败，请稍后再试');
+      console.log('录入失败：', err);
+    }
+  };
 
   const handleDelete = async (id: number) => {
     try {
       await deleteDonation(id);
       message.success('删除成功');
       const res = await getDonationInfo(time);
-      setDonations(res);
+      setDonations(res.donations);
       setShowDeleteModal(false);
-    } catch (err) {
-      console.error('删除失败：', err);
+    } catch {
       message.error('删除失败，请稍后再试');
     }
-  };
-
-  const handleDeleteClick = (id: number) => {
-    setDeleteId(id);
-    setShowDeleteModal(true);
   };
 
   return (
     <>
       <div className="donation-controls-box">
-        {years && (
-          <select
-            value={time || ''}
-            onChange={(e) => {
-              setTime(Number(e.target.value));
-            }}
-          >
-            {years.map((item) => (
-              <option value={item} key={item}>
-                {item}
-              </option>
-            ))}
-          </select>
-        )}
+        <select value={time} onChange={(e) => setTime(Number(e.target.value))}>
+          {years.map((y) => (
+            <option key={y} value={y}>
+              {y}
+            </option>
+          ))}
+        </select>
+
         {role === '0' && (
           <div
             className="edit-donation-post-box"
@@ -201,18 +157,22 @@ const DonationList = () => {
         )}
       </div>
 
-      {donations && (
-        <Yeardonation
-          donations={donations}
-          onDelete={handleDeleteClick}
-          role={role}
-        />
-      )}
+      <div className="donation-total">本年捐款总额：{totalCount}</div>
+      <Yeardonation
+        donations={donations}
+        onDelete={(id) => {
+          setDeleteId(id);
+          setShowDeleteModal(true);
+        }}
+        role={role}
+      />
 
       {showDeleteModal && (
         <DeleteConfirmModal
           delId={deleteId}
-          remindMessage={`确定要删除 ${donations.find((d) => d.id === deleteId)?.name} 的捐款记录吗？`}
+          remindMessage={`确定要删除 ${
+            donations.find((d) => d.id === deleteId)?.name
+          } 的捐款记录吗？`}
           onHandlerDelete={setShowDeleteModal}
           onDelete={handleDelete}
         />
@@ -222,42 +182,38 @@ const DonationList = () => {
         <div className="donation-modal">
           <div className="modal-content">
             <h3>录入捐款信息</h3>
-            <div className="donation-input-header">
-              <span className="donation-count">
-                已录入{pendingDonations.length}人
-              </span>
-            </div>
+
             <input
-              type="text"
               name="name"
               placeholder="姓名"
               value={formData.name}
-              onChange={handleChange}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
               ref={getRef(0)}
               onKeyDown={handleKeyDown(0)}
             />
+
             <input
-              type="text"
               name="money"
               placeholder="金额"
               value={formData.money}
-              onChange={handleChange}
+              onChange={(e) =>
+                setFormData({ ...formData, money: e.target.value })
+              }
               ref={getRef(1)}
-              onKeyDown={handleKeyDown(1, continueSubmit)}
+              onKeyDown={handleKeyDown(1, handleSubmit)}
             />
 
             <div className="modal-actions">
-              <button className="donation-continue" onClick={continueSubmit}>
-                继续录入
-              </button>
               <button className="donation-post" onClick={handleSubmit}>
-                提交
+                录入
               </button>
               <button
                 className="donation-cancel"
                 onClick={() => setShowModal(false)}
               >
-                取消
+                完成/取消
               </button>
             </div>
           </div>

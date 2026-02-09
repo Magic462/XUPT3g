@@ -13,14 +13,19 @@ const Footerpagination: React.FC<FooterpaginationProps> = ({
   onPageChange,
   currentPage,
 }) => {
-  const [isMobile, setIsMobile] = useState(window.innerWidth > 768);
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
+  // const [isMobile, setIsMobile] = useState(false);
+  // if (window.innerHeight > 768) setIsMobile(true);
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setIsMobile(window.innerWidth < 768);
+  //   };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+  //   window.addEventListener('resize', handleResize);
+  //   return () => window.removeEventListener('resize', handleResize);
+  // }, []);
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    if (window.innerHeight > 768) setIsMobile(true);
   }, []);
 
   const handlePageChange = (page: number) => {

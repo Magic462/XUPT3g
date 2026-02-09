@@ -13,7 +13,6 @@ const Myinfo: React.FC = () => {
       const username = localStorage.getItem('username');
       try {
         const response = await getUserinfo(username);
-        console.log(response);
         setDataList(response);
       } catch (error) {
         console.error('获取个人信息:', error);

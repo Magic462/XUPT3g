@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
 import './Home.scss';
+import { useEffect, useState } from 'react';
+import { getRecentActivities } from '@/services/activities';
 import { getQQcontact } from '@/services/qqcontact';
 import { getDirection } from '@/services/directions';
 import layoutback from '@/assets/images/layoutback.gif';
 import wxqr from '@/assets/images/wxqr.webp';
+import { getIntroduction } from '@/services/introduction';
 
 const fakeData = [
   { id: 1, name: 'Web', description: '构建用户界面和交互' },
@@ -19,13 +21,14 @@ const Home: React.FC = () => {
   const year = now.getFullYear();
   const [qqnumber, serQqNumber] = useState('');
   const [platforms, setPlatforms] = useState([]);
+  const [recentActivities, setRecentActivities] = useState([]);
+  const [introducton, setIntroduction] = useState<string>();
 
   // 获取方向简介
   useEffect(() => {
     const fetchDirection = async () => {
       try {
         const response = await getDirection(true);
-        console.log(response);
         if (Array.isArray(response) && response.length > 0) {
           setPlatforms(response);
         } else {
@@ -77,6 +80,34 @@ const Home: React.FC = () => {
     fetchQQ();
   }, []);
 
+  // 获取最近发布的七个活动
+  useEffect(() => {
+    const fetchRencentAcitivities = async () => {
+      try {
+        const res = await getRecentActivities();
+        setRecentActivities(res.recentActivities);
+      } catch (err) {
+        console.error('获取文章失败: ', err);
+      }
+    };
+    fetchRencentAcitivities();
+  }, []);
+  
+  // 获取实验室简介
+  useEffect(() => {
+    const fetchIntroduction = async () => {
+      try {
+        const response = await getIntroduction();
+        console.log(response);
+
+        setIntroduction(response.introduction);
+      } catch (err) {
+        console.log('获取简介失败：', err);
+      }
+    };
+    fetchIntroduction();
+  }, []);
+
   return (
     <div className="home-container">
       <section className="hero">
@@ -91,6 +122,40 @@ const Home: React.FC = () => {
         </div>
       </section>
 
+      <section className="home-bref-intro-section">
+        <h2>简介</h2>
+        <div dangerouslySetInnerHTML={{ __html: introducton }} />
+      </section>
+      <section className="home-activity-section">
+        <h2>近期活动</h2>
+        <div className="home-activity-container">
+          {recentActivities?.length > 0 ? (
+            recentActivities?.map((activity) => (
+              <a
+                style={{ color: 'white' }}
+                href={`/activities/${activity.aid}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className={`home-activity-card`} key={activity.aid}>
+                  <div className="home-activity-card-content">
+                    <p className="home-activity-card-title">{activity.title}</p>
+                    <p className="home-activity-card-date">{activity.time}</p>
+                    <p className="home-activity-card-summary">
+                      {activity.summary}
+                    </p>
+                  </div>
+                  <div className="home-activity-card-image">
+                    <img src={activity.img} alt={activity.title} />
+                  </div>
+                </div>
+              </a>
+            ))
+          ) : (
+            <div className="home-activity-none">暂无活动</div>
+          )}
+        </div>
+      </section>
       <section className="platforms-section">
         <h2>技术平台</h2>
         <div className="platforms-container">

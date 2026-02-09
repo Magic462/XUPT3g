@@ -110,7 +110,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
 
   useEffect(() => {
     if (initHTML) {
-      console.log(initHTML);
       setHtml(initHTML);
       if (editor) {
         editor.setHtml(initHTML);

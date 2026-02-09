@@ -116,7 +116,7 @@
     }
     .delete-button {
       // padding: 5px 10px;
-      background-color: #f44336;
+      background-color: #fca918;
       color: white;
       border: none;
       cursor: pointer;
@@ -180,6 +180,91 @@
       &:hover {
         cursor: pointer;
         color: #2196f3;
+      }
+    }
+  }
+}
+
+.mem-item-operation-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9998;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(0.5rem);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.mem-item-operation-box {
+  box-sizing: border-box;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 1.5rem 2rem;
+  padding-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  background-color: #fff;
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.3);
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  min-width: 16rem;
+  z-index: 9999;
+
+  .mem-item-operation-close {
+    position: absolute;
+    top: 0.8rem;
+    right: 1rem;
+    font-size: 1.8rem;
+    color: #919191;
+    cursor: pointer;
+    line-height: 1;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s;
+
+    &:hover {
+      color: #333333;
+      background-color: #f5f5f5;
+    }
+  }
+
+  .mem-item-operation-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 0.1rem solid #e0e0e0;
+  }
+
+  .mem-item-operation-item {
+    padding: 0.8rem 1rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #555;
+    user-select: none;
+
+    &:hover {
+      background-color: #f5f5f5;
+      color: #2196f3;
+    }
+
+    &:first-of-type {
+      color: #f44336;
+
+      &:hover {
+        background-color: #ffebee;
+        color: #d32f2f;
       }
     }
   }

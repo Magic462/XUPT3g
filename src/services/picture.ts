@@ -7,7 +7,7 @@ export const getPictureUrl = async (image: File): Promise<PictureResponse> => {
   formData.append('image', image);
 
   const response = await post<PictureResponse>(
-    '/api/uploadImgWithWaterMark',
+    '/xupt-web/api/uploadImgWithWaterMark',
     formData,
     {
       customAuth: true,
@@ -17,6 +17,5 @@ export const getPictureUrl = async (image: File): Promise<PictureResponse> => {
     }
   );
 
-  console.log(response);
   return response;
 };

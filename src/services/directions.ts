@@ -3,7 +3,7 @@ import { Direction, Directionres } from '@/types/direction';
 
 // 游客端看到的存在的方向的信息
 export const getDirection = async (isExist?: boolean): Promise<Direction[]> => {
-  const response = await get<Direction[]>('api/team', {
+  const response = await get<Direction[]>('xupt-web/api/team', {
     params: {
       isExist,
     },
@@ -19,7 +19,7 @@ export const getAllDirection = async (
 ): Promise<Direction[]> => {
   // const params = isExist !== undefined ? { isExist } : {};
 
-  const response = await get<Direction[]>('api/team/allinfo', {
+  const response = await get<Direction[]>('xupt-web/api/team/allinfo', {
     params: {
       name,
       isExist,
@@ -37,7 +37,7 @@ export const postDirection = async (
   isExist: boolean = true
 ): Promise<Directionres> => {
   const response = await post<Directionres>(
-    'api/team',
+    'xupt-web/api/team',
     {
       name,
       brefInfo,
@@ -60,7 +60,7 @@ export const putDirection = async (params: {
   isExist?: boolean;
 }) => {
   console.log('修改方向信息', params);
-  const response = await put(`/api/team`, params, {
+  const response = await put(`/xupt-web/api/team`, params, {
     customAuth: true,
   });
   return response;

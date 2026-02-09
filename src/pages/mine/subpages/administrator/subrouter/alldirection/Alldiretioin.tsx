@@ -66,10 +66,10 @@ const Alldirection = () => {
   const fetchDirection = async () => {
     try {
       const res = await getAllDirection();
-      console.log(res);
       setDirections(res);
     } catch (err) {
       console.log('获取方向信息失败：', err);
+      message.error('获取方向信息失败');
     }
   };
 
@@ -79,8 +79,7 @@ const Alldirection = () => {
 
   const delDirectionResponse = async (delId: number) => {
     try {
-      const response = await putDirection({ tid: delId, isExist: false });
-      console.log(response);
+      await putDirection({ tid: delId, isExist: false });
       message.success('移除成功');
       await fetchDirection();
       setIsDeleteModal(false);

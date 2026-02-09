@@ -45,8 +45,6 @@ const Member = () => {
         const response = await getMembers(false, selectedDirection);
         // console.log(data);
         const data = response.data;
-        console.log(data);
-
         setMembersMap((prev) => ({ ...prev, [selectedDirection]: data }));
       } catch (error) {
         console.error('获取成员失败', error);
@@ -63,7 +61,10 @@ const Member = () => {
         <Tabs tabs={platforms} onTabChange={setSelectedDirection} />
       )}
       {/* 传入props:mienImg */}
-      <People members={(membersMap[selectedDirection] || [])as Members[]} imgKey="mienImg" />
+      <People
+        members={(membersMap[selectedDirection] || []) as Members[]}
+        imgKey="mienImg"
+      />
     </div>
   );
 };

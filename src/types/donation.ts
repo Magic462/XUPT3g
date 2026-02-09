@@ -7,7 +7,12 @@ export interface Donationinfo {
   remark?: string;
 }
 
-export interface Donationres {
+export interface DonationinGetRes {
+  donations: Donationinfo[];
+  totalCount: number;
+}
+
+export interface DonationOperationRes {
   status: string;
   token: string;
 }

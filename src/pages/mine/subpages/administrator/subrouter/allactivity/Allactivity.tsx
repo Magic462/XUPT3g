@@ -62,8 +62,7 @@ const Allactivity = () => {
 
   const delActivityResponse = async (delId: number) => {
     try {
-      const response = await deleteActivity(delId);
-      console.log(response);
+      await deleteActivity(delId);
       await adminGetActivities();
       setIsDeleteModal(false);
       message.success('删除成功');
@@ -77,7 +76,6 @@ const Allactivity = () => {
       const res = await getAllArticleInfo(currentPage);
       setActivitiesData(res.activities);
       setPageNum(res.pageNum);
-      console.log(res);
     } catch (err) {
       console.log(err);
     }

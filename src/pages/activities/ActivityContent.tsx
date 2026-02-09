@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Article } from '@/types/article';
 import Footertop from '@/components/Footertop';
+import { message } from '@/utils/message';
 
 const ActivityContent: React.FC = () => {
   const [activity, setActivity] = useState<Article>();
@@ -16,6 +17,7 @@ const ActivityContent: React.FC = () => {
       setActivity(response);
     } catch (err) {
       console.log(err);
+      message.error('获取活动内容失败，请稍后再试');
     }
   };
 
