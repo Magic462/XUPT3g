@@ -28,6 +28,10 @@ const MainLayout: React.FC = () => {
         { path: '/graduate', label: '毕业去处' },
         { path: '/trainingplan', label: '培养计划' },
         { path: '/video', label: '视频展示' },
+        {
+          path: 'https://www.jt720.cn/pano/f8b76241777ac788?s=scene_ec7d830b0d193483',
+          label: '实景介绍',
+        },
         { path: status === '0' ? '/mine/admin' : '/mine/user', label: '我的' },
       ]
     : [
@@ -36,6 +40,10 @@ const MainLayout: React.FC = () => {
         { path: '/graduate', label: '毕业去处' },
         { path: '/trainingplan', label: '培养计划' },
         { path: '/video', label: '视频展示' },
+        {
+          path: 'https://www.jt720.cn/pano/f8b76241777ac788?s=scene_ec7d830b0d193483',
+          label: '实景介绍',
+        },
         { path: '/login', label: '登录' },
       ];
 
@@ -122,7 +130,12 @@ const MainLayout: React.FC = () => {
   };
 
   const handleNavigation = (path: string) => {
-    navigate(path);
+    // 判断是否为外部链接
+    if (path.startsWith('http://') || path.startsWith('https://')) {
+      window.open(path, '_blank');
+    } else {
+      navigate(path);
+    }
   };
 
   return (
