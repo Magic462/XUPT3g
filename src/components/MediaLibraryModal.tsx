@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 import './MediaLibraryModal.scss';
 import { getPictureUrl } from '@/services/picture';
+import { message } from '@/utils/message';
+
+const configuredMaxImageSizeMB = Number(
+  import.meta.env.VITE_ARTICLE_IMAGE_MAX_MB
+);
+const maxImageSizeMB =
+  Number.isFinite(configuredMaxImageSizeMB) && configuredMaxImageSizeMB > 0
+    ? configuredMaxImageSizeMB
+    : 2;
 
 interface Props {
   visible: boolean;
@@ -26,6 +35,12 @@ const MediaLibraryModal: React.FC<Props> = ({ visible, onClose, onInsert }) => {
   const handleUpload = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    if (file.size > maxImageSizeMB * 1024 * 1024) {
+      message.warning(`图片大小不能超过 ${maxImageSizeMB} MB`);
+      e.target.value = '';
+      return;
+    }
 
     setLoading(true);
 
