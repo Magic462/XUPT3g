@@ -55,8 +55,17 @@ axiosInstance.interceptors.response.use(
     }
   },
   (err: AxiosError) => {
-    const serverError = err?.response?.data as ServerError;
-    if (serverError.message) {
+    if (err.code === 'ERR_CANCELED') return Promise.reject(err);
+    if (err.response?.status === 401) {
+      message.warning('登录失效，请重新登录');
+      localStorage.removeItem('token');
+      localStorage.removeItem('status');
+      localStorage.removeItem('username');
+      window.location.href = '/login';
+      return Promise.reject(err);
+    }
+    const serverError = err.response?.data as Partial<ServerError> | undefined;
+    if (serverError?.message) {
       message.error(onErrorReason(serverError.message));
       return Promise.reject(err);
     }

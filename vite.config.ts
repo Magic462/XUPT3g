@@ -10,6 +10,11 @@ export default defineConfig({
     host: '0.0.0.0', // 关键！允许外部访问
     port: 5173,
     strictPort: true, // 禁止自动切换端口
+    proxy: {
+      '/xupt-web/api': 'http://127.0.0.1:8080',
+      '/res': 'http://127.0.0.1:8080',
+      '/videos': 'http://127.0.0.1:8080',
+    },
   },
   plugins: [
     react(),

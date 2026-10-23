@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Outlet, useNavigate, useOutletContext } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 import './Mine.scss';
 import '@/assets/icons/font_4k8jwf31qbs/iconfont.css';
 import '@/assets/icons/font_f7int92srzr/iconfont.css';
@@ -24,6 +24,7 @@ const EXPANDABLE_ITEMS = {
   EDITINTRODUCTION: 'editintroduction',
   GROUPMEMBER: 'groupMember',
   VIDEAO: 'videao',
+  ANNUALEXPENSE: 'annualExpense',
 } as const;
 // 二级导航栏项
 const SUB_EXPANDABLE_ITEMS = {
@@ -33,6 +34,8 @@ const SUB_EXPANDABLE_ITEMS = {
   POSTACTIVITY: 'postactivity',
   ADDMEMBER: 'addMember',
   ACTIVITY: 'activity',
+  DONATIONINFO: 'donationInfo',
+  ANNUALEXPENSE: 'annualExpense',
 };
 
 type ExpandableItem = (typeof EXPANDABLE_ITEMS)[keyof typeof EXPANDABLE_ITEMS];
@@ -64,6 +67,12 @@ const userNavItem = [
     path: '/mine/user/donation',
   },
   {
+    key: EXPANDABLE_ITEMS.ANNUALEXPENSE,
+    icon: 'icon-aixinjuankuan',
+    label: '年度支出',
+    path: '/mine/user/annual-expense',
+  },
+  {
     key: EXPANDABLE_ITEMS.GROUPMEMBER,
     icon: 'icon-chengyuan',
     label: '成员列表',
@@ -83,7 +92,18 @@ const adminNavItem = [
     key: EXPANDABLE_ITEMS.DONATIONEDIT,
     icon: 'icon-aixinjuankuan',
     label: '捐款管理',
-    path: '/mine/admin/editdonation',
+    children: [
+      {
+        key: SUB_EXPANDABLE_ITEMS.DONATIONINFO,
+        path: '/mine/admin/editdonation',
+        label: '捐款信息',
+      },
+      {
+        key: SUB_EXPANDABLE_ITEMS.ANNUALEXPENSE,
+        path: '/mine/admin/annual-expense',
+        label: '年度支出',
+      },
+    ],
   },
   {
     key: EXPANDABLE_ITEMS.ACTIVITY,
@@ -166,6 +186,7 @@ const Mine = () => {
   // const [role, setRole] = useState(Number(localStorage.getItem('status')));
 
   const navigate = useNavigate();
+  const location = useLocation();
   const { activeItem: expandItem, handleItemClick: handleExpandItem } =
     useActiveItem<ExpandableItem>();
 
@@ -184,19 +205,20 @@ const Mine = () => {
 
   // 测试暂时取消
   // 退出登录函数
-  const { logout } = useAuth();
+  const { logout, initialized } = useAuth();
   // 检查token是否过期
   const { checkTokenValid } = useAuth();
   useEffect(() => {
-    if (!checkTokenValid()) {
+    if (initialized && !checkTokenValid()) {
       // token 无效会自动 logout 并跳转
     }
-  }, [checkTokenValid]);
+  }, [initialized, checkTokenValid]);
   // 测试暂时取消
 
   const [portrait, setPortrait] = useState<string>(null);
 
   useEffect(() => {
+    if (!initialized || !localStorage.getItem('token')) return;
     const fetchUserinfo = async () => {
       const username = localStorage.getItem('username');
       try {
@@ -208,7 +230,21 @@ const Mine = () => {
     };
 
     fetchUserinfo();
-  }, []);
+  }, [initialized]);
+
+  // Restore menu selection after refresh and browser back/forward navigation.
+  useEffect(() => {
+    const items = localStorage.getItem('status') === '0' ? adminNavItem : userNavItem;
+    for (const item of items) {
+      const children = 'children' in item ? item.children : undefined;
+      const child = children?.find((entry) => entry.path === location.pathname);
+      if (child || ('path' in item && item.path === location.pathname)) {
+        handleExpandItem(item.key);
+        handleChildItem(child?.key ?? null);
+        break;
+      }
+    }
+  }, [location.pathname, initialized, handleExpandItem, handleChildItem]);
 
   // 左侧导航各个item渲染
   const RenderNavItem = (item: {
