@@ -6,6 +6,7 @@ interface DeleteConfirmProps {
   remindMessage: string;
   onHandlerDelete: (isDeleteModal: boolean) => void;
   onDelete: (delId: number) => void;
+  busy?: boolean;
 }
 
 const DeleteConfirmModal: React.FC<DeleteConfirmProps> = ({
@@ -13,15 +14,21 @@ const DeleteConfirmModal: React.FC<DeleteConfirmProps> = ({
   remindMessage,
   onHandlerDelete,
   onDelete,
+  busy = false,
 }) => {
   return (
     <div className="delete-confirm-container">
       <div
         className="modal-overlay"
-        onClick={() => onHandlerDelete(false)}
+        onClick={() => !busy && onHandlerDelete(false)}
       ></div>
 
-      <div className="modal-content">
+      <div
+        className="modal-content"
+        role="dialog"
+        aria-modal="true"
+        aria-label="删除确认"
+      >
         <div className="delete-title">
           <i className="iconfont icon-jinggao"></i>
           慎重考虑
@@ -32,11 +39,16 @@ const DeleteConfirmModal: React.FC<DeleteConfirmProps> = ({
         </div>
 
         <div className="action-buttons">
-          <button className="confirm-button" onClick={() => onDelete(delId)}>
-            确认
+          <button
+            className="confirm-button"
+            disabled={busy}
+            onClick={() => onDelete(delId)}
+          >
+            {busy ? '正在删除…' : '确认'}
           </button>
           <button
             className="cancel-button"
+            disabled={busy}
             onClick={() => onHandlerDelete(false)}
           >
             取消

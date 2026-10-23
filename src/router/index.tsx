@@ -17,6 +17,7 @@ const Members = lazy(() => import('../pages/members/Members'));
 const Graduate = lazy(() => import('../pages/Graduate/Graduate'));
 const Login = lazy(() => import('../pages/login/Login'));
 const Notfound = lazy(() => import('../pages/notfound/Notfound'));
+const AnnualExpense = lazy(() => import('../pages/annualexpense/AnnualExpense'));
 
 // mine三级路由引入
 const Administrator = lazy(
@@ -170,6 +171,10 @@ const routes: RouteObject[] = [
             ),
             children: [
               {
+                path: 'annual-expense',
+                element: <Suspense fallback={<Loading />}><AnnualExpense editable /></Suspense>,
+              },
+              {
                 index: true,
                 element: <Navigate to="editdonation" replace />,
               },
@@ -263,6 +268,10 @@ const routes: RouteObject[] = [
               </Suspense>
             ),
             children: [
+              {
+                path: 'annual-expense',
+                element: <Suspense fallback={<Loading />}><AnnualExpense /></Suspense>,
+              },
               {
                 index: true,
                 element: <Navigate to="myinfo" replace />,

@@ -1,10 +1,11 @@
 // src/contexts/AuthContext.tsx
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 type AuthStatus = '0' | '1' | '2' | null;
 
 type AuthContextType = {
+  initialized: boolean;
   token: string | null;
   status: AuthStatus;
   username: string | null;
@@ -16,6 +17,7 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [initialized, setInitialized] = useState(false);
   const [token, setToken] = useState<string | null>(null);
   const [status, setStatus] = useState<AuthStatus>(null);
   const [username, setUsername] = useState<string | null>(null);
@@ -32,6 +34,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setStatus(storedStatus);
       setUsername(storedUsername);
     }
+    setInitialized(true);
   }, []);
 
   // 登录
@@ -51,7 +54,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   // 退出登录
-  const logout = () => {
+  const logout = useCallback(() => {
+    if (!window.dispatchEvent(new Event('app:before-logout', { cancelable: true }))) return;
     localStorage.removeItem('token');
     localStorage.removeItem('status');
     localStorage.removeItem('username');
@@ -59,20 +63,20 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setStatus(null);
     setUsername(null);
     navigate('/login');
-  };
+  }, [navigate]);
 
   // 检查token是否过期
-  const checkTokenValid = () => {
+  const checkTokenValid = useCallback(() => {
     if (!token || !status || !username) {
       logout();
       return false;
     }
     return true;
-  };
+  }, [token, status, username, logout]);
 
   return (
     <AuthContext.Provider
-      value={{ token, status, username, login, logout, checkTokenValid }}
+      value={{ initialized, token, status, username, login, logout, checkTokenValid }}
     >
       {children}
     </AuthContext.Provider>

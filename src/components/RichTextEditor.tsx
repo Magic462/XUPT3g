@@ -1,6 +1,6 @@
 // 富文本组件
 import '@wangeditor/editor/dist/css/style.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Editor, Toolbar } from '@wangeditor/editor-for-react';
 import {
   IDomEditor,
@@ -8,6 +8,7 @@ import {
   IToolbarConfig,
   IButtonMenu,
   Boot,
+  DomEditor,
 } from '@wangeditor/editor';
 import MediaLibraryModal from './MediaLibraryModal';
 
@@ -71,15 +72,29 @@ if (!window.__mediaMenuRegistered) {
 interface RichTextEditorProps {
   initHTML?: string;
   onGetHTML?: (html: string) => void;
+  readOnly?: boolean;
+  placeholder?: string;
+  resetVersion?: number;
 }
 
 const RichTextEditor: React.FC<RichTextEditorProps> = ({
   initHTML,
   onGetHTML,
+  readOnly = false,
+  placeholder = '在这里编辑新闻动态吧...',
+  resetVersion = 0,
 }) => {
   const [editor, setEditor] = useState<IDomEditor | null>(null);
   const [html, setHtml] = useState('');
   const [mediaVisible, setMediaVisible] = useState(false);
+  const onGetHTMLRef = useRef(onGetHTML);
+  onGetHTMLRef.current = onGetHTML;
+
+  useEffect(() => {
+    if (!editor) return;
+    if (readOnly) editor.disable();
+    else editor.enable();
+  }, [editor, readOnly]);
 
   const toolbarConfig: Partial<IToolbarConfig> = {
     insertKeys: {
@@ -120,10 +135,11 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
         editor.setHtml('<p><br></p>');
       }
     }
-  }, [initHTML, editor]);
+  }, [initHTML, editor, resetVersion]);
 
   const editorConfig: Partial<IEditorConfig> = {
-    placeholder: '在这里编辑新闻动态吧...',
+    placeholder,
+    readOnly,
     XSSFilter: false,
     pasteFilterStyle: false,
     customParseHtml: (html: string) => {
@@ -173,6 +189,11 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   useEffect(() => {
     return () => {
       if (editor == null) return;
+      // Cancel wangEditor's trailing selection callback before its instance is removed.
+      const textArea = DomEditor.getTextarea(editor) as unknown as {
+        onDOMSelectionChange: { cancel: () => void };
+      };
+      textArea.onDOMSelectionChange.cancel();
       editor.destroy();
       setEditor(null);
     };
@@ -185,7 +206,10 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           editor={editor}
           defaultConfig={toolbarConfig}
           mode="default"
-          style={{ borderBottom: '1px solid #ccc' }}
+          style={{
+            borderBottom: '1px solid #ccc',
+            display: readOnly ? 'none' : undefined,
+          }}
         />
         <Editor
           defaultConfig={editorConfig}
@@ -194,7 +218,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           onChange={(editor) => {
             const currentHtml = editor.getHtml();
             setHtml(currentHtml);
-            onGetHTML?.(currentHtml);
+            onGetHTMLRef.current?.(currentHtml);
           }}
           mode="default"
           style={{ height: '25rem', backgroundColor: '#fff' }}
